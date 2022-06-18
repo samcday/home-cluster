@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-      version: 1.11.3
+      version: 1.11.6
   install:
     crds: Create
     remediation:
