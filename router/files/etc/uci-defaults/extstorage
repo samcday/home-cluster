@@ -1,0 +1,11 @@
+# Mount /dev/sda1 to /mnt/storage
+# /dev/sda1 assumed to already have a filesystem.
+
+set -uexo pipefail
+
+uci -q batch <<EOI
+set fstab.extstorage=mount
+set fstab.extstorage.target='/mnt/storage'
+set fstab.extstorage.device='sda1'
+commit fstab
+EOI

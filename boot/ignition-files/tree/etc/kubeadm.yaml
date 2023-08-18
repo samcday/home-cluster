@@ -1,0 +1,11 @@
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: /var/lib/kubelet/volume-plugins
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+controllerManager:
+  extraArgs:
+    flex-volume-plugin-dir: /var/lib/kubelet/volume-plugins

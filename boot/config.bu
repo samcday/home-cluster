@@ -1,0 +1,90 @@
+variant: fcos
+version: 1.5.0
+boot_device:
+  luks:
+    tang:
+      - url: http://10.0.1.1:8888
+        thumbprint: ADK-U4ItlVCxe4RXWa6aRCbO7lOb5cAsrY7LpdSJYek
+    threshold: 2
+    tpm2: true
+    discard: true
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ]
+storage:
+  disks:
+    - device: /dev/disk/by-id/coreos-boot-disk
+      wipe_table: false
+      partitions:
+        - number: 4
+          label: root
+          size_mib: 9216
+          resize: true
+        - size_mib: 0
+          label: var
+  files:
+    - path: /usr/local/bin/kubectl
+      mode: 0755
+      contents:
+        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubectl
+        verification:
+          hash: sha256-4685bfcf732260f72fce58379e812e091557ef1dfc1bc8084226c7891dd6028f
+      overwrite: true
+    - path: /usr/local/bin/kubeadm
+      mode: 0755
+      contents:
+        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubeadm
+        verification:
+          hash: sha256-7be21d6fb3707fbbe8f0db0403db6234c8af773b941f931bf8248759ee988bcd
+      overwrite: true
+    - path: /usr/local/bin/kubelet
+      mode: 0755
+      contents:
+        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubelet
+        verification:
+          hash: sha256-385f65878dc8b48df0f2bd369535ff273390518b5ac2cc1a1684d65619324704
+      overwrite: true
+    - path: /etc/systemd/system/kubelet.service
+      contents:
+        source: https://raw.githubusercontent.com/kubernetes/release/v0.15.1/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service
+    - path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+      contents:
+        source: https://raw.githubusercontent.com/kubernetes/release/v0.15.1/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf
+  filesystems:
+    - path: /var
+      device: /dev/mapper/var
+      format: ext4
+      with_mount_unit: true
+  luks:
+    - name: var
+      device: /dev/disk/by-partlabel/var
+      discard: true
+      key_file:
+        local: var.luks-key
+  trees:
+    - local: tree
+systemd:
+  units:
+    - name: containerd.service
+      enabled: true
+    - name: init.service
+      enabled: true
+      contents: |
+        [Unit]
+        Wants=network-online.target
+        After=network-online.target
+        Before=zincati.service
+        ConditionPathExists=!/var/lib/%N.stamp
+
+        [Service]
+        RemainAfterExit=yes
+        Type=oneshot
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive man-db man-pages tailscale tcpdump usbutils vim
+        ExecStart=systemctl enable --now tailscaled
+        ExecStart=/bin/touch /var/lib/%N.stamp
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: kubelet.service
+      enabled: true

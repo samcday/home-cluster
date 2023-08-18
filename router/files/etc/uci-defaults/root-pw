@@ -1,0 +1,6 @@
+set -uexo pipefail
+
+passwd root <<EOP
+${ROOT_PW}
+${ROOT_PW}
+EOP
