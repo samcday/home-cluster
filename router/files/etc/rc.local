@@ -5,14 +5,28 @@ function bind_mount() {
     mount --bind $1 $2
 }
 
+cryptsetup open /dev/sda root --key-file /etc/extstorage.key
 block mount
 
 bind_mount /mnt/storage/coreos /www/coreos
 bind_mount /mnt/storage/tang-db /usr/share/tang/db
 bind_mount /mnt/storage/tailscale /etc/tailscale
-service tailscale restart
+service tailscale start
 
 if ! grep tangd < /etc/services; then
   echo "tangd 8888/tcp" >> /etc/services
-  service xinetd restart
+fi
+service xinetd start
+
+# Wait for tailscale to start, then check we're logged in.
+while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do
+  sleep 0.5
+done
+
+if [[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]]; then
+  tailscale up \
+    --accept-routes \
+    --auth-key=${TAILNET_AUTH_KEY} \
+    --netfilter-mode=off \
+  2>&1 | logger -st tailscale.up
 fi

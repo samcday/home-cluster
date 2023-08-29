@@ -1,9 +1,16 @@
 block-mount
+cryptsetup
 curl
 e2fsprogs
 etherwake
 htop
 iptables-nft
+jq
+kmod-crypto-ecb
+kmod-crypto-misc
+kmod-crypto-seqiv
+kmod-crypto-user
+kmod-crypto-xts
 kmod-fs-ext4
 kmod-usb-net-rndis
 kmod-usb-serial-ftdi
