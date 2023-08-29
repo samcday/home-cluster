@@ -24,4 +24,5 @@ tailscale
 tang
 usb-modeswitch
 usbutils
+xinetd
 zsh

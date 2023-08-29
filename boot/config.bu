@@ -4,7 +4,7 @@ boot_device:
   luks:
     tang:
       - url: http://10.0.1.1:8888
-        thumbprint: ADK-U4ItlVCxe4RXWa6aRCbO7lOb5cAsrY7LpdSJYek
+        thumbprint: o28Srk7nQzukLLcFpVMRANB85gvw1WB8S5t6giJOsfo
     threshold: 2
     tpm2: true
     discard: true
