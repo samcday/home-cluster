@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tailscale-node-controller
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: tailscale-node-controller
+      sourceRef:
+        kind: HelmRepository
+        name: samcday-tailscale-node-controller
+        namespace: flux-system
+      version: 0.0.8
+  interval: 5m

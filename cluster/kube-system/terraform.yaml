@@ -1,0 +1,26 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  name: terraform
+  namespace: kube-system
+spec:
+  interval: 1h
+  approvePlan: auto
+  path: home-cluster/kube-system
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: tf-env
+        - secretRef:
+            name: hcloud-token
+      nodeSelector:
+        # Backblaze plugin doesn't run on arm smh
+        kubernetes.io/arch: amd64
+  sourceRef:
+    kind: GitRepository
+    name: hominions
+    namespace: flux-system
+  varsFrom:
+    - kind: Secret
+      name: tf-vars

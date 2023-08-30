@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hcloud-provisioner
+  namespace: kube-system
+  labels:
+    k8s-app: hcloud-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: hcloud-provisioner
+  template:
+    metadata:
+      labels:
+        name: hcloud-provisioner
+    spec:
+      containers:
+        - name: hcloud-provisioner
+          image: samcday/home-hcloud-provisioner:94f8727f9b
+          command:
+            - /bin/ash
+            - -c
+            - |-
+              set -uexo pipefail
+              cp /ssh-key/hcloud-worker /tmp
+              chmod 600 /tmp/hcloud-worker
+              ssh="ssh -F /dev/null -i /tmp/hcloud-worker -oConnectTimeout=3 -oServerAliveInterval=5 -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -T"
+
+              while true; do
+                for name in $(hcloud server list -l hcloud/node-group=home -o noheader -o columns=name ); do
+                  public_ip4=$(hcloud server ip $name)
+                  public_ip6=$(hcloud server ip -6 $name)
+
+                  if ! kubectl get nodes/$name; then
+                    kubectl apply -f- <<HERE
+              apiVersion: v1
+              kind: Node
+              metadata:
+                name: $name
+                labels:
+                  node-role.kubernetes.io/hcloud: ""
+              spec:
+                taints:
+                  - key: samcday.com/hcloud
+                    value: ""
+                    effect: NoSchedule
+              HERE
+                  fi
+
+                  until $ssh $public_ip4 date; do
+                    sleep 1
+                  done
+
+                  if ! $ssh $public_ip4 systemctl is-active tailscaled; then
+                    $ssh $public_ip4 'curl -fsSL https://tailscale.com/install.sh | sh' || continue
+                  fi
+
+                  if $ssh $public_ip4 stat /etc/netplan/50-cloud-init.yaml; then
+                    $ssh $public_ip4 DEBIAN_FRONTEND=noninteractive apt-get -y remove hc-utils
+                    $ssh $public_ip4 rm /etc/netplan/50-cloud-init.yaml
+                  fi
+
+                  # Default hcloud DNS is ... much too generous. Disable nameservers from DHCP
+                  # and just use 185.12.64.1.
+                  if ! $ssh $public_ip4 stat /etc/netplan/60-local.yaml; then
+                    $ssh $public_ip4 'cat > /etc/netplan/60-local.yaml' <<HERE
+                  network:
+                    version: 2
+                    ethernets:
+                        eth0:
+                            dhcp4: true
+                            dhcp4-overrides:
+                                use-dns: false
+                            gateway6: fe80::1
+                            match:
+                                name: eth0
+                            nameservers:
+                                addresses: [185.12.64.1]
+              HERE
+                    $ssh $public_ip4 netplan apply
+                  fi
+
+                  pod_cidrs=$(kubectl get nodes $name -o 'jsonpath={.spec.podCIDRs}' | jq -r '. | join(",")')
+
+                  if ! $ssh $public_ip4 tailscale status; then
+                    $ssh $public_ip4 tailscale up \
+                      --login-server=https://samcday-headscale.fly.dev/ \
+                      --accept-dns \
+                      --accept-routes \
+                      --authkey=$TS_AUTH_KEY \
+                      --advertise-tags=tag:kube-worker \
+                      --advertise-routes=$pod_cidrs \
+                    || continue
+                  fi
+
+                  internal_ip4=$($ssh $public_ip4 tailscale ip -4)
+                  internal_ip6=$($ssh $public_ip4 tailscale ip -6)
+                  until $ssh $internal_ip4 date; do
+                    sleep 1
+                  done
+
+                  if ! $ssh $internal_ip4 systemctl is-active k3s-agent; then
+                    k3sup join --server-host=hominion.hominion.tailnet.samcday.com --host $internal_ip4 --k3s-version=v1.25.2+k3s1 --k3s-extra-args="--node-ip=$internal_ip4 --node-external-ip=$public_ip4" --ssh-key=/tmp/hcloud-worker || continue
+                  fi
+                done
+
+                sleep 30s
+              done
+          envFrom:
+            - secretRef:
+                name: hcloud-token
+            - secretRef:
+                name: hcloud-tailscale-auth
+          resources:
+            limits:
+              cpu: "1"
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: ssh-key
+              mountPath: /ssh-key
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/hostname: hominion
+      serviceAccountName: hcloud-provisioner
+      terminationGracePeriodSeconds: 3
+      volumes:
+        - name: ssh-key
+          secret:
+            secretName: hcloud-worker-ssh-key
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hcloud-provisioner
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: hcloud-provisioner
+rules:
+  - apiGroups: [""]
+    resources: [nodes]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hcloud-provisioner
+subjects:
+  - kind: ServiceAccount
+    name: hcloud-provisioner
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: hcloud-provisioner
+  apiGroup: rbac.authorization.k8s.io

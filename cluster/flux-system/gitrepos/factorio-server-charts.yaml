@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: factorio-server-charts
+  namespace: flux-system
+spec:
+  interval: 1h
+  ref:
+    branch: main
+  url: https://github.com/samcday/factorio-server-charts

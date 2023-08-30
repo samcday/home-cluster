@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: battery
+  namespace: monitoring
+spec:
+  groups:
+    - name: battery
+      rules:
+        - alert: BatteryLow
+          expr: 'node_power_supply_capacity{instance!="sam-laptop.personal.tailnet.samcday.com:9100"} < 50'
+          for: 5m
+          annotations:
+            summary: '{{ $labels.power_supply }} is less than 50% on host {{ $labels.instance }}'

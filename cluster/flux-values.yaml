@@ -1,0 +1,21 @@
+# https://github.com/fluxcd-community/helm-charts/blob/main/charts/flux2/values.yaml
+helmController: &gofast
+  container:
+    additionalargs:
+      - --concurrent=10
+  replicas: 2
+  tolerations: &toler
+    - key: samcday.com/cloud
+      effect: NoExecute
+imageAutomationController:
+  create: false
+imageReflectionController:
+  create: false
+kustomizeController: *gofast
+notificationController:
+  tolerations: *toler
+prometheus:
+  podMonitor:
+    create: true
+sourceController:
+  tolerations: *toler

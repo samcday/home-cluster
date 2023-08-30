@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: libreddit
+  namespace: flux-system
+spec:
+  interval: 15m
+  path: home-cluster/libreddit
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hominions
+  timeout: 30s

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bridge-telegram
+  namespace: synapse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bridge-telegram
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bridge-telegram
+    spec:
+      containers:
+        - image: dock.mau.dev/mautrix/telegram:v0.12.1
+          name: mautrix-telegram
+          ports:
+            - containerPort: 29317
+            - name: metrics
+              containerPort: 8000
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      initContainers:
+        - name: config
+          image: alpine:3
+          command:
+            - sh
+            - -c
+            - |-
+              set -uexo pipefail
+              chown -R 1337:1337 /data
+              sed -e "s/_AS_/$TELE_AS/" \
+                  -e "s/_HS_/$TELE_HS/" \
+                  -e "s/_LP_/$TELE_LP/" \
+                  -e "s/_API_ID_/$TELE_API_ID/" \
+                  -e "s/_API_HASH_/$TELE_API_HASH/" \
+                  -e "s/_DBUSER_/$DBUSER/" \
+                  -e "s/_DBPASS_/$DBPASS/" \
+                  < /config-templates/mautrix-telegram.yaml > /data/config.yaml
+              touch /data/registration.yaml
+          env:
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-telegram-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-telegram-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: password
+          envFrom:
+            - secretRef:
+                name: bridge-telegram
+          volumeMounts:
+            - name: config-templates
+              mountPath: /config-templates
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config-templates
+          configMap:
+            name: config-telegram
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bridge-telegram
+  namespace: synapse
+spec:
+  ports:
+  - port: 29317
+    protocol: TCP
+    targetPort: 29317
+  selector:
+    app.kubernetes.io/name: bridge-telegram
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: bridge-telegram
+  namespace: synapse
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bridge-telegram

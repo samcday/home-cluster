@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vpas
+  namespace: kube-system
+spec:
+  interval: 5m
+  path: home-cluster/kube-system/vpas
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hominions
+    namespace: flux-system
+  timeout: 5m

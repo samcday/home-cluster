@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: 48.2.3
+  install:
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: prometheus-operator
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/ci/01-provision-crds-values.yaml
+    alertmanager:
+      enabled: false
+    coreDns:
+      enabled: false
+    kubeApiServer:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeDns:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false
+    kubelet:
+      enabled: false
+    nodeExporter:
+      enabled: false
+    grafana:
+      enabled: false
+    prometheus:
+      enabled: false
+    defaultRules:
+      create: false
+    prometheusOperator:
+      enabled: true
+      tolerations:
+        - key: samcday.com/cloud
+          operator: Exists

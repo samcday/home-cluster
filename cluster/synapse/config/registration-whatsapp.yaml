@@ -1,0 +1,12 @@
+id: whatsapp2
+url: http://bridge-whatsapp.synapse.svc.cluster.local:29318
+as_token: _AS_
+hs_token: _HS_
+sender_localpart: _LP_
+rate_limited: false
+namespaces:
+    users:
+        - regex: ^@whatsappbot2:samcday\.com$
+          exclusive: true
+        - regex: ^@whatsapp2_[0-9]+:samcday\.com$
+          exclusive: true

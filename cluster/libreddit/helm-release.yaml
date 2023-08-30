@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: libreddit
+  namespace: libreddit
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.2.1
+  interval: 5m
+  releaseName: libreddit
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    env:
+    image:
+      repository: libreddit/libreddit
+      tag: arm
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: libreddit.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [libreddit.samcday.com]
+          secretName: certificate
+    livenessProbe:
+      httpGet:
+        path: /settings
+    nodeSelector:
+      kubernetes.io/arch: arm64
+    ports:
+      - name: http
+        containerPort: 8080
+    readinessProbe: ~
+    replicaCount: 2
+    tolerations:
+      - key: samcday.com/cloud
+        effect: NoExecute

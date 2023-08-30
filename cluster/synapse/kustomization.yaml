@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: synapse
+configMapGenerator:
+  - name: config
+    files:
+      - config/homeserver.yaml
+      - config/log.yaml
+      - config/registration-signal.yaml
+      - config/registration-telegram.yaml
+      - config/registration-whatsapp.yaml
+  - name: config-signal
+    files:
+      - config/mautrix-signal.yaml
+  - name: config-telegram
+    files:
+      - config/mautrix-telegram.yaml
+  - name: config-whatsapp
+    files:
+      - config/mautrix-whatsapp.yaml
+resources:
+- bridge-signal.yaml
+- bridge-telegram.yaml
+- bridge-whatsapp.yaml
+- ingress.yaml
+- media-pvc.yaml
+- namespace.yaml
+- prometheus-rules.yaml
+- synapse.yaml
+# - vpa.yaml

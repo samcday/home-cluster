@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: forgejo-helm
+  namespace: forgejo
+spec:
+  interval: 1h
+  ref:
+    branch: main
+  url: https://codeberg.org/forgejo-contrib/forgejo-helm.git

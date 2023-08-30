@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: velero
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu
+        namespace: flux-system
+      version: 4.2.0
+  interval: 1h
+  values:
+    # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
+    configuration:
+      backupStorageLocation:
+        - bucket: samcday-home-cluster-backups
+          config:
+            region: eu-central-003
+            s3Url: https://s3.eu-central-003.backblazeb2.com
+          credential:
+            name: backups-bucket
+            key: velero
+          prefix: velero
+          provider: aws
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.7.0
+        volumeMounts:
+          - name: plugins
+            mountPath: /target
+    # metrics:
+    #   prometheusRule:
+    #     enabled: true
+    snapshotsEnabled: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: velero-schedules
+  namespace: kube-system
+spec:
+  interval: 1h
+  path: home-cluster/kube-system/velero-schedules
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hominions
+    namespace: flux-system
+  timeout: 2m0s

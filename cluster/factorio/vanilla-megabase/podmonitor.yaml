@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: vanilla-megabase
+  namespace: factorio
+spec:
+  podMetricsEndpoints:
+    - port: scriptoutput
+      path: /script-output/graftorio2/game.prom
+  selector:
+    matchLabels:
+      app: vanilla-megabase

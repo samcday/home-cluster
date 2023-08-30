@@ -1,0 +1,15 @@
+id: telegram
+url: http://bridge-telegram.synapse.svc.cluster.local:29317
+as_token: _AS_
+hs_token: _HS_
+sender_localpart: IrBHVlqoJsxPrMpFgkCEaaN8Q26rey8ZGGxv4KO_orzOny81eBcHsb8l7DdquPdP
+rate_limited: false
+namespaces:
+    users:
+    - exclusive: true
+      regex: '@telegram_.*:samcday\.com'
+    - exclusive: true
+      regex: '@telegrambot:samcday\.com'
+    aliases:
+    - exclusive: true
+      regex: \#telegram_.*:samcday\.com

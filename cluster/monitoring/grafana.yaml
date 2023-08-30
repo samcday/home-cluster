@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: grafana
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      version: 6.58.7
+  install:
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: grafana
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+    envValueFrom:
+      GF_DATABASE_USER:
+        secretKeyRef:
+          name: grafana-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+          key: username
+      GF_DATABASE_PASSWORD:
+        secretKeyRef:
+          name: grafana-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+          key: password
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts: [grafana.samcday.com]
+    grafana.ini:
+      database:
+        type: postgres
+        host: postgres-db.postgres.svc.cluster.local
+        ssl_mode: require
+    persistence:
+      enabled: false
+    serviceMonitor:
+      enabled: true
+    sidecar:
+      dashboards:
+        enabled: true
+        labelValue: "1"
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        labelValue: "1"
+    tolerations:
+      - key: samcday.com/cloud
+        operator: Exists
+# ---
+# apiVersion: autoscaling.k8s.io/v1
+# kind: VerticalPodAutoscaler
+# metadata:
+#   name: grafana
+#   namespace: monitoring
+# spec:
+#   targetRef:
+#     apiVersion: apps/v1
+#     kind: StatefulSet
+#     name: grafana
+#   updatePolicy:
+#     updateMode: Auto

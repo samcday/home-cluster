@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bridge-signal
+  namespace: synapse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bridge-signal
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bridge-signal
+    spec:
+      containers:
+        - image: dock.mau.dev/mautrix/signal:v0.4.2
+          name: mautrix-signal
+          ports:
+            - containerPort: 29328
+            - name: metrics
+              containerPort: 8001
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: signald
+              mountPath: /signald
+        - image: signald/signald:stable
+          name: signald
+          command:
+            - /bin/bash
+            - -c
+            - |-
+              export SIGNALD_DATABASE=postgresql://$DBUSER:$DBPASS@synapse-db.postgres.svc.cluster.local:5432/signald
+              exec signald -d /signald --metrics -s /signald/signald.sock
+          env:
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: signald-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: signald-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: password
+          ports:
+            - name: signald-metrics
+              containerPort: 9595
+          volumeMounts:
+            - name: signald
+              mountPath: /signald
+      initContainers:
+        - name: config
+          image: alpine:3
+          command:
+            - sh
+            - -c
+            - |-
+              set -uexo pipefail
+              mkdir -p /data/signald
+              chown -R 1337:1337 /data
+              sed -e "s/_AS_/$SIG_AS/" \
+                  -e "s/_HS_/$SIG_HS/" \
+                  -e "s/_LP_/$SIG_LP/" \
+                  -e "s/_DBUSER_/$DBUSER/" \
+                  -e "s/_DBPASS_/$DBPASS/" \
+                  < /config-templates/mautrix-signal.yaml > /data/config.yaml
+              touch /data/registration.yaml
+          env:
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-signal-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-signal-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: password
+          envFrom:
+            - secretRef:
+                name: bridge-signal
+          volumeMounts:
+            - name: config-templates
+              mountPath: /config-templates
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config-templates
+          configMap:
+            name: config-signal
+        - name: data
+          emptyDir: {}
+        - name: signald
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bridge-signal
+  namespace: synapse
+spec:
+  ports:
+  - port: 29328
+    protocol: TCP
+    targetPort: 29328
+  selector:
+    app.kubernetes.io/name: bridge-signal
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: bridge-signal
+  namespace: synapse
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /
+    - port: signald-metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bridge-signal

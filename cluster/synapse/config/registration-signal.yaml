@@ -1,0 +1,13 @@
+id: signal
+url: http://bridge-signal.synapse.svc.cluster.local:29328
+as_token: _AS_
+hs_token: _HS_
+sender_localpart: _LP_
+rate_limited: false
+namespaces:
+    users:
+    - exclusive: true
+      regex: '@signal_.*:samcday\.com'
+    - exclusive: true
+      regex: '@signalbot:samcday\.com'
+    aliases: []

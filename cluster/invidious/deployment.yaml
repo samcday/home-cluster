@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invidious
+  namespace: invidious
+  labels:
+    app: invidious
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: invidious
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      labels:
+        app: invidious
+    spec:
+      containers:
+        - image: quay.io/invidious/invidious:latest-arm64
+          name: invidious
+          env:
+            - name: INVIDIOUS_CONFIG_FILE
+              value: /config/config.yaml
+          readinessProbe:
+            httpGet:
+              path: /api/v1/stats
+              port: 3000
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/v1/stats
+              port: 3000
+            periodSeconds: 5
+            failureThreshold: 2
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 250m
+              memory: 192Mi
+            limits:
+              cpu: '2'
+              memory: 256Mi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      enableServiceLinks: false
+      initContainers:
+        - name: config
+          image: bash:alpine3.18
+          command:
+            - bash
+            - -c
+            - |-
+              cp /config-template/config.yaml /config/config.yaml
+              for key in CAPTCHA_KEY HMAC_KEY PGUSER PGPASSWORD; do
+                sed -i -e "s/_${key}_/${!key}/" /config/config.yaml
+              done
+          env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: invidious-owner-user.public-db.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: invidious-owner-user.public-db.credentials.postgresql.acid.zalan.do
+                  key: password
+            - name: CAPTCHA_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: invidious
+                  key: anticaptcha
+            - name: HMAC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: invidious
+                  key: hmac
+          volumeMounts:
+            - name: config-template
+              mountPath: /config-template
+            - name: config
+              mountPath: /config
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      tolerations:
+        - key: samcday.com/cloud
+          effect: NoExecute
+      volumes:
+        - name: config-template
+          configMap:
+            name: config
+        - name: config
+          emptyDir: {}

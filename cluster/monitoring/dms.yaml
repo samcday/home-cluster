@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1alpha1 
+kind: AlertmanagerConfig
+metadata:
+  name: dms
+  namespace: monitoring
+spec:
+  receivers:
+    - name: dms
+      webhookConfigs:
+        - urlSecret:
+            name: dms-url
+            key: url
+  route:
+    groupWait: 0s
+    matchers:
+      - name: alertname
+        value: Watchdog
+    receiver: dms
+    repeatInterval: 30m

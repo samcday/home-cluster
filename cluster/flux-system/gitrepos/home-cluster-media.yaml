@@ -1,0 +1,28 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: home-cluster-media
+  namespace: flux-system
+spec:
+  interval: 1h
+  ref:
+    branch: main
+  secretRef:
+    name: code-samcday-com
+  url: https://code.samcday.com/me/home-cluster-media
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Receiver
+metadata:
+  name: home-cluster-media
+  namespace: flux-system
+spec:
+  type: github
+  events:
+    - ping
+    - push
+  secretRef:
+    name: webhook-token
+  resources:
+    - kind: GitRepository
+      name: home-cluster-media

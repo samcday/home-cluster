@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  namespace: homepage
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: homepage
+      app.kubernetes.io/component: caddy
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: homepage
+        app.kubernetes.io/component: caddy
+    spec:
+      tolerations:
+        - effect: NoExecute
+          key: samcday.com/cloud
+      containers:
+        - image: caddy:2-alpine
+          name: caddy
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+          command:
+            - caddy
+            - file-server
+            - --root
+            - /static
+            - --access-log
+          volumeMounts:
+            - name: matrix-well-known
+              mountPath: /static/.well-known/matrix
+      volumes:
+        - name: matrix-well-known
+          configMap:
+            name: matrix-well-known

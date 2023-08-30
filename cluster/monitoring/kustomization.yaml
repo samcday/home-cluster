@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - ../config
+  - battery.yaml
+  - dashboards
+  - dms.yaml
+  - flux.yaml
+  - grafana.yaml
+  - ingress-nginx-pod-monitor.yaml
+  - loki/
+  - kube-prometheus-stack.yaml
+  - metrics-server.yaml
+  - namespace.yaml
+  - pagerduty.yaml
+  - promtail.yaml
+  - targetdown-fixed.yaml
+  # - terraform.yaml

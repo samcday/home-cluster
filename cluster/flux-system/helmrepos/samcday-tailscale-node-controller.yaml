@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: samcday-tailscale-node-controller
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://samcday.github.io/tailscale-node-controller

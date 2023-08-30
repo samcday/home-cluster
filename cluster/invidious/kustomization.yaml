@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: invidious
+configMapGenerator:
+- name: config
+  files: [config.yaml]
+resources:
+- ../config
+- deployment.yaml
+- ingress.yaml
+- namespace.yaml
+- pdb.yaml
+- service.yaml

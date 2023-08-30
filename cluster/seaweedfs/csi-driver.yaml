@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: seaweedfs-csi-driver
+  namespace: seaweedfs
+spec:
+  chart:
+    spec:
+      chart: deploy/helm/seaweedfs-csi-driver
+      sourceRef:
+        kind: GitRepository
+        name: seaweedfs-csi-driver
+      version: "3.45"
+  interval: 5m
+  values:
+    # https://github.com/seaweedfs/seaweedfs-csi-driver/blob/master/deploy/helm/seaweedfs-csi-driver/values.yaml
+    isDefaultStorageClass: true
+    node:
+      tolerations:
+        - key: samcday.com/cloud
+          effect: NoExecute
+    seaweedfsFiler: seaweedfs-filer.seaweedfs.svc.cluster.local:8888

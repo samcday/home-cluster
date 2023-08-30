@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: miniflux
+  namespace: flux-system
+spec:
+  interval: 15m
+  path: home-cluster/miniflux
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hominions
+    namespace: flux-system
+  timeout: 5m

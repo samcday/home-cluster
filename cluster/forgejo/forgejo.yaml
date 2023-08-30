@@ -1,0 +1,75 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: forgejo
+  namespace: forgejo
+spec:
+  chart:
+    spec:
+      chart: .
+      sourceRef:
+        kind: GitRepository
+        name: forgejo-helm
+  interval: 5m
+  values:
+    # https://codeberg.org/forgejo-contrib/forgejo-helm/src/branch/main/values.yaml
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      className: nginx
+      hosts:
+        - host: code.samcday.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: tls
+          hosts: [code.samcday.com]
+    gitea:
+      admin:
+        email: me@samcday.com
+        username: me
+      config:
+        actions:
+          ENABLED: true
+        attachment: &s3
+          STORAGE_TYPE: minio
+        database:
+          HOST: postgres-db.postgres.svc.cluster.local.
+          NAME: forgejo
+          SSL_MODE: require
+        git.timeout:
+          MIGRATE: 3600
+          MIRROR: 3600
+        lfs: *s3
+        metrics:
+          ENABLED: true
+          ENABLED_ISSUE_BY_LABEL: true
+          ENABLED_ISSUE_BY_REPOSITORY: true
+        server:
+          DISABLE_SSH: true
+        service:
+          DISABLE_REGISTRATION: true
+        session:
+          PROVIDER: db
+        storage:
+          MINIO_ENDPOINT: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+        storage.repo-archive: *s3
+    persistence:
+      storageClass: syncthing
+    postgresql:
+      enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: forgejo-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+      valuesKey: username
+      targetPath: gitea.config.database.USER
+    - kind: Secret
+      name: forgejo-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+      valuesKey: password
+      targetPath: gitea.config.database.PASSWD
+    - kind: Secret
+      name: admin
+      valuesKey: password
+      targetPath: gitea.admin.password

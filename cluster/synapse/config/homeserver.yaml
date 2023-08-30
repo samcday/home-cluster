@@ -1,0 +1,36 @@
+app_service_config_files:
+  - /config/registration-signal.yaml
+  - /config/registration-telegram.yaml
+  - /config/registration-whatsapp.yaml
+database:
+  name: psycopg2
+  args:
+    user: _DBUSER_
+    password: _DBPASS_
+    database: synapse
+    host: synapse-db.postgres.svc.cluster.local
+enable_metrics: true
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+  - port: 9000
+    type: metrics
+    bind_addresses:
+      - '0.0.0.0'
+log_config: /config/log.yaml
+macaroon_secret_key: _MACAROON_
+media_store_path: /media
+serve_server_wellknown: true
+old_signing_keys:
+registration_shared_secret: _REG_
+report_stats: true
+server_name: samcday.com
+signing_key_path: /signing-key/signing.key
+suppress_key_server_warning: true
+trusted_key_servers:
+  - server_name: matrix.org

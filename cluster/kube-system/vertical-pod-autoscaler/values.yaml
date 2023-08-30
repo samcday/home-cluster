@@ -1,0 +1,5 @@
+# https://github.com/cowboysysop/charts/blob/master/charts/vertical-pod-autoscaler/values.yaml
+
+updater:
+  extraArgs:
+    min-replicas: 1

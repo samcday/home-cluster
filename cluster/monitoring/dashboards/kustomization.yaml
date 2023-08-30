@@ -1,0 +1,62 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+generatorOptions:
+  labels:
+    grafana_dashboard: '1'
+  immutable: true
+configMapGenerator:
+  - name: general-dashboards
+    files:
+      - cert-manager/cert-manager.json
+      - etcd/etcd.json
+      - ingress-nginx/nginx.json
+      - seaweedfs/grafana_seaweedfs.json
+      - synapse/synapse.json
+  - name: flux-dashboards
+    files:
+      - flux/flux-cluster.json
+      - flux/flux-control-plane.json
+    options:
+      annotations:
+        grafana_folder: Flux
+  - name: kubernetes-dashboards
+    files:
+      - kubernetes/k8s-resources-multicluster.json
+      - kubernetes/k8s-resources-namespace.json
+      - kubernetes/proxy.json
+      - kubernetes/apiserver.json
+      - kubernetes/workload-total.json
+      - kubernetes/k8s-resources-pod.json
+      - kubernetes/persistentvolumesusage.json
+      - kubernetes/kubelet.json
+      - kubernetes/k8s-resources-cluster.json
+      - kubernetes/pod-total.json
+      - kubernetes/scheduler.json
+      - kubernetes/k8s-resources-workload.json
+      - kubernetes/k8s-resources-workloads-namespace.json
+      - kubernetes/namespace-by-pod.json
+      - kubernetes/namespace-by-workload.json
+      - kubernetes/cluster-total.json
+      - kubernetes/controller-manager.json
+      - kubernetes/k8s-resources-node.json
+    options:
+      annotations:
+        grafana_folder: 'Kubernetes'
+  - name: node-exporter-dashboards
+    files:
+      - node-exporter/node-rsrc-use.json
+      - node-exporter/nodes-darwin.json
+      - node-exporter/node-cluster-rsrc-use.json
+      - node-exporter/nodes.json
+      - node-exporter/node-multicluster-rsrc-use.json
+    options:
+      annotations:
+        grafana_folder: 'node-exporter'
+  - name: prometheus-dashboards
+    files:
+      - prometheus/prometheus-remote-write.json
+      - prometheus/prometheus.json
+    options:
+      annotations:
+        grafana_folder: 'Prometheus'

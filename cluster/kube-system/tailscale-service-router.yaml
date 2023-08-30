@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale-service-router
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tailscale-service-router
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tailscale-service-router
+    spec:
+      containers:
+        - image: tailscale/tailscale:stable
+          name: tailscale
+          command:
+            - /bin/sh
+            - -c
+            - |-
+              tailscaled --state=kube:service-ts-auth-key --tun=userspace-networking --port=31643 &
+              PID=$!
+              tailscale up --login-server=https://samcday-headscale.fly.dev/ --authkey=$TS_AUTH_KEY --accept-dns=false --advertise-routes=10.43.0.0/16
+              wait $PID
+          envFrom:
+            - secretRef:
+                name: services-tailscale-auth
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - tailscale
+                  - down
+          livenessProbe:
+            exec:
+              command:
+                - tailscale
+                - ping
+                - librem13.hominions.tailnet.samcday.com
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: '2'
+              memory: 1Gi
+      serviceAccountName: tailscale-service-router
+      terminationGracePeriodSeconds: 3
+      tolerations:
+        - key: samcday.com/cloud
+          operator: Exists
+      volumes:
+        - name: secret
+          secret:
+            secretName: service-priv
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tailscale-service-router
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tailscale-service-router
+  namespace: kube-system
+rules:
+- apiGroups: [""]
+  resources: [secrets]
+  verbs: [create]
+- apiGroups: [""]
+  resources: [secrets]
+  resourceNames: [service-ts-auth-key]
+  verbs: [get, update]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tailscale-service-router
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tailscale-service-router
+subjects:
+- kind: ServiceAccount
+  name: tailscale-service-router
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tailscale-service-router
+  namespace: kube-system
+spec:
+  type: NodePort
+  selector:
+    app: tailscale-service-router
+  ports:
+    - port: 31643
+      targetPort: 31643
+      nodePort: 31643
+      protocol: UDP

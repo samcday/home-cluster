@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etcd-snapshot
+  namespace: kube-system
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: make-snapshot
+              image: alpine:3
+              args:
+                - ash
+                - -c
+                - |
+                  set -uexo pipefail
+                  chroot /host bash -l -c 'etcdctl snapshot save /root/snapshot'
+                  mv /host/root/snapshot /backup/$(NODE_NAME)
+              env:
+                - name: NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+              securityContext:
+                privileged: true
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+                - name: host
+                  mountPath: /host
+          containers:
+            - name: copy-snapshot
+              image: rclone/rclone:1
+              args:
+                - sync
+                - -P
+                - /backup
+                - remote:samcday-home-cluster-backups/etcd
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+                - name: rclone-config
+                  mountPath: /config/rclone
+          hostNetwork: true
+          nodeName: librem13.hominions.tailnet.samcday.com
+          restartPolicy: OnFailure
+          volumes:
+            - name: backup
+              emptyDir: {}
+            - name: host
+              hostPath:
+                path: /
+            - name: rclone-config
+              secret:
+                secretName: backups-bucket

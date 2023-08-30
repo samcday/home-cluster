@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: synapse
+  namespace: synapse
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: homeserver.samcday.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: synapse
+            port:
+              number: 8008
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - homeserver.samcday.com
+    secretName: certificate

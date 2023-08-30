@@ -1,0 +1,4 @@
+:8123 {
+	root * /usr/share/caddy
+	file_server
+}

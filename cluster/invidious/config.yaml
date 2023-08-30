@@ -1,0 +1,47 @@
+db:
+  user: _PGUSER_
+  password: _PGPASSWORD_
+  host: public-db.postgres.svc.cluster.local.
+  port: 5432
+  dbname: invidious
+
+check_tables: true
+
+port: 3000
+external_port: 443
+host_binding: 0.0.0.0
+domain: invidious.samcday.com
+https_only: true
+hsts: true
+
+log_level: Info
+
+popular_enabled: false
+statistics_enabled: true
+
+registration_enabled: true
+login_enabled: true
+captcha_enabled: true
+admins: [samcday]
+
+channel_threads: 1
+full_refresh: false
+feed_threads: 1
+
+captcha_api_url: https://api.anti-captcha.com
+captcha_key: _CAPTCHA_KEY_
+
+use_pubsub_feeds: true
+
+hmac_key: _HMAC_KEY_
+
+dmca_content: []
+
+default_user_preferences:
+  dark_mode: true
+  feed_menu: ["Subscriptions", "Playlists"]
+  default_home: Subscriptions
+  quality: dash
+  quality_dash: 2160p
+  unseen_only: true
+  local: true

@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: synapse
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: synapse
+    spec:
+      containers:
+        - image: matrixdotorg/synapse:v1.80.0
+          name: synapse
+          ports:
+            - name: synapse
+              containerPort: 8008
+            - name: metrics
+              containerPort: 9000
+          env:
+            - name: SYNAPSE_CONFIG_PATH
+              value: /config/homeserver.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /media
+            - name: signing-key
+              mountPath: /signing-key
+      initContainers:
+        - name: config
+          image: alpine:3
+          command:
+            - sh
+            - -c
+            - |-
+              set -uexo pipefail
+
+              chown 991:991 /media
+
+              sed -e "s/_AS_/$WA_AS/" \
+                  -e "s/_HS_/$WA_HS/" \
+                  -e "s/_LP_/$WA_LP/" < /config-templates/registration-whatsapp.yaml > /config/registration-whatsapp.yaml
+
+              sed -e "s/_AS_/$TELE_AS/" \
+                  -e "s/_HS_/$TELE_HS/" \
+                  -e "s/_LP_/$TELE_LP/" \
+                  < /config-templates/registration-telegram.yaml > /config/registration-telegram.yaml
+
+              sed -e "s/_AS_/$SIG_AS/" \
+                  -e "s/_HS_/$SIG_HS/" \
+                  -e "s/_LP_/$SIG_LP/" \
+                  < /config-templates/registration-signal.yaml > /config/registration-signal.yaml
+
+              cp /config-templates/log.yaml /config/
+              sed -e "s/_MACAROON_/$MACAROON_SECRET_KEY/" \
+                  -e "s/_REG_/$REGISTRATION_SECRET/" \
+                  -e "s/_DBUSER_/$DBUSER/" \
+                  -e "s/_DBPASS_/$DBPASS/" \
+                  < /config-templates/homeserver.yaml > /config/homeserver.yaml
+          env:
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  key: password
+          envFrom:
+            - secretRef:
+                name: bridge-signal
+            - secretRef:
+                name: bridge-telegram
+            - secretRef:
+                name: bridge-whatsapp
+            - secretRef:
+                name: synapse-env
+          volumeMounts:
+            - name: config-templates
+              mountPath: /config-templates
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /media
+      volumes:
+        - name: config-templates
+          configMap:
+            name: config
+        - name: config
+          emptyDir: {}
+        - name: media
+          persistentVolumeClaim:
+            claimName: media
+        - name: signing-key
+          secret:
+            secretName: signing-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  ports:
+  - port: 8008
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app.kubernetes.io/name: synapse
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      relabelings:
+        - action: replace
+          sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+      path: /_synapse/metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: synapse
