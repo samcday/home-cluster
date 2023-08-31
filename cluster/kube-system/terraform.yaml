@@ -12,8 +12,6 @@ spec:
       envFrom:
         - secretRef:
             name: tf-env
-        - secretRef:
-            name: hcloud-token
       nodeSelector:
         # Backblaze plugin doesn't run on arm smh
         kubernetes.io/arch: amd64

@@ -11,8 +11,6 @@ configMapGenerator:
       immutable: true
       labels:
         grafana_dashboard: '1'
-  - name: hcloud-cloud-init
-    files: [HCLOUD_CLOUD_INIT=hcloud-cloud-init.sh.base64]
   - name: vertical-pod-autoscaler-values
     files: [vertical-pod-autoscaler/values.yaml]
 resources:
@@ -20,7 +18,6 @@ resources:
   - best-cni.yaml
   - cert-manager.yaml
   # - cluster-autoscaler/cluster-autoscaler.yaml
-  # - cluster-autoscaler/hcloud-provisioner.yaml
   - coredns.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml

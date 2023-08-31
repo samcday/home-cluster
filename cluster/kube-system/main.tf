@@ -8,10 +8,6 @@ terraform {
       source  = "Backblaze/b2"
       version = "0.8.4"
     }
-    hcloud = {
-      source  = "hetznercloud/hcloud"
-      version = "1.42.0"
-    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.22.0"
@@ -24,23 +20,12 @@ terraform {
 }
 
 provider "b2" {}
-provider "hcloud" {}
 provider "kubernetes" {}
 provider "oci" {}
 
 variable "ts_auth_key" {
   sensitive = true
   type      = string
-}
-
-resource "hcloud_ssh_key" "me" {
-  name       = "me"
-  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ"
-}
-
-resource "hcloud_placement_group" "pg" {
-  name = "hominions"
-  type = "spread"
 }
 
 locals {
@@ -70,21 +55,6 @@ locals {
   iptables -F
   netfilter-persistent save
   HERE
-}
-
-resource "hcloud_server" "node" {
-  count              = 2
-  name               = "hc-${count.index + 1}.hominions.tailnet.samcday.com"
-  image              = "ubuntu-22.04"
-  server_type        = count.index == 0 ? "cax21" : "cpx31"
-  location           = "fsn1"
-  placement_group_id = hcloud_placement_group.pg.id
-  ssh_keys           = ["me"]
-  user_data          = local.cloud_init
-  public_net {
-    ipv4_enabled = true
-    ipv6_enabled = true
-  }
 }
 
 resource "oci_core_instance" "node1" {

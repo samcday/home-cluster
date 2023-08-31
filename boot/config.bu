@@ -24,33 +24,8 @@ storage:
         - size_mib: 0
           label: var
   files:
-    - path: /usr/local/bin/kubectl
-      mode: 0755
-      contents:
-        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubectl
-        verification:
-          hash: sha256-4685bfcf732260f72fce58379e812e091557ef1dfc1bc8084226c7891dd6028f
+    - path: /etc/containerd/config.toml
       overwrite: true
-    - path: /usr/local/bin/kubeadm
-      mode: 0755
-      contents:
-        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubeadm
-        verification:
-          hash: sha256-7be21d6fb3707fbbe8f0db0403db6234c8af773b941f931bf8248759ee988bcd
-      overwrite: true
-    - path: /usr/local/bin/kubelet
-      mode: 0755
-      contents:
-        source: https://dl.k8s.io/v1.27.4/bin/linux/amd64/kubelet
-        verification:
-          hash: sha256-385f65878dc8b48df0f2bd369535ff273390518b5ac2cc1a1684d65619324704
-      overwrite: true
-    - path: /etc/systemd/system/kubelet.service
-      contents:
-        source: https://raw.githubusercontent.com/kubernetes/release/v0.15.1/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service
-    - path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-      contents:
-        source: https://raw.githubusercontent.com/kubernetes/release/v0.15.1/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf
   filesystems:
     - path: /var
       device: /dev/mapper/var
@@ -75,16 +50,23 @@ systemd:
         Wants=network-online.target
         After=network-online.target
         Before=zincati.service
-        ConditionPathExists=!/var/lib/%N.stamp
+        ConditionPathExists=!/etc/%N.stamp
 
         [Service]
+        LoadCredential=authkey:/etc/tailscale-auth.key
         RemainAfterExit=yes
         Type=oneshot
-        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive man-db man-pages tailscale tcpdump usbutils vim
-        ExecStart=systemctl enable --now tailscaled
-        ExecStart=/bin/touch /var/lib/%N.stamp
+        # Install stuff.
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
+        
+        # Start stuff just installed.
+        ExecStart=systemctl enable --now kubelet.service tailscaled.service
+
+        # Wait until tailscale is up.
+        ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
+        ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns --accept-routes || exit 0'
+        ExecStart=bash -c 'sed -i -e "s/_IP4_/$(tailscale ip -4)/" -e "s/_IP6_/$(tailscale ip -6)/" /etc/kubeadm.yaml'
+        ExecStart=/bin/touch /etc/%N.stamp
 
         [Install]
         WantedBy=multi-user.target
-    - name: kubelet.service
-      enabled: true

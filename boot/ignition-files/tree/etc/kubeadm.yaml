@@ -1,11 +1,18 @@
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: _IP4_
 nodeRegistration:
   kubeletExtraArgs:
+    node-ip: _IP4_,_IP6_
     volume-plugin-dir: /var/lib/kubelet/volume-plugins
+  taints: []
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
     flex-volume-plugin-dir: /var/lib/kubelet/volume-plugins
+networking:
+  podSubnet: 172.30.0.0/16,fdab:bc3f:3e04::/64
+  serviceSubnet: 172.31.0.0/16,fd7f:bc81:7c5c::/112
