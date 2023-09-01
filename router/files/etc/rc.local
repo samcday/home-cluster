@@ -1,28 +1,5 @@
 set -uexo pipefail
 
-function bind_mount() {
-    mkdir -p $1 $2
-    mount --bind $1 $2
-}
-
-cryptsetup open /dev/sda root --key-file /etc/extstorage.key
-block mount
-
-bind_mount /mnt/storage/coreos /www/coreos
-bind_mount /mnt/storage/tang-db /usr/share/tang/db
-bind_mount /mnt/storage/tailscale /etc/tailscale
-
-# Need to restart dnsmasq after mounting tftp dir.
-service dnsmasq restart
-
-service tailscale start
-
-if ! grep tangd < /etc/services; then
-  echo "tangd 8888/tcp" >> /etc/services
-fi
-chmod +x /usr/libexec/tangdw
-service xinetd start
-
 # Wait for tailscale to start, then check we're logged in.
 while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do
   sleep 0.5
