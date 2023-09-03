@@ -14,8 +14,5 @@ imageReflectionController:
 kustomizeController: *gofast
 notificationController:
   tolerations: *toler
-prometheus:
-  podMonitor:
-    create: true
 sourceController:
   tolerations: *toler

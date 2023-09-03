@@ -7,19 +7,24 @@ This directory contains the Kubernetes manifests for my home-cluster. It is reco
 
 `boot/` brings up nodes ready to be Kubernetes cluster members. A small amount of manual poking is required to bootstrap the cluster from scratch initially.
 
-(TODO: update)
-
 ```sh
+ssh core@m710q-1 sudo kubeadm init --config /etc/kubeadm.yaml
 
-ssh root@librem13.hominions.tailnet.samcday.com kubeadm init --config /etc/kubeadm.yaml
-
-
-helm install flux flux2 --repo=https://fluxcd-community.github.io/helm-charts -n flux-system --create-namespace
 helm install -n kube-system tailscale-node-controller tailscale-node-controller --repo https://samcday.github.io/tailscale-node-controller
 
-sops -d home-cluster/secrets/flux-system/age-key.yaml | kubectl apply -f-
-kubectl apply -k home-cluster/kube-system
-kubectl apply -k home-cluster/flux-system
+helm upgrade cilium cilium/cilium --version 1.14.1  --namespace kube-system --values cluster/cilium-values.yaml
 
-helm upgrade flux flux2 --repo=https://fluxcd-community.github.io/helm-charts -n flux-system --values home-cluster/flux-values.yaml
+ssh core@m710q-2 sudo kubeadm join --config /etc/kubeadm.yaml
+ssh core@m710q-3 sudo kubeadm join --config /etc/kubeadm.yaml
+
+ssh core@m710q-1 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
+chmod 600 ~/.kube/config
+
+helm install flux flux2 --repo=https://fluxcd-community.github.io/helm-charts -n flux-system --create-namespace --values cluster/flux-values.yaml
+sops -d cluster/secrets/flux-system/age-key.yaml | kubectl apply -f-
+
+kubectl apply -k cluster/flux-system
+
+# Once prom-operator has been reconciled
+helm upgrade flux flux2 --repo=https://fluxcd-community.github.io/helm-charts -n flux-system --values cluster/flux-values.yaml --values cluster/flux-values-monitoring.yaml
 ```

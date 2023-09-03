@@ -10,7 +10,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 5m
 ---
@@ -25,7 +25,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 5m
 ---
@@ -40,7 +40,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 5m
 ---
@@ -55,7 +55,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 5m
 ---
@@ -70,25 +70,25 @@ spec:
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository
-#     name: hominions
+#     name: home-cluster
 #     namespace: flux-system
 #   timeout: 5m
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: hominions
+  name: home-cluster
   namespace: flux-system
 spec:
   interval: 1h
   ref:
     branch: main
-  url: https://github.com/samcday/hominions.git
+  url: https://github.com/samcday/home-cluster.git
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
-  name: hominions
+  name: home-cluster
   namespace: flux-system
 spec:
   type: github
@@ -99,4 +99,4 @@ spec:
     name: webhook-token
   resources:
     - kind: GitRepository
-      name: hominions
+      name: home-cluster

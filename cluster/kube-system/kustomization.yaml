@@ -15,22 +15,14 @@ configMapGenerator:
     files: [vertical-pod-autoscaler/values.yaml]
 resources:
   - ../config
-  - best-cni.yaml
   - cert-manager.yaml
-  # - cluster-autoscaler/cluster-autoscaler.yaml
-  - coredns.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml
   - goldpinger.yaml
   - ingress-nginx.yaml
-  - ip-masq-agent.yaml
   - node-problem-detector.yaml
   - postgres-operator.yaml
   - prometheus-operator.yaml
-  - stc.yaml
   - tailscale-node-controller.yaml
   - tailscale-service-router.yaml
-  # - terraform.yaml
   - velero.yaml
-  # - vertical-pod-autoscaler/helm-release.yaml
-  # - vpas.yaml
