@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rook-config-override
+  namespace: rook-ceph
+data:
+  # mon_osd_crush_smoke_test = false fixes the issue of mon 100% CPU usage when creating OSD pools
+  # seems to happen specifically under CoreOS + derivatives. Insanity.
+  # https://tracker.ceph.com/issues/57782
+  config: |
+    [global]
+    mon_osd_crush_smoke_test = false
