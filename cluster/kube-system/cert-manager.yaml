@@ -42,10 +42,10 @@ metadata:
   namespace: kube-system
 spec:
   interval: 5m
-  path: home-cluster/kube-system/cert-manager-issuers
+  path: cluster/kube-system/cert-manager-issuers
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 2m0s
