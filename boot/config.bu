@@ -8,6 +8,9 @@ boot_device:
     threshold: 2
     tpm2: true
     discard: true
+kernel_arguments:
+  should_not_exist:
+    - mitigations=auto,nosmt
 passwd:
   users:
     - name: core
