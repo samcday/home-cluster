@@ -71,7 +71,16 @@ spec:
         cleanup:
           requests:
             cpu: 1m
+        crashcollector:
+          requests:
+            cpu: 1m
+        logcollector:
+          requests:
+            cpu: 1m
         mgr:
+          requests:
+            cpu: 1m
+        mgr-sidecar:
           requests:
             cpu: 1m
         mon:
