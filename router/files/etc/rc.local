@@ -7,8 +7,8 @@ done
 
 if [[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]]; then
   tailscale up \
+    --reset \
     --accept-routes \
     --auth-key=${TAILNET_AUTH_KEY} \
-    --netfilter-mode=off \
   2>&1 | logger -st tailscale.up
 fi

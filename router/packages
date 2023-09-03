@@ -3,6 +3,7 @@ cryptsetup
 curl
 e2fsprogs
 etherwake
+haproxy
 htop
 iptables-nft
 jq

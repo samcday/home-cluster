@@ -26,6 +26,10 @@ storage:
   files:
     - path: /etc/containerd/config.toml
       overwrite: true
+    - path: /etc/kubeadm.yaml
+      mode: 0600
+    - path: /etc/kubernetes/pki/ca.key
+      mode: 0600
   filesystems:
     - path: /var
       device: /dev/mapper/var
@@ -64,6 +68,7 @@ systemd:
 
         # Wait until tailscale is up.
         ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
+        ExecStart=bash -c 'while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do sleep 0.5; done'
         ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns --accept-routes || exit 0'
         ExecStart=bash -c 'sed -i -e "s/_IP4_/$(tailscale ip -4)/" -e "s/_IP6_/$(tailscale ip -6)/" /etc/kubeadm.yaml'
         ExecStart=/bin/touch /etc/%N.stamp
