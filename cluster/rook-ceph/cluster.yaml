@@ -68,6 +68,9 @@ spec:
             csi.storage.k8s.io/fstype: ext4
     cephClusterSpec:
       resources:
+        cleanup:
+          requests:
+            cpu: 100m
         mgr:
           requests:
             cpu: 100m
@@ -78,5 +81,8 @@ spec:
           requests:
             cpu: 100m
             memory: 2Gi
+        prepareosd:
+          requests:
+            cpu: 100m
     toolbox:
       enabled: true
