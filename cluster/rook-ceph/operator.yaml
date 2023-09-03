@@ -16,3 +16,66 @@ spec:
   interval: 1h
   values:
     # https://github.com/rook/rook/blob/release-1.12/deploy/charts/rook-ceph/values.yaml
+    csi:
+      csiRBDProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-resizer
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-attacher
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-snapshotter
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+        - name : csi-omap-generator
+          resource:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+      csiRBDPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
