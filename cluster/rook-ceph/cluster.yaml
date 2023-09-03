@@ -94,6 +94,5 @@ spec:
           requests:
             cpu: 1m
     cephFileSystems: []
-    cephObjectStores: []
     toolbox:
       enabled: true
