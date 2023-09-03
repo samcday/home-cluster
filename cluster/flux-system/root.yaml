@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: home-cluster/flux-system
+  path: cluster/flux-system
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,7 +21,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: home-cluster/flux-system/kustomizations
+  path: cluster/flux-system/kustomizations
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,7 +36,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: home-cluster/flux-system/helmrepos
+  path: cluster/flux-system/helmrepos
   prune: true
   sourceRef:
     kind: GitRepository
@@ -51,7 +51,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: home-cluster/flux-system/gitrepos
+  path: cluster/flux-system/gitrepos
   prune: true
   sourceRef:
     kind: GitRepository
@@ -66,7 +66,7 @@ spec:
 #   namespace: flux-system
 # spec:
 #   interval: 5m
-#   path: home-cluster/flux-system/terraform
+#   path: cluster/flux-system/terraform
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository

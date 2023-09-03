@@ -1,4 +1,6 @@
 # https://github.com/fluxcd-community/helm-charts/blob/main/charts/flux2/values.yaml
+
+clusterDomain: home-cluster.local
 helmController: &gofast
   container:
     additionalargs:
@@ -14,5 +16,7 @@ imageReflectionController:
 kustomizeController: *gofast
 notificationController:
   tolerations: *toler
+policies:
+  create: false
 sourceController:
   tolerations: *toler
