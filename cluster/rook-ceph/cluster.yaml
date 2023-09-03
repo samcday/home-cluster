@@ -70,19 +70,20 @@ spec:
       resources:
         cleanup:
           requests:
-            cpu: 100m
+            cpu: ~
         mgr:
           requests:
-            cpu: 100m
+            cpu: ~
         mon:
           requests:
-            cpu: 100m
+            cpu: ~
         osd:
           requests:
-            cpu: 100m
+            cpu: ~
             memory: 2Gi
         prepareosd:
           requests:
-            cpu: 100m
+            cpu: ~
+    cephFileSystems: []
     toolbox:
       enabled: true
