@@ -9,11 +9,11 @@ resources:
   - flux.yaml
   - grafana.yaml
   - ingress-nginx-pod-monitor.yaml
-  - loki/
-  - kube-prometheus-stack.yaml
+  # - loki/
+  # - kube-prometheus-stack.yaml
   - metrics-server.yaml
   - namespace.yaml
-  - pagerduty.yaml
-  - promtail.yaml
-  - targetdown-fixed.yaml
+  # - pagerduty.yaml
+  # - promtail.yaml
+  # - targetdown-fixed.yaml
   # - terraform.yaml
