@@ -68,31 +68,23 @@ spec:
             csi.storage.k8s.io/fstype: ext4
     cephClusterSpec:
       resources:
-        cleanup:
+        cleanup: &resources
+          limits:
+            cpu: ~
           requests:
-            cpu: 1m
-        crashcollector:
-          requests:
-            cpu: 1m
-        logcollector:
-          requests:
-            cpu: 1m
-        mgr:
-          requests:
-            cpu: 1m
-        mgr-sidecar:
-          requests:
-            cpu: 1m
-        mon:
-          requests:
-            cpu: 1m
+            cpu: ~
+        crashcollector: *resources
+        logcollector: *resources
+        mgr: *resources
+        mgr-sidecar: *resources
+        mon: *resources
         osd:
+          limits:
+            cpu: ~
           requests:
-            cpu: 1m
+            cpu: ~
             memory: 2Gi
-        prepareosd:
-          requests:
-            cpu: 1m
+        prepareosd: *resources
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -149,11 +141,11 @@ spec:
             port: 80
             resources:
               limits:
-                cpu: "2000m"
-                memory: "2Gi"
+                cpu: ~
+                memory: 2Gi
               requests:
-                cpu: 1m
-                memory: "1Gi"
+                cpu: ~
+                memory: 1Gi
             instances: 1
             priorityClassName: system-cluster-critical
         storageClass:
