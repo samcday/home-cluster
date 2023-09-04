@@ -93,6 +93,45 @@ spec:
         prepareosd:
           requests:
             cpu: 1m
+    cephFileSystems:
+      - name: ceph-filesystem
+        spec:
+          metadataPool:
+            replicated:
+              size: 3
+          dataPools:
+            - failureDomain: host
+              replicated:
+                size: 2
+              name: data0
+          metadataServer:
+            activeCount: 1
+            activeStandby: true
+            resources:
+              limits:
+                cpu: ~
+                memory: 4Gi
+              requests:
+                cpu: ~
+                memory: 1Gi
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          isDefault: false
+          name: ceph-filesystem
+          pool: data0
+          reclaimPolicy: Delete
+          allowVolumeExpansion: true
+          volumeBindingMode: Immediate
+          mountOptions: []
+          parameters:
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
       - name: ceph-objectstore
         spec:
@@ -121,7 +160,7 @@ spec:
           enabled: true
           name: ceph-bucket
           reclaimPolicy: Delete
-          volumeBindingMode: "Immediate"
+          volumeBindingMode: Immediate
           parameters:
             region: us-east-1
     cephFileSystems: []

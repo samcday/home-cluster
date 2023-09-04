@@ -17,6 +17,66 @@ spec:
   values:
     # https://github.com/rook/rook/blob/release-1.12/deploy/charts/rook-ceph/values.yaml
     csi:
+      csiCephFSProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-resizer
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-attacher
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-snapshotter
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+
+      # -- CEPH CSI CephFS plugin resource requirement list
+      # @default -- see values.yaml
+      csiCephFSPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+
       csiRBDProvisionerResource: |
         - name : csi-provisioner
           resource:
@@ -79,4 +139,3 @@ spec:
               memory: 128Mi
             limits:
               memory: 256Mi
-      enableCephfsDriver: false
