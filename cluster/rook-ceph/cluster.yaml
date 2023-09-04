@@ -163,6 +163,5 @@ spec:
           volumeBindingMode: Immediate
           parameters:
             region: us-east-1
-    cephFileSystems: []
     toolbox:
       enabled: true
