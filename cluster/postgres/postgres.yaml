@@ -26,11 +26,6 @@ spec:
       extensions:
         hstore: data
       secretNamespace : miniflux
-    seaweedfs:
-      defaultUsers: true
-      schemas:
-        public: {}
-      secretNamespace: seaweedfs
   teamId: postgres
   volume:
     storageClass: syncthing
