@@ -1,0 +1,47 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+  namespace: synapse
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
+  instances: 2
+  bootstrap:
+    initdb:
+      database: synapse
+      owner: synapse
+      # These are the default encoding/locale settings, but since Synapse specifically cares about this,
+      # might as well be explicit about it.
+      encoding: UTF8
+      localeCollate: C
+      localeCType: C
+      postInitSQL:
+        - create user mautrix_signal;
+        - create database mautrix_signal owner mautrix_signal;
+        - create user mautrix_telegram;
+        - create database mautrix_telegram owner mautrix_telegram;
+        - create user mautrix_whatsapp;
+        - create database mautrix_whatsapp owner mautrix_whatsapp;
+        - create user signald;
+        - create database signald owner signald;
+  managed:
+    roles:
+      - name: mautrix_signal
+        login: true
+        passwordSecret:
+          name: mautrix-signal-dbuser
+      - name: mautrix_telegram
+        login: true
+        passwordSecret:
+          name: mautrix-telegram-dbuser
+      - name: mautrix_whatsapp
+        login: true
+        passwordSecret:
+          name: mautrix-whatsapp-dbuser
+      - name: signald
+        login: true
+        passwordSecret:
+          name: signald-dbuser
+  storage:
+    size: 20Gi
+    storageClass: ceph-block

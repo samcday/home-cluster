@@ -36,20 +36,14 @@ spec:
               sed -e "s/_AS_/$WA_AS/" \
                   -e "s/_HS_/$WA_HS/" \
                   -e "s/_LP_/$WA_LP/" \
-                  -e "s/_DBUSER_/$DBUSER/" \
                   -e "s/_DBPASS_/$DBPASS/" \
                   < /config-templates/mautrix-whatsapp.yaml > /data/config.yaml
               touch /data/registration.yaml
           env:
-            - name: DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-whatsapp-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
-                  key: username
             - name: DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: mautrix-whatsapp-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  name: mautrix-whatsapp-dbuser
                   key: password
           envFrom:
             - secretRef:

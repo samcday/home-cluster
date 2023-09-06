@@ -5,7 +5,7 @@ app_service_config_files:
 database:
   name: psycopg2
   args:
-    user: _DBUSER_
+    user: synapse
     password: _DBPASS_
     database: synapse
     host: synapse-db.postgres.svc.cluster.local

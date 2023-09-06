@@ -59,19 +59,13 @@ spec:
               cp /config-templates/log.yaml /config/
               sed -e "s/_MACAROON_/$MACAROON_SECRET_KEY/" \
                   -e "s/_REG_/$REGISTRATION_SECRET/" \
-                  -e "s/_DBUSER_/$DBUSER/" \
                   -e "s/_DBPASS_/$DBPASS/" \
                   < /config-templates/homeserver.yaml > /config/homeserver.yaml
           env:
-            - name: DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: synapse-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
-                  key: username
             - name: DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: synapse-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  name: db-app
                   key: password
           envFrom:
             - secretRef:

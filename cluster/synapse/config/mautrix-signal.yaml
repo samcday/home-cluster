@@ -33,7 +33,7 @@ appservice:
     # Usually 1 is enough, but on high-traffic bridges you might need to increase this to avoid 413s
     max_body_size: 1
 
-    database: postgres://_DBUSER_:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_signal
+    database: postgres://mautrix_signal:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_signal
 
     # The unique ID of this appservice.
     id: signal

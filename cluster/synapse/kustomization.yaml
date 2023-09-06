@@ -25,6 +25,7 @@ resources:
 - ingress.yaml
 - media-pvc.yaml
 - namespace.yaml
+- postgres.yaml
 - prometheus-rules.yaml
 - synapse.yaml
 # - vpa.yaml

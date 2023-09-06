@@ -31,18 +31,13 @@ spec:
             - /bin/bash
             - -c
             - |-
-              export SIGNALD_DATABASE=postgresql://$DBUSER:$DBPASS@synapse-db.postgres.svc.cluster.local:5432/signald
+              export SIGNALD_DATABASE=postgresql://signald:$DBPASS@synapse-db.postgres.svc.cluster.local:5432/signald
               exec signald -d /signald --metrics -s /signald/signald.sock
           env:
-            - name: DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: signald-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
-                  key: username
             - name: DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: signald-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  name: signald-dbuser
                   key: password
           ports:
             - name: signald-metrics
@@ -63,20 +58,14 @@ spec:
               sed -e "s/_AS_/$SIG_AS/" \
                   -e "s/_HS_/$SIG_HS/" \
                   -e "s/_LP_/$SIG_LP/" \
-                  -e "s/_DBUSER_/$DBUSER/" \
                   -e "s/_DBPASS_/$DBPASS/" \
                   < /config-templates/mautrix-signal.yaml > /data/config.yaml
               touch /data/registration.yaml
           env:
-            - name: DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-signal-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
-                  key: username
             - name: DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: mautrix-signal-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  name: mautrix-signal-dbuser
                   key: password
           envFrom:
             - secretRef:

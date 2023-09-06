@@ -20,7 +20,7 @@ appservice:
     port: 29318
     database:
         type: postgres
-        uri: postgres://_DBUSER_:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_whatsapp
+        uri: postgres://mautrix_whatsapp:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_whatsapp
     
     # Settings for provisioning API
     provisioning:

@@ -37,20 +37,14 @@ spec:
                   -e "s/_LP_/$TELE_LP/" \
                   -e "s/_API_ID_/$TELE_API_ID/" \
                   -e "s/_API_HASH_/$TELE_API_HASH/" \
-                  -e "s/_DBUSER_/$DBUSER/" \
                   -e "s/_DBPASS_/$DBPASS/" \
                   < /config-templates/mautrix-telegram.yaml > /data/config.yaml
               touch /data/registration.yaml
           env:
-            - name: DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-telegram-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
-                  key: username
             - name: DBPASS
               valueFrom:
                 secretKeyRef:
-                  name: mautrix-telegram-owner-user.synapse-db.credentials.postgresql.acid.zalan.do
+                  name: mautrix-telegram-dbuser
                   key: password
           envFrom:
             - secretRef:
