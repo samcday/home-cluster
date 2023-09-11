@@ -4,11 +4,9 @@ bootstrapTokens:
     - token: ENC[AES256_GCM,data:yKizp2iXQNahoMLiebF0TO1cNjSkGso=,iv:pAz0QINX8iCnkV35a0uXVR9P4Mea0ik8hGBGbhYi6aw=,tag:huySqV1ZVOzqbukrco3f7g==,type:str]
       ttl: "0"
 certificateKey: ENC[AES256_GCM,data:k6bbmF+eLmS89t/e/WhKGlGoDTYpCI3+zht6vyY0WBIrLH8/Q5bVOuHT8mni9osyn3HTQGKVXg6T3PBxwATSQg==,iv:HS0/55tGM/4nQSQmW5QaEPubbEvOQGzxmWXDObQUlmk=,tag:HHAo9HdvfBw5hlsbhjSnkw==,type:str]
-localAPIEndpoint:
-    advertiseAddress: _IP4_
 nodeRegistration:
     kubeletExtraArgs:
-        node-ip: _IP4_,_IP6_
+        cloud-provider: external
         volume-plugin-dir: /var/lib/kubelet/volume-plugins
     taints: []
 sops:
@@ -26,15 +24,15 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-02T17:12:56Z"
-    mac: ENC[AES256_GCM,data:YScJBl3rX7sAoXV8JtUZVfVozZ3Dt6rKxJ33flkBY5p4SXa3lTDDSlhCFvKRkJ1zatPQC2XbGP54lS4cRZcBQm9NmARSyz0LhC1CPRmze/d09cF4W3r41WJ0ox90errBFb7YKCm/p44IBepw2A6vX4+pxvgdVoS0UoL+AYqGz8A=,iv:XbRTQxYb436M1RjZUGEm7mwndPBSE+upQEeyP2TYWKA=,tag:jvRRbThwcBsmLjWaqsDLuw==,type:str]
+    lastmodified: "2023-09-11T15:44:48Z"
+    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-controlPlaneEndpoint: home-cluster-router:6443
+controlPlaneEndpoint: 172.29.0.1:6444
 controllerManager:
     extraArgs:
         flex-volume-plugin-dir: /var/lib/kubelet/volume-plugins
@@ -57,8 +55,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-02T17:12:56Z"
-    mac: ENC[AES256_GCM,data:YScJBl3rX7sAoXV8JtUZVfVozZ3Dt6rKxJ33flkBY5p4SXa3lTDDSlhCFvKRkJ1zatPQC2XbGP54lS4cRZcBQm9NmARSyz0LhC1CPRmze/d09cF4W3r41WJ0ox90errBFb7YKCm/p44IBepw2A6vX4+pxvgdVoS0UoL+AYqGz8A=,iv:XbRTQxYb436M1RjZUGEm7mwndPBSE+upQEeyP2TYWKA=,tag:jvRRbThwcBsmLjWaqsDLuw==,type:str]
+    lastmodified: "2023-09-11T15:44:48Z"
+    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3
@@ -67,15 +65,13 @@ apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 controlPlane:
     certificateKey: ENC[AES256_GCM,data:QrYYJnbNWoM4WRY84e68oB/2IF3rqURmaLA+HMtpJNyeIxHEQgL1NFSiJwIEUFJaT4/SgV/87KawwK68FqxwxA==,iv:zNpJnN+CivQWiXkyO9MXM1ZW4ItDeJegTWui8knMCZA=,tag:1RF7QyQ4iP2aBGvFuWRCpQ==,type:str]
-    localAPIEndpoint:
-        advertiseAddress: _IP4_
 nodeRegistration:
     kubeletExtraArgs:
-        node-ip: _IP4_,_IP6_
+        cloud-provider: external
     taints: []
 discovery:
     bootstrapToken:
-        apiServerEndpoint: home-cluster-router:6443
+        apiServerEndpoint: 172.29.0.1:6444
         token: ENC[AES256_GCM,data:E3FursuMS3bPrzEffkYcLvhpx5mnUzg=,iv:2T+GZgsjbAHt5stqHmaLngsc50MToj351p+u9sK498k=,tag:9tLADAbwKWL/KoYmuR868Q==,type:str]
         caCertHashes:
             - sha256:115e5a84bdb260f15defdbd836acf108769cff1e18bc9e2c473eb6f208051c58
@@ -94,8 +90,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-02T17:12:56Z"
-    mac: ENC[AES256_GCM,data:YScJBl3rX7sAoXV8JtUZVfVozZ3Dt6rKxJ33flkBY5p4SXa3lTDDSlhCFvKRkJ1zatPQC2XbGP54lS4cRZcBQm9NmARSyz0LhC1CPRmze/d09cF4W3r41WJ0ox90errBFb7YKCm/p44IBepw2A6vX4+pxvgdVoS0UoL+AYqGz8A=,iv:XbRTQxYb436M1RjZUGEm7mwndPBSE+upQEeyP2TYWKA=,tag:jvRRbThwcBsmLjWaqsDLuw==,type:str]
+    lastmodified: "2023-09-11T15:44:48Z"
+    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3

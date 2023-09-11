@@ -13,6 +13,8 @@ spec:
         name: rook-release
         namespace: flux-system
       version: v1.12.3
+  dependsOn:
+    - name: rook-ceph
   interval: 1h
   values:
     # https://github.com/rook/rook/blob/release-1.12/deploy/charts/rook-ceph-cluster/values.yaml

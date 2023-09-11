@@ -9,6 +9,8 @@ boot_device:
     tpm2: true
     discard: true
 kernel_arguments:
+  should_exist:
+    - selinux=0
   should_not_exist:
     - mitigations=auto,nosmt
 passwd:
@@ -16,6 +18,9 @@ passwd:
     - name: core
       ssh_authorized_keys: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ]
 storage:
+  directories:
+    - path: /etc/haproxy
+    - path: /etc/haproxy/conf.d
   disks:
     - device: /dev/disk/by-id/coreos-boot-disk
       wipe_table: false
@@ -66,16 +71,15 @@ systemd:
         RemainAfterExit=yes
         Type=oneshot
         # Install stuff.
-        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
-        
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive haproxy kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
+
         # Start stuff just installed.
-        ExecStart=systemctl enable --now kubelet.service tailscaled.service
+        ExecStart=systemctl enable --now haproxy.service kubelet.service tailscaled.service
 
         # Wait until tailscale is up.
         ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
         ExecStart=bash -c 'while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do sleep 0.5; done'
-        ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns --accept-routes || exit 0'
-        ExecStart=bash -c 'sed -i -e "s/_IP4_/$(tailscale ip -4)/" -e "s/_IP6_/$(tailscale ip -6)/" /etc/kubeadm.yaml'
+        ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns --accept-routes --advertise-routes=172.29.0.1/32 || exit 0'
         ExecStart=/bin/touch /etc/%N.stamp
 
         [Install]
