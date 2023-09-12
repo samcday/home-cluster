@@ -21,7 +21,6 @@ resources:
   - goldpinger.yaml
   - ingress-nginx.yaml
   - node-problem-detector.yaml
-  - postgres-operator.yaml
   - prometheus-operator.yaml
   - tailscale-node-controller.yaml
   - tailscale-service-router.yaml
