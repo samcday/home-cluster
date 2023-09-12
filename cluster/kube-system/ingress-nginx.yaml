@@ -47,14 +47,9 @@ spec:
       kind: Deployment
       metrics:
         enabled: true
-      nodeSelector:
-        samcday.com/cloud: ''
       replicaCount: 2
       service:
         enabled: false
       terminationGracePeriodSeconds: 5
-      tolerations:
-        - key: samcday.com/cloud
-          operator: Exists
       updateStrategy:
         type: Recreate
