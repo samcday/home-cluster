@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  path: home-cluster/nitter
+  path: cluster/nitter
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
   timeout: 30s
