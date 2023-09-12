@@ -9,6 +9,8 @@ spec:
   bootstrap:
     initdb:
       database: miniflux
+      postInitSQL:
+        - create extension hstore;
   storage:
     size: 5Gi
     storageClass: ceph-block
