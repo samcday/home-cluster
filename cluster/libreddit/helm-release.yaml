@@ -20,7 +20,7 @@ spec:
     env:
     image:
       repository: libreddit/libreddit
-      tag: arm
+      tag: latest
     ingress:
       enabled: true
       annotations:
