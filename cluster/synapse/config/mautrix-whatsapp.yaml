@@ -15,12 +15,12 @@ homeserver:
     message_send_checkpoint_endpoint: null
 
 appservice:
-    address: http://bridge-whatsapp.synapse.svc.cluster.local:29318
+    address: http://bridge-whatsapp:29318
     hostname: 0.0.0.0
     port: 29318
     database:
         type: postgres
-        uri: postgres://mautrix_whatsapp:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_whatsapp
+        uri: postgres://mautrix_whatsapp:_DBPASS_@db-rw/mautrix_whatsapp
     
     # Settings for provisioning API
     provisioning:

@@ -31,7 +31,7 @@ spec:
             - /bin/bash
             - -c
             - |-
-              export SIGNALD_DATABASE=postgresql://signald:$DBPASS@synapse-db.postgres.svc.cluster.local:5432/signald
+              export SIGNALD_DATABASE=postgresql://signald:$DBPASS@db-rw:5432/signald
               exec signald -d /signald --metrics -s /signald/signald.sock
           env:
             - name: DBPASS

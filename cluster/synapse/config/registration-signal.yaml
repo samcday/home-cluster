@@ -1,5 +1,5 @@
 id: signal
-url: http://bridge-signal.synapse.svc.cluster.local:29328
+url: http://bridge-signal:29328
 as_token: _AS_
 hs_token: _HS_
 sender_localpart: _LP_

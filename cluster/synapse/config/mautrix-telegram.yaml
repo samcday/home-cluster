@@ -21,7 +21,7 @@ homeserver:
 # Changing these values requires regeneration of the registration.
 appservice:
     # The address that the homeserver can use to connect to this appservice.
-    address: http://bridge-telegram.synapse.svc.cluster.local:29317
+    address: http://bridge-telegram:29317
     # When using https:// the TLS certificate and key files for the address.
     tls_cert: false
     tls_key: false
@@ -37,7 +37,7 @@ appservice:
     # Format examples:
     #   SQLite:   sqlite:///filename.db
     #   Postgres: postgres://username:password@hostname/dbname
-    database: postgres://mautrix_telegram:_DBPASS_@synapse-db.postgres.svc.cluster.local/mautrix_telegram
+    database: postgres://mautrix_telegram:_DBPASS_@db-rw/mautrix_telegram
 
     # Public part of web server for out-of-Matrix interaction with the bridge.
     # Used for things like login if the user wants to make sure the 2FA password isn't stored in

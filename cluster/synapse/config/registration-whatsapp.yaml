@@ -1,5 +1,5 @@
 id: whatsapp2
-url: http://bridge-whatsapp.synapse.svc.cluster.local:29318
+url: http://bridge-whatsapp:29318
 as_token: _AS_
 hs_token: _HS_
 sender_localpart: _LP_
