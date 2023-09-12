@@ -28,7 +28,7 @@ spec:
               wait $PID
           envFrom:
             - secretRef:
-                name: services-tailscale-auth
+                name: tailscale-auth
           lifecycle:
             preStop:
               exec:
