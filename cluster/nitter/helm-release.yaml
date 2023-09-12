@@ -48,7 +48,7 @@ spec:
           key: token
     image:
       repository: zedeus/nitter
-      tag: latest-arm64
+      tag: latest
     ingress:
       enabled: true
       annotations:
@@ -65,13 +65,8 @@ spec:
     livenessProbe:
       httpGet:
         path: /POTUS
-    nodeSelector:
-      kubernetes.io/arch: arm64
     ports:
       - name: http
         containerPort: 8080
     readinessProbe: ~
     replicaCount: 2
-    tolerations:
-      - key: samcday.com/cloud
-        effect: NoExecute
