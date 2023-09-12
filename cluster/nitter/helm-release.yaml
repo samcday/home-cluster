@@ -33,10 +33,10 @@ spec:
         set -ueo pipefail
         sed -e "s/__REDISPASS__/$REDIS_PASSWORD/" \
             -e "s/__HMAC__/$HMAC_TOKEN/" \
-          < /config/nitter.conf > /src/nitter.conf
+          < /config/nitter.conf > /src/nitter.conf.real
         exec /src/nitter
     env:
-      NITTER_CONF_FILE: /nitter.conf
+      NITTER_CONF_FILE: /src/nitter.conf.real
     envValueFrom:
       REDIS_PASSWORD:
         secretKeyRef:
