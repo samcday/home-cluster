@@ -33,8 +33,6 @@ spec:
       config:
         actions:
           ENABLED: true
-        attachment: &s3
-          STORAGE_TYPE: minio
         database:
           DB_TYPE: postgres
           HOST: db-rw:5432
@@ -43,7 +41,6 @@ spec:
         git.timeout:
           MIGRATE: 3600
           MIRROR: 3600
-        lfs: *s3
         metrics:
           ENABLED: true
           ENABLED_ISSUE_BY_LABEL: true
@@ -55,8 +52,8 @@ spec:
         session:
           PROVIDER: db
         storage:
+          STORAGE_TYPE: minio
           MINIO_ENDPOINT: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
-        storage.repo-archive: *s3
     persistence:
       storageClass: ceph-block
     postgresql:
