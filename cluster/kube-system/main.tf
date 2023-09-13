@@ -1,17 +1,5 @@
 terraform {
-  backend "kubernetes" {
-    secret_suffix = "terraform"
-    namespace     = "kube-system"
-  }
   required_providers {
-    b2 = {
-      source  = "Backblaze/b2"
-      version = "0.8.4"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.22.0"
-    }
     oci = {
       source  = "oracle/oci"
       version = "5.7.0"
@@ -19,8 +7,6 @@ terraform {
   }
 }
 
-provider "b2" {}
-provider "kubernetes" {}
 provider "oci" {}
 
 variable "ts_auth_key" {
@@ -122,59 +108,4 @@ resource "b2_application_key" "postgres-backups" {
   key_name     = "postgres-backups"
   bucket_id    = b2_bucket.postgres-backups.bucket_id
   capabilities = ["listFiles", "readFiles", "writeFiles", "deleteFiles"]
-}
-
-resource "kubernetes_config_map" "postgres-pod-env" {
-  metadata {
-    name      = "postgres-pod-env"
-    namespace = "kube-system"
-  }
-
-  data = {
-    AWS_ENDPOINT                = "https://s3.eu-central-003.backblazeb2.com"
-    CLONE_AWS_ENDPOINT          = "https://s3.eu-central-003.backblazeb2.com"
-    AWS_ACCESS_KEY_ID           = b2_application_key.postgres-backups.application_key_id
-    AWS_SECRET_ACCESS_KEY       = b2_application_key.postgres-backups.application_key
-    CLONE_AWS_ACCESS_KEY_ID     = b2_application_key.postgres-backups.application_key_id
-    CLONE_AWS_SECRET_ACCESS_KEY = b2_application_key.postgres-backups.application_key
-  }
-}
-
-resource "b2_bucket" "home-cluster-backups" {
-  bucket_name = "samcday-home-cluster-backups"
-  bucket_type = "allPrivate"
-  lifecycle_rules {
-    days_from_hiding_to_deleting = 7
-    file_name_prefix             = ""
-  }
-}
-
-resource "b2_application_key" "home-cluster-backups" {
-  key_name     = "kube-system"
-  bucket_id    = b2_bucket.home-cluster-backups.bucket_id
-  capabilities = ["listAllBucketNames", "listBuckets", "listFiles", "readFiles", "writeFiles", "deleteFiles"]
-}
-
-resource "kubernetes_secret" "backups-bucket" {
-  metadata {
-    name      = "backups-bucket"
-    namespace = "kube-system"
-  }
-
-  data = {
-    "rclone.conf" = <<-EOT
-    [remote]
-    type = s3
-    provider = Other
-    access_key_id = ${b2_application_key.home-cluster-backups.application_key_id}
-    secret_access_key = ${b2_application_key.home-cluster-backups.application_key}
-    endpoint = s3.eu-central-003.backblazeb2.com
-    acl = private
-    EOT
-    "velero" = <<-EOT
-    [default]
-    aws_access_key_id=${b2_application_key.home-cluster-backups.application_key_id}
-    aws_secret_access_key=${b2_application_key.home-cluster-backups.application_key}
-    EOT
-  }
 }

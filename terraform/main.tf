@@ -1,7 +1,13 @@
 terraform {
-  backend "local" {}
+  backend "local" {
+    path = "state.decrypted"
+  }
 
   required_providers {
+    b2 = {
+      source  = "Backblaze/b2"
+      version = "0.8.4"
+    }
     dmsnitch = {
       source  = "plukevdh/dmsnitch"
       version = "0.1.5"
@@ -17,6 +23,7 @@ terraform {
   }
 }
 
+provider "b2" {}
 provider "dmsnitch" {}
 provider "github" {}
 provider "kubernetes" {}
@@ -66,4 +73,44 @@ resource "github_repository_webhook" "push" {
   }
   events     = ["push"]
   repository = "home-cluster"
+}
+
+
+resource "b2_bucket" "backups" {
+  bucket_name = "samcday-home-cluster-backups"
+  bucket_type = "allPrivate"
+  lifecycle_rules {
+    days_from_hiding_to_deleting = 7
+    file_name_prefix             = ""
+  }
+}
+
+resource "b2_application_key" "backups" {
+  key_name     = "kube-system"
+  bucket_id    = b2_bucket.backups.bucket_id
+  capabilities = ["listAllBucketNames", "listBuckets", "listFiles", "readFiles", "writeFiles", "deleteFiles"]
+}
+
+resource "kubernetes_secret" "backups-bucket" {
+  metadata {
+    name      = "backups-bucket"
+    namespace = "kube-system"
+  }
+
+  data = {
+    "rclone.conf" = <<-EOT
+    [remote]
+    type = s3
+    provider = Other
+    access_key_id = ${b2_application_key.backups.application_key_id}
+    secret_access_key = ${b2_application_key.backups.application_key}
+    endpoint = s3.eu-central-003.backblazeb2.com
+    acl = private
+    EOT
+    "velero" = <<-EOT
+    [default]
+    aws_access_key_id=${b2_application_key.backups.application_key_id}
+    aws_secret_access_key=${b2_application_key.backups.application_key}
+    EOT
+  }
 }
