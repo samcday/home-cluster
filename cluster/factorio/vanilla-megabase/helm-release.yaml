@@ -57,12 +57,9 @@ spec:
         - helmod
         - ModuleInserter
         - VehicleSnap
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      samcday.com/cloud: ""
     persistence:
       enabled: true
-      storageClassName: syncthing
+      storageClassName: ceph-block
     rcon:
       external: false
     replicaCount: 0
@@ -88,6 +85,3 @@ spec:
       nodePort: 34197
       annotations:
         external-dns.alpha.kubernetes.io/hostname: factorio.samcday.com
-    tolerations:
-      - key: samcday.com/cloud
-        effect: NoExecute
