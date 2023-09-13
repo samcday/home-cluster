@@ -79,9 +79,3 @@ spec:
       username: samcday
       visibility:
         public: false
-    service:
-      type: NodePort
-      port: 34197
-      nodePort: 34197
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: factorio.samcday.com
