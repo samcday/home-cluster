@@ -1,8 +1,6 @@
 terraform {
-  backend "kubernetes" {
-    secret_suffix = "terraform"
-    namespace     = "monitoring"
-  }
+  backend "local" {}
+
   required_providers {
     dmsnitch = {
       source  = "plukevdh/dmsnitch"
