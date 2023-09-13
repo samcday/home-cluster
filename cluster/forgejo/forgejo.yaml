@@ -54,6 +54,8 @@ spec:
           DISABLE_REGISTRATION: true
         session:
           PROVIDER: db
+        storage:
+          MINIO_ENDPOINT: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
         storage.repo-archive: *s3
     persistence:
       storageClass: ceph-block
@@ -80,10 +82,6 @@ spec:
       name: bucket
       valuesKey: AWS_SECRET_ACCESS_KEY
       targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
-    - kind: ConfigMap
-      name: bucket
-      valuesKey: BUCKET_HOST
-      targetPath: gitea.config.storage.MINIO_ENDPOINT
     - kind: ConfigMap
       name: bucket
       valuesKey: BUCKET_NAME
