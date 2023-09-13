@@ -26,11 +26,11 @@ spec:
     envValueFrom:
       GF_DATABASE_USER:
         secretKeyRef:
-          name: grafana-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+          name: grafana-db-user
           key: username
       GF_DATABASE_PASSWORD:
         secretKeyRef:
-          name: grafana-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+          name: grafana-db-user
           key: password
     ingress:
       enabled: true
@@ -39,7 +39,7 @@ spec:
     grafana.ini:
       database:
         type: postgres
-        host: postgres-db.postgres.svc.cluster.local
+        host: grafana-db-rw
         ssl_mode: require
     persistence:
       enabled: false
