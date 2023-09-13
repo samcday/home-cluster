@@ -33,6 +33,9 @@ spec:
         volumeMounts:
           - name: plugins
             mountPath: /target
+    kubectl:
+      image:
+        tag: 1.27.5
     # metrics:
     #   prometheusRule:
     #     enabled: true
