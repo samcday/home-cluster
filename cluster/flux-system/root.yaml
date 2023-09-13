@@ -59,21 +59,6 @@ spec:
     namespace: flux-system
   timeout: 5m
 ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-# kind: Kustomization
-# metadata:
-#   name: terraform
-#   namespace: flux-system
-# spec:
-#   interval: 5m
-#   path: cluster/flux-system/terraform
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: home-cluster
-#     namespace: flux-system
-#   timeout: 5m
----
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:

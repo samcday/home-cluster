@@ -16,4 +16,3 @@ resources:
   # - pagerduty.yaml
   # - promtail.yaml
   # - targetdown-fixed.yaml
-  # - terraform.yaml
