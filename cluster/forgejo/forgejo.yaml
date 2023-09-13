@@ -36,7 +36,8 @@ spec:
         attachment: &s3
           STORAGE_TYPE: minio
         database:
-          HOST: db-rw
+          DB_TYPE: postgres
+          HOST: db-rw:5432
           NAME: forgejo
           SSL_MODE: require
         git.timeout:
