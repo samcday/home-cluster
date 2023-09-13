@@ -48,10 +48,10 @@ metadata:
   namespace: kube-system
 spec:
   interval: 1h
-  path: home-cluster/kube-system/velero-schedules
+  path: cluster/kube-system/velero-schedules
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 2m0s
