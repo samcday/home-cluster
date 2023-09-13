@@ -13,6 +13,7 @@ spec:
   interval: 5m
   values:
     # https://codeberg.org/forgejo-contrib/forgejo-helm/src/branch/main/values.yaml
+    clusterDomain: home-cluster.local
     ingress:
       enabled: true
       annotations:
