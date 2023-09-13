@@ -39,6 +39,9 @@ spec:
       enabled: false
       forceDeployDatasources: true
       tolerations: *toler
+    # Using Cilium kube-proxy replacement
+    kubeProxy:
+      enabled: false
     prometheus:
       prometheusSpec:
         # additionalScrapeConfigs:

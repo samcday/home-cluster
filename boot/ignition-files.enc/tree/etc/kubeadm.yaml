@@ -24,8 +24,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-11T15:44:48Z"
-    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
+    lastmodified: "2023-09-13T13:51:19Z"
+    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3
@@ -35,11 +35,19 @@ kind: ClusterConfiguration
 controlPlaneEndpoint: 172.29.0.1:6444
 controllerManager:
     extraArgs:
+        bind-address: 0.0.0.0
         flex-volume-plugin-dir: /var/lib/kubelet/volume-plugins
+etcd:
+    local:
+        extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
 networking:
     dnsDomain: home-cluster.local
     podSubnet: 172.30.0.0/16,fdab:bc3f:3e04::/56
     serviceSubnet: 172.31.0.0/16,fd7f:bc81:7c5c::/112
+scheduler:
+    extraArgs:
+        bind-address: 0.0.0.0
 sops:
     kms: []
     gcp_kms: []
@@ -55,8 +63,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-11T15:44:48Z"
-    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
+    lastmodified: "2023-09-13T13:51:19Z"
+    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3
@@ -90,8 +98,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-11T15:44:48Z"
-    mac: ENC[AES256_GCM,data:7o4PffNwDGqpVFttjCDz2+jvpxzXhFyU6+LuJrTIPBhGbh2i98JHmvj5hHppfqPlxE8Ocsc/h2rYu574qDsz3WZA5+xoz/NRLGl+yjBFTHpaXipUFyo1OJ1pXUErmyNInWrmsFVmY7YoWgASRnzMViK6NVvAklYhKcMqsRgdFsQ=,iv:oyV54CMT20SthfAt9LvjiSaW6hCmHvmlttPCAJ2du6U=,tag:VZqmOZMygtZfLtqw656H4g==,type:str]
+    lastmodified: "2023-09-13T13:51:19Z"
+    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.7.3
