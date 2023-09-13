@@ -24,4 +24,4 @@ resources:
   - prometheus-operator.yaml
   - tailscale-node-controller.yaml
   - tailscale-service-router.yaml
-  # - velero.yaml
+  - velero.yaml
