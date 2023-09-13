@@ -6,5 +6,5 @@ metadata:
 spec:
   interval: 1h
   ref:
-    tag: v0.15.0-rc.4
+    tag: v0.16.0-rc.2
   url: https://github.com/weaveworks/tf-controller.git

@@ -3,5 +3,5 @@ kind: Kustomization
 namespace: flux-system
 resources:
 - root.yaml
-# - tf-controller.yaml
+- tf-controller.yaml
 - webhook-ingress.yaml

@@ -19,6 +19,3 @@ spec:
     runner:
       serviceAccount:
         allowedNamespaces: [kube-system, monitoring]
-    tolerations:
-      - key: samcday.com/cloud
-        operator: Exists

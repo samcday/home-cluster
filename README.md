@@ -19,4 +19,3 @@ The Kubernetes cluster is reconciled with Flux, the manifests are in [`cluster/`
 Cluster storage is provided by Ceph.
 
 Cluster networking is powered by Cilium in native L2 mode. Each node is inside a Tailscale tailnet, and the tailnet is used to route intra-cluster traffic.
-
