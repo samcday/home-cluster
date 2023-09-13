@@ -1,0 +1,8 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: bucket
+  namespace: forgejo
+spec:
+  generateBucketName: forgejo
+  storageClassName: ceph-bucket

@@ -36,7 +36,7 @@ spec:
         attachment: &s3
           STORAGE_TYPE: minio
         database:
-          HOST: postgres-db.postgres.svc.cluster.local.
+          HOST: db-rw
           NAME: forgejo
           SSL_MODE: require
         git.timeout:
@@ -53,23 +53,37 @@ spec:
           DISABLE_REGISTRATION: true
         session:
           PROVIDER: db
-        storage:
-          MINIO_ENDPOINT: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
         storage.repo-archive: *s3
     persistence:
-      storageClass: syncthing
+      storageClass: ceph-block
     postgresql:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: forgejo-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+      name: db-user
       valuesKey: username
       targetPath: gitea.config.database.USER
     - kind: Secret
-      name: forgejo-owner-user.postgres-db.credentials.postgresql.acid.zalan.do
+      name: db-user
       valuesKey: password
       targetPath: gitea.config.database.PASSWD
     - kind: Secret
       name: admin
       valuesKey: password
       targetPath: gitea.admin.password
+    - kind: Secret
+      name: bucket
+      valuesKey: AWS_ACCESS_KEY_ID
+      targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
+    - kind: Secret
+      name: bucket
+      valuesKey: AWS_SECRET_ACCESS_KEY
+      targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
+    - kind: ConfigMap
+      name: bucket
+      valuesKey: BUCKET_HOST
+      targetPath: gitea.config.storage.MINIO_ENDPOINT
+    - kind: ConfigMap
+      name: bucket
+      valuesKey: BUCKET_NAME
+      targetPath: gitea.config.storage.MINIO_BUCKET
