@@ -40,11 +40,22 @@ resource "kubernetes_secret" "backups-bucket" {
   }
 }
 
-
 resource "kubernetes_secret" "miniflux" {
   metadata {
     name      = "backups-bucket"
     namespace = "miniflux"
+  }
+
+  data = {
+    ACCESS_KEY_ID = "${b2_application_key.backups.application_key_id}"
+    ACCESS_SECRET_KEY = "${b2_application_key.backups.application_key}"
+  }
+}
+
+resource "kubernetes_secret" "synapse" {
+  metadata {
+    name      = "backups-bucket"
+    namespace = "synapse"
   }
 
   data = {
