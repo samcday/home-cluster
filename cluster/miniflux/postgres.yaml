@@ -8,7 +8,7 @@ spec:
     barmanObjectStore:
       data:
         compression: bzip2
-      destinationPath: postgres/miniflux
+      destinationPath: s3://samcday-home-cluster-backups/postgres/miniflux
       endpointURL: https://s3.eu-central-003.backblazeb2.com
       s3Credentials:
         accessKeyId:
