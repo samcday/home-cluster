@@ -45,7 +45,8 @@ spec:
                 - name: rclone-config
                   mountPath: /config/rclone
           hostNetwork: true
-          nodeName: librem13.hominions.tailnet.samcday.com
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: ""
           restartPolicy: OnFailure
           volumes:
             - name: backup
