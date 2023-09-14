@@ -39,3 +39,16 @@ resource "kubernetes_secret" "backups-bucket" {
     EOT
   }
 }
+
+
+resource "kubernetes_secret" "miniflux" {
+  metadata {
+    name      = "backups-bucket"
+    namespace = "miniflux"
+  }
+
+  data = {
+    ACCESS_KEY_ID = "${b2_application_key.backups.application_key_id}"
+    ACCESS_SECRET_KEY = "${b2_application_key.backups.application_key}"
+  }
+}
