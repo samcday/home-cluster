@@ -11,34 +11,35 @@ spec:
         spec:
           initContainers:
             - name: make-snapshot
-              image: alpine:3
+              image: bitnami/etcd:3.5.9
               args:
-                - ash
+                - bash
                 - -c
                 - |
                   set -uexo pipefail
-                  chroot /host bash -l -c 'etcdctl snapshot save /root/snapshot'
-                  mv /host/root/snapshot /backup/$(NODE_NAME)
-              env:
-                - name: NODE_NAME
-                  valueFrom:
-                    fieldRef:
-                      fieldPath: spec.nodeName
+                  etcdctl \
+                    --cacert /pki/ca.crt \
+                    --cert /pki/peer.crt \
+                    --key /pki/peer.key \
+                    snapshot save /backup/etcd
               securityContext:
                 privileged: true
+                runAsUser: 0
               volumeMounts:
                 - name: backup
                   mountPath: /backup
-                - name: host
-                  mountPath: /host
+                - name: etcd-pki
+                  mountPath: /pki
           containers:
             - name: copy-snapshot
               image: rclone/rclone:1
               args:
-                - sync
+                - copy
                 - -P
-                - /backup
-                - remote:samcday-home-cluster-backups/etcd
+                - -I
+                - --s3-no-check-bucket
+                - /backup/etcd
+                - remote:samcday-home-cluster-backups
               volumeMounts:
                 - name: backup
                   mountPath: /backup
@@ -51,9 +52,9 @@ spec:
           volumes:
             - name: backup
               emptyDir: {}
-            - name: host
+            - name: etcd-pki
               hostPath:
-                path: /
+                path: /etc/kubernetes/pki/etcd
             - name: rclone-config
               secret:
                 secretName: backups-bucket
