@@ -4,11 +4,26 @@ metadata:
   name: db
   namespace: forgejo
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
-  instances: 2
+  backup:
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      destinationPath: s3://samcday-home-cluster-backups/postgres/forgejo
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: postgres-backups-bucket
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: postgres-backups-bucket
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
   bootstrap:
     initdb:
       database: forgejo
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
+  instances: 2
   storage:
     size: 5Gi
     storageClass: ceph-block

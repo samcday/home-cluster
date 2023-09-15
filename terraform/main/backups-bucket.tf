@@ -63,3 +63,30 @@ resource "kubernetes_secret" "synapse" {
     ACCESS_SECRET_KEY = "${b2_application_key.backups.application_key}"
   }
 }
+
+locals {
+  pg_namespaces = toset(["forgejo", "miniflux", "monitoring", "synapse"])
+}
+
+resource "b2_application_key" "postgres-backup-keys" {
+  for_each = local.pg_namespaces
+
+  key_name     = "postgres-backup-${each.key}"
+  bucket_id    = b2_bucket.backups.bucket_id
+  capabilities = ["listFiles", "readFiles", "writeFiles", "deleteFiles"]
+  name_prefix = "postgres/${each.key}"
+}
+
+resource "kubernetes_secret" "postgres-backup-bucket" {
+  for_each = local.pg_namespaces
+
+  metadata {
+    name      = "postgres-backups-bucket"
+    namespace = each.key
+  }
+
+  data = {
+    ACCESS_KEY_ID = "${b2_application_key.postgres-backup-keys[each.key].application_key_id}"
+    ACCESS_SECRET_KEY = "${b2_application_key.postgres-backup-keys[each.key].application_key}"
+  }
+}
