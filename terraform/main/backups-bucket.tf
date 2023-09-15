@@ -32,7 +32,7 @@ resource "kubernetes_secret" "backups-bucket" {
     endpoint = s3.eu-central-003.backblazeb2.com
     acl = private
     EOT
-    "velero" = <<-EOT
+    "velero"      = <<-EOT
     [default]
     aws_access_key_id=${b2_application_key.backups.application_key_id}
     aws_secret_access_key=${b2_application_key.backups.application_key}
@@ -50,7 +50,7 @@ resource "b2_application_key" "postgres-backup-keys" {
   key_name     = "postgres-backup-${each.key}"
   bucket_id    = b2_bucket.backups.bucket_id
   capabilities = ["listAllBucketNames", "listBuckets", "listFiles", "readFiles", "writeFiles", "deleteFiles"]
-  name_prefix = "postgres/${each.key}"
+  name_prefix  = "postgres/${each.key}"
 }
 
 resource "kubernetes_secret" "postgres-backup-bucket" {
@@ -60,12 +60,12 @@ resource "kubernetes_secret" "postgres-backup-bucket" {
     name      = "postgres-backups-bucket"
     namespace = each.key
     labels = {
-      "cnpg.io/reload": "true",
+      "cnpg.io/reload" : "true",
     }
   }
 
   data = {
-    ACCESS_KEY_ID = "${b2_application_key.postgres-backup-keys[each.key].application_key_id}"
+    ACCESS_KEY_ID     = "${b2_application_key.postgres-backup-keys[each.key].application_key_id}"
     ACCESS_SECRET_KEY = "${b2_application_key.postgres-backup-keys[each.key].application_key}"
   }
 }
