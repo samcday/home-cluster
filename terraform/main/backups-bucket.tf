@@ -73,7 +73,7 @@ resource "b2_application_key" "postgres-backup-keys" {
 
   key_name     = "postgres-backup-${each.key}"
   bucket_id    = b2_bucket.backups.bucket_id
-  capabilities = ["listFiles", "readFiles", "writeFiles", "deleteFiles"]
+  capabilities = ["listAllBucketNames", "listBuckets", "listFiles", "readFiles", "writeFiles", "deleteFiles"]
   name_prefix = "postgres/${each.key}"
 }
 
@@ -83,6 +83,9 @@ resource "kubernetes_secret" "postgres-backup-bucket" {
   metadata {
     name      = "postgres-backups-bucket"
     namespace = each.key
+    labels = {
+      "cnpg.io/reload": "true",
+    }
   }
 
   data = {
