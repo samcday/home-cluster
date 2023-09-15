@@ -12,10 +12,10 @@ spec:
       endpointURL: https://s3.eu-central-003.backblazeb2.com
       s3Credentials:
         accessKeyId:
-          name: backups-bucket
+          name: postgres-backups-bucket
           key: ACCESS_KEY_ID
         secretAccessKey:
-          name: backups-bucket
+          name: postgres-backups-bucket
           key: ACCESS_SECRET_KEY
       wal:
         compression: bzip2
