@@ -14,6 +14,6 @@ resources:
   - kube-prometheus-stack.yaml
   - metrics-server.yaml
   - namespace.yaml
-  # - pagerduty.yaml
+  - pagerduty.yaml
   # - promtail.yaml
   # - targetdown-fixed.yaml
