@@ -19,6 +19,7 @@ spec:
           key: ACCESS_SECRET_KEY
       wal:
         compression: bzip2
+    retentionPolicy: 90d
   bootstrap:
     initdb:
       database: synapse
@@ -60,3 +61,15 @@ spec:
   storage:
     size: 20Gi
     storageClass: ceph-block
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: db
+  namespace: synapse
+spec:
+  schedule: "0 0 3 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: db
+

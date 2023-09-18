@@ -19,6 +19,7 @@ spec:
           key: ACCESS_SECRET_KEY
       wal:
         compression: bzip2
+    retentionPolicy: 90d
   bootstrap:
     initdb:
       database: forgejo
@@ -27,3 +28,14 @@ spec:
   storage:
     size: 5Gi
     storageClass: ceph-block
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: db
+  namespace: forgejo
+spec:
+  schedule: "0 0 4 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: db
