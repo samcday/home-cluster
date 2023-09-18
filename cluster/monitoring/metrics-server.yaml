@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: metrics-server
         namespace: flux-system
-      version: 3.10.0
+      version: 3.11.0
   interval: 1h
   releaseName: metrics-server
   values:
