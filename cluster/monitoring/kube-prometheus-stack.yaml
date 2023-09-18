@@ -34,7 +34,7 @@ spec:
     defaultRules:
       disabled:
         # See targetdown-fixed PrometheusRule
-        TargetDown: true
+        # TargetDown: true
     grafana:
       enabled: false
       forceDeployDatasources: true
