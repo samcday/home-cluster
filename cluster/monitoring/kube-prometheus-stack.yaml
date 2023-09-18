@@ -28,8 +28,8 @@ spec:
         alertmanagerConfigMatcherStrategy:
           type: None
         externalUrl: http://kube-prometheus-stack-alertmanager.monitoring.svc.home-cluster.local:9093
-    defaultRules:
-      disabled:
+    # defaultRules:
+      # disabled:
         # See targetdown-fixed PrometheusRule
         # TargetDown: true
     grafana:
