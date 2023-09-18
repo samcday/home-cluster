@@ -3,5 +3,5 @@ datasources:
 - name: Loki
   type: loki
   access: proxy
-  url: http://loki-gateway.monitoring.svc.cluster.local
+  url: http://loki-gateway.monitoring.svc.home-cluster.local
   version: 1

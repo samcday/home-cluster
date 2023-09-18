@@ -24,7 +24,7 @@ spec:
   values:
     # https://github.com/grafana/helm-charts/blob/main/charts/promtail/values.yaml
     config:
-      lokiAddress: http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push
+      lokiAddress: http://loki-gateway.monitoring.svc.home-cluster.local/loki/api/v1/push
       snippets:
         extraScrapeConfigs: |
           # Add an additional scrape config for syslog

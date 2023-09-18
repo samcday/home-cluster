@@ -23,26 +23,16 @@ spec:
       retries: -1
   values:
     # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
-    gateway:
-      tolerations: &toler
-        - key: samcday.com/cloud
-          effect: NoExecute
+    global:
+      clusterDomain: home-cluster.local
     loki:
       auth_enabled: false
-      commonConfig:
-        replication_factor: 1
       storage:
         type: s3
-        bucketNames:
-          chunks: loki-chunks
-          ruler: loki-ruler
-          admin: loki-admin
         s3:
-          accessKeyId: dummy
-          endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+          endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
           insecure: true
           s3ForcePathStyle: true
-          secretAccessKey: dummy
     monitoring:
       lokiCanary:
         enabled: false
@@ -50,10 +40,22 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
-    singleBinary:
-      persistence:
-        storageClass: syncthing
-      replicas: 1
-      tolerations: *toler
     test:
       enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: loki-bucket
+      valuesKey: AWS_ACCESS_KEY_ID
+      targetPath: loki.storage.s3.accessKeyId
+    - kind: Secret
+      name: loki-bucket
+      valuesKey: AWS_SECRET_ACCESS_KEY
+      targetPath: loki.storage.s3.secretAccessKey
+    - kind: ConfigMap
+      name: loki-bucket
+      valuesKey: BUCKET_NAME
+      targetPath: loki.storage.bucketNames.chunks
+    - kind: ConfigMap
+      name: loki-bucket
+      valuesKey: BUCKET_NAME
+      targetPath: loki.storage.bucketNames.ruler

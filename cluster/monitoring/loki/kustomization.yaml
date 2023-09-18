@@ -17,5 +17,6 @@ configMapGenerator:
 resources:
   - ../../config
   - alerts.yaml
+  - bucket.yaml
   - helm-release.yaml
   - recordingrules.yaml
