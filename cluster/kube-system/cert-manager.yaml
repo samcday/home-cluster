@@ -23,17 +23,10 @@ spec:
       retries: -1
   values:
     # https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
-    cainjector:
-      tolerations: &toler
-        - key: samcday.com/cloud
-          operator: Exists
     installCRDs: true
     prometheus:
       servicemonitor:
         enabled: true
-    tolerations: *toler
-    webhook:
-      tolerations: *toler
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization

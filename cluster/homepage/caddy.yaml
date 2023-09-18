@@ -14,9 +14,6 @@ spec:
         app.kubernetes.io/name: homepage
         app.kubernetes.io/component: caddy
     spec:
-      tolerations:
-        - effect: NoExecute
-          key: samcday.com/cloud
       containers:
         - image: caddy:2-alpine
           name: caddy

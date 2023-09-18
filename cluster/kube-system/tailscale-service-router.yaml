@@ -50,9 +50,6 @@ spec:
               memory: 1Gi
       serviceAccountName: tailscale-service-router
       terminationGracePeriodSeconds: 3
-      tolerations:
-        - key: samcday.com/cloud
-          operator: Exists
 ---
 apiVersion: v1
 kind: ServiceAccount
