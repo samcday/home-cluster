@@ -53,7 +53,7 @@ spec:
       portal:
         - auto-research
         - flib
-        - graftorio2
+        # - graftorio2
         - helmod
         - ModuleInserter
         - VehicleSnap
