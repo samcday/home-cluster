@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: home-cluster-media
+  name: seedbox
   namespace: flux-system
 spec:
   interval: 1h
@@ -9,12 +9,12 @@ spec:
     branch: main
   secretRef:
     name: code-samcday-com
-  url: https://code.samcday.com/me/home-cluster-media
+  url: https://code.samcday.com/me/seedbox
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
-  name: home-cluster-media
+  name: seedbox
   namespace: flux-system
 spec:
   type: github
@@ -25,4 +25,4 @@ spec:
     name: webhook-token
   resources:
     - kind: GitRepository
-      name: home-cluster-media
+      name: seedbox
