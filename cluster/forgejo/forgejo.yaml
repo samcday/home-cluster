@@ -61,11 +61,11 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: db-app
+      name: db-20230921-app
       valuesKey: username
       targetPath: gitea.config.database.USER
     - kind: Secret
-      name: db-app
+      name: db-20230921-app
       valuesKey: password
       targetPath: gitea.config.database.PASSWD
     - kind: Secret
