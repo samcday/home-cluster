@@ -1,11 +1,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: db
+  name: db-20230921
   namespace: forgejo
 spec:
   backup:
-    barmanObjectStore:
+    barmanObjectStore: &objstore
       data:
         compression: bzip2
       destinationPath: s3://samcday-home-cluster-backups/postgres/forgejo
@@ -21,8 +21,13 @@ spec:
         compression: bzip2
     retentionPolicy: 90d
   bootstrap:
-    initdb:
-      database: forgejo
+    # initdb:
+    #   database: forgejo
+    recovery:
+      source: db
+  externalClusters:
+    - name: db
+      barmanObjectStore: *objstore
   imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
   instances: 2
   storage:

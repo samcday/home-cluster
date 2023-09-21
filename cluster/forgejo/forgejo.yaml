@@ -36,7 +36,7 @@ spec:
           ENABLED: true
         database:
           DB_TYPE: postgres
-          HOST: db-rw:5432
+          HOST: db-20230921-rw:5432
           NAME: forgejo
           SSL_MODE: require
         git.timeout:
