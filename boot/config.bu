@@ -38,8 +38,11 @@ storage:
       overwrite: true
     - path: /etc/kubeadm.yaml
       mode: 0600
-    - path: /etc/kubernetes/pki/ca.key
+    - path: /var/lib/kubernetes/pki/ca.crt
+      overwrite: true
+    - path: /var/lib/kubernetes/pki/ca.key
       mode: 0600
+      overwrite: true
   filesystems:
     - path: /var
       device: /dev/mapper/var
@@ -57,6 +60,17 @@ systemd:
   units:
     - name: containerd.service
       enabled: true
+    - name: etc-kubernetes.mount
+      enabled: true
+      contents: |
+        [Mount]
+        What=/var/lib/kubernetes
+        Where=/etc/kubernetes
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target
     - name: init.service
       enabled: true
       contents: |
