@@ -1,11 +1,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: grafana-db
+  name: grafana-db-20230921
   namespace: monitoring
 spec:
   backup:
-    barmanObjectStore:
+    barmanObjectStore: &objstore
       data:
         compression: bzip2
       destinationPath: s3://samcday-home-cluster-backups/postgres/monitoring
@@ -21,8 +21,15 @@ spec:
         compression: bzip2
     retentionPolicy: 90d
   bootstrap:
-    initdb:
+    # initdb:
+    #   database: grafana
+    recovery:
+      source: db
       database: grafana
+      owner: grafana
+  externalClusters:
+    - name: db
+      barmanObjectStore: *objstore
   imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
   instances: 2
   storage:
@@ -38,4 +45,4 @@ spec:
   schedule: "0 0 3 * * *"
   backupOwnerReference: self
   cluster:
-    name: grafana-db
+    name: grafana-db-20230921
