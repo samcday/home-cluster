@@ -25,6 +25,8 @@ spec:
     #   database: forgejo
     recovery:
       source: db
+      database: forgejo
+      owner: forgejo
   externalClusters:
     - name: db
       barmanObjectStore: *objstore
