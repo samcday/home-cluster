@@ -1,0 +1,4 @@
+[updates]
+strategy = "fleet_lock"
+[updates.fleet_lock]
+base_url = "http://127.0.0.1:8123/"

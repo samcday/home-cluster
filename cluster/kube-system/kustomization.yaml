@@ -18,6 +18,7 @@ resources:
   - cert-manager.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml
+  - fleetlock.yaml
   - goldpinger.yaml
   - ingress-nginx.yaml
   - node-problem-detector.yaml
