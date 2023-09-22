@@ -58,6 +58,7 @@ spec:
             memory: 512Mi
           requests:
             cpu: ~
+            memory: 512Mi
         mgr: *resources
         mgr-sidecar: *resources
         mon: *resources
