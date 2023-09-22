@@ -4,6 +4,8 @@ metadata:
   name: db
   namespace: synapse
 spec:
+  affinity:
+    podAntiAffinityType: required
   backup:
     barmanObjectStore:
       data:

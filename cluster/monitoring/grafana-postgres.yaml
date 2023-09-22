@@ -4,6 +4,8 @@ metadata:
   name: grafana-db-20230921
   namespace: monitoring
 spec:
+  affinity:
+    podAntiAffinityType: required
   backup:
     barmanObjectStore: &objstore
       data:

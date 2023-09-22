@@ -4,6 +4,8 @@ metadata:
   name: db-20230922
   namespace: forgejo
 spec:
+  affinity:
+    podAntiAffinityType: required
   backup:
     barmanObjectStore: &objstore
       data:

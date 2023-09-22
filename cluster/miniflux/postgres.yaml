@@ -4,6 +4,8 @@ metadata:
   name: db
   namespace: miniflux
 spec:
+  affinity:
+    podAntiAffinityType: required
   backup:
     barmanObjectStore:
       data:
