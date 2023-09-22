@@ -36,7 +36,7 @@ spec:
           ENABLED: true
         database:
           DB_TYPE: postgres
-          HOST: db-20230921-rw:5432
+          HOST: db-20230922-rw:5432
           NAME: forgejo
           SSL_MODE: require
         git.timeout:
@@ -61,11 +61,11 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: db-20230921-app
+      name: db-20230922-app
       valuesKey: username
       targetPath: gitea.config.database.USER
     - kind: Secret
-      name: db-20230921-app
+      name: db-20230922-app
       valuesKey: password
       targetPath: gitea.config.database.PASSWD
     - kind: Secret
