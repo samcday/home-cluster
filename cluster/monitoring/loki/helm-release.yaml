@@ -16,8 +16,9 @@ spec:
   install:
     remediation:
       retries: -1
-  interval: 5m
+  interval: 1h
   releaseName: loki
+  timeout: 30m
   upgrade:
     remediation:
       retries: -1
