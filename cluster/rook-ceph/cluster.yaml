@@ -64,6 +64,7 @@ spec:
             memory: 2Gi
         prepareosd: *resources
       storage:
+        useAllDevices: false
         useAllNodes: false
         nodes:
           - name: m710q-1
