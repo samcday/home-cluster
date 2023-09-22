@@ -56,6 +56,18 @@ spec:
         mgr: *resources
         mgr-sidecar: *resources
         mon: *resources
+        storage:
+          useAllNodes: false
+          nodes:
+            - name: m710q-1
+              devices:
+                - name: sda6
+            - name: m710q-2
+              devices:
+                - name: sda6
+            - name: m710q-3
+              devices:
+                - name: sda6
         osd:
           limits:
             cpu: ~
