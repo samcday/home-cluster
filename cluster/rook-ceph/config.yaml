@@ -10,3 +10,4 @@ data:
   config: |
     [global]
     mon_osd_crush_smoke_test = false
+    mon_data_avail_warn = 20
