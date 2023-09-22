@@ -52,14 +52,19 @@ spec:
           requests:
             cpu: ~
         crashcollector: *resources
-        logcollector: *resources
+        logcollector:
+          limits:
+            cpu: ~
+            memory: 512Mi
+          requests:
+            cpu: ~
         mgr: *resources
         mgr-sidecar: *resources
         mon: *resources
         osd:
           limits:
             cpu: ~
-            memory: 4Gi
+            memory: 3Gi
           requests:
             cpu: ~
             memory: 2Gi
