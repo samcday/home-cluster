@@ -17,6 +17,8 @@ resource "tailscale_acl" "acl" {
 
     "tagOwners" : {
       "tag:home-cluster" : ["autogroup:admin"],
+      "tag:k8s-operator": [],
+      "tag:k8s": ["tag:k8s-operator"],
     },
 
     "acls" : [
