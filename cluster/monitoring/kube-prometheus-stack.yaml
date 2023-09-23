@@ -27,7 +27,16 @@ spec:
       alertmanagerSpec:
         alertmanagerConfigMatcherStrategy:
           type: None
-        externalUrl: http://kube-prometheus-stack-alertmanager.monitoring.svc.home-cluster.local:9093
+        externalUrl: https://alertmanager.samcday.com:9093
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+        hosts: [alertmanager.samcday.com]
+        ingressClassName: nginx
+        tls:
+          - hosts: [alertmanager.samcday.com]
+            secretName: alertmanager-certificate
     # defaultRules:
       # disabled:
         # See targetdown-fixed PrometheusRule
@@ -39,6 +48,15 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+        hosts: [prometheus.samcday.com]
+        ingressClassName: nginx
+        tls:
+          - hosts: [prometheus.samcday.com]
+            secretName: prometheus-certificate
       prometheusSpec:
         # additionalScrapeConfigs:
         #   - job_name: node-exporter
@@ -47,7 +65,7 @@ spec:
         #           # - home-cluster-router.hominions.tailnet.samcday.com:9100
         #           # - sam-laptop.personal.tailnet.samcday.com:9100
         enableAdminAPI: true
-        externalUrl: http://kube-prometheus-stack-prometheus.monitoring.svc.home-cluster.local:9090
+        externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         retention: 30d
