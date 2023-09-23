@@ -11,8 +11,6 @@ configMapGenerator:
       immutable: true
       labels:
         grafana_dashboard: '1'
-  - name: vertical-pod-autoscaler-values
-    files: [vertical-pod-autoscaler/values.yaml]
 resources:
   - ../config
   - cert-manager.yaml

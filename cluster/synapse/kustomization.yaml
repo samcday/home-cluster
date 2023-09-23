@@ -28,4 +28,3 @@ resources:
 - postgres.yaml
 - prometheus-rules.yaml
 - synapse.yaml
-# - vpa.yaml
