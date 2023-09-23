@@ -24,6 +24,8 @@ spec:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
       ingressClass: public-nginx
+      ingressClassResource:
+        name: public-nginx
       extraContainers:
         - image: cloudflare/cloudflared:1357-ec2d18ea4fbe
           name: cloudflared
