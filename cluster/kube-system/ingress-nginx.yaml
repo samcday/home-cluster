@@ -16,40 +16,17 @@ spec:
   install:
     remediation:
       retries: -1
-  interval: 5m
-  releaseName: ingress-nginx
+  interval: 1h
   upgrade:
     remediation:
       retries: -1
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
-      extraContainers:
-        - image: cloudflare/cloudflared:1357-ec2d18ea4fbe
-          name: cloudflared
-          args:
-          - tunnel
-          - --no-autoupdate
-          - run
-          - --no-tls-verify
-          - --url
-          - https://localhost:443
-          envFrom:
-            - secretRef:
-                name: cloudflared-tunnel-token
-          resources:
-            requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
-              cpu: '2'
-              memory: 1Gi
       kind: Deployment
       metrics:
         enabled: true
       replicaCount: 2
       service:
-        enabled: false
+        loadBalancerClass: tailscale
       terminationGracePeriodSeconds: 5
-      updateStrategy:
-        type: Recreate

@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx-public
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: ingress-nginx
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+        namespace: flux-system
+      version: 4.7.2
+  install:
+    remediation:
+      retries: -1
+  interval: 1h
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+    controller:
+      ingressClass: public-nginx
+      extraContainers:
+        - image: cloudflare/cloudflared:1357-ec2d18ea4fbe
+          name: cloudflared
+          args:
+          - tunnel
+          - --no-autoupdate
+          - run
+          - --no-tls-verify
+          - --url
+          - https://localhost:443
+          envFrom:
+            - secretRef:
+                name: cloudflared-tunnel-token
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: '2'
+              memory: 1Gi
+      kind: Deployment
+      metrics:
+        enabled: true
+      replicaCount: 2
+      service:
+        enabled: false
+      terminationGracePeriodSeconds: 5
+      updateStrategy:
+        type: Recreate

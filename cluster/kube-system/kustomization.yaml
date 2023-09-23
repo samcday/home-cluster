@@ -19,6 +19,7 @@ resources:
   - fleetlock.yaml
   - goldpinger.yaml
   - ingress-nginx.yaml
+  - ingress-nginx-public.yaml
   - node-problem-detector.yaml
   - prometheus-operator.yaml
   - tailscale-node-controller.yaml

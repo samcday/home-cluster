@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     cert-manager.io/cluster-issuer: letsencrypt
 spec:
-  ingressClassName: nginx
+  ingressClassName: public-nginx
   rules:
   - host: homeserver.samcday.com
     http:
@@ -20,6 +20,5 @@ spec:
         path: /
         pathType: Prefix
   tls:
-  - hosts:
-    - homeserver.samcday.com
+  - hosts: [homeserver.samcday.com]
     secretName: certificate
