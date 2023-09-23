@@ -172,6 +172,7 @@ spec:
           name: ceph-dashboard.samcday.com
         tls:
           - hosts: [ceph-dashboard.samcday.com]
+            secretName: dashboard-certificate
         ingressClassName: nginx
     toolbox:
       enabled: true

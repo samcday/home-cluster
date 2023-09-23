@@ -38,6 +38,9 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt
       hosts: [grafana.samcday.com]
       ingressClassName: nginx
+      tls:
+        - hosts: [grafana.samcday.com]
+          secretName: grafana-certificate
     grafana.ini:
       database:
         type: postgres
