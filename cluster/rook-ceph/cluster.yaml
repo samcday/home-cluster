@@ -162,5 +162,16 @@ spec:
           volumeBindingMode: Immediate
           parameters:
             region: us-east-1
+    dashboard:
+      ssl: false
+    ingress:
+      dashboard:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+        host:
+          name: ceph-dashboard.samcday.com
+        tls:
+          - hosts: [ceph-dashboard.samcday.com]
+        ingressClassName: nginx
     toolbox:
       enabled: true
