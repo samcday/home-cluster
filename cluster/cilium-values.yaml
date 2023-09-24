@@ -13,8 +13,9 @@ k8sServicePort: 6444
 kubeProxyReplacement: strict
 loadBalancer:
   serviceTopology: true
-# Tailscale needs a lower MTU: https://tailscale.com/kb/1023/troubleshooting/#unable-to-make-a-tcp-connection-between-two-nodes
-MTU: 1280
+# Cilium is autodetecting the incorrect 1280 MTU of tailscale0
+# https://github.com/cilium/cilium/issues/14339
+MTU: 1500
 operator:
   rollOutPods: true
   replicas: 1
