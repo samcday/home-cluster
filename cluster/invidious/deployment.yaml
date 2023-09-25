@@ -12,13 +12,11 @@ spec:
       app: invidious
   template:
     metadata:
-      annotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         app: invidious
     spec:
       containers:
-        - image: quay.io/invidious/invidious:latest-arm64
+        - image: quay.io/invidious/invidious:latest
           name: invidious
           env:
             - name: INVIDIOUS_CONFIG_FILE
@@ -42,7 +40,7 @@ spec:
               memory: 192Mi
             limits:
               cpu: '2'
-              memory: 256Mi
+              memory: 512Mi
           volumeMounts:
             - name: config
               mountPath: /config
@@ -62,12 +60,12 @@ spec:
             - name: PGUSER
               valueFrom:
                 secretKeyRef:
-                  name: invidious-owner-user.public-db.credentials.postgresql.acid.zalan.do
+                  name: db-20230925-app
                   key: username
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: invidious-owner-user.public-db.credentials.postgresql.acid.zalan.do
+                  name: db-20230925-app
                   key: password
             - name: CAPTCHA_KEY
               valueFrom:
@@ -84,11 +82,6 @@ spec:
               mountPath: /config-template
             - name: config
               mountPath: /config
-      nodeSelector:
-        kubernetes.io/arch: arm64
-      tolerations:
-        - key: samcday.com/cloud
-          effect: NoExecute
       volumes:
         - name: config-template
           configMap:

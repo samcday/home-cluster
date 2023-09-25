@@ -5,9 +5,10 @@ configMapGenerator:
 - name: config
   files: [config.yaml]
 resources:
-- ../config
-- deployment.yaml
-- ingress.yaml
-- namespace.yaml
-- pdb.yaml
-- service.yaml
+  - ../config
+  - deployment.yaml
+  - ingress.yaml
+  - namespace.yaml
+  - pdb.yaml
+  - postgres.yaml
+  - service.yaml

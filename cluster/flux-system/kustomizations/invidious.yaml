@@ -6,10 +6,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  path: home-cluster/invidious
+  path: cluster/invidious
   prune: true
   sourceRef:
     kind: GitRepository
-    name: hominions
+    name: home-cluster
     namespace: flux-system
   timeout: 5m
