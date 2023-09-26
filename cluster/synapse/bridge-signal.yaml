@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: bridge-signal
     spec:
       containers:
-        - image: dock.mau.dev/mautrix/signal:v0.4.2
+        - image: dock.mau.dev/mautrix/signal:v0.4.3
           name: mautrix-signal
           ports:
             - containerPort: 29328
