@@ -4,5 +4,8 @@
   ],
   "flux": {
     "fileMatch": ["cluster/.*\\.yaml"]
+  },
+  "kubernetes": {
+    "fileMatch": ["cluster/.*\\.yaml$"]
   }
 }
