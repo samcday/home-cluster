@@ -31,7 +31,7 @@ spec:
           key: token
     extraArgs:
       - --ingress-class=nginx
-      - --managed-record-types=A,AAAA
+      - --managed-record-types=A
     logLevel: debug
     policy: sync
     provider: cloudflare
