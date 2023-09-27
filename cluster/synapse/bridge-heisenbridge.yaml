@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bridge-heisenbridge
+  namespace: synapse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bridge-heisenbridge
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bridge-heisenbridge
+    spec:
+      containers:
+        - image: hif1/heisenbridge:1.14.5
+          name: heisenbridge
+          args:
+            - -c
+            - /data/registration.yaml
+          ports:
+            - containerPort: 9898
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      initContainers:
+        - name: config
+          image: alpine:3
+          command:
+            - sh
+            - -c
+            - |-
+              set -uexo pipefail
+              sed -e "s/_AS_/$HEI_AS/" \
+                  -e "s/_HS_/$HEI_HS/" \
+                  < /config/registration-heisenbridge.yaml > /data/registration.yaml
+          envFrom:
+            - secretRef:
+                name: bridge-heisenbridge
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config-templates
+          configMap:
+            name: config
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bridge-heisenbridge
+  namespace: synapse
+spec:
+  ports:
+  - port: 9898
+    protocol: TCP
+    targetPort: 9898
+  selector:
+    app.kubernetes.io/name: bridge-heisenbridge

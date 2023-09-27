@@ -42,6 +42,10 @@ spec:
 
               chown 991:991 /media
 
+              sed -e "s/_AS_/$HEI_AS/" \
+                  -e "s/_HS_/$HEI_HS/" \
+                  < /config-templates/registration-heisenbridge.yaml > /config/registration-heisenbridge.yaml
+
               sed -e "s/_AS_/$WA_AS/" \
                   -e "s/_HS_/$WA_HS/" \
                   -e "s/_LP_/$WA_LP/" < /config-templates/registration-whatsapp.yaml > /config/registration-whatsapp.yaml
@@ -68,6 +72,8 @@ spec:
                   name: db-app
                   key: password
           envFrom:
+            - secretRef:
+                name: bridge-heisenbridge
             - secretRef:
                 name: bridge-signal
             - secretRef:
