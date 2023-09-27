@@ -39,7 +39,7 @@ spec:
             - secretRef:
                 name: bridge-heisenbridge
           volumeMounts:
-            - name: config
+            - name: config-templates
               mountPath: /config
             - name: data
               mountPath: /data
