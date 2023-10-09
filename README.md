@@ -12,7 +12,7 @@ Every facet of the cluster is managed as code, in this repository.
 
 The M710q nodes run CoreOS, the Ignition is generated in [`boot/`](./boot/README.md). The root partition is encrypted, and uses Clevis to pin Tang+TPM2. `/var` is encrypted as a separate partition with a fixed secret.
 
-The router runs OpenWRT, the image is built in [`router/`](./router/README.md). It runs PXE netboot infra, and serves up the Ignition config when a node is (re-)installing CoreOS.
+The router runs OpenWRT, the image is built in [`router/`](./router/README.md).
 
 The Kubernetes cluster is reconciled with Flux, the manifests are in [`cluster/`](./cluster/README.md).
 
