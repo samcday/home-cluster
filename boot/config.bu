@@ -15,7 +15,12 @@ kernel_arguments:
     - mitigations=auto,nosmt
 passwd:
   users:
-    - name: core
+    - name: sam
+      groups:
+        - adm
+        - wheel
+        - sudo
+        - systemd-journal
       ssh_authorized_keys: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ]
 storage:
   directories:
