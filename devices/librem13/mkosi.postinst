@@ -5,16 +5,6 @@ if [ "${container:-}" != "mkosi" ]; then
     exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
 fi
 
-for svc in \
-    containerd.service \
-    iwd.service \
-    kubelet.service \
-    sshd.service \
-    systemd-networkd.service \
-    systemd-resolved.service \
-    systemd-timesyncd.service \
-    tailscaled.service; do systemctl enable $svc; done
-
 # Pick up the 90-purism-pipe-symbol-fix.hwdb file.
 systemd-hwdb update
 
