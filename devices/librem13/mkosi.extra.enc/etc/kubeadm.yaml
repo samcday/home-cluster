@@ -1,0 +1,60 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+controlPlaneEndpoint: 172.29.0.1:6444
+networking:
+    dnsDomain: home-cluster.local
+    podSubnet: 172.30.0.0/16,fdab:bc3f:3e04::/56
+    serviceSubnet: 172.31.0.0/16,fd7f:bc81:7c5c::/112
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQWEVXTGsyVFR6dXBvWk5Z
+            TjVUYTloV2Nxc2FxcXo1cWdkbnphR3B3a2tRCi8rMWx0QU5pUW9JRkpPZndhdEhu
+            ZHlIeHlOZ1BkcHptc25hZGlhdDlPalEKLS0tIE5oWTluQWUzUUZ1dFY3bjRBRVor
+            aDZSQlRyS3lNa0hqTU5WTHZuNjIyb2sKMQv1qbV++bT6DGmS1by7R+KyWoQn+0X1
+            LqYc0Cuuox0s5xNpd471wZuZd3LUaXdhQt1g7xdpdeyZ8EjI0fHm7Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-10-09T17:15:46Z"
+    mac: ENC[AES256_GCM,data:M5iw0bwZh97kr6txBHSBmPwkWGKiNB/KT2mW7KsGgFdnndWxx/MJRHOl1lfHIowjEXevdYVieovCX4y8AyrrhoMFbt/pO0fgXdVBlj2duKI8zc1la+zPQu8ZZalT7htQjv+Xx4tpneNfzWndPxxsL4NL79jewGDBaKPb6yAt/S0=,iv:6AVXwKRdZLxZGLKYN7ayPXS3ntzC2eE5OFQaeWySgxw=,tag:W21iEBthLhgFXdvEYmIcFg==,type:str]
+    pgp: []
+    encrypted_regex: token
+    version: 3.8.0
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: JoinConfiguration
+nodeRegistration:
+    kubeletExtraArgs:
+        cloud-provider: external
+    taints: []
+discovery:
+    bootstrapToken:
+        apiServerEndpoint: 172.29.0.1:6444
+        token: ENC[AES256_GCM,data:3jhy3BTeBZLhV/tGQWEQbb+xaGVBz4w=,iv:brjszLewP643aHH2cqTOMx2+ayIiPqqffh3+/MajyRQ=,tag:WbmC1EgvYuD5DMmWVwjdKw==,type:str]
+        caCertHashes:
+            - sha256:115e5a84bdb260f15defdbd836acf108769cff1e18bc9e2c473eb6f208051c58
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQWEVXTGsyVFR6dXBvWk5Z
+            TjVUYTloV2Nxc2FxcXo1cWdkbnphR3B3a2tRCi8rMWx0QU5pUW9JRkpPZndhdEhu
+            ZHlIeHlOZ1BkcHptc25hZGlhdDlPalEKLS0tIE5oWTluQWUzUUZ1dFY3bjRBRVor
+            aDZSQlRyS3lNa0hqTU5WTHZuNjIyb2sKMQv1qbV++bT6DGmS1by7R+KyWoQn+0X1
+            LqYc0Cuuox0s5xNpd471wZuZd3LUaXdhQt1g7xdpdeyZ8EjI0fHm7Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-10-09T17:15:46Z"
+    mac: ENC[AES256_GCM,data:M5iw0bwZh97kr6txBHSBmPwkWGKiNB/KT2mW7KsGgFdnndWxx/MJRHOl1lfHIowjEXevdYVieovCX4y8AyrrhoMFbt/pO0fgXdVBlj2duKI8zc1la+zPQu8ZZalT7htQjv+Xx4tpneNfzWndPxxsL4NL79jewGDBaKPb6yAt/S0=,iv:6AVXwKRdZLxZGLKYN7ayPXS3ntzC2eE5OFQaeWySgxw=,tag:W21iEBthLhgFXdvEYmIcFg==,type:str]
+    pgp: []
+    encrypted_regex: token
+    version: 3.8.0
