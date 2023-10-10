@@ -9,4 +9,7 @@ for f in $(find mkosi.extra.enc -type f); do
     sops -d mkosi.extra.enc/$f > .mkosi.extra.enc.dec/$f
 done
 
+sops -d mkosi.rootpw.enc > mkosi.rootpw
+chmod 600 mkosi.rootpw
+
 mkosi -f
