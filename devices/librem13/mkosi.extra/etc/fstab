@@ -6,4 +6,3 @@
 /var/lib/kubernetes /etc/kubernetes none bind
 
 /var/roothome /root none bind
-/var/home /home none bind
