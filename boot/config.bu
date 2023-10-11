@@ -96,7 +96,7 @@ systemd:
         RemainAfterExit=yes
         Type=oneshot
         # Install stuff.
-        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive haproxy kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive dmidecode haproxy kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
 
         # Start stuff just installed.
         ExecStart=systemctl enable --now haproxy.service kubelet.service tailscaled.service
