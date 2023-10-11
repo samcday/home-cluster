@@ -174,5 +174,8 @@ spec:
           - hosts: [ceph-dashboard.samcday.com]
             secretName: dashboard-certificate
         ingressClassName: nginx
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
     toolbox:
       enabled: true
