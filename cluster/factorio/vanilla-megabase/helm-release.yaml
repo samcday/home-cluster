@@ -41,6 +41,15 @@ spec:
       - name: caddyfile
         configMap:
           name: vanilla-megabase-caddyfile
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values: [librem13]
     factorioServer:
       generate_new_save: false
       save_name: 2021megabae
