@@ -43,6 +43,14 @@ spec:
           installOperator: false
     test:
       enabled: false
+    write:
+      # Enabling autoscaling also enables a lifecycle hook that ensures loki-write pods properly shut down.
+      # Otherwise they hang indefinitely.
+      # https://github.com/grafana/loki/issues/9523
+      autoscaling:
+        enabled: true
+        minReplicas: 3
+        maxReplicas: 3
   valuesFrom:
     - kind: Secret
       name: loki-bucket
