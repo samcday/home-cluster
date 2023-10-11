@@ -12,3 +12,6 @@ systemd-hwdb update
 mkdir /etc/iwd
 
 chmod 600 /etc/ssh/ssh_host_*_key
+
+pacman-key --init
+pacman-key --populate
