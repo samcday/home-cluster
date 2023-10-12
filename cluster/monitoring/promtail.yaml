@@ -27,7 +27,21 @@ spec:
       lokiAddress: http://loki-gateway.monitoring.svc.home-cluster.local/loki/api/v1/push
       snippets:
         extraScrapeConfigs: |
-          # Add an additional scrape config for syslog
+          - job_name: syslog
+            syslog:
+              listen_address: 0.0.0.0:{{ .Values.extraPorts.syslog.containerPort }}
+              labels:
+                job: syslog
+            relabel_configs:
+              - source_labels:
+                  - __syslog_message_hostname
+                target_label: hostname
+              - source_labels:
+                  - __syslog_message_app_name
+                target_label: app
+              - source_labels:
+                  - __syslog_message_severity
+                target_label: level
           - job_name: journal
             journal:
               path: /var/log/journal
@@ -44,6 +58,14 @@ spec:
               - source_labels:
                   - __journal_priority_keyword
                 target_label: level
+    extraPorts:
+      syslog:
+        name: tcp-syslog
+        containerPort: 1514
+        protocol: TCP
+        service:
+          type: ClusterIP
+          port: 1514
     extraVolumes:
       - name: journal
         hostPath:
