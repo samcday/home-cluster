@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.3.0
+  dependsOn:
+    - name: redis
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: data
+        mountPath: /usr/src/paperless/data
+        subPath: data
+      - name: data
+        mountPath: /usr/src/paperless/media
+        subPath: media
+      - name: data
+        mountPath: /usr/src/paperless/export
+        subPath: export
+      - name: data
+        mountPath: /usr/src/paperless/consume
+        subPath: consume
+    additionalVolumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
+    command:
+      - /bin/bash
+      - -c
+      - |-
+        export PAPERLESS_REDIS=redis://:${REDIS_PASS}@redis-master:6379
+        /sbin/docker-entrypoint.sh /usr/local/bin/paperless_cmd.sh
+    env:
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+      PAPERLESS_URL: https://paperless.samcday.com
+      PAPERLESS_DBHOST: db-20231012-rw
+    envValueFrom:
+      REDIS_PASS:
+        secretKeyRef:
+          name: redis
+          key: redis-password
+      PAPERLESS_DBPASS:
+        secretKeyRef:
+          name: db-20231012-app
+          key: password
+    image:
+      repository: ghcr.io/paperless-ngx/paperless-ngx
+      tag: 1.17.4
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: paperless.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [paperless.samcday.com]
+          secretName: certificate
+    livenessProbe:
+      httpGet:
+        path: /
+    ports:
+      - name: http
+        containerPort: 8000
+    readinessProbe: ~
