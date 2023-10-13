@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsyslog
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rsyslog
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rsyslog
+    spec:
+      containers:
+        - name: rsyslog
+          image: rsyslog/syslog_appliance_alpine:latest
+          args: [rsyslog]
+          ports:
+            - name: syslog
+              containerPort: 514
+              protocol: UDP
+          volumeMounts:
+            - name: config
+              mountPath: /etc/rsyslog.conf
+              subPath: rsyslog.conf
+      volumes:
+        - name: config
+          configMap:
+            name: rsyslog-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rsyslog
+  namespace: monitoring
+spec:
+  clusterIP: 172.31.0.9
+  ports:
+    - port: 514
+      protocol: UDP
+      targetPort: 514
+  selector:
+    app.kubernetes.io/name: rsyslog
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rsyslog-config
+  namespace: monitoring
+data:
+  rsyslog.conf: |-
+    ruleset(name="remote"){
+      action(type="omfwd" Target="promtail-syslog" Port="1514" Protocol="tcp" Template="RSYSLOG_SyslogProtocol23Format" TCP_Framing="octet-counted")
+    }
+
+    module(load="imudp")
+    input(type="imudp" port="514" ruleset="remote")

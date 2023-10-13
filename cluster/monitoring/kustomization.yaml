@@ -16,4 +16,5 @@ resources:
   - namespace.yaml
   - pagerduty.yaml
   - promtail.yaml
+  - rsyslog.yaml
   # - targetdown-fixed.yaml
