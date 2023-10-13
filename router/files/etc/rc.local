@@ -9,6 +9,7 @@ if [[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]]; the
   tailscale up \
     --reset \
     --accept-routes \
+    --accept-dns \
     --auth-key=${TAILNET_AUTH_KEY} \
   2>&1 | logger -st tailscale.up
 fi
