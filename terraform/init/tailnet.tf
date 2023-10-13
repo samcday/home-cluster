@@ -29,7 +29,7 @@ resource "tailscale_acl" "acl" {
       {
         "src" : "tag:home-cluster",
         "accept" : ["172.29.0.1:6444"],
-      },
+      }
     ],
   })
 }
