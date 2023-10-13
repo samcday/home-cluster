@@ -32,6 +32,7 @@ spec:
               listen_address: 0.0.0.0:{{ .Values.extraPorts.syslog.containerPort }}
               labels:
                 job: syslog
+              use_incoming_timestamp: true
             relabel_configs:
               - source_labels:
                   - __syslog_message_hostname
