@@ -4,6 +4,8 @@ bootstrapTokens:
     - token: ENC[AES256_GCM,data:yKizp2iXQNahoMLiebF0TO1cNjSkGso=,iv:pAz0QINX8iCnkV35a0uXVR9P4Mea0ik8hGBGbhYi6aw=,tag:huySqV1ZVOzqbukrco3f7g==,type:str]
       ttl: "0"
 certificateKey: ENC[AES256_GCM,data:k6bbmF+eLmS89t/e/WhKGlGoDTYpCI3+zht6vyY0WBIrLH8/Q5bVOuHT8mni9osyn3HTQGKVXg6T3PBxwATSQg==,iv:HS0/55tGM/4nQSQmW5QaEPubbEvOQGzxmWXDObQUlmk=,tag:HHAo9HdvfBw5hlsbhjSnkw==,type:str]
+localAPIEndpoint:
+    advertiseAddress: _TAILNET_IP4_
 nodeRegistration:
     kubeletExtraArgs:
         cloud-provider: external
@@ -24,11 +26,11 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-13T13:51:19Z"
-    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
+    lastmodified: "2023-10-14T08:15:40Z"
+    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.7.3
+    version: 3.8.0
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
@@ -63,16 +65,18 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-13T13:51:19Z"
-    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
+    lastmodified: "2023-10-14T08:15:40Z"
+    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.7.3
+    version: 3.8.0
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 controlPlane:
     certificateKey: ENC[AES256_GCM,data:QrYYJnbNWoM4WRY84e68oB/2IF3rqURmaLA+HMtpJNyeIxHEQgL1NFSiJwIEUFJaT4/SgV/87KawwK68FqxwxA==,iv:zNpJnN+CivQWiXkyO9MXM1ZW4ItDeJegTWui8knMCZA=,tag:1RF7QyQ4iP2aBGvFuWRCpQ==,type:str]
+    localAPIEndpoint:
+        advertiseAddress: _TAILNET_IP4_
 nodeRegistration:
     kubeletExtraArgs:
         cloud-provider: external
@@ -98,8 +102,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-13T13:51:19Z"
-    mac: ENC[AES256_GCM,data:Tr1UVHGJmQOvLmqBG19G8mCz4mW1n52Uu7t8TqzLPJtRTEd8ecxm3VF/KF2yrQyfQ9OtAaTquypOwLBCjNIpfAUlpBHW020KJZ9FAMjrpUT/GtzIX+flEKUd4CN1VRWODrw1SixZ58DlQLjWgV2tSe9s5UmL71wvH7P2KZ726io=,iv:2LoazH5C/2V9MCsGVODJNki7RzyqEfORngBHcyqtIlA=,tag:imhqHB252CQHhyF60MY/BQ==,type:str]
+    lastmodified: "2023-10-14T08:15:40Z"
+    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.7.3
+    version: 3.8.0

@@ -105,6 +105,7 @@ systemd:
         ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
         ExecStart=bash -c 'while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do sleep 0.5; done'
         ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns --accept-routes --advertise-routes=172.29.0.1/32 || exit 0'
+        ExecStart=bash -c 'sed -i "s/_TAILNET_IP4_/$(tailscale ip -4)/g" /etc/kubeadm.yaml'
         ExecStart=/bin/touch /etc/%N.stamp
 
         [Install]
