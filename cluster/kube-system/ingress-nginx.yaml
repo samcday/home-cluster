@@ -28,5 +28,6 @@ spec:
         enabled: true
       replicaCount: 2
       service:
-        loadBalancerClass: tailscale
+        # loadBalancerClass: tailscale
+        type: ClusterIP
       terminationGracePeriodSeconds: 5
