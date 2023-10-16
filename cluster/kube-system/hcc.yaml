@@ -15,7 +15,7 @@ spec:
       version: 0.0.3
   interval: 1h
   values:
-    # https://github.com/okgolove/helm-charts/blob/master/charts/goldpinger/values.yaml
+    # https://github.com/samcday/hcc/blob/main/chart/values.yaml
     config:
       adoption:
         taint: samcday.com/hcloud-init
