@@ -18,6 +18,7 @@ resources:
   - external-dns.yaml
   - fleetlock.yaml
   - goldpinger.yaml
+  - hcc.yaml
   - ingress-nginx.yaml
   - ingress-nginx-public.yaml
   - node-problem-detector.yaml
