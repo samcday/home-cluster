@@ -23,7 +23,6 @@ resources:
   - ingress-nginx-public.yaml
   - node-problem-detector.yaml
   - prometheus-operator.yaml
-  - servicelb-standalone.yaml
   - tailscale-node-controller.yaml
   - tailscale-service-router.yaml
   - velero.yaml
