@@ -7,3 +7,4 @@ resources:
   - postgres.yaml
   - pvc.yaml
   - redis.yaml
+  - webdav.yaml

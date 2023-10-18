@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: webdav
+  namespace: paperless
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.3.0
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: data
+        mountPath: /data
+        subPath: consume
+    additionalVolumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
+    args:
+      - serve
+      - webdav
+      - /data
+      - --addr
+      - :8000
+      - --dir-cache-time
+      - "0"
+      - --user
+      - webdav
+      - --pass
+      - $(PASSWORD)
+    envValueFrom:
+      PASSWORD:
+        secretKeyRef:
+          name: webdav-password
+          key: password
+    image:
+      repository: rclone/rclone
+      tag: 1.64.0
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: paperless-webdav.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [paperless-webdav.samcday.com]
+          secretName: webdav-cert
+    livenessProbe: ~
+    ports:
+      - name: http
+        containerPort: 8000
+    readinessProbe: ~
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
