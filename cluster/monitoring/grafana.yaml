@@ -26,11 +26,11 @@ spec:
     envValueFrom:
       GF_DATABASE_USER:
         secretKeyRef:
-          name: grafana-db-20230921-app
+          name: grafana-db-20231023-app
           key: username
       GF_DATABASE_PASSWORD:
         secretKeyRef:
-          name: grafana-db-20230921-app
+          name: grafana-db-20231023-app
           key: password
     ingress:
       enabled: true
@@ -44,7 +44,7 @@ spec:
     grafana.ini:
       database:
         type: postgres
-        host: grafana-db-20230921-rw
+        host: grafana-db-20231023-rw
         ssl_mode: require
     persistence:
       enabled: false
