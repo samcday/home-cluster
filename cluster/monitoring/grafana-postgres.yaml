@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: grafana-db-20230921
+  name: grafana-db-20231023
   namespace: monitoring
 spec:
   affinity:
@@ -26,11 +26,11 @@ spec:
     # initdb:
     #   database: grafana
     recovery:
-      source: grafana-db
+      source: grafana-db-20230921
       database: grafana
       owner: grafana
   externalClusters:
-    - name: grafana-db
+    - name: grafana-db-20230921
       barmanObjectStore: *objstore
   imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
   instances: 2
@@ -47,4 +47,4 @@ spec:
   schedule: "0 0 3 * * *"
   backupOwnerReference: self
   cluster:
-    name: grafana-db-20230921
+    name: grafana-db-20231023
