@@ -30,8 +30,8 @@ spec:
       # https://github.com/grafana/loki/issues/9523
       autoscaling:
         enabled: true
-        minReplicas: 3
-        maxReplicas: 3
+        minReplicas: 2
+        maxReplicas: 4
     global:
       clusterDomain: home-cluster.local
     loki:
