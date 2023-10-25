@@ -35,3 +35,8 @@ signing_key_path: /signing-key/signing.key
 suppress_key_server_warning: true
 trusted_key_servers:
   - server_name: matrix.org
+turn_uris:
+  - turn:turn.samcday.com?transport=udp
+  - turn:turn.samcday.com?transport=tcp
+turn_shared_secret: _TURN_SECRET_
+turn_user_lifetime: 86400000

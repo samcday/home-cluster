@@ -64,6 +64,7 @@ spec:
               sed -e "s/_MACAROON_/$MACAROON_SECRET_KEY/" \
                   -e "s/_REG_/$REGISTRATION_SECRET/" \
                   -e "s/_DBPASS_/$DBPASS/" \
+                  -e "s/_TURN_SECRET_/$TURN_SECRET/" \
                   < /config-templates/homeserver.yaml > /config/homeserver.yaml
           env:
             - name: DBPASS
@@ -71,6 +72,11 @@ spec:
                 secretKeyRef:
                   name: db-app
                   key: password
+            - name: TURN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: turn-secret
+                  key: secret
           envFrom:
             - secretRef:
                 name: bridge-heisenbridge
