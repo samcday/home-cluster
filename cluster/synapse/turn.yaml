@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: turn
+  namespace: synapse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: turn
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: turn
+    spec:
+      containers:
+        - name: eturnal
+          image: ghcr.io/processone/eturnal:1.12.0
+          env:
+            - name: ETURNAL_RELAY_MIN_PORT
+              value: "50000"
+            - name: ETURNAL_RELAY_MAX_PORT
+              value: "50099"
+            - name: ETURNAL_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: turn-secret
+                  key: secret
+      hostNetwork: true
+      nodeSelector:
+        topology.kubernetes.io/region: hcloud-eu-central
+      tolerations:
+        - key: samcday.com/hcloud
+          operator: Exists
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: turn
+  namespace: synapse
+  annotations:
+    external-dns.alpha.kubernetes.io/endpoints-type: NodeExternalIP
+    external-dns.alpha.kubernetes.io/hostname:  turn.samcday.com
+    external-dns.alpha.kubernetes.io/ttl: "60"
+spec:
+  ports:
+    - port: 3478
+      name: turn
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: turn
