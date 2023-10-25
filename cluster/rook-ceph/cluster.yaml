@@ -66,7 +66,7 @@ spec:
         osd:
           limits:
             cpu: ~
-            memory: 3Gi
+            memory: 4Gi
           requests:
             cpu: ~
             memory: 2Gi
