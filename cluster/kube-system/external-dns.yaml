@@ -32,6 +32,7 @@ spec:
     extraArgs:
       - --ingress-class=nginx
       - --managed-record-types=A
+      - --managed-record-types=AAAA
     logLevel: debug
     policy: sync
     provider: cloudflare
