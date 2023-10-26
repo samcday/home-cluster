@@ -26,15 +26,18 @@ spec:
       tls:
         - secretName: certificate
           hosts: [funkwhale.samcday.com]
+    persistence:
+      enabled: true
+      existingClaim: data
     postgresql:
       enabled: false
       host: db-20231026-rw
     redis:
       enabled: false
       host: redis-master
-    s3:
-      enabled: true
-      url: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
+    # s3:
+    #   enabled: true
+    #   url: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
   valuesFrom:
     - kind: Secret
       name: db-20231026-app
@@ -56,18 +59,18 @@ spec:
       name: django-secret
       valuesKey: secret
       targetPath: djangoSecret
-    - kind: Secret
-      name: media
-      valuesKey: AWS_ACCESS_KEY_ID
-      targetPath: s3.accessKey
-    - kind: Secret
-      name: media
-      valuesKey: AWS_SECRET_ACCESS_KEY
-      targetPath: s3.secretKey
-    - kind: ConfigMap
-      name: media
-      valuesKey: BUCKET_NAME
-      targetPath: s3.bucket
+    # - kind: Secret
+    #   name: media
+    #   valuesKey: AWS_ACCESS_KEY_ID
+    #   targetPath: s3.accessKey
+    # - kind: Secret
+    #   name: media
+    #   valuesKey: AWS_SECRET_ACCESS_KEY
+    #   targetPath: s3.secretKey
+    # - kind: ConfigMap
+    #   name: media
+    #   valuesKey: BUCKET_NAME
+    #   targetPath: s3.bucket
 
   #   # https://codeberg.org/forgejo-contrib/forgejo-helm/src/branch/main/values.yaml
   #   clusterDomain: home-cluster.local

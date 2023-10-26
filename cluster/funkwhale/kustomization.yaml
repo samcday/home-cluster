@@ -6,4 +6,5 @@ resources:
   - funkwhale.yaml
   - namespace.yaml
   - postgres.yaml
+  - pvc.yaml
   - redis.yaml
