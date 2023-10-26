@@ -6,17 +6,12 @@ metadata:
 spec:
   chart:
     spec:
-      # chart: funkwhale
-      # sourceRef:
-      #   kind: HelmRepository
-      #   name: ananace-charts
-      #   namespace: flux-system
-      # version: 2.0.3
-      chart: charts/funkwhale
+      chart: funkwhale
       sourceRef:
-        kind: GitRepository
-        name: samday-ananace-charts
+        kind: HelmRepository
+        name: ananace-charts
         namespace: flux-system
+      version: 2.0.3
   interval: 1h
   values:
     # https://github.com/ananace/personal-charts/blob/master/charts/funkwhale/values.yaml
@@ -56,7 +51,7 @@ spec:
     - kind: Secret
       name: redis
       valuesKey: redis-password
-      targetPath: redis.auth.dbname
+      targetPath: redis.auth.password
     - kind: Secret
       name: django-secret
       valuesKey: secret
