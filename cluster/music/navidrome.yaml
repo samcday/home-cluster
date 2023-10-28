@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+  namespace: music
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.3.0
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: music
+        mountPath: /music
+    additionalVolumes:
+      - name: music
+        persistentVolumeClaim:
+          claimName: music
+    env:
+      ND_MUSICFOLDER: /music
+    image:
+      repository: deluan/navidrome
+      tag: 0.49.3
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: navidrome.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [navidrome.samcday.com]
+          secretName: certificate
+    livenessProbe:
+      httpGet:
+        path: /ping
+    ports:
+      - name: http
+        containerPort: 4533
+    readinessProbe:
+      httpGet:
+        path: /ping
+    replicaCount: 1
