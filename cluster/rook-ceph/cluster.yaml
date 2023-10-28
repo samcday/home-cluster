@@ -104,6 +104,11 @@ spec:
               replicated:
                 size: 3
               name: data0
+            - failureDomain: host
+              erasureCoded:
+                dataChunks: 2
+                codingChunks: 1
+              name: ec
           metadataServer:
             activeCount: 1
             activeStandby: true
