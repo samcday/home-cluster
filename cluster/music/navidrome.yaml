@@ -31,7 +31,7 @@ spec:
     env:
       ND_MUSICFOLDER: /music
       ND_DATAFOLDER: /data
-      ND_LISTENBRAINZ_BASEURL: https://maloja.samcday.com/apis/listenbrainz
+      ND_LISTENBRAINZ_BASEURL: https://maloja.samcday.com/apis/listenbrainz/1/
     envFrom:
       - secretRef:
           name: navidrome
