@@ -5,7 +5,7 @@ metadata:
   name: forgejo
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   path: cluster/forgejo
   prune: true
   sourceRef:

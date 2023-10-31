@@ -5,7 +5,7 @@ metadata:
   name: music
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   path: cluster/music
   prune: true
   sourceRef:

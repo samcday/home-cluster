@@ -5,7 +5,7 @@ metadata:
   name: invidious
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   path: cluster/invidious
   prune: true
   sourceRef:

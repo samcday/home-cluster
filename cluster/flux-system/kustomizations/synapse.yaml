@@ -5,7 +5,7 @@ metadata:
   name: synapse
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   path: cluster/synapse
   prune: true
   sourceRef:

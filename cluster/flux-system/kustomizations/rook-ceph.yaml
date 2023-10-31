@@ -5,7 +5,7 @@ metadata:
   name: rook-ceph
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   path: cluster/rook-ceph
   prune: true
   sourceRef:

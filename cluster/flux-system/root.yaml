@@ -5,7 +5,7 @@ metadata:
   name: home-cluster
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   path: cluster/flux-system
   prune: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   name: kustomizations
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   path: cluster/flux-system/kustomizations
   prune: true
   sourceRef:
@@ -35,7 +35,7 @@ metadata:
   name: helmrepos
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   path: cluster/flux-system/helmrepos
   prune: true
   sourceRef:
@@ -50,7 +50,7 @@ metadata:
   name: gitrepos
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   path: cluster/flux-system/gitrepos
   prune: true
   sourceRef:

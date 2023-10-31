@@ -13,4 +13,4 @@ spec:
         name: samcday-tailscale-node-controller
         namespace: flux-system
       version: 0.0.11
-  interval: 5m
+  interval: 1h

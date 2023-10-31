@@ -16,7 +16,7 @@ spec:
   install:
     remediation:
       retries: -1
-  interval: 5m
+  interval: 1h
   releaseName: cert-manager
   upgrade:
     remediation:
@@ -34,7 +34,7 @@ metadata:
   name: cert-manager-issuers
   namespace: kube-system
 spec:
-  interval: 5m
+  interval: 1h
   path: cluster/kube-system/cert-manager-issuers
   prune: true
   sourceRef:

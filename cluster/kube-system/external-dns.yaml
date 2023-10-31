@@ -16,7 +16,7 @@ spec:
   install:
     remediation:
       retries: -1
-  interval: 5m
+  interval: 1h
   releaseName: external-dns
   upgrade:
     remediation:

@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: GitRepository
         name: forgejo-helm
-  interval: 5m
+  interval: 1h
   values:
     # https://codeberg.org/forgejo-contrib/forgejo-helm/src/branch/main/values.yaml
     clusterDomain: home-cluster.local

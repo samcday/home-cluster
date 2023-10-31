@@ -5,7 +5,7 @@ metadata:
   name: vpas
   namespace: kube-system
 spec:
-  interval: 5m
+  interval: 1h
   path: home-cluster/kube-system/vpas
   prune: true
   sourceRef:
