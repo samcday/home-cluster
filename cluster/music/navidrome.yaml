@@ -42,7 +42,7 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
-      className: nginx
+      className: public-nginx
       hosts:
         - host: navidrome.samcday.com
           paths:
