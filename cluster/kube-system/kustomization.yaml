@@ -25,5 +25,4 @@ resources:
   - node-problem-detector.yaml
   - prometheus-operator.yaml
   - tailscale-node-controller.yaml
-  - tailscale-service-router.yaml
   - velero.yaml
