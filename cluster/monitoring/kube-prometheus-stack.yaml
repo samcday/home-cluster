@@ -44,9 +44,6 @@ spec:
     grafana:
       enabled: false
       forceDeployDatasources: true
-    # Using Cilium kube-proxy replacement
-    kubeProxy:
-      enabled: false
     prometheus:
       ingress:
         enabled: true
