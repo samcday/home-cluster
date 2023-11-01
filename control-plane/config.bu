@@ -34,10 +34,8 @@ storage:
           label: root
           size_mib: 9216
           resize: true
-        - size_mib: 30000
-          label: var
         - size_mib: 0
-          label: osd
+          label: var
   files:
     - path: /etc/containerd/config.toml
       overwrite: true
