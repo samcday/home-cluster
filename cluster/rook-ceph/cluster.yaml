@@ -77,19 +77,16 @@ spec:
         nodes:
           - name: m710q-1
             devices:
-              - name: sda6
               - name: nvme0n1
                 config:
                   encryptedDevice: "true"
           - name: m710q-2
             devices:
-              - name: sda6
               - name: nvme0n1
                 config:
                   encryptedDevice: "true"
           - name: m710q-3
             devices:
-              - name: sda6
               - name: nvme0n1
                 config:
                   encryptedDevice: "true"
