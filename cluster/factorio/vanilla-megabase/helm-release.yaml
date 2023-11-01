@@ -56,7 +56,7 @@ spec:
       update_mods_on_start: true
     fullnameOverride: vanilla-megabase
     image:
-      tag: 1.1.91
+      tag: 1.1.94
     mods:
       enabled: true
       portal:
