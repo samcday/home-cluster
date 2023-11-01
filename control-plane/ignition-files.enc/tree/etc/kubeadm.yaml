@@ -26,11 +26,11 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-14T08:15:40Z"
-    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
+    lastmodified: "2023-11-01T21:37:56Z"
+    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.8.0
+    version: 3.8.1
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
@@ -65,11 +65,11 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-14T08:15:40Z"
-    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
+    lastmodified: "2023-11-01T21:37:56Z"
+    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.8.0
+    version: 3.8.1
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
@@ -102,8 +102,32 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-14T08:15:40Z"
-    mac: ENC[AES256_GCM,data:yBL9kBs1r4PoNop+C6wXtiVdiwLex8tZ9OY5S+InsKOc+cMhNb5CgNuGL/bClD7q5ckcW7XQolHT7VQTMqkz8dDHXdsslcTRy/AaCM9MMEVPxy3FRfeUwoFoB7tEPdoplvs97I6pdgSpoBWuo9l6hfN9gSiU/2icNtZuIHs1MbA=,iv:lRHJTNf30RHtNTC8PieQ/zUd7uf0/S7Pd9bIiWwVNY0=,tag:ELm0v6LI9w2nQoTlXLLV8w==,type:str]
+    lastmodified: "2023-11-01T21:37:56Z"
+    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
-    version: 3.8.0
+    version: 3.8.1
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+metricsBindAddress: 0.0.0.0:10249
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIV05yUmI2WDA3dkd6Nmt5
+            amdwUFU0NHl0MElNOG8zQnMwYzFFekNoZUVVCktpaXUyMGw4Ung0SjZYRDlpQi9F
+            amY1WngrMnZIWXdHanREbWpKbGN0d2sKLS0tIEwzbjM1emE0ZFJKRloxTDZkeFVy
+            Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
+            wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-11-01T21:37:56Z"
+    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
+    pgp: []
+    encrypted_regex: token|certificateKey
+    version: 3.8.1
