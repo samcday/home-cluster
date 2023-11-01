@@ -1,7 +1,7 @@
 db:
   user: _PGUSER_
   password: _PGPASSWORD_
-  host: db-20230925-rw
+  host: db-20231101-rw
   port: 5432
   dbname: invidious
 

@@ -60,12 +60,12 @@ spec:
             - name: PGUSER
               valueFrom:
                 secretKeyRef:
-                  name: db-20230925-app
+                  name: db-20231101-app
                   key: username
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-20230925-app
+                  name: db-20231101-app
                   key: password
             - name: CAPTCHA_KEY
               valueFrom:

@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: db-20230925
+  name: db-20231101
   namespace: invidious
 spec:
   affinity:
@@ -23,15 +23,13 @@ spec:
         compression: bzip2
     retentionPolicy: 90d
   bootstrap:
-    initdb:
+    recovery:
+      source: db-20230925
       database: invidious
-    # recovery:
-    #   source: db-20230925
-    #   database: invidious
-    #   owner: invidious
-  # externalClusters:
-  #   - name: db-20230925
-  #     barmanObjectStore: *objstore
+      owner: invidious
+  externalClusters:
+    - name: db-20230925
+      barmanObjectStore: *objstore
   imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
   instances: 2
   storage:
