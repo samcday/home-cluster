@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: bridge-heisenbridge
     spec:
       containers:
-        - image: hif1/heisenbridge:1.14.5
+        - image: hif1/heisenbridge:1.14.6
           name: heisenbridge
           args:
             - -c
