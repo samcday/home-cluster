@@ -22,7 +22,7 @@ spec:
             - /bin/sh
             - -c
             - |-
-              tailscaled --state=kube:service-ts-auth-key --tun=userspace-networking --port=31643 &
+              tailscaled --state=kube:service-ts-auth-key --port=31643 &
               PID=$!
               tailscale up --authkey=$TS_AUTH_KEY --accept-dns=false --advertise-routes=172.31.0.0/16,fd7f:bc81:7c5c::/112
               wait $PID
@@ -48,8 +48,19 @@ spec:
               memory: 64Mi
             limits:
               memory: 1Gi
+          securityContext:
+            capabilities:
+              add: [NET_ADMIN]
+          volumeMounts:
+            - mountPath: /dev/net/tun
+              readOnly: true
+              name: tun-device
       serviceAccountName: tailscale-service-router
       terminationGracePeriodSeconds: 3
+      volumes:
+        - name: tun-device
+          hostPath:
+            path: /dev/net/tun
 ---
 apiVersion: v1
 kind: ServiceAccount
