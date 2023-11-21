@@ -13,13 +13,17 @@ for f in $(find ignition-files.enc/ -type f); do
 done
 
 # Compile Ignition config.
-podman run --rm -i -v ./build/ignition-files:/files quay.io/coreos/butane:release \
-  --pretty --strict -d /files < config.bu > build/config.ign
+butane="butane"
+if ! $butane --version; then
+	butane="podman run --rm -i -v `pwd`/build/ignition-files:`pwd`/build/ignition-files quay.io/coreos/butane:release"
+fi
+
+$butane --pretty --strict -d `pwd`/build/ignition-files < config.bu > build/config.ign
 
 cd build
 
 # Grab a copy of FCOS stream metadata.
-metadata=stable-pxe-$(date --iso-8601).json
+metadata=stable-pxe-$(date -u +"%Y-%m-%dT%H:%M:%SZ").json
 if [[ ! -f $metadata ]]; then
   curl https://builds.coreos.fedoraproject.org/streams/stable.json \
     | jq '.architectures.x86_64.artifacts.metal.formats.pxe' \
