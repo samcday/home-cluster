@@ -1,6 +1,11 @@
 #!/bin/bash
 set -uexo pipefail
 
+if [[ -z "${1:-}" ]]; then
+  echo ERROR: hostname parameter not set
+  exit 1
+fi
+
 mkdir -p build
 
 # Prepare Ignition files in build dir.
@@ -19,6 +24,21 @@ if ! $butane --version; then
 fi
 
 $butane --pretty --strict -d `pwd`/build/ignition-files < config.bu > build/config.ign
+
+$butane --pretty --strict -d `pwd`/build <<HERE > build/machine.ign
+variant: fcos
+version: 1.5.0
+ignition:
+    config:
+        merge:
+            - local: config.ign
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: $1
+HERE
 
 cd build
 
@@ -53,4 +73,4 @@ done
 # Run pixiecore and provide it with the downloaded FCOS artifacts.
 sudo pixiecore boot $kernel $initrd \
   --dhcp-no-bind \
-  --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"config.ign\" }}"
+  --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"machine.ign\" }}"
