@@ -59,7 +59,6 @@ spec:
         #   - job_name: node-exporter
         #     static_configs:
         #       - targets:
-        #           # - home-cluster-router.hominions.tailnet.samcday.com:9100
         #           # - sam-laptop.personal.tailnet.samcday.com:9100
         enableAdminAPI: true
         externalUrl: https://prometheus.samcday.com

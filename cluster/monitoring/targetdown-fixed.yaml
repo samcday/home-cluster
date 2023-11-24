@@ -1,6 +1,6 @@
 # Copy of upstream rule found here:
 # https://github.com/prometheus-community/helm-charts/blob/cc2c507e4a4b625f561577bba13795b7f8bde40a/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/general.rules.yaml#L4
-# This one ignores targets that can go down as a regular matter of course (my personal laptop, standby router, etc)
+# This one ignores targets that can go down as a regular matter of course (my personal laptop/desktop, for example)
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
