@@ -17,7 +17,7 @@ spec:
                 name: caddy
                 port:
                   number: 80
-            path: /.well-known/matrix
+            path: /
             pathType: Prefix
   tls:
     - hosts: [samcday.com]
