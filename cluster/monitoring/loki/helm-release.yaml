@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: 5.38.0
+      version: 5.39.0
   install:
     remediation:
       retries: -1
