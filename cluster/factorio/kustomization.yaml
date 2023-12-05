@@ -7,6 +7,6 @@ configMapGenerator:
     options: {disableNameSuffixHash: true}
 resources:
   - ../config
-  - vanilla-megabase/helm-release.yaml
+  # - vanilla-megabase/helm-release.yaml
   - vanilla-megabase/podmonitor.yaml
   - namespace.yaml

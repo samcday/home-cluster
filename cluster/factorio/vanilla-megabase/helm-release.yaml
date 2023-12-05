@@ -71,7 +71,6 @@ spec:
       storageClassName: ceph-block
     rcon:
       external: false
-    replicaCount: 0
     resources:
       requests:
         cpu: '1'
