@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: okgolove
         namespace: flux-system
-      version: 6.1.0
+      version: 6.1.1
   interval: 1h
   values:
     # https://github.com/okgolove/helm-charts/blob/master/charts/goldpinger/values.yaml
