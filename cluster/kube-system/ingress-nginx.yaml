@@ -24,12 +24,13 @@ spec:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
       hostNetwork: true
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
       metrics:
         enabled: true
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
       replicaCount: 3
       reportNodeInternalIp: true
       service:
         enabled: false
       terminationGracePeriodSeconds: 5
+      updateStrategy: Recreate
