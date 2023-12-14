@@ -28,9 +28,8 @@ spec:
         enabled: true
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
-      replicaCount: 3
+      replicaCount: 2
       reportNodeInternalIp: true
       service:
         enabled: false
       terminationGracePeriodSeconds: 5
-      updateStrategy: Recreate
