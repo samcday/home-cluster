@@ -30,7 +30,7 @@ spec:
         image: caddy:2-alpine
         ports:
           - name: scriptoutput
-            containerPort: 8123
+            containerPort: 8125
         volumeMounts:
           - name: caddyfile
             mountPath: /etc/caddy/Caddyfile
