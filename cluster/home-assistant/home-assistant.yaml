@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.3.2
+  interval: 1h
+  releaseName: home-assistant
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: config
+    additionalVolumeMounts:
+      - name: config
+        mountPath: /config
+    hostNetwork: true
+    image:
+      repository: homeassistant/home-assistant
+      tag: 2023.12.2
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: home-assistant.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [home-assistant.samcday.com]
+          secretName: certificate
+    livenessProbe: ~
+    ports:
+      - name: http
+        containerPort: 8123
+    readinessProbe: ~
+    replicaCount: 1
+    securityContext:
+      privileged: true
