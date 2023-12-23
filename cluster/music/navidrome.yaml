@@ -28,6 +28,8 @@ spec:
       - name: navidrome
         persistentVolumeClaim:
           claimName: navidrome
+    deploymentStrategy:
+      type: Recreate
     env:
       # https://www.navidrome.org/docs/usage/configuration-options/#advanced-configuration
       ND_DATAFOLDER: /data
