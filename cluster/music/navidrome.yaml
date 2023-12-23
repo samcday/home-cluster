@@ -29,9 +29,11 @@ spec:
         persistentVolumeClaim:
           claimName: navidrome
     env:
-      ND_MUSICFOLDER: /music
+      # https://www.navidrome.org/docs/usage/configuration-options/#advanced-configuration
       ND_DATAFOLDER: /data
+      ND_ENABLESHARING: "true"
       ND_LISTENBRAINZ_BASEURL: https://maloja.samcday.com/apis/listenbrainz/1/
+      ND_MUSICFOLDER: /music
     envFrom:
       - secretRef:
           name: navidrome
