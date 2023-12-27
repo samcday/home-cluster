@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: bridge-telegram
     spec:
       containers:
-        - image: dock.mau.dev/mautrix/telegram:v0.15.0
+        - image: dock.mau.dev/mautrix/telegram:v0.15.1
           name: mautrix-telegram
           ports:
             - containerPort: 29317
