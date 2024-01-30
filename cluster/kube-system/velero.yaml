@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: vmware-tanzu
         namespace: flux-system
-      version: 5.2.0
+      version: 5.3.0
   interval: 1h
   values:
     # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
