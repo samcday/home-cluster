@@ -95,6 +95,8 @@ signal:
 
 # Bridge config
 bridge:
+    personal_filtering_spaces: true
+
     # Localpart template of MXIDs for Signal users.
     # {userid} is replaced with an identifier for the Signal user.
     username_template: "signal_{userid}"
