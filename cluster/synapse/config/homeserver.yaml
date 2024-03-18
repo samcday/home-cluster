@@ -40,3 +40,8 @@ turn_uris:
   - turn:turn.samcday.com?transport=tcp
 turn_shared_secret: _TURN_SECRET_
 turn_user_lifetime: 86400000
+
+# Trying some recommendations from https://matrix-org.github.io/synapse/latest/other/running_synapse_on_single_board_computers.html
+# Disable presence tracking, which is currently fairly resource intensive
+# More info: https://github.com/matrix-org/synapse/issues/9478
+use_presence: false
