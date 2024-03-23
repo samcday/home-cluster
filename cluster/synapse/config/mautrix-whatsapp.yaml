@@ -219,6 +219,7 @@ bridge:
     permissions:
         "*": relay
         "@me:samcday.com": admin
+        '@sam:samcday.com': admin
     
     # Settings for relay mode
     relay:

@@ -222,6 +222,7 @@ bridge:
     permissions:
         '*': relay
         '@me:samcday.com': admin
+        '@sam:samcday.com': admin
 
     relay:
         # Whether or not relay mode should be allowed. If allowed, `!signal set-relay` can be used to turn any

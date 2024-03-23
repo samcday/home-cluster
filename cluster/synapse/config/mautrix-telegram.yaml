@@ -412,6 +412,7 @@ bridge:
     permissions:
         '*': relaybot
         '@me:samcday.com': admin
+        '@sam:samcday.com': admin
     relaybot:
         private_chat:
             # List of users to invite to the portal when someone starts a private chat with the bot.
