@@ -19,6 +19,8 @@ spec:
           args:
             - -c
             - /data/registration.yaml
+            - --owner
+            - '@sam:samcday.com'
             - https://homeserver.samcday.com
           ports:
             - containerPort: 9898
