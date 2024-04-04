@@ -18,7 +18,7 @@ spec:
       enabled: true
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      className: public-nginx
+      className: nginx
       hosts:
         - host: code.samcday.com
           paths:

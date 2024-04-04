@@ -34,7 +34,7 @@ spec:
       tag: 3.1.5
     ingress:
       enabled: true
-      className: public-nginx
+      className: nginx
       hosts:
         - host: maloja.samcday.com
           paths:
