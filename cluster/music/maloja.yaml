@@ -40,6 +40,9 @@ spec:
           paths:
             - path: /
               servicePortName: http
+      tls:
+        - hosts: [maloja.samcday.com]
+          secretName: maloja-certificate
     livenessProbe:
       httpGet:
         path: /apis/mlj_1/serverinfo
