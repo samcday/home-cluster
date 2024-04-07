@@ -35,6 +35,8 @@ spec:
     ingress:
       enabled: true
       className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
       hosts:
         - host: maloja.samcday.com
           paths:
