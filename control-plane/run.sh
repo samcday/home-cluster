@@ -40,6 +40,10 @@ storage:
         inline: $1
 HERE
 
+if [[ "${RUN_PIXIECORE:-1}" != "1" ]]; then
+  exit 0
+fi
+
 cd build
 
 # Grab a copy of FCOS stream metadata.
