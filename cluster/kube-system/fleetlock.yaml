@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: fleetlock
   namespace: kube-system
@@ -28,8 +28,23 @@ spec:
           ports:
             - name: http
               containerPort: 8124
-      hostNetwork: true
       serviceAccountName: fleetlock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetlock
+  namespace: kube-system
+spec:
+  ports:
+    - name: http
+      port: 8124
+      protocol: TCP
+      targetPort: 8124
+      nodePort: 32184
+  selector:
+    name: fleetlock
+  type: NodePort
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
