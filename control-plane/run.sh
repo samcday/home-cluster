@@ -46,21 +46,28 @@ fi
 
 cd build
 
-# Grab a copy of FCOS stream metadata.
-metadata=stable-pxe-$(date -u +"%Y-%m-%d").json
-if [[ ! -f $metadata ]]; then
-  curl https://builds.coreos.fedoraproject.org/streams/stable.json \
-    | jq '.architectures.x86_64.artifacts.metal.formats.pxe' \
-    > $metadata
+[[ -n "${FCOS_STREAM:-}" ]] || FCOS_STREAM=stable
+
+if [[ -z "${FCOS_VERSION:-}" ]]; then
+  # Grab a copy of FCOS stream metadata.
+  metadata=stable-pxe-$(date -u +"%Y-%m-%d").json
+  if [[ ! -f $metadata ]]; then
+    curl https://builds.coreos.fedoraproject.org/streams/${FCOS_STREAM}.json \
+      | jq '.architectures.x86_64.artifacts.metal' \
+      > $metadata
+  fi
+  FCOS_VERSION=$(jq -r .release < $metadata)
 fi
 
-# Determine which kernel/initrd/rootfs to download.
-kernel_url=$(jq -r .kernel.location < $metadata)
-initrd_url=$(jq -r .initramfs.location < $metadata)
-rootfs_url=$(jq -r .rootfs.location < $metadata)
-kernel=$(basename $kernel_url)
-initrd=$(basename $initrd_url)
-rootfs=$(basename $rootfs_url)
+url_base="https://builds.coreos.fedoraproject.org/prod/streams/${FCOS_STREAM}/builds/${FCOS_VERSION}/x86_64"
+
+kernel="fedora-coreos-${FCOS_VERSION}-live-kernel.x86_64.img"
+initrd="fedora-coreos-${FCOS_VERSION}-live-initramfs.x86_64.img"
+rootfs="fedora-coreos-${FCOS_VERSION}-live-rootfs.x86_64.img"
+
+kernel_url="${url_base}/${kernel}"
+initrd_url="${url_base}/${initrd}"
+rootfs_url="${url_base}/${rootfs}"
 
 # Download FCOS artifacts.
 for v in kernel initrd rootfs; do
@@ -75,6 +82,6 @@ for v in kernel initrd rootfs; do
 done
 
 # Run pixiecore and provide it with the downloaded FCOS artifacts.
-sudo pixiecore boot $kernel $initrd \
+sudo pixiecore boot -d $kernel $initrd \
   --dhcp-no-bind \
   --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"machine.ign\" }}"
