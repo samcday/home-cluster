@@ -47,7 +47,7 @@ fi
 cd build
 
 # Grab a copy of FCOS stream metadata.
-metadata=stable-pxe-$(date -u +"%Y-%m-%dT%H:%M:%SZ").json
+metadata=stable-pxe-$(date -u +"%Y-%m-%d").json
 if [[ ! -f $metadata ]]; then
   curl https://builds.coreos.fedoraproject.org/streams/stable.json \
     | jq '.architectures.x86_64.artifacts.metal.formats.pxe' \
