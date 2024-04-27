@@ -6,7 +6,7 @@ boot_device:
     discard: true
 kernel_arguments:
   should_exist:
-    - selinux=0
+    - mitigations=auto,nosmt=off
   should_not_exist:
     - mitigations=auto,nosmt
 passwd:
