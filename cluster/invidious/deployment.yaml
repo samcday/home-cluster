@@ -16,7 +16,7 @@ spec:
         app: invidious
     spec:
       containers:
-        - image: quay.io/invidious/invidious:2024.04.10-b673695
+        - image: quay.io/invidious/invidious:624425cfa8531eccab07b40c254fe84f6702fb60-quic
           name: invidious
           env:
             - name: INVIDIOUS_CONFIG_FILE
