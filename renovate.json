@@ -13,6 +13,11 @@
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["quay\\.io\/invidious\/.+"],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<revision>[a-f0-9]+)$"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["matrixdotorg\/synapse"],
+      "customChangelogUrl": "https://github.com/element-hq/synapse"
     }
   ]
 }
