@@ -7,5 +7,12 @@
   },
   "kubernetes": {
     "fileMatch": ["cluster/.*\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["quay\\.io\/invidious\/.+"],
+      "versioning": "loose"
+    }
+  ]
 }
