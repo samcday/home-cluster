@@ -24,5 +24,4 @@ resources:
   - ip-masq-agent.yaml
   - node-problem-detector.yaml
   - prometheus-operator.yaml
-  - tailscale-node-controller.yaml
   - velero.yaml

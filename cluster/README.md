@@ -13,10 +13,6 @@ ssh core@m710q-1 sudo kubeadm init --config /etc/kubeadm.yaml
 ssh core@m710q-1 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
 chmod 600 ~/.kube/config
 
-kubectl apply -f cluster/kube-system/ip-masq-agent.yaml
-helm install -n kube-system tailscale-node-controller tailscale-node-controller --repo https://samcday.github.io/tailscale-node-controller
-
-
 ssh core@m710q-2 sudo kubeadm join --config /etc/kubeadm.yaml
 ssh core@m710q-3 sudo kubeadm join --config /etc/kubeadm.yaml
 
