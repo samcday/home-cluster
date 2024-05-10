@@ -6,7 +6,6 @@ bootstrapTokens:
 certificateKey: ENC[AES256_GCM,data:k6bbmF+eLmS89t/e/WhKGlGoDTYpCI3+zht6vyY0WBIrLH8/Q5bVOuHT8mni9osyn3HTQGKVXg6T3PBxwATSQg==,iv:HS0/55tGM/4nQSQmW5QaEPubbEvOQGzxmWXDObQUlmk=,tag:HHAo9HdvfBw5hlsbhjSnkw==,type:str]
 nodeRegistration:
     kubeletExtraArgs:
-        cloud-provider: external
         volume-plugin-dir: /var/lib/kubelet/volume-plugins
     taints: []
 sops:
@@ -24,8 +23,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-10T07:12:53Z"
-    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
+    lastmodified: "2024-05-10T08:19:31Z"
+    mac: ENC[AES256_GCM,data:y85Kf2M4fVQSUSdBqbBKroVV/HQ0ac7PWaeCDY1nqKjwyEWEr/IVt+rFPrMqOtMQ0DF1JCHqr3aquX/ChbdhhSeTZsb1XyxfXk3Ee51uhbGsqXZNb4PKBdmbpQHMTOpuf0ELiDkRk+QHo15jvyspCig8bq4rjEmVnDk5P2neGos=,iv:pVaQNe4pxK7jtdvUWtSwkUVfC1maRIYaKeLwrHyn1bs=,tag:V4e6gitnjz1jbq6sDsDIaw==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -63,8 +62,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-10T07:12:53Z"
-    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
+    lastmodified: "2024-05-10T08:19:31Z"
+    mac: ENC[AES256_GCM,data:y85Kf2M4fVQSUSdBqbBKroVV/HQ0ac7PWaeCDY1nqKjwyEWEr/IVt+rFPrMqOtMQ0DF1JCHqr3aquX/ChbdhhSeTZsb1XyxfXk3Ee51uhbGsqXZNb4PKBdmbpQHMTOpuf0ELiDkRk+QHo15jvyspCig8bq4rjEmVnDk5P2neGos=,iv:pVaQNe4pxK7jtdvUWtSwkUVfC1maRIYaKeLwrHyn1bs=,tag:V4e6gitnjz1jbq6sDsDIaw==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -96,8 +95,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-10T07:12:53Z"
-    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
+    lastmodified: "2024-05-10T08:19:31Z"
+    mac: ENC[AES256_GCM,data:y85Kf2M4fVQSUSdBqbBKroVV/HQ0ac7PWaeCDY1nqKjwyEWEr/IVt+rFPrMqOtMQ0DF1JCHqr3aquX/ChbdhhSeTZsb1XyxfXk3Ee51uhbGsqXZNb4PKBdmbpQHMTOpuf0ELiDkRk+QHo15jvyspCig8bq4rjEmVnDk5P2neGos=,iv:pVaQNe4pxK7jtdvUWtSwkUVfC1maRIYaKeLwrHyn1bs=,tag:V4e6gitnjz1jbq6sDsDIaw==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -120,8 +119,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-10T07:12:53Z"
-    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
+    lastmodified: "2024-05-10T08:19:31Z"
+    mac: ENC[AES256_GCM,data:y85Kf2M4fVQSUSdBqbBKroVV/HQ0ac7PWaeCDY1nqKjwyEWEr/IVt+rFPrMqOtMQ0DF1JCHqr3aquX/ChbdhhSeTZsb1XyxfXk3Ee51uhbGsqXZNb4PKBdmbpQHMTOpuf0ELiDkRk+QHo15jvyspCig8bq4rjEmVnDk5P2neGos=,iv:pVaQNe4pxK7jtdvUWtSwkUVfC1maRIYaKeLwrHyn1bs=,tag:V4e6gitnjz1jbq6sDsDIaw==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
