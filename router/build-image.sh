@@ -9,9 +9,8 @@ fi
 
 # Secrets
 export WIFI_PASSWORD=${WIFI_PASSWORD:-$(bw get item "b612257d-22e8-4350-ad6a-afbf01069457" | jq -r .notes)}
-export TAILNET_AUTH_KEY=${TAILNET_AUTH_KEY:-$(bw get item "6e22f9a5-38aa-4703-8dfd-afc200fcb3ee" | jq -r .notes)}
 export ROOT_PW=${ROOT_PW:-$(bw get item "691cb088-5130-476c-ab7b-adb900fcdb8d" | jq -r .login.password)}
-export INJECT_ENV='$WIFI_PASSWORD $TAILNET_AUTH_KEY $ROOT_PW $BOOT_TOKEN'
+export INJECT_ENV='$WIFI_PASSWORD $ROOT_PW $BOOT_TOKEN'
 
 # Misc bits of config
 export IPADDR="10.0.1.1"
