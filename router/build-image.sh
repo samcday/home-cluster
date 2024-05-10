@@ -2,6 +2,8 @@
 cd "$(dirname "$0")"
 set -uexo pipefail
 
+openwrt_version="23.05.3"
+
 # Secrets can be set explicitly, otherwise they're taken from my Bitwarden vault by default.
 if [[ -z "${BW_SESSION:-}" ]]; then
   export BW_SESSION=$(bw unlock --raw)
@@ -21,7 +23,7 @@ export INJECT_ENV="$INJECT_ENV $(echo '$HOSTNAME $SSID $IPADDR $IPADDR_RESTRICTE
 
 if [[ ! -f _build/.setup ]]; then
   mkdir -p _build/
-  curl -s --retry 2 --fail -L https://downloads.openwrt.org/releases/22.03.5/targets/ipq40xx/generic/openwrt-imagebuilder-22.03.5-ipq40xx-generic.Linux-x86_64.tar.xz | \
+  curl -s --retry 2 --fail -L https://downloads.openwrt.org/releases/${openwrt_version}/targets/ipq40xx/generic/openwrt-imagebuilder-${openwrt_version}-ipq40xx-generic.Linux-x86_64.tar.xz | \
     tar --strip-components=1 -C _build/ -Jxvf -
   touch _build/.setup
 fi
@@ -44,7 +46,4 @@ export PACKAGES=$(echo $(cat packages))
 export PROFILE=avm_fritzbox-4040
 export DISABLED_SERVICES="dropbear" # using openssh-server instead
 
-(
-  cd _build/
-  make image PACKAGES="$PACKAGES"
-)
+make -C _build/ image PACKAGES="$PACKAGES"

@@ -1,6 +1,6 @@
 # home-cluster router
 
-This directory contains scripts/files necessary to build a custom OpenWRT 22.03 image (using [imagebuilder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder)) for the AVM FRITZ!Box 4040 that handles routing for my home cluster.
+This directory contains scripts/files necessary to build a custom OpenWRT image (using [imagebuilder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder)) for the AVM FRITZ!Box 4040 that handles routing for my home cluster.
 
 ## Netboot infra
 
