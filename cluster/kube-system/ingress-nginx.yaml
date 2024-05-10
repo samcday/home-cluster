@@ -23,10 +23,11 @@ spec:
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
-      loadBalancerClass: tailscale
       metrics:
         enabled: true
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       replicaCount: 2
+      service:
+        loadBalancerClass: tailscale
       terminationGracePeriodSeconds: 5
