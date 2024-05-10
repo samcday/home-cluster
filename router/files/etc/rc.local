@@ -1,0 +1,15 @@
+set -uexo pipefail
+
+# Wait for tailscale to start, then check we're logged in.
+while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do
+  sleep 0.5
+done
+
+if [[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]]; then
+  tailscale up \
+    --reset \
+    --accept-routes \
+    --accept-dns \
+    --auth-key=${TAILNET_AUTH_KEY} \
+  2>&1 | logger -st tailscale.up
+fi

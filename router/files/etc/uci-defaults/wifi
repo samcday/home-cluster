@@ -1,0 +1,17 @@
+set -uexo pipefail
+
+uci -q batch << EOI
+set wireless.@wifi-device[0].disabled='0'
+set wireless.@wifi-device[1].disabled='0'
+
+set wireless.@wifi-iface[0].ssid='${SSID}'
+set wireless.@wifi-iface[0].encryption=sae
+set wireless.@wifi-iface[0].key="${WIFI_PASSWORD}"
+
+set wireless.@wifi-iface[1].ssid='${SSID}'
+set wireless.@wifi-iface[1].encryption=sae
+set wireless.@wifi-iface[1].key="${WIFI_PASSWORD}"
+commit wireless
+EOI
+
+wifi reload

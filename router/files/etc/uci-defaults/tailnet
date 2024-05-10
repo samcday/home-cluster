@@ -1,0 +1,29 @@
+set -uexo pipefail
+
+# --netfilter-mode=off + the extra UCI config below is a temporary workaround for openwrt 22.03 tailscale issues.
+# https://openwrt.org/docs/guide-user/services/vpn/tailscale/start?s[]=link#openwrt_2203_issue
+
+uci -q batch <<EOI
+set network.tailscale=interface
+set network.tailscale.proto='none'
+set network.tailscale.device='tailscale0'
+commit network
+EOI
+
+uci -q batch <<EOI
+set firewall.ts_zone=zone
+set firewall.ts_zone.name='tailscale'
+set firewall.ts_zone.input='ACCEPT'
+set firewall.ts_zone.output='ACCEPT'
+set firewall.ts_zone.forward='ACCEPT'
+set firewall.ts_zone.masq='1'
+
+set firewall.ts_forwarding_to_lan=forwarding
+set firewall.ts_forwarding_to_lan.src='tailscale'
+set firewall.ts_forwarding_to_lan.dest='lan'
+
+set firewall.ts_forwarding_from_lan=forwarding
+set firewall.ts_forwarding_from_lan.src='lan'
+set firewall.ts_forwarding_from_lan.dest='tailscale'
+commit firewall
+EOI

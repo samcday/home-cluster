@@ -1,0 +1,8 @@
+set -uexo pipefail
+
+uci -q batch <<EOI
+set tang.config.enabled=1
+commit tang
+EOI
+
+service tang restart || true
