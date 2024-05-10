@@ -4,7 +4,6 @@ set -uexo pipefail
 
 openwrt_version="23.05.3"
 
-# Misc bits of config
 export IPADDR="10.0.1.1"
 export IPADDR_RESTRICTED="10.0.2.1"
 export HOSTNAME="home-cluster-router"
@@ -32,7 +31,7 @@ done
 # imagebuilder settings
 export BIN_DIR="."
 export FILES="files"
-export PACKAGES=$(echo $(cat packages))
+export PACKAGES=$(cat packages | xargs)
 export PROFILE=avm_fritzbox-4040
 export DISABLED_SERVICES="dropbear" # using openssh-server instead
 
