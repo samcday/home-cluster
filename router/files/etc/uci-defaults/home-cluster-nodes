@@ -25,12 +25,6 @@ set dhcp.m710q_3.mac='$node3_mac'
 set dhcp.m710q_3.ip='10.0.1.12'
 set dhcp.m710q_3.tag='home-cluster'
 
-set dhcp.rock64_1=host
-set dhcp.rock64_1.name='rock64-1'
-set dhcp.rock64_1.mac='82:57:28:5d:f7:9d'
-set dhcp.rock64_1.ip='10.0.1.13'
-set dhcp.rock64_1.tag='home-cluster'
-
 commit dhcp
 
 set etherwake.m710q_1=target
