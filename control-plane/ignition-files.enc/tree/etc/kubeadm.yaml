@@ -4,8 +4,6 @@ bootstrapTokens:
     - token: ENC[AES256_GCM,data:yKizp2iXQNahoMLiebF0TO1cNjSkGso=,iv:pAz0QINX8iCnkV35a0uXVR9P4Mea0ik8hGBGbhYi6aw=,tag:huySqV1ZVOzqbukrco3f7g==,type:str]
       ttl: "0"
 certificateKey: ENC[AES256_GCM,data:k6bbmF+eLmS89t/e/WhKGlGoDTYpCI3+zht6vyY0WBIrLH8/Q5bVOuHT8mni9osyn3HTQGKVXg6T3PBxwATSQg==,iv:HS0/55tGM/4nQSQmW5QaEPubbEvOQGzxmWXDObQUlmk=,tag:HHAo9HdvfBw5hlsbhjSnkw==,type:str]
-localAPIEndpoint:
-    advertiseAddress: _TAILNET_IP4_
 nodeRegistration:
     kubeletExtraArgs:
         cloud-provider: external
@@ -26,8 +24,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-01T21:37:56Z"
-    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
+    lastmodified: "2024-05-10T07:12:53Z"
+    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -45,8 +43,8 @@ etcd:
             listen-metrics-urls: http://0.0.0.0:2381
 networking:
     dnsDomain: home-cluster.local
-    podSubnet: 172.30.0.0/16,fdab:bc3f:3e04::/56
-    serviceSubnet: 172.31.0.0/16,fd7f:bc81:7c5c::/112
+    podSubnet: 172.30.0.0/16
+    serviceSubnet: 172.31.0.0/16
 scheduler:
     extraArgs:
         bind-address: 0.0.0.0
@@ -65,8 +63,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-01T21:37:56Z"
-    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
+    lastmodified: "2024-05-10T07:12:53Z"
+    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -75,11 +73,7 @@ apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 controlPlane:
     certificateKey: ENC[AES256_GCM,data:QrYYJnbNWoM4WRY84e68oB/2IF3rqURmaLA+HMtpJNyeIxHEQgL1NFSiJwIEUFJaT4/SgV/87KawwK68FqxwxA==,iv:zNpJnN+CivQWiXkyO9MXM1ZW4ItDeJegTWui8knMCZA=,tag:1RF7QyQ4iP2aBGvFuWRCpQ==,type:str]
-    localAPIEndpoint:
-        advertiseAddress: _TAILNET_IP4_
 nodeRegistration:
-    kubeletExtraArgs:
-        cloud-provider: external
     taints: []
 discovery:
     bootstrapToken:
@@ -102,8 +96,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-01T21:37:56Z"
-    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
+    lastmodified: "2024-05-10T07:12:53Z"
+    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
@@ -126,8 +120,8 @@ sops:
             Uk9rRndTVmNKS0h5N3E3QkFNbVVrdlEK+SIz9paPmHB7Cfyv080/H4I9fWKEbhyk
             wyd01z7xNBq29HI3UoOnuGmVXHP8ZCz3bfRKpdv96Th6BZn9sL5ZqQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-01T21:37:56Z"
-    mac: ENC[AES256_GCM,data:oJHnIg1OqKw9mUUToPSmgsDlTS6mZQ2RWcH9Ku8sphULZJAll0SqwD+jEfK5jXlLCKtMUT+4mkDhuYRguY3ljzx8GzMd8V4SWOlPkRYNsSxjCHuCOSYo2uu7ifESLahHcwHZWCRVT5EsJguqky6K710cCus9arkIGy7iB+S1uLg=,iv:TNMfBjvwYak0FF7Mj2JEWbdMxx859OpRngYiZzS/QRo=,tag:m/dKG6PvwwBMgdpRPE8lxg==,type:str]
+    lastmodified: "2024-05-10T07:12:53Z"
+    mac: ENC[AES256_GCM,data:nQQlrLRUHvwQZ7BL0r1Q9Vz6742ciBmnNW7hlnmWDpC2bxnPBwnPcrfy4R/HY5wEPO2gPrKDXKatWswhs0aUYqOSPVs+N3J368Zyk8t31Yz/2W7tzh05MHaFgkbZ9y0mv1bIAV8qXV1eT8V7J7KewvDYcWDa+3cs8lELGdObJZU=,iv:7ifT5Jg9TFdQWj/36Th9qPEyejRjOd65S2jyxwAtL50=,tag:NqP2Taz/2S672vJ+820U3w==,type:str]
     pgp: []
     encrypted_regex: token|certificateKey
     version: 3.8.1
