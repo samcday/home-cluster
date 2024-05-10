@@ -13,6 +13,9 @@ ssh core@m710q-1 sudo kubeadm init --config /etc/kubeadm.yaml
 ssh core@m710q-1 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
 chmod 600 ~/.kube/config
 
+
+helm install cilium cilium/cilium --version 1.14.1  --namespace kube-system --values cluster/cilium-values.yaml
+
 ssh core@m710q-2 sudo kubeadm join --config /etc/kubeadm.yaml
 ssh core@m710q-3 sudo kubeadm join --config /etc/kubeadm.yaml
 

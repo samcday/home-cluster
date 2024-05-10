@@ -45,4 +45,4 @@ spec:
   schedule: "0 0 4 * * *"
   backupOwnerReference: self
   cluster:
-    name: db-20231101
+    name: db-20230925

@@ -21,7 +21,6 @@ resources:
   - hcc.yaml
   - ingress-nginx.yaml
   - ingress-nginx-public.yaml
-  - ip-masq-agent.yaml
   - node-problem-detector.yaml
   - prometheus-operator.yaml
   - velero.yaml
