@@ -1,7 +1,5 @@
 # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
 
-hostFirewall:
-  enabled: true
 ipam:
   mode: kubernetes
 k8sServiceHost: 172.29.0.1
