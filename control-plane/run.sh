@@ -36,7 +36,7 @@ cd build
 
 if [[ -z "${FCOS_VERSION:-}" ]]; then
   # Grab a copy of FCOS stream metadata.
-  metadata=stable-pxe-$(date -u +"%Y-%m-%d").json
+  metadata=${FCOS_STREAM}-pxe-$(date -u +"%Y-%m-%d").json
   if [[ ! -f $metadata ]]; then
     curl https://builds.coreos.fedoraproject.org/streams/${FCOS_STREAM}.json \
       | jq '.architectures.x86_64.artifacts.metal' \
