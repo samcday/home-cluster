@@ -69,6 +69,6 @@ done
 
 # Run pixiecore and provide it with the downloaded FCOS artifacts.
 sudo docker run --net=host -v `pwd`:/files pixiecore/pixiecore:master \
-  boot -d $kernel $initrd \
+  boot -d /files/$kernel /files/$initrd \
   --dhcp-no-bind \
   --cmdline "coreos.live.rootfs_url={{ ID \"/files/$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"/files/config.ign\" }}"
