@@ -3,8 +3,8 @@ version: 1.5.0
 boot_device:
   luks:
     tang:
-      - url: http://fairphone-fp2:7500
-        thumbprint: o28Srk7nQzukLLcFpVMRANB85gvw1WB8S5t6giJOsfo
+      - url: http://10.0.1.1:9090
+        thumbprint: OVtBkWq-QtK9t5fhkkdnNAJeYvXLLOGyqqMO4WztbcY
     threshold: 2
     tpm2: true
     discard: true
