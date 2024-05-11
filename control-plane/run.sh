@@ -47,7 +47,7 @@ fi
 
 url_base="https://builds.coreos.fedoraproject.org/prod/streams/${FCOS_STREAM}/builds/${FCOS_VERSION}/x86_64"
 
-kernel="fedora-coreos-${FCOS_VERSION}-live-kernel.x86_64.img"
+kernel="fedora-coreos-${FCOS_VERSION}-live-kernel.x86_64"
 initrd="fedora-coreos-${FCOS_VERSION}-live-initramfs.x86_64.img"
 rootfs="fedora-coreos-${FCOS_VERSION}-live-rootfs.x86_64.img"
 
