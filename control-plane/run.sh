@@ -3,13 +3,18 @@ set -uexo pipefail
 
 mkdir -p build
 
+sops=sops
+if ! command -v sops; then
+  sops="podman run --env-host --rm -i -v `pwd`:/files:z ghcr.io/getsops/sops:v3.8.1"
+fi
+
 # Prepare Ignition files in build dir.
 rm -rf build/ignition-files
 cp -R ignition-files build/
 for f in $(find ignition-files.enc/ -type f); do
 	dst=${f/files.enc/files}
   mkdir -p build/$(dirname $dst)
-  sops -d $f > build/$dst
+  $sops -d /files/$f > build/$dst
 done
 
 # Compile Ignition config.
@@ -63,7 +68,7 @@ for v in kernel initrd rootfs; do
 done
 
 # Run pixiecore and provide it with the downloaded FCOS artifacts.
-sudo docker run --net=host -v `pwd`:/pixiecore pixiecore/pixiecore:master \
+sudo docker run --net=host -v `pwd`:/files pixiecore/pixiecore:master \
   boot -d $kernel $initrd \
   --dhcp-no-bind \
-  --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"config.ign\" }}"
+  --cmdline "coreos.live.rootfs_url={{ ID \"/files/$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"/files/config.ign\" }}"
