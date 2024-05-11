@@ -63,6 +63,7 @@ for v in kernel initrd rootfs; do
 done
 
 # Run pixiecore and provide it with the downloaded FCOS artifacts.
-sudo pixiecore boot -d $kernel $initrd \
+sudo docker run --net=host -v `pwd`:/pixiecore pixiecore/pixiecore:master \
+  boot -d $kernel $initrd \
   --dhcp-no-bind \
-  --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"machine.ign\" }}"
+  --cmdline "coreos.live.rootfs_url={{ ID \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ ID \"config.ign\" }}"
