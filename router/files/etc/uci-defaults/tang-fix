@@ -1,0 +1,7 @@
+set -uexo pipefail
+
+# Run Tang as root until this fix makes it into a stable release:
+# https://github.com/openwrt/openwrt/pull/13937
+sed -i -e 's/procd_set_param user tang/#procd_set_param user tang/' /etc/init.d/tang
+
+service tang restart || true

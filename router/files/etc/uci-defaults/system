@@ -13,6 +13,5 @@ set network.lan.ipaddr='${IPADDR}'
 commit network
 EOI
 
-service log restart
-
-ntpd -q -p 0.openwrt.pool.ntp.org
+service log restart || true
+ntpd -q -p 0.openwrt.pool.ntp.org || true
