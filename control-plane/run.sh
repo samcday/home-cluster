@@ -1,11 +1,6 @@
 #!/bin/bash
 set -uexo pipefail
 
-if [[ -z "${1:-}" ]]; then
-  echo ERROR: hostname parameter not set
-  exit 1
-fi
-
 mkdir -p build
 
 # Prepare Ignition files in build dir.
@@ -25,20 +20,6 @@ fi
 
 $butane --pretty --strict -d `pwd`/build/ignition-files < config.bu > build/config.ign
 
-$butane --pretty --strict -d `pwd`/build <<HERE > build/machine.ign
-variant: fcos
-version: 1.5.0
-ignition:
-    config:
-        merge:
-            - local: config.ign
-storage:
-  files:
-    - path: /etc/hostname
-      mode: 0644
-      contents:
-        inline: $1
-HERE
 
 if [[ "${RUN_PIXIECORE:-1}" != "1" ]]; then
   exit 0
