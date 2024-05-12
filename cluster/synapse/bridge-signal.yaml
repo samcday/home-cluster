@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 29328
             - name: metrics
-              containerPort: 8001
+              containerPort: 8000
           volumeMounts:
             - name: data
               mountPath: /data

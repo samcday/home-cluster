@@ -62,7 +62,7 @@ appservice:
 # Prometheus telemetry config. Requires prometheus-client to be installed.
 metrics:
     enabled: true
-    listen_port: 8001
+    listen: 127.0.0.1:8000
 
 # Manhole config.
 manhole:
