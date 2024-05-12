@@ -74,22 +74,18 @@ spec:
       storage:
         useAllDevices: false
         useAllNodes: false
+        config:
+          encryptedDevice: "true"
         nodes:
           - name: m710q-1
             devices:
               - name: nvme0n1
-                config:
-                  encryptedDevice: "true"
           - name: m710q-2
             devices:
               - name: nvme0n1
-                config:
-                  encryptedDevice: "true"
           - name: m710q-3
             devices:
               - name: nvme0n1
-                config:
-                  encryptedDevice: "true"
     cephFileSystems:
       - name: ceph-filesystem
         spec:
