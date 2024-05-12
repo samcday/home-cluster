@@ -38,7 +38,7 @@ spec:
       auth_enabled: false
       schemaConfig:
         configs:
-          - from: 2024-05-10
+          - from: "2024-05-10"
             object_store: s3
             store: tsdb
             schema: v13
