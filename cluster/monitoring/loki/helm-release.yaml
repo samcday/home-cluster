@@ -37,13 +37,14 @@ spec:
     loki:
       auth_enabled: false
       schemaConfig:
-        - from: 2024-05-10
-          object_store: s3
-          store: tsdb
-          schema: v13
-          index:
-            prefix: index_
-            period: 24h
+        configs:
+          - from: 2024-05-10
+            object_store: s3
+            store: tsdb
+            schema: v13
+            index:
+              prefix: index_
+              period: 24h
       storage:
         type: s3
         s3:
