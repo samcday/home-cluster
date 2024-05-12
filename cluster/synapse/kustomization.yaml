@@ -30,4 +30,4 @@ resources:
   - postgres.yaml
   - prometheus-rules.yaml
   - synapse.yaml
-  - turn.yaml
+  # - turn.yaml

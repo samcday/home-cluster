@@ -72,11 +72,11 @@ spec:
                 secretKeyRef:
                   name: db-app
                   key: password
-            - name: TURN_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: turn-secret
-                  key: secret
+            # - name: TURN_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: turn-secret
+            #       key: secret
           envFrom:
             - secretRef:
                 name: bridge-heisenbridge
