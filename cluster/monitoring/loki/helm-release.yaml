@@ -24,14 +24,8 @@ spec:
       retries: -1
   values:
     # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
-    backend:
-      # Enabling autoscaling also enables a lifecycle hook that ensures loki-backend pods properly shut down.
-      # Otherwise they hang indefinitely.
-      # https://github.com/grafana/loki/issues/9523
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-        maxReplicas: 4
+    chunksCache:
+      enabled: false
     global:
       clusterDomain: home-cluster.local
     loki:
