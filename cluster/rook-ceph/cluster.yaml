@@ -23,7 +23,8 @@ spec:
           # and making a lot of noise. Should be able to remove this
           # when I replace the Fritz 4040 with a switch.
           - target:
-              version: monitoring.coreos.com/v1
+              group: monitoring.coreos.com
+              version: v1
               kind: PrometheusRule
               name: prometheus-ceph-rules
             patch: |
