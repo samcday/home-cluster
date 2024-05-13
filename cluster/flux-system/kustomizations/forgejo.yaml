@@ -8,7 +8,6 @@ spec:
   interval: 1h
   path: cluster/forgejo
   prune: true
-  suspend: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
