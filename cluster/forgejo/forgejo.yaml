@@ -59,6 +59,8 @@ spec:
       storageClass: ceph-block
     postgresql:
       enabled: false
+    postgresql-ha:
+      enabled: false
   valuesFrom:
     - kind: Secret
       name: db-20230922-app
