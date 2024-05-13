@@ -58,6 +58,8 @@ spec:
           MINIO_ENDPOINT: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
     persistence:
       storageClass: ceph-block
+      create: false
+      claimName: data-forgejo-0
     postgresql:
       enabled: false
     postgresql-ha:
