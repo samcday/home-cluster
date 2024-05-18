@@ -1,10 +1,7 @@
 # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
 
-autoDirectNodeRoutes: true
-devices: enp+
 ipam:
   mode: kubernetes
-ipv4NativeRoutingCIDR: 172.30.0.0/16
 k8sServiceHost: 172.29.0.1
 k8sServicePort: 6444
 kubeProxyReplacement: strict
@@ -13,5 +10,11 @@ loadBalancer:
 operator:
   rollOutPods: true
   replicas: 1
-routingMode: native
-tunnel: disabled
+
+# this fails sporadically because Cilium tries to use tailscale0
+# for auto direct node routes. Sigh.
+# autoDirectNodeRoutes: true
+# devices: enp+
+# ipv4NativeRoutingCIDR: 172.30.0.0/16
+# routingMode: native
+# tunnel: disabled
