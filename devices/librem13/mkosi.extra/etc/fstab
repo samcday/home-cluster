@@ -1,8 +1,0 @@
-/dev/vg/srv /srv ext4 rw 0 2
-/dev/vg/home /home ext4 rw 0 2
-/dev/vg/var /var ext4 rw 0 2
-
-# It would be better to put k8s stuff in /var directly, but kubeadm is hardcoded to /etc/kubernetes...
-/var/lib/kubernetes /etc/kubernetes none bind
-
-/var/roothome /root none bind

@@ -1,3 +1,0 @@
-# Ideally I'd put pacman.conf in mkosi.skeleton. But the early install does weird shenanigans and seems to ignore
-# a custom DBPath
-mv $BUILDROOT/var/lib/pacman $BUILDROOT/usr/local/share

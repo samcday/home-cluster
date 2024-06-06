@@ -1,1 +1,0 @@
-root PARTLABEL=root /etc/cryptsetup-keys.d/root.key
