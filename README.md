@@ -10,6 +10,6 @@ Every facet of the cluster is managed as code, in this repository.
 
  * The [`control-plane/`](./control-plane/README.md) runs CoreOS and uses Ignition to bootstrap.
  * The Kubernetes [`cluster/`](./cluster/README.md) manifests are reconciled with Flux.
- * The router runs OpenWRT, the image is built in [`router/`](./router/README.md).
+ * The router runs OpenWRT, the image is built in [`devices/router/`](./devices/router/README.md).
  * Cluster storage is provided by Ceph.
  * Cluster networking is powered by Cilium in native L2 mode (the router pushes PodCIDR routes).
