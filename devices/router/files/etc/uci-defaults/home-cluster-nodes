@@ -6,6 +6,7 @@ node1_mac="6c:4b:90:50:9f:0d"
 node2_mac="6c:4b:90:54:2d:65"
 node3_mac="6c:4b:90:4d:e0:39"
 node4_mac="6c:4b:90:76:c6:00"
+node5_mac="6c:4b:90:17:1e:be"
 
 uci -q batch <<EOI
 set dhcp.m710q_1=host
@@ -32,6 +33,12 @@ set dhcp.m710q_4.mac='$node4_mac'
 set dhcp.m710q_4.ip='10.0.1.13'
 set dhcp.m710q_4.tag='home-cluster'
 
+set dhcp.m715q_1=host
+set dhcp.m715q_1.name='m715q-1'
+set dhcp.m715q_1.mac='$node5_mac'
+set dhcp.m715q_1.ip='10.0.1.14'
+set dhcp.m715q_1.tag='home-cluster'
+
 commit dhcp
 
 set etherwake.m710q_1=target
@@ -49,6 +56,10 @@ set etherwake.m710q_3.mac='$node3_mac'
 set etherwake.m710q_4=target
 set etherwake.m710q_4.name='m710q-4'
 set etherwake.m710q_4.mac='$node4_mac'
+
+set etherwake.m715q_1=target
+set etherwake.m715q_1.name='m715q-1'
+set etherwake.m715q_1.mac='$node5_mac'
 
 commit etherwake
 EOI
