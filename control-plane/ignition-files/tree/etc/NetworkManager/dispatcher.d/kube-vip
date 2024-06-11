@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ "$1" == "enp0s31f6" ]] || exit 0
+[[ "$1" == "enp0s31f6" ]] || [[ "$1" == "enp2s0f0" ]] || exit 0
 [[ "$2" == "dhcp4-change" ]] || exit 0
 
-ip addr add 172.29.0.1/32 dev enp0s31f6
+ip addr add 172.29.0.1/32 dev $1
