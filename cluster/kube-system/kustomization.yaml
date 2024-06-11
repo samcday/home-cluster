@@ -21,5 +21,6 @@ resources:
   - ingress-nginx.yaml
   - ingress-nginx-public.yaml
   - node-problem-detector.yaml
+  - nodes.yaml
   - prometheus-operator.yaml
   - velero.yaml

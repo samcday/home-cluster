@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: m715q-1
+spec:
+  taints:
+    # This is a very underpowered machine that is mostly here to serve
+    # etcd quorum duties.
+    - key: com.samcday/shrimpy-boi
+      effect: NoExecute
