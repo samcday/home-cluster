@@ -20,6 +20,7 @@ resources:
   - goldpinger.yaml
   - ingress-nginx.yaml
   - ingress-nginx-public.yaml
+  - node-feature-discovery.yaml
   - node-problem-detector.yaml
   - nodes.yaml
   - prometheus-operator.yaml
