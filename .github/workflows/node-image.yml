@@ -5,6 +5,8 @@ on:
     - cron: '22 9 * * *'
   push:
     branches: [ main ]
+    paths:
+      - 'node/**'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
 
