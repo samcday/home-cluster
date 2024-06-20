@@ -13,6 +13,7 @@ RUN rpm-ostree install \
         man-pages \
         tailscale \
         tcpdump \
+        usbip \
         usbutils \
         vim \
     && \
