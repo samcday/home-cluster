@@ -1,0 +1,8 @@
+[Mount]
+What=/var/lib/kubernetes
+Where=/etc/kubernetes
+Type=none
+Options=bind
+
+[Install]
+WantedBy=multi-user.target

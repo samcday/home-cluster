@@ -1,0 +1,20 @@
+[Unit]
+Wants=network-online.target
+After=network-online.target
+Before=zincati.service
+ConditionPathExists=!/etc/%N.stamp
+ConditionPathExists=/etc/tailscale-auth.key
+
+[Service]
+LoadCredential=authkey:/etc/tailscale-auth.key
+RemainAfterExit=yes
+Type=oneshot
+
+# Wait until tailscale is up.
+ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
+ExecStart=bash -c 'while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do sleep 0.5; done'
+ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns=false --advertise-routes=172.29.0.1/32 || exit 0'
+ExecStart=/bin/touch /etc/%N.stamp
+
+[Install]
+WantedBy=multi-user.target

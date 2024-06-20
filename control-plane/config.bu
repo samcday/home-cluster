@@ -24,9 +24,6 @@ passwd:
         - systemd-journal
       ssh_authorized_keys: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ]
 storage:
-  directories:
-    - path: /etc/haproxy
-    - path: /etc/haproxy/conf.d
   disks:
     - device: /dev/disk/by-id/coreos-boot-disk
       wipe_table: false
@@ -38,10 +35,6 @@ storage:
         - size_mib: 0
           label: var
   files:
-    - path: /etc/containerd/config.toml
-      overwrite: true
-    - path: /etc/kubeadm.yaml
-      mode: 0600
     - path: /etc/ssh/ssh_host_ecdsa_key
       mode: 0600
     - path: /etc/ssh/ssh_host_ed25519_key
@@ -68,43 +61,16 @@ storage:
     - local: tree
 systemd:
   units:
-    - name: containerd.service
-      enabled: true
-    - name: etc-kubernetes.mount
-      enabled: true
-      contents: |
-        [Mount]
-        What=/var/lib/kubernetes
-        Where=/etc/kubernetes
-        Type=none
-        Options=bind
-
-        [Install]
-        WantedBy=multi-user.target
-    - name: init.service
+    - name: rebase-custom.service
       enabled: true
       contents: |
         [Unit]
-        Wants=network-online.target
+        ConditionFirstBoot=true
         After=network-online.target
-        Before=zincati.service
-        ConditionPathExists=!/etc/%N.stamp
-
         [Service]
-        LoadCredential=authkey:/etc/tailscale-auth.key
-        RemainAfterExit=yes
+        After=coreos-ignition-firstboot-complete.service
         Type=oneshot
-        # Install stuff.
-        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive dmidecode haproxy kubeadm kubectl kubelet man-db man-pages tailscale tcpdump usbutils vim
-
-        # Start stuff just installed.
-        ExecStart=systemctl enable --now haproxy.service kubelet.service tailscaled.service
-
-        # Wait until tailscale is up.
-        ExecStart=bash -c 'until tailscale status --json; do sleep 0.5; done'
-        ExecStart=bash -c 'while [[ "$(tailscale status --json | jq -r .BackendState)" == "NoState" ]]; do sleep 0.5; done'
-        ExecStart=bash -c '[[ "$(tailscale status --json | jq -r .BackendState)" == "NeedsLogin" ]] && tailscale up --auth-key=file:${CREDENTIALS_DIRECTORY}/authkey --accept-dns=false --advertise-routes=172.29.0.1/32 || exit 0'
-        ExecStart=/bin/touch /etc/%N.stamp
-
+        RemainAfterExit=yes
+        ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest
         [Install]
         WantedBy=multi-user.target
