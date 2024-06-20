@@ -71,6 +71,6 @@ systemd:
         After=coreos-ignition-firstboot-complete.service
         Type=oneshot
         RemainAfterExit=yes
-        ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest
+        ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:main
         [Install]
         WantedBy=multi-user.target
