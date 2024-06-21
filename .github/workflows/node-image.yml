@@ -5,7 +5,9 @@ on:
     - cron: '22 9 * * *'
   push:
     branches: [main]
-    paths: ['node/**']
+    paths:
+      - .github/workflows/node-image.yml
+      - 'node/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
