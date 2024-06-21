@@ -36,7 +36,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: cluster/flux-system/helmrepos
+  path: cluster/flux-system/helm-repos
   prune: true
   sourceRef:
     kind: GitRepository
@@ -51,7 +51,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: cluster/flux-system/imagerepos
+  path: cluster/flux-system/image-repos
   prune: true
   sourceRef:
     kind: GitRepository
@@ -66,7 +66,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: cluster/flux-system/imagepolicies
+  path: cluster/flux-system/image-policies
   prune: true
   sourceRef:
     kind: GitRepository
@@ -81,7 +81,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: cluster/flux-system/gitrepos
+  path: cluster/flux-system/git-repos
   prune: true
   sourceRef:
     kind: GitRepository
