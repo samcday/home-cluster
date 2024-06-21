@@ -9,16 +9,36 @@ metadata:
 spec:
   ingressClassName: public-nginx
   rules:
-  - host: homeserver.samcday.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: synapse
-            port:
-              number: 8008
-        path: /
-        pathType: Prefix
+    - host: homeserver.samcday.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: syncv3
+              port:
+                number: 8008
+          path: /_matrix/client/unstable/org.matrix.msc3575/sync
+          pathType: Prefix
+    - host: homeserver.samcday.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: syncv3
+              port:
+                number: 8008
+          path: /client/
+          pathType: Prefix
+    - host: homeserver.samcday.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: synapse
+              port:
+                number: 8008
+          path: /
+          pathType: Prefix
   tls:
-  - hosts: [homeserver.samcday.com]
-    secretName: certificate
+    - hosts: [homeserver.samcday.com]
+      secretName: certificate
