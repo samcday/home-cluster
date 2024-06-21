@@ -47,6 +47,36 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: imagerepos
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: cluster/flux-system/imagerepos
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+    namespace: flux-system
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: imagepolicies
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: cluster/flux-system/imagepolicies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+    namespace: flux-system
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: gitrepos
   namespace: flux-system
 spec:

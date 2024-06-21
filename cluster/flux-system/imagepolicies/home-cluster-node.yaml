@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: home-cluster-node
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^(?P<timestamp>[0-9+]{8})$'
+    extract: '$timestamp'
+  imageRepositoryRef:
+    name: home-cluster-node
+  policy:
+    alphabetical:
+      order: asc
