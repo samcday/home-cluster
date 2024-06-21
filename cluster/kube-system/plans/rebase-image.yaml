@@ -1,0 +1,20 @@
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: rebase-image
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: "20240621"
+  tolerations:
+    - {key: com.samcday/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  upgrade:
+    image: alpine:3
+    command:
+      - ash
+      - -c
+      - |
+        set -uexo pipefail
+        chroot /host rpm-ostree rebase ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION

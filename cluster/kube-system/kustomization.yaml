@@ -24,6 +24,7 @@ resources:
   - node-feature-discovery.yaml
   - node-problem-detector.yaml
   - nodes.yaml
+  - plans/rebase-image.yaml
   - prometheus-operator.yaml
   - system-upgrade-controller-crds.yaml
   - system-upgrade-controller.yaml
