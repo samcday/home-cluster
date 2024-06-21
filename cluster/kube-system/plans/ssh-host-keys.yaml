@@ -1,0 +1,26 @@
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: ssh-host-keys
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: "1"
+  tolerations:
+    - {key: com.samcday/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+      - {key: kubernetes.io/os, operator: Exists}
+  secrets:
+    - name: ssh-host-keys
+  upgrade:
+    image: busybox:stable
+    args:
+      - ash
+      - -c
+      - |
+        set -uexo pipefail
+        cp /run/system-upgrade/secrets/ssh-host-keys/* /host/etc/ssh
+        chmod 600 /host/etc/ssh/ssh_host_*_key
+        chroot /host systemctl restart sshd.service

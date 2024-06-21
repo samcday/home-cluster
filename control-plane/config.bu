@@ -35,12 +35,6 @@ storage:
         - size_mib: 0
           label: var
   files:
-    - path: /etc/ssh/ssh_host_ecdsa_key
-      mode: 0600
-    - path: /etc/ssh/ssh_host_ed25519_key
-      mode: 0600
-    - path: /etc/ssh/ssh_host_rsa_key
-      mode: 0600
     - path: /var/lib/kubernetes/pki/ca.crt
       overwrite: true
     - path: /var/lib/kubernetes/pki/ca.key
