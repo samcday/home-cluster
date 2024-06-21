@@ -60,6 +60,10 @@ spec:
         login: true
         passwordSecret:
           name: signald-dbuser
+      - name: syncv3
+        login: true
+        passwordSecret:
+          name: syncv3-dbuser
   storage:
     size: 20Gi
     storageClass: ceph-block
