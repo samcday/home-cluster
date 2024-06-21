@@ -1,4 +1,3 @@
----
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
@@ -6,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: "20240621" # {"$imagepolicy": "flux-system:home-cluster-node"}
+  version: "ghcr.io/samcday/home-cluster-node:20240621.1" # {"$imagepolicy": "flux-system:home-cluster-node"}
   tolerations:
     - {key: com.samcday/shrimpy-boi, operator: Exists}
   serviceAccountName: system-upgrade
