@@ -21,6 +21,7 @@ ssh core@m710q-3 sudo kubeadm join --config /etc/kubeadm.yaml
 
 helm install flux flux2 --repo=https://fluxcd-community.github.io/helm-charts -n flux-system --create-namespace --values cluster/flux-values.yaml
 sops -d cluster/secrets/flux-system/age-key.yaml | kubectl apply -f-
+sops -d cluster/secrets/flux-system/ssh-key.yaml | kubectl apply -f-
 
 kubectl apply -k cluster/flux-system
 
