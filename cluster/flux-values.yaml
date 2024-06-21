@@ -6,21 +6,17 @@ helmController: &gofast
     additionalargs:
       - --concurrent=10
   replicas: 2
-  resources:
+  resources: &nocpureq
     requests:
       cpu: ~
 imageAutomationController:
-  create: false
+  resources: *nocpureq
 imageReflectionController:
-  create: false
+  resources: *nocpureq
 kustomizeController: *gofast
 notificationController:
-  resources:
-    requests:
-      cpu: ~
+  resources: *nocpureq
 policies:
   create: false
 sourceController:
-  resources:
-    requests:
-      cpu: ~
+  resources: *nocpureq
