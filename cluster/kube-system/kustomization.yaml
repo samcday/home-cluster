@@ -25,4 +25,6 @@ resources:
   - node-problem-detector.yaml
   - nodes.yaml
   - prometheus-operator.yaml
+  - system-upgrade-controller-crds.yaml
+  - system-upgrade-controller.yaml
   - velero.yaml
