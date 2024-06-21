@@ -100,7 +100,7 @@ spec:
     branch: main
   secretRef:
     name: ssh-key
-  url: https://github.com/samcday/home-cluster.git
+  url: git@github.com:samcday/home-cluster.git
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
