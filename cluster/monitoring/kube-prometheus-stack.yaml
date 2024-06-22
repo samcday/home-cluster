@@ -58,11 +58,11 @@ spec:
           - hosts: [prometheus.samcday.com]
             secretName: prometheus-certificate
       prometheusSpec:
-        # additionalScrapeConfigs:
-        #   - job_name: node-exporter
-        #     static_configs:
-        #       - targets:
-        #           # - sam-laptop.personal.tailnet.samcday.com:9100
+        additionalScrapeConfigs:
+          - job_name: node-exporter
+            static_configs:
+              - targets:
+                  - 10.0.1.1:9100
         enableAdminAPI: true
         externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
