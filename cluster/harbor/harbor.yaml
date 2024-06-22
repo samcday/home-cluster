@@ -16,6 +16,8 @@ spec:
   interval: 1h
   values:
     # https://github.com/goharbor/harbor-helm/blob/main/values.yaml
+    cache:
+      enabled: true
     core:
       podLabels: &disableharbor
         goharbor.io/harbor-container-webhook-disable: 'true'
