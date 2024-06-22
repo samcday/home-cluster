@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor-container-webhook
+  namespace: harbor
+spec:
+  chart:
+    spec:
+      chart: harbor-container-webhook
+      sourceRef:
+        kind: HelmRepository
+        name: harbor-container-webhook
+        namespace: flux-system
+      version: 0.7.0
+  interval: 1h
+  values:
+    # https://github.com/indeedeng/harbor-container-webhook/blob/main/deploy/charts/harbor-container-webhook/values.yaml
+    metrics:
+      serviceMonitor:
+        enabled: true
+    rules:
+      - name: rewrite docker.io
+        matches:
+          - ^docker.io
+        replace: 'localhost:30002/hub.docker.com'
+      - name: rewrite quay.io
+        matches:
+          - ^quay.io
+        replace: 'localhost:30002/quay.io'

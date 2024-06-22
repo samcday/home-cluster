@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  chart:
+    spec:
+      chart: harbor
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: flux-system
+      version: 1.15.0
+  interval: 1h
+  values:
+    # https://github.com/goharbor/harbor-helm/blob/main/values.yaml
+    core:
+      podLabels: &disableharbor
+        goharbor.io/harbor-container-webhook-disable: 'true'
+    database:
+      type: external
+      external:
+        host: db-rw.harbor.svc.home-cluster.local
+        port: 5432
+        username: harbor
+        coreDatabase: harbor
+        existingSecret: db-app
+        sslmode: disable
+    expose:
+      type: nodePort
+      tls:
+        enabled: false
+    externalURL: http://localhost:30002
+    jobservice:
+      jobLoggers: [database]
+      podLabels: *disableharbor
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    persistence:
+      # setup image/chart persistence to bukkit
+      imageChartStorage:
+        type: s3
+        s3:
+          regionendpoint: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
+          secure: false
+    registry:
+      podLabels: *disableharbor
+  valuesFrom:
+    - kind: Secret
+      name: bucket
+      valuesKey: AWS_ACCESS_KEY_ID
+      targetPath: persistence.imageChartStorage.s3.accesskey
+    - kind: Secret
+      name: bucket
+      valuesKey: AWS_SECRET_ACCESS_KEY
+      targetPath: persistence.imageChartStorage.s3.secretkey
