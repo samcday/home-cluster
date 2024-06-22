@@ -36,3 +36,7 @@ spec:
         matches:
           - ^codeberg.org
         replace: 'localhost:30002/codeberg.org'
+      - name: rewrite code.forgejo.org
+        matches:
+          - ^code.forgejo.org
+        replace: 'localhost:30002/code.forgejo.org'
