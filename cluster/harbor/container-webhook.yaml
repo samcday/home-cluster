@@ -28,3 +28,7 @@ spec:
         matches:
           - ^quay.io
         replace: 'localhost:30002/quay.io'
+      - name: rewrite ghcr.io
+        matches:
+          - ^ghcr.io
+        replace: 'localhost:30002/ghcr.io'
