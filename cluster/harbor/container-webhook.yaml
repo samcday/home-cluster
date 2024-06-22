@@ -32,3 +32,7 @@ spec:
         matches:
           - ^ghcr.io
         replace: 'localhost:30002/ghcr.io'
+      - name: rewrite codeberg.org
+        matches:
+          - ^codeberg.org
+        replace: 'localhost:30002/codeberg.org'
