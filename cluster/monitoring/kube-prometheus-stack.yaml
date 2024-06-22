@@ -63,6 +63,8 @@ spec:
             static_configs:
               - targets:
                   - 10.0.1.1:9100
+                labels:
+                  instance: router
         enableAdminAPI: true
         externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
