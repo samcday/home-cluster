@@ -2,7 +2,7 @@ name: node/ Image
 
 on:
   schedule:
-    - cron: '2 9 * * *'
+    - cron: '30 2 * * *'
   push:
     branches: [main]
     paths:
