@@ -18,9 +18,6 @@ spec:
     # https://github.com/goharbor/harbor-helm/blob/main/values.yaml
     cache:
       enabled: true
-    core:
-      podLabels: &disableharbor
-        goharbor.io/harbor-container-webhook-disable: 'true'
     database:
       type: external
       external:
@@ -37,13 +34,10 @@ spec:
     externalURL: http://localhost:30002
     jobservice:
       jobLoggers: [database]
-      podLabels: *disableharbor
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-    nginx:
-      podLabels: *disableharbor
     persistence:
       # setup image/chart persistence to bukkit
       imageChartStorage:
@@ -51,8 +45,6 @@ spec:
         s3:
           regionendpoint: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
           secure: false
-    registry:
-      podLabels: *disableharbor
   valuesFrom:
     - kind: Secret
       name: bucket
