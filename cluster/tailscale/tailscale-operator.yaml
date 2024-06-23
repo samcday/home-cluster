@@ -16,3 +16,5 @@ spec:
   interval: 1h
   values:
     # https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/values.yaml
+    apiServerProxyConfig:
+      mode: 'true'
