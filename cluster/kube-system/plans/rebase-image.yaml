@@ -19,4 +19,4 @@ spec:
       - -c
       - |
         set -uexo pipefail
-        chroot /host rpm-ostree rebase ostree-unverified-registry:localhost:30002/ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
+        chroot /host rpm-ostree rebase ostree-unverified-registry:http://localhost:30002/ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
