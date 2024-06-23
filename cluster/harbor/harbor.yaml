@@ -42,6 +42,7 @@ spec:
       # setup image/chart persistence to bukkit
       imageChartStorage:
         type: s3
+        disableredirect: true
         s3:
           regionendpoint: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
           secure: false
