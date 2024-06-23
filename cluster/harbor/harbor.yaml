@@ -32,8 +32,6 @@ spec:
       tls:
         enabled: false
     externalURL: http://localhost:30002
-    jobservice:
-      jobLoggers: [database]
     metrics:
       enabled: true
       serviceMonitor:
