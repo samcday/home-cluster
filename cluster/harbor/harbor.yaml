@@ -42,6 +42,8 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    nginx:
+      podLabels: *disableharbor
     persistence:
       # setup image/chart persistence to bukkit
       imageChartStorage:
