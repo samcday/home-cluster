@@ -26,6 +26,7 @@ resources:
   - nodes.yaml
   - plans/rebase-image.yaml
   - prometheus-operator.yaml
+  - samcday-rbac.yaml
   - system-upgrade-controller-crds.yaml
   - system-upgrade-controller.yaml
   - velero.yaml
