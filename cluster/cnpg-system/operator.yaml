@@ -16,8 +16,5 @@ spec:
   interval: 1h
   values:
     # https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
-    config:
-      data:
-        INHERITED_LABELS: environment, workload, app, goharbor.io/harbor-container-webhook-disable
     monitoring:
       podMonitorEnabled: true

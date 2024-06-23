@@ -3,9 +3,6 @@ kind: Cluster
 metadata:
   name: db
   namespace: synapse
-  metadata:
-    labels:
-      goharbor.io/harbor-container-webhook-disable: 'true'
 spec:
   affinity:
     podAntiAffinityType: required
