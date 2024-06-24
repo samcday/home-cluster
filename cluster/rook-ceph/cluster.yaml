@@ -58,6 +58,11 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephClusterSpec:
+      # for MONTHS since first deploying Ceph, I woke up just about every morning to a fresh round
+      # of alerts, because some osds have crashed overnight. still no idea why. it still happens today.
+      # but it always happens in the dead of night and never seems to cause enough impact for me to care.
+      crashCollector:
+        disable: true
       dashboard:
         ssl: false
       resources:
