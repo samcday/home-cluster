@@ -1,0 +1,18 @@
+if [[ "${ACTION}" == "bind" ]] && [[ "${DRIVER}" =~ ^cdc_.* ]]; then
+    device=$(ls /sys${DEVPATH}/net)
+
+    if [[ -n "$device" ]]; then
+        uci set network.cdceth=interface
+        uci set network.cdceth.proto='dhcp'
+        uci set network.cdceth.device="${device}"
+        uci set network.cdceth.metric='100'
+        uci commit network.cdceth
+        service network reload
+
+        uci add_list 'firewall.@zone[1].network'=cdceth
+        uci commit 'firewall.@zone[1]'
+        service firewall reload
+
+        logger -t "$DRIVER bound $device"
+    fi
+fi

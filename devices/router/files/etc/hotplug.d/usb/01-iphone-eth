@@ -1,0 +1,18 @@
+if [[ "${ACTION}" == "bind" ]] && [[ "${DRIVER}" == "ipheth" ]]; then
+    device=$(ls /sys${DEVPATH}/net)
+
+    if [[ -n "$device" ]]; then
+        uci set network.ipheth=interface
+        uci set network.ipheth.proto='dhcp'
+        uci set network.ipheth.device="${device}"
+        uci set network.ipheth.metric='100'
+        uci commit network.ipheth
+        /etc/init.d/network reload
+
+        uci add_list 'firewall.@zone[1].network'=ipheth
+        uci commit 'firewall.@zone[1]'
+        service firewall reload
+
+        logger -t ipheth bound $device
+    fi
+fi
