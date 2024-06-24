@@ -1,0 +1,29 @@
+# Deploys/upgrades kube-vip on control-plane nodes.
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: kube-vip
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: v0.5.0 # TODO: image automation on ghcr.io/kube-vip/kube-vip ?
+  tolerations:
+    - {key: com.samcday/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+  upgrade:
+    image: busybox:stable
+    command:
+      - chroot
+      - /host
+      - /bin/bash
+      - -c
+      - |
+        set -uexo pipefail
+        docker run --network host --rm localhost:30002/ghcr.io/kube-vip/kube-vip:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION manifest pod \
+          --address 10.0.1.9 \
+          --controlplane \
+          --arp \
+          --leaderElection > /etc/kubernetes/manifests/kube-vip.yaml

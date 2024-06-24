@@ -24,7 +24,9 @@ resources:
   - node-feature-discovery.yaml
   - node-problem-detector.yaml
   - nodes.yaml
+  - plans/kube-vip.yaml
   - plans/rebase-image.yaml
+  - plans/ssh-host-keys.yaml
   - prometheus-operator.yaml
   - samcday-rbac.yaml
   - system-upgrade-controller-crds.yaml
