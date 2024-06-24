@@ -9,6 +9,7 @@ RUN rpm-ostree install \
         kubeadm \
         kubectl \
         kubelet \
+        iperf3 \
         man-db \
         man-pages \
         tailscale \
