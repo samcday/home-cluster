@@ -30,7 +30,5 @@ RUN systemctl enable \
         etc-kubernetes.mount \
         haproxy.service \
         kubelet.service \
-        tailscale-init.service \
-        tailscaled.service \
     && \
     ostree container commit
