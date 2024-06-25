@@ -11,7 +11,7 @@ spec:
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
-      - {key: kubernetes.io/os, operator: In, values: [linux]}
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
   upgrade:
     image: alpine:3
     command:

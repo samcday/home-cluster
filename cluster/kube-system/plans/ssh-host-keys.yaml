@@ -11,7 +11,7 @@ spec:
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
-      - {key: kubernetes.io/os, operator: Exists}
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
   secrets:
     - name: ssh-host-keys
   upgrade:
