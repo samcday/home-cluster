@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   filterTags:
-    pattern: '^(?P<timestamp>[0-9+]{8}(\.[0-9]+)?)$'
+    pattern: '^(?P<timestamp>[0-9+]{8-9}(\.[0-9]+)?)$'
     extract: '$timestamp'
   imageRepositoryRef:
     name: home-cluster-node
