@@ -11,7 +11,6 @@ RUN rpm-ostree install \
         iperf3 \
         man-db \
         man-pages \
-        tailscale \
         tcpdump \
         usbutils \
         vim \
