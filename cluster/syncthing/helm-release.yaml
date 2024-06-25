@@ -27,7 +27,7 @@ spec:
     envFrom:
     image:
       repository: syncthing/syncthing
-      tag: "1.27.0"
+      tag: "1.27.8"
     ingress:
       enabled: true
       annotations:
