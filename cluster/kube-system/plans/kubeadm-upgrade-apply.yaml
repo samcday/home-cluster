@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: v1.29.6
+  version: v1.30.2
   tolerations:
     - {key: com.samcday/shrimpy-boi, operator: Exists}
   serviceAccountName: system-upgrade
