@@ -5,7 +5,6 @@ COPY etc/yum.repos.d/ /etc/yum.repos.d
 RUN rpm-ostree install \
         dmidecode \
         etcd \
-        haproxy \
         kubeadm \
         kubectl \
         kubelet \
@@ -29,7 +28,6 @@ RUN mkdir -p /etc/haproxy/conf.d && \
 RUN systemctl enable \
         containerd.service \
         etc-kubernetes.mount \
-        haproxy.service \
         kubelet.service \
     && \
     ostree container commit
