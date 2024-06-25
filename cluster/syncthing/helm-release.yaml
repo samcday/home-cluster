@@ -23,6 +23,8 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: data
+    deploymentStrategy:
+      type: Recreate
     env:
     envFrom:
     image:
