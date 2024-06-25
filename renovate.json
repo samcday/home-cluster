@@ -8,6 +8,9 @@
   "kubernetes": {
     "fileMatch": ["cluster/.*\\.yaml$"]
   },
+  "helm-values": {
+    "fileMatch": ["cluster/.*\\.yaml$"]
+  },
   "packageRules": [
     {
       "matchDatasources": ["docker"],
@@ -17,7 +20,7 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["matrixdotorg\/synapse"],
-      "customChangelogUrl": "https://github.com/element-hq/synapse"
+      "changelogUrl": "https://github.com/element-hq/synapse"
     }
   ]
 }
