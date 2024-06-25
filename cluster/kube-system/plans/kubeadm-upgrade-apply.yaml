@@ -1,0 +1,25 @@
+# Runs kubeadm upgrade apply on control-plane nodes.
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: kubeadm-upgrade-apply
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: v1.29.6
+  tolerations:
+    - {key: com.samcday/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+  upgrade:
+    image: busybox:stable
+    command:
+      - chroot
+      - /host
+      - /bin/bash
+      - -c
+      - |
+        set -uexo pipefail
+        kubeadm upgrade apply $SYSTEM_UPGRADE_PLAN_LATEST_VERSION

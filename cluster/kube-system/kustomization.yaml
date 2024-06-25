@@ -25,6 +25,7 @@ resources:
   - node-problem-detector.yaml
   - nodes.yaml
   - plans/kube-vip.yaml
+  - plans/kubeadm-upgrade-apply.yaml
   - plans/rebase-image.yaml
   - plans/ssh-host-keys.yaml
   - prometheus-operator.yaml
