@@ -15,3 +15,8 @@ autoDirectNodeRoutes: true
 ipv4NativeRoutingCIDR: 172.30.0.0/16
 routingMode: native
 tunnel: disabled
+
+# currently harbor is accessed via a NodePort. Cilium makes NodePorts.
+# So Cilium cannot depend on Harbor.
+podLabels:
+  goharbor.io/harbor-container-webhook-disable: 'true'
