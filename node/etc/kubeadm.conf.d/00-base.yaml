@@ -1,6 +1,6 @@
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-controlPlaneEndpoint: 172.29.0.1:6444
+controlPlaneEndpoint: 10.0.1.9:6443
 controllerManager:
     extraArgs:
         bind-address: 0.0.0.0
