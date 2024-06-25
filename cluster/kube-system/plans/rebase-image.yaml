@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: "20240624" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
+  version: "20240625" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
   tolerations:
     - {key: com.samcday/shrimpy-boi, operator: Exists}
   serviceAccountName: system-upgrade
