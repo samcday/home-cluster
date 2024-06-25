@@ -23,6 +23,8 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: maloja
+    deploymentStrategy:
+      type: Recreate
     env:
       MALOJA_DATA_DIRECTORY: /data
       MALOJA_SKIP_SETUP: "yes"
