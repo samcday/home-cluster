@@ -19,8 +19,7 @@ RUN rpm-ostree install \
 
 COPY etc/ /etc
 COPY usr/ /usr
-RUN mkdir -p /etc/haproxy/conf.d && \
-    chmod 700 /etc/kubeadm.conf.d && \
+RUN chmod 700 /etc/kubeadm.conf.d && \
     ostree container commit
 
 # enable services
