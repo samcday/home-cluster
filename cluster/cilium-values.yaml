@@ -11,10 +11,7 @@ operator:
   rollOutPods: true
   replicas: 1
 
-# this fails sporadically because Cilium tries to use tailscale0
-# for auto direct node routes. Sigh.
-# autoDirectNodeRoutes: true
-# devices: enp+
-# ipv4NativeRoutingCIDR: 172.30.0.0/16
-# routingMode: native
-# tunnel: disabled
+autoDirectNodeRoutes: true
+ipv4NativeRoutingCIDR: 172.30.0.0/16
+routingMode: native
+tunnel: disabled
