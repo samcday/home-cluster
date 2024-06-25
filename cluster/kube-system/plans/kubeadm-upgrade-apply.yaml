@@ -23,5 +23,3 @@ spec:
       - |
         set -uexo pipefail
         kubeadm upgrade apply -y $SYSTEM_UPGRADE_PLAN_LATEST_VERSION
-        # https://github.com/kubernetes/kubeadm/issues/1318
-        kubectl delete ds/kube-proxy -n kube-system --ignore-not-found
