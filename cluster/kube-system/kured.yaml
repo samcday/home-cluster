@@ -17,6 +17,7 @@ spec:
   values:
     # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
     configuration:
+      period: 5m
       rebootSentinelCommand: sh -c 'rpm-ostree status --pending-exit-77 > /dev/null; [ $? -eq 77 ]'
       useRebootSentinelHostPath: false
     tolerations:
