@@ -22,4 +22,4 @@ spec:
       - -c
       - |
         set -uexo pipefail
-        kubeadm upgrade apply $SYSTEM_UPGRADE_PLAN_LATEST_VERSION
+        kubeadm upgrade apply -y $SYSTEM_UPGRADE_PLAN_LATEST_VERSION
