@@ -20,10 +20,9 @@ spec:
       name: tofu-env
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: tofu
-  namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -31,3 +30,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: tf-runner
+  namespace: kube-system
