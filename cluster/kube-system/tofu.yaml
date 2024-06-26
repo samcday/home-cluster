@@ -7,10 +7,24 @@ spec:
   interval: 1h
   path: ./terraform/main
   runnerPodTemplate:
-    envFrom:
-      - secretRef:
-          name: tofu-env
+    spec:
+      envFrom:
+        - secretRef:
+            name: tofu-env
   sourceRef:
     kind: GitRepository
     name: home-cluster
     namespace: flux-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tofu
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: tf-runner
