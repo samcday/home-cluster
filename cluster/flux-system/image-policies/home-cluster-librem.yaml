@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: home-cluster-librem
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^(?P<timestamp>[0-9+]{10}(\.[0-9]+)?)$'
+    extract: '$timestamp'
+  imageRepositoryRef:
+    name: home-cluster-librem
+  policy:
+    alphabetical:
+      order: asc
