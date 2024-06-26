@@ -8,6 +8,7 @@ on:
     paths:
       - .github/workflows/librem-image.yml
       - 'devices/librem/**'
+  workflow_dispatch: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

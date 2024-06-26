@@ -9,6 +9,7 @@ on:
       - .github/workflows/node-image.yml
       - 'node/**'
     tags: ['*']
+  workflow_dispatch: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
