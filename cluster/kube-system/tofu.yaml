@@ -1,0 +1,12 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: tofu
+  namespace: kube-system
+spec:
+  interval: 1h
+  path: ./terraform/main
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+    namespace: flux-system

@@ -33,4 +33,5 @@ resources:
   - samcday-rbac.yaml
   - system-upgrade-controller-crds.yaml
   - system-upgrade-controller.yaml
+  - tofu.yaml
   - velero.yaml
