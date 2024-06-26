@@ -15,6 +15,7 @@ spec:
     kind: GitRepository
     name: home-cluster
     namespace: flux-system
+  storeReadablePlan: human
   varsFrom:
     - kind: Secret
       name: tofu-env
