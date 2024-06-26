@@ -32,7 +32,11 @@ spec:
       tag: v0.16.0-rc.4
     replicaCount: 2
     runner:
-      image:
-        tag: v0.16.0-rc.4
       grpc:
         maxMessageSize: 30
+      image:
+        tag: v0.16.0-rc.4
+      serviceAccount:
+        allowedNamespaces:
+          - flux-system
+          - kube-system
