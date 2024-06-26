@@ -14,6 +14,7 @@ configMapGenerator:
 resources:
   - ../config
   - cert-manager.yaml
+  - descheduler.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml
   - fleetlock.yaml
