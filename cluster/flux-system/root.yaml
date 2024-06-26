@@ -102,6 +102,17 @@ spec:
     name: ssh-key
   url: ssh://git@github.com:22/samcday/home-cluster.git
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: home-cluster-https
+  namespace: flux-system
+spec:
+  interval: 1h
+  ref:
+    branch: main
+  url: https://github.com/samcday/home-cluster.git
+---
 apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
 metadata:
@@ -117,6 +128,8 @@ spec:
   resources:
     - kind: GitRepository
       name: home-cluster
+    - kind: GitRepository
+      name: home-cluster-https
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
