@@ -30,7 +30,10 @@ spec:
             patch: |
               - op: add
                 path: /rules/5/verbs/-
-                values: [create, delete]
+                value: create
+              - op: add
+                path: /rules/5/verbs/-
+                value: delete
   upgrade:
     crds: CreateReplace
     remediation:
