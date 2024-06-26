@@ -13,4 +13,4 @@ function encrypt() {
 trap encrypt EXIT
 
 export KUBE_CONFIG_PATH=${KUBECONFIG:-$HOME/.kube/config}
-sops exec-env env.yaml "terraform $*"
+sops exec-env env.yaml "tofu $*"
