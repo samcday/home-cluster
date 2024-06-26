@@ -27,7 +27,9 @@ spec:
     allowCrossNamespaceRefs: true
     caCertValidityDuration: 24h
     certRotationCheckFrequency: 30m
+    clusterDomain: home-cluster.local
     concurrency: 4
+    eventsAddress: http://notification-controller.flux-system.svc.home-cluster.local./
     image:
       tag: v0.16.0-rc.4
     replicaCount: 2
