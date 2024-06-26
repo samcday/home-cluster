@@ -25,6 +25,8 @@ spec:
   values:
     # https://github.com/flux-iac/tofu-controller/blob/main/charts/tofu-controller/values.yaml
     allowCrossNamespaceRefs: true
+    branchPlanner:
+      enabled: true
     caCertValidityDuration: 24h
     certRotationCheckFrequency: 30m
     clusterDomain: home-cluster.local
@@ -42,3 +44,14 @@ spec:
         allowedNamespaces:
           - flux-system
           - kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: flux-system
+  name: branch-planner
+data:
+  secretName: github-token
+  resources: |-
+    - namespace: flux-system
+    - namespace: kube-system
