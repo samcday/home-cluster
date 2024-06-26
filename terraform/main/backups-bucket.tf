@@ -42,7 +42,7 @@ resource "kubernetes_secret" "backups-bucket" {
 }
 
 locals {
-  pg_namespaces = toset(["forgejo", "invidious", "miniflux", "monitoring", "paperless", "synapse"])
+  pg_namespaces = toset(["forgejo", "harbor", "invidious", "miniflux", "monitoring", "paperless", "synapse"])
 }
 
 resource "b2_application_key" "postgres-backup-keys" {
