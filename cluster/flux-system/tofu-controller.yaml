@@ -18,6 +18,19 @@ spec:
     crds: Create
     remediation:
       retries: -1
+  postRenderers:
+    - kustomize:
+        patches:
+          # https://github.com/flux-iac/tofu-controller/issues/1274
+          - target:
+              group: rbac.authorization.k8s.io
+              version: v1
+              kind: ClusterRole
+              name: tf-manager-role
+            patch: |
+              - op: add
+                path: /rules/5/verbs/-
+                values: [create, delete]
   upgrade:
     crds: CreateReplace
     remediation:
