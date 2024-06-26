@@ -6,6 +6,10 @@ metadata:
 spec:
   interval: 1h
   path: ./terraform/main
+  runnerPodTemplate:
+    envFrom:
+      - secretRef:
+          name: tofu-env
   sourceRef:
     kind: GitRepository
     name: home-cluster

@@ -16,6 +16,7 @@ resource "b2_application_key" "backups" {
   capabilities = ["listAllBucketNames", "listBuckets", "listFiles", "readFiles", "writeFiles", "deleteFiles"]
 }
 
+# etcd + velero backups go here
 resource "kubernetes_secret" "backups-bucket" {
   metadata {
     name      = "backups-bucket"
