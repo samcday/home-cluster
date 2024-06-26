@@ -24,12 +24,13 @@ spec:
       retries: -1
   values:
     # https://github.com/flux-iac/tofu-controller/blob/main/charts/tofu-controller/values.yaml
-    replicaCount: 2
-    concurrency: 4
+    allowCrossNamespaceRefs: true
     caCertValidityDuration: 24h
     certRotationCheckFrequency: 30m
+    concurrency: 4
     image:
       tag: v0.16.0-rc.4
+    replicaCount: 2
     runner:
       image:
         tag: v0.16.0-rc.4
