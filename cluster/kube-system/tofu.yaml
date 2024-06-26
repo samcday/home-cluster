@@ -4,6 +4,7 @@ metadata:
   name: tofu
   namespace: kube-system
 spec:
+  approvePlan: auto
   interval: 1h
   path: ./terraform/main
   runnerPodTemplate:
