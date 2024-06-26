@@ -24,10 +24,6 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.31.0"
     }
-    tailscale = {
-      source  = "tailscale/tailscale"
-      version = "0.16.1"
-    }
   }
 }
 
@@ -36,4 +32,3 @@ provider "dmsnitch" {}
 provider "github" {}
 provider "hcloud" {}
 provider "kubernetes" {}
-provider "tailscale" {}
