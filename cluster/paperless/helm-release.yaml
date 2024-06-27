@@ -14,7 +14,7 @@ spec:
         namespace: flux-system
       version: 7.5.6
   dependsOn:
-    - name: redis
+    - name: valkey
   interval: 1h
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
