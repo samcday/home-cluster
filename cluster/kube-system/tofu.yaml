@@ -6,7 +6,7 @@ metadata:
 spec:
   approvePlan: auto
   interval: 1h
-  path: ./terraform/main
+  path: ./tofu/main
   runnerPodTemplate:
     spec:
       envFrom:

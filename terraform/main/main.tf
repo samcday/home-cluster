@@ -1,8 +1,4 @@
 terraform {
-  backend "local" {
-    path = "state.decrypted"
-  }
-
   required_providers {
     b2 = {
       source  = "Backblaze/b2"
