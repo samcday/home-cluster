@@ -39,7 +39,7 @@ spec:
       - /bin/bash
       - -c
       - |-
-        export PAPERLESS_REDIS=redis://:${REDIS_PASS}@redis-master:6379
+        export PAPERLESS_REDIS=redis://:${REDIS_PASS}@valkey-master:6379
         /sbin/docker-entrypoint.sh /usr/local/bin/paperless_cmd.sh
     env:
       PAPERLESS_TIME_ZONE: Europe/Berlin
@@ -48,8 +48,8 @@ spec:
     envValueFrom:
       REDIS_PASS:
         secretKeyRef:
-          name: redis
-          key: redis-password
+          name: valkey
+          key: valkey-password
       PAPERLESS_DBPASS:
         secretKeyRef:
           name: db-20231012-app
