@@ -12,6 +12,7 @@ RUN rpm-ostree install \
         man-db \
         man-pages \
         tcpdump \
+        usbip \
         usbutils \
         vim \
     && \
