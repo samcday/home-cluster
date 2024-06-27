@@ -65,5 +65,5 @@ spec:
       targetPath: persistence.imageChartStorage.s3.bucket
     - kind: Secret
       name: valkey
-      valuesKey: valkey_password
+      valuesKey: valkey-password
       targetPath: redis.external.password
