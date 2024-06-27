@@ -13,6 +13,8 @@ spec:
         name: harbor
         namespace: flux-system
       version: 1.15.0
+  dependsOn:
+    - name: valkey
   interval: 1h
   values:
     # https://github.com/goharbor/harbor-helm/blob/main/values.yaml
@@ -44,6 +46,10 @@ spec:
         s3:
           regionendpoint: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
           secure: false
+    redis:
+      type: external
+      external:
+        addr: valkey-master:6379
   valuesFrom:
     - kind: Secret
       name: bucket
@@ -57,3 +63,7 @@ spec:
       name: bucket
       valuesKey: BUCKET_NAME
       targetPath: persistence.imageChartStorage.s3.bucket
+    - kind: Secret
+      name: valkey
+      valuesKey: valkey_password
+      targetPath: redis.external.password

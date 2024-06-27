@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valkey
+  namespace: harbor
+spec:
+  chart:
+    spec:
+      chart: valkey
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      version: 0.3.7
+  interval: 1h
+  values:
+    # https://github.com/bitnami/charts/blob/main/bitnami/valkey/values.yaml
+    master:
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+    replica:
+      replicaCount: 0
