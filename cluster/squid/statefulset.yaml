@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: squid
+  namespace: squid
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: squid
+  serviceName: squid
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: squid
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: squid
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      initContainers:
+        - name: peers
+          image: alpine:3
+          command:
+            - /bin/ash
+            - -c
+            - |
+              set -uexo pipefail
+              for n in $(seq 0 1); do
+                [[ "$n" -eq "$STSIDX" ]] && continue;
+                echo "cache_peer squid-${n}.squid.squid.svc.home-cluster.local. sibling 3128 3130 default" >> /peers/peers.conf
+              done
+          env:
+            - name: STSIDX
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
+          volumeMounts:
+            - name: peers
+              mountPath: /peers
+      containers:
+        - name: squid
+          image: ubuntu/squid:6.6-24.04_beta
+          ports:
+            - containerPort: 3128
+              name: squid
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3128
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3128
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: config
+              mountPath: /etc/squid/conf.d/squid.conf
+              subPath: squid.conf
+            - name: peers
+              mountPath: /etc/squid/conf.d/peers.conf
+              subPath: peers.conf
+            - name: squid
+              mountPath: /var/spool/squid
+      securityContext:
+        fsGroup: 13
+      volumes:
+        - name: config
+          configMap:
+            name: config
+        - name: peers
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: squid
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 10Gi

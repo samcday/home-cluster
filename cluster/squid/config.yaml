@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: squid
+data:
+  squid.conf: |
+    icp_port 3130
+    icp_access allow localnet
+    cache_dir ufs /var/spool/squid 8192 16 256
