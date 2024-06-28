@@ -21,7 +21,7 @@ spec:
       - -c
       - |
         set -uexo pipefail
-        rpm-ostree rebase ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
+        rpm-ostree rebase ostree-unverified-registry:harbor.samcday.com/ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
 ---
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
@@ -44,4 +44,4 @@ spec:
       - -c
       - |
         set -uexo pipefail
-        rpm-ostree rebase ostree-unverified-registry:ghcr.io/samcday/home-cluster-librem:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
+        rpm-ostree rebase ostree-unverified-registry:harbor.samcday.com/ghcr.io/samcday/home-cluster-librem:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
