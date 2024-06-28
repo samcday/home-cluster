@@ -39,6 +39,8 @@ spec:
           core: harbor.samcday.com
       tls:
         certSource: secret
+        secret:
+          secretName: harbor-tls
     externalURL: https://harbor.samcday.com
     jobservice:
       jobLoggers: [database]
