@@ -23,20 +23,20 @@ spec:
       - name: rewrite docker.io
         matches:
           - ^docker.io
-        replace: 'localhost:30002/hub.docker.com'
+        replace: 'harbor.samcday.com/hub.docker.com'
       - name: rewrite quay.io
         matches:
           - ^quay.io
-        replace: 'localhost:30002/quay.io'
+        replace: 'harbor.samcday.com/quay.io'
       - name: rewrite ghcr.io
         matches:
           - ^ghcr.io
-        replace: 'localhost:30002/ghcr.io'
+        replace: 'harbor.samcday.com/ghcr.io'
       - name: rewrite codeberg.org
         matches:
           - ^codeberg.org
-        replace: 'localhost:30002/codeberg.org'
+        replace: 'harbor.samcday.com/codeberg.org'
       - name: rewrite code.forgejo.org
         matches:
           - ^code.forgejo.org
-        replace: 'localhost:30002/code.forgejo.org'
+        replace: 'harbor.samcday.com/code.forgejo.org'

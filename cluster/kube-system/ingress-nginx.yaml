@@ -28,6 +28,9 @@ spec:
         enabled: true
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
+      podLabels:
+        # Harbor ingress is provided by ingress-nginx, soooo...
+        goharbor.io/harbor-container-webhook-disable: 'true'
       replicaCount: 2
       reportNodeInternalIp: true
       service:
