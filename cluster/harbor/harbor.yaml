@@ -37,6 +37,8 @@ spec:
         className: nginx
         hosts:
           core: harbor.samcday.com
+      tls:
+        certSource: secret
     externalURL: https://harbor.samcday.com
     jobservice:
       jobLoggers: [database]
