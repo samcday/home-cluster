@@ -40,6 +40,8 @@ spec:
       tls:
         enabled: false
     externalURL: https://harbor.samcday.com
+    jobservice:
+      jobLoggers: [database]
     metrics:
       enabled: true
       serviceMonitor:
