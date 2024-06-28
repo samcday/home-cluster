@@ -11,3 +11,18 @@ spec:
   publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: squid
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: squid-public
+  namespace: squid
+spec:
+  loadBalancerClass: io.cilium/l2-announcer
+  ports:
+    - port: 3128
+      protocol: TCP
+      targetPort: 3128
+  selector:
+    app.kubernetes.io/name: squid
+  type: LoadBalancer

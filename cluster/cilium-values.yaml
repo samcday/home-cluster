@@ -1,22 +1,22 @@
 # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
 
+autoDirectNodeRoutes: true
 ipam:
   mode: kubernetes
+ipv4NativeRoutingCIDR: 172.30.0.0/16
 k8sServiceHost: 10.0.1.9
 k8sServicePort: 6443
 kubeProxyReplacement: strict
+l2announcements:
+  enabled: true
 loadBalancer:
   serviceTopology: true
 operator:
   rollOutPods: true
   replicas: 1
-
-autoDirectNodeRoutes: true
-ipv4NativeRoutingCIDR: 172.30.0.0/16
+podLabels:
+  # currently harbor is accessed via a NodePort. Cilium makes NodePorts.
+  # So Cilium cannot depend on Harbor.
+  goharbor.io/harbor-container-webhook-disable: 'true'
 routingMode: native
 tunnel: disabled
-
-# currently harbor is accessed via a NodePort. Cilium makes NodePorts.
-# So Cilium cannot depend on Harbor.
-podLabels:
-  goharbor.io/harbor-container-webhook-disable: 'true'
