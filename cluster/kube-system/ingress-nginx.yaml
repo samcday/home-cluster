@@ -13,17 +13,10 @@ spec:
         name: ingress-nginx
         namespace: flux-system
       version: 4.10.1
-  install:
-    remediation:
-      retries: -1
   interval: 1h
-  upgrade:
-    remediation:
-      retries: -1
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
-      hostNetwork: true
       metrics:
         enabled: true
       nodeSelector:
@@ -31,8 +24,7 @@ spec:
       podLabels:
         # Harbor ingress is provided by ingress-nginx, soooo...
         goharbor.io/harbor-container-webhook-disable: 'true'
-      replicaCount: 2
-      reportNodeInternalIp: true
+      replicaCount: 3
       service:
-        enabled: false
+        loadBalancerClass: io.cilium/l2-announcer
       terminationGracePeriodSeconds: 5
