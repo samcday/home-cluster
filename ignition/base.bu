@@ -1,0 +1,59 @@
+variant: fcos
+version: 1.5.0
+boot_device:
+    luks:
+        tang:
+            - url: http://10.0.1.1:9090
+              thumbprint: OVtBkWq-QtK9t5fhkkdnNAJeYvXLLOGyqqMO4WztbcY
+        discard: true
+kernel_arguments:
+    should_exist:
+        - mitigations=auto,nosmt=off
+        - selinux=0
+    should_not_exist:
+        - mitigations=auto,nosmt
+passwd:
+    users:
+        - name: sam
+          groups:
+            - adm
+            - wheel
+            - sudo
+            - systemd-journal
+          ssh_authorized_keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ
+systemd:
+    units:
+        - name: rebase-custom.service
+          enabled: true
+          contents: |
+            [Unit]
+            ConditionFirstBoot=true
+            After=network-online.target
+            [Service]
+            After=coreos-ignition-firstboot-complete.service
+            Type=oneshot
+            RemainAfterExit=yes
+            ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest
+            [Install]
+            WantedBy=multi-user.target
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYZVk2NzRaL0Y5cjg1VlRj
+            eG9sc2pxNnpIVEVnY3RiVC8yNkNQNVFKR1M4Clhyc3FpQUMxSnZkNnpNd2ZrK0to
+            bE5qWkVlYVlZQUdIY0k2dEJkZmJMY00KLS0tIEpoLzFQMCtoRVNVYXVia3pjS3Bw
+            V2RBK3M3akliVDZZNURQZk1DcFhIRE0K9Yk+75x/AAok/GRiCmwFdrJMmyjS65Je
+            fmR9YY6jnTnTODCTJ4AqXO8vG3Jf0kC4ETS67FYouBTB+7JcqTdeUg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-29T19:43:50Z"
+    mac: ENC[AES256_GCM,data:rhiIZhxYfFMuVk/DpSzkCJT2Ho0C3XFzMXKAMyyyfL7pVk/hgXa/047Drl+07ZqmoUM65dUFlSNIhrNa7C71LYV6xA/fotc3zgjeXKWR3L7gPeICnWU9sUltk6hUyzaffp/oKrU+xBt0qwG82fxuMPmG5RMm0W32RqiWOzlq5qM=,iv:Txyp670GOdRLMvSRe8wEmN5F3KKPJ8BCnceEbcBP3iU=,tag:jy9HwHmp5qI/V8coaopk5A==,type:str]
+    pgp: []
+    encrypted_comment_regex: cryptme
+    version: 3.9.0

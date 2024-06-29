@@ -3,3 +3,6 @@ creation_rules:
     encrypted_regex: ^(data|stringData)$
     path_regex: cluster/secrets/
   - age: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+    encrypted_comment_regex: "cryptme"
+    path_regex: ignition/.*\.bu$
+  - age: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4

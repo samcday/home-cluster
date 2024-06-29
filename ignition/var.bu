@@ -1,0 +1,45 @@
+variant: fcos
+version: 1.5.0
+storage:
+    disks:
+        - device: /dev/disk/by-id/coreos-boot-disk
+          wipe_table: false
+          partitions:
+            - number: 4
+              label: root
+              size_mib: 9216
+              resize: true
+            - size_mib: 0
+              label: var
+    filesystems:
+        - path: /var
+          device: /dev/mapper/var
+          format: ext4
+          with_mount_unit: true
+    luks:
+        - name: var
+          device: /dev/disk/by-partlabel/var
+          discard: true
+          key_file:
+            # cryptme
+            inline: ENC[AES256_GCM,data:pEIsD1q1VbYhNI11cJCI/fyDXLI=,iv:LU0m5ifValz7cEfo9MLGuWKnKilZkR8QEWVNN6hs78g=,tag:ygV0bzf6+cxuKSsUYfawEg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEMWdDTXNLWTRCdzEzOUFz
+            THFHZEE1aTlQbnNOd3V3WVkxMHgzMzltVEFJCm02bWpncjM1Si9zdUJxNTV0YWdy
+            aEdqK3VGKytHTHFueW8rci9ZeTdrc3cKLS0tIDBpTXlRcC83V0xoc2lsUGZDcnVI
+            V3liRERkQmdObDhuMG50MS81R01IZ00KI7ygn4mdacmUwT3l1IqKZ6poFT7dsKXu
+            cRgpfYj8r1krtpIzBXnZkldkBL0SzzzmKhq+l+4dA5zUAYzOZtWJ4w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-29T19:43:50Z"
+    mac: ENC[AES256_GCM,data:VEqLT1VDK0nvWnMOSSbz8FqerqYmC/1kCP+e4/lSu1zAms+kxwpEl0i/SMzARCWrImDcXQf3B5dsSJqo/UyGoIe+757JBAJU+vhjz2Ey8QvdrjC9/YGDa93sJkoZdSslpHxpOxE4VisRhu0pQfEvwo5BtSsipzWGWykrwDdlDtg=,iv:6Pme6VC4e3u07kliQ0ZCxHoF407TdExmRLoQHSzzXsc=,tag:Qp6b3OAuUbnTFFRzcmKL3A==,type:str]
+    pgp: []
+    encrypted_comment_regex: cryptme
+    version: 3.9.0

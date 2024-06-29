@@ -1,0 +1,26 @@
+variant: fcos
+version: 1.5.0
+boot_device:
+    luks:
+        threshold: 2
+        tpm2: true
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvdDQ5OE1YUk93dS8zTFhl
+            OUFhbDgvRStwRE0wVXpuLzI1bEhzRUNoNmtvClJ0ZU1MV2hOa1dwVmxIbXlaemxD
+            S1I5anZBTVBMQlRYWEFDYmJjSlRuMWsKLS0tIDMxMEdCcktJVTUxV1RyUmNoblJw
+            aktHNGhlbWNUMDM0RE5hdFB1VnY2dncKG7yALFDTkBfaSA2rp2lZX4jtSy0i/SZm
+            CeG5PnlYyXPFXl5notzWtJu+CUn5vH5STqAOcKtOKdsHJSYq/do1Rg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-29T19:43:50Z"
+    mac: ENC[AES256_GCM,data:VdsGxvHnDf+nrO7Jz3YfWdOKr+PqD7L4CadEQ07MiLUoCdi3GCK+oJDvXeP7r9H9z8Vrjf8tIn9EALBRqWb9FAqhQPVxlFqtJGyn6QEDqWqpDEncRifhc5RmFEVbBPQ+Qg44aXMFESzWT0jl8faU4CIvxFBHrk9T/LGkAGiLRM8=,iv:2iAqcNGAPGK2rH3qHaHijf6Cnh1ArpJ0S0emDzaWReU=,tag:8XyPj3TMEJGNKsT/mWL++w==,type:str]
+    pgp: []
+    encrypted_comment_regex: cryptme
+    version: 3.9.0
