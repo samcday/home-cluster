@@ -58,5 +58,3 @@ spec:
       service:
         enabled: false
       terminationGracePeriodSeconds: 5
-      updateStrategy:
-        type: Recreate
