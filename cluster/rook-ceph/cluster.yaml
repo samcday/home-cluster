@@ -65,6 +65,8 @@ spec:
         disable: true
       dashboard:
         ssl: false
+      mon:
+        count: 5
       resources:
         cleanup: &resources
           limits:
