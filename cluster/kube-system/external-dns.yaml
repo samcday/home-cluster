@@ -66,7 +66,7 @@ spec:
           name: cloudflare
           key: token
     extraArgs:
-      - --ingress-class=nginx-public
+      - --ingress-class=public-nginx
       - --cloudflare-proxied
     logLevel: debug
     policy: sync
