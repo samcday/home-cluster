@@ -28,7 +28,7 @@ spec:
         controllerValue: k8s.io/public-ingress-nginx
         name: public-nginx
       extraContainers:
-        - image: cloudflare/cloudflared:1357-ec2d18ea4fbe
+        - image: cloudflare/cloudflared:2024.5.0
           name: cloudflared
           args:
           - tunnel
