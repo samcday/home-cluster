@@ -108,6 +108,9 @@ spec:
           - name: m710q-4
             devices:
               - name: nvme0n1
+          - name: sam-librem
+            devices:
+              - name: nvme0n1
     cephFileSystems:
       - name: ceph-filesystem
         spec:
