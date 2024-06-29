@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: syncv3
     spec:
       containers:
-        - image: ghcr.io/matrix-org/sliding-sync:v0.99.18
+        - image: ghcr.io/matrix-org/sliding-sync:v0.99.19
           command:
             - sh
             - -c
