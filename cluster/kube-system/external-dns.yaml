@@ -42,7 +42,6 @@ spec:
       - ingress
     txtOwnerId: home-cluster-20230903
 ---
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
