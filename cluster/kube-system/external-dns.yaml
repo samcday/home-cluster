@@ -30,7 +30,6 @@ spec:
           name: cloudflare
           key: token
     extraArgs:
-      - --ingress-class=nginx
       - --managed-record-types=A
     logLevel: debug
     policy: sync
