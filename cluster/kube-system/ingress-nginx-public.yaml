@@ -23,10 +23,8 @@ spec:
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
-      ingressClass: public-nginx
-      ingressClassResource:
-        controllerValue: k8s.io/public-ingress-nginx
-        name: public-nginx
+      extraArgs:
+        publish-status-address: 241b6c4d-1df3-4bc2-a4be-674bbe85bce5.cfargotunnel.com
       extraContainers:
         - image: cloudflare/cloudflared:2024.6.1
           name: cloudflared
@@ -47,9 +45,15 @@ spec:
             limits:
               cpu: '2'
               memory: 1Gi
+      ingressClass: public-nginx
+      ingressClassResource:
+        controllerValue: k8s.io/public-ingress-nginx
+        name: public-nginx
       kind: Deployment
       metrics:
         enabled: true
+      publishService:
+        enabled: false
       replicaCount: 2
       service:
         enabled: false
