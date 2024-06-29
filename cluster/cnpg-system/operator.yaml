@@ -18,3 +18,5 @@ spec:
     # https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
     monitoring:
       podMonitorEnabled: true
+    podLabels:
+      goharbor.io/harbor-container-webhook-disable: 'true'
