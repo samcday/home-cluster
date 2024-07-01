@@ -13,14 +13,23 @@ sops:
         - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvdDQ5OE1YUk93dS8zTFhl
-            OUFhbDgvRStwRE0wVXpuLzI1bEhzRUNoNmtvClJ0ZU1MV2hOa1dwVmxIbXlaemxD
-            S1I5anZBTVBMQlRYWEFDYmJjSlRuMWsKLS0tIDMxMEdCcktJVTUxV1RyUmNoblJw
-            aktHNGhlbWNUMDM0RE5hdFB1VnY2dncKG7yALFDTkBfaSA2rp2lZX4jtSy0i/SZm
-            CeG5PnlYyXPFXl5notzWtJu+CUn5vH5STqAOcKtOKdsHJSYq/do1Rg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWcTA5eDZhUWpzb205V29a
+            Y2tFbXErd0hkTHNvWS9IUzNjZXlyTC83b2dRCmp3WkZRTFJoeEFBNU9Ua0Z2MVdE
+            NDA5SnRxbUtRZ09BMExmNEVRVWVKOGcKLS0tIEZEVmh1NUc2UGNPa2cxVkRMZmtK
+            bHh4SWxPMW5BYmNkbXo2L3Z3YmhEeGcK9yYMoSvO3SS12/cceDd5GbEImwTFROl+
+            k+s+42G2cl0W7Z0hbGCz3kjDg3kvDMQ3MSg3DPTBCTY8Q9Wnu4L31w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-29T19:43:50Z"
-    mac: ENC[AES256_GCM,data:VdsGxvHnDf+nrO7Jz3YfWdOKr+PqD7L4CadEQ07MiLUoCdi3GCK+oJDvXeP7r9H9z8Vrjf8tIn9EALBRqWb9FAqhQPVxlFqtJGyn6QEDqWqpDEncRifhc5RmFEVbBPQ+Qg44aXMFESzWT0jl8faU4CIvxFBHrk9T/LGkAGiLRM8=,iv:2iAqcNGAPGK2rH3qHaHijf6Cnh1ArpJ0S0emDzaWReU=,tag:8XyPj3TMEJGNKsT/mWL++w==,type:str]
+        - recipient: age1fy4cp7t9hmllws7e8e499uhvrgjnp26ys2msunlxzky7qsyrwu3qgvzq9a
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhQ001YjRsdTVIWDZBY2Rz
+            TU43ZU50NjNxbkdCK1ZpL1dSTjJXOTBRTG0wCkN6bEFxR1ppVjhsanRsa0RoYTE4
+            Z2xuaG9EZEEvM3pxWkV6WW9xNWFmNkUKLS0tIEM4Y3FheUYrRGpGaVkxdWhTaG9r
+            eVV0ZE0rM28zWHBUTXRWT0hUb1plU3cKT4peUxsfp8nrYMIIJUbx4FdcN4b+9cai
+            VicWKkzH4Xudg4vscVLdJ4MDVxZXbdMcbepj/ConN/4HDNdSEA421g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-01T17:21:02Z"
+    mac: ENC[AES256_GCM,data:hVQpDLYauBi7ynBBjUkHt+opSj3sHXl49wujTBeWj2HnUuwC7Weuqpq1ohi2d2GagvYkyp2Z2MX+LPDo51OcYcihY5mF+M7HkQj0ttQAo7Hlok+bysujpEld2KIWrBjJbHI7bWCRpckpuspqjWo4VEXxCqzXHIitBYqvFDQQ9Ic=,iv:ostspYuLQVP8gGw+yGzC42uya3/+t3Su9oy/dQkGa5Q=,tag:Mh46iS+TzCJhf+wjj/CKsw==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
