@@ -18,6 +18,7 @@ spec:
     # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
     configuration:
       period: 5m
+      prometheusUrl: http://kube-prometheus-stack-prometheus.monitoring.svc.home-cluster.local:9090
       rebootSentinelCommand: sh -c 'rpm-ostree status --pending-exit-77 > /dev/null; [ $? -eq 77 ]'
       useRebootSentinelHostPath: false
     tolerations:
