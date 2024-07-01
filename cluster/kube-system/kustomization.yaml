@@ -18,7 +18,6 @@ resources:
   - descheduler.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml
-  - fleetlock.yaml
   - goldpinger.yaml
   - ingress-nginx.yaml
   - ingress-nginx-public.yaml
