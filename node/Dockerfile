@@ -3,6 +3,7 @@ FROM quay.io/fedora/fedora-coreos:stable
 # extra packages
 COPY etc/yum.repos.d/ /etc/yum.repos.d
 RUN rpm-ostree install \
+        butane \
         dmidecode \
         etcd \
         kubeadm \
