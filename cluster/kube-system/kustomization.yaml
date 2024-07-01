@@ -11,6 +11,11 @@ configMapGenerator:
       immutable: true
       labels:
         grafana_dashboard: '1'
+  - name: pixiecore-api-scripts
+    files:
+      - pixiecore-api/boot-request.sh
+      - pixiecore-api/generate-ignition.sh
+      - pixiecore-api/nginx.conf
 resources:
   - ../config
   - cert-manager.yaml
@@ -25,6 +30,7 @@ resources:
   - node-feature-discovery.yaml
   - node-problem-detector.yaml
   - nodes.yaml
+  - pixiecore.yaml
   - plans/kube-vip.yaml
   - plans/kubeadm-upgrade-apply.yaml
   - plans/rebase-image.yaml

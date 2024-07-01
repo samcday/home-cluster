@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pixiecore
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.5.6
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalContainers:
+      - name: api
+        image: alpine:3
+        command:
+          - ash
+          - -uexo
+          - pipefail
+          - -c
+          - |
+            apk add bash curl fcgiwrap jq nginx openssl # sops
+            apk add butane --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+
+            # 3.9.0 is quite new, is what ships the new (awesome) encrypted comment support
+            curl -sLo /usr/local/bin/sops https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64
+            chmod +x /usr/local/bin/sops
+
+            mkdir /ignition
+            for f in /butane/*.bu; do
+              name=$(basename $f)
+              cat $f
+              sops --input-type=yaml --output-type=yaml -d $f | butane --strict > /ignition/${name/.bu}.ign
+            done
+
+            install -m755 /scripts/boot-request.sh /usr/local/bin/boot-request
+            install -m755 /scripts/generate-ignition.sh /usr/local/bin/generate-ignition
+            install -m644 /scripts/nginx.conf /etc/nginx/http.d/default.conf
+
+            fcgiwrap -s 'tcp:0.0.0.0:9000' &
+            nginx -g "daemon off;"
+        env:
+          - name: SOPS_AGE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ignition-key
+                key: age.agekey
+        volumeMounts:
+          - name: host
+            mountPath: /host
+          - name: butane
+            mountPath: /butane
+          - name: scripts
+            mountPath: /scripts
+    additionalVolumes:
+      - name: host
+        hostPath:
+          path: /
+      - name: butane
+        configMap:
+          name: butane
+      - name: scripts
+        configMap:
+          name: pixiecore-api-scripts
+    additionalVolumeMounts:
+    args:
+      - api
+      - http://localhost:80
+      - --port
+      - '8080'
+    envValueFrom:
+    hostNetwork: true
+    image:
+      repository: pixiecore/pixiecore
+      tag: master
+    livenessProbe:
+      httpGet: ~
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+    ports:
+    readinessProbe: ~
+    replicaCount: 1

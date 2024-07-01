@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Node
 metadata:
   name: m715q-1
+  metadata:
+    annotations:
+      samcday.com/boot-profiles: base,var,tpm
+    labels:
+      samcday.com/mac: 6c-4b-90-17-1e-be
 spec:
   taints:
     # This is a very underpowered machine that is mostly here to serve
