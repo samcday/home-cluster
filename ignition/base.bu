@@ -34,7 +34,7 @@ systemd:
             After=coreos-ignition-firstboot-complete.service
             Type=oneshot
             RemainAfterExit=yes
-            ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest
+            ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest --bypass-driver
             [Install]
             WantedBy=multi-user.target
 sops:
@@ -61,8 +61,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-02T08:59:27Z"
-    mac: ENC[AES256_GCM,data:Iv6VF0O6vEqBCghX4VxX0J29bOZL478tzw+HVs7FtLnMfGy4mSB2cqmdK3dkHLJLyJ2+5MOAUsda2tYitPsmOfhGHBObfjDN+xWfnfhXj9GUvttzkKobGYQqiCIsE/jTbIed9/YuW80CS4OyfGbc0s/OjQT+H+zTqK+BqrwewMk=,iv:B4CgVb47rcjPtKddqIvm49QUmF+JgTMxY7LSqUid+0Q=,tag:2sbqxo2U0NR75CYx7UCSsQ==,type:str]
+    lastmodified: "2024-07-02T10:16:36Z"
+    mac: ENC[AES256_GCM,data:EmljPJYcbt1S8PaKMX+7N+MonxPP/GiEWxe57NywZgjm3owACWXRKYv9ckoa0Qp3iS1YDfbrEqtVAxYtlb28yIRcqo+uwTWMn/HZWAyxdtQ6KD6gPLVTCEE+we80nWrMbELfNeBL7Etzgy+e3pnx9J4jl0PvKMBQ/QtYdAPlDZE=,iv:abdFXTK5gwemx0Ey8gil4ef6pWVbq5jmPMQObrBvEqg=,tag:J59R0BHCRY7ObFBU2EnI6Q==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
