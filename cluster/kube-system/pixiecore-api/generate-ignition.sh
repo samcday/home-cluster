@@ -53,7 +53,7 @@ IFS=","; for n in $bootprofiles; do
         - local: $n.ign"
 done
 
-butane -d /ignition --strict <<HERE
+chroot /host butane -d /ignition --strict <<HERE
 variant: fcos
 version: 1.5.0
 ignition:
