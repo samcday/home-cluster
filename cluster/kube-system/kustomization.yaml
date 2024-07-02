@@ -18,6 +18,7 @@ configMapGenerator:
       - pixiecore-api/nginx.conf
 resources:
   - ../config
+  - bind-usb-hdmi.yaml
   - cert-manager.yaml
   - cilium-l2-lb.yaml
   - descheduler.yaml
