@@ -1,0 +1,26 @@
+# Ignition writes stuff to /etc/kubeadm.conf.d/ which is sensitive and only needed for initial kubeadm init/join
+# Once that happens this Plan will run and scrub that directory.
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: clean-kubeadm-config
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: '1'
+  tolerations:
+    - {key: com.samcday/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+  upgrade:
+    image: busybox:stable
+    command:
+      - chroot
+      - /host
+      - /bin/bash
+      - -c
+      - |
+        set -uexo pipefail
+        for f in /etc/kubeadm.conf.d/*; do rm $f; done
