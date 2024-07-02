@@ -31,6 +31,5 @@ RUN systemctl enable \
         etc-kubernetes.mount \
         kubelet.service \
         squid.service \
-        squid-ssldb-init.service \
     && \
     ostree container commit
