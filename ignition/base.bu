@@ -24,11 +24,11 @@ passwd:
             - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ
 systemd:
     units:
-        - name: rebase-custom.service
+        - name: init-rebase.service
           enabled: true
           contents: |
             [Unit]
-            ConditionFirstBoot=true
+            ConditionPathExists=!/etc/kubeadm.conf.d/00-base.yaml
             After=network-online.target
             [Service]
             After=coreos-ignition-firstboot-complete.service
@@ -61,8 +61,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-01T17:21:02Z"
-    mac: ENC[AES256_GCM,data:9BsQG1eVQXg/UFag5rdYOVvVGO0xIxf4kziHJMNasIgDvfT46Cv/irup3vgBiGKd6BLjqjCRH5zEcE6hdIQ3Ce9B2cLLKtDuMTWfRlHYzSAndQWNoHdpeKmqNTGvRuEtlnWv7kfwdlmi8nAex4q9Esg9DbUJcbNeDHMi2NlWCLM=,iv:Rjgj578sOpLt8J9JGb5j1g9+0nxS6XDlm6GSsrCuzoE=,tag:IkcO8djm94HVT1r1aqsvJQ==,type:str]
+    lastmodified: "2024-07-02T08:59:27Z"
+    mac: ENC[AES256_GCM,data:Iv6VF0O6vEqBCghX4VxX0J29bOZL478tzw+HVs7FtLnMfGy4mSB2cqmdK3dkHLJLyJ2+5MOAUsda2tYitPsmOfhGHBObfjDN+xWfnfhXj9GUvttzkKobGYQqiCIsE/jTbIed9/YuW80CS4OyfGbc0s/OjQT+H+zTqK+BqrwewMk=,iv:B4CgVb47rcjPtKddqIvm49QUmF+JgTMxY7LSqUid+0Q=,tag:2sbqxo2U0NR75CYx7UCSsQ==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
