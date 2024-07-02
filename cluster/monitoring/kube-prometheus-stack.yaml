@@ -28,6 +28,7 @@ spec:
         alertmanagerConfigMatcherStrategy:
           type: None
         externalUrl: https://alertmanager.samcday.com:9093
+        replicas: 3
       ingress:
         enabled: true
         annotations:
