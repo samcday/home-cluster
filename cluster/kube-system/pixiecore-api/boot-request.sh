@@ -22,15 +22,15 @@ HERE
 }
 
 if [[ -z "$node" ]]; then
-  booterr "ignition request for unknown mac $mac_addr"
+  booterr "boot request for unknown mac $mac_addr"
 fi
 
 if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | keys | any(. == "samcday.com/boot")' >/dev/null 2>&1; then
-  booterr "ignition request for $node which is missing boot annotation"
+  booterr "boot request for $node which is missing boot annotation"
 fi
 
 if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | keys | any(. == "samcday.com/boot-profiles")' >/dev/null 2>&1; then
-  booterr "ignition request for $node which is missing boot-profiles annotation"
+  booterr "boot request for $node which is missing boot-profiles annotation"
 fi
 
 resp=$(curl --fail https://builds.coreos.fedoraproject.org/streams/stable.json | jq .architectures.x86_64.artifacts.metal.formats.pxe)
