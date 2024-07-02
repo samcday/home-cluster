@@ -93,7 +93,7 @@ spec:
       paths:
       - backend:
           service:
-            name: navidrome-public
+            name: navidrome-generic
             port:
               name: http
         path: /
