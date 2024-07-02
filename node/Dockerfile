@@ -34,3 +34,8 @@ RUN systemctl enable \
         usbip-server.service \
     && \
     ostree container commit
+
+# Allow (default) lvm autodiscovery that CoreOS conservatively disables.
+# Otherwise, re-provisions result in Ceph being unable to re-open the bluestore lvm2
+# https://github.com/coreos/fedora-coreos-tracker/issues/1517
+RUN rm /etc/lvm/devices/system.devices
