@@ -31,5 +31,6 @@ RUN systemctl enable \
         etc-kubernetes.mount \
         kubelet.service \
         squid.service \
+        usbip-server.service \
     && \
     ostree container commit
