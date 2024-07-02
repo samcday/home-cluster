@@ -53,7 +53,11 @@ IFS=","; for n in $bootprofiles; do
         - local: $n.ign"
 done
 
-chroot /host butane -d /ignition --strict <<HERE
+
+rm -rf /host/tmp/ignition
+mkdir -p /host/tmp/ignition
+cp /ignition/*.ign /host/tmp/ignition/
+chroot /host butane -d /tmp/ignition --strict <<HERE
 variant: fcos
 version: 1.5.0
 ignition:
@@ -76,3 +80,4 @@ storage:
                   token: "$token"
                   caCertHashes: ["$cahash"]
 HERE
+rm -rf /host/tmp/ignition
