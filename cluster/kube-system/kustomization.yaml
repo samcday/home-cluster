@@ -32,13 +32,10 @@ resources:
   - node-problem-detector.yaml
   - nodes.yaml
   - pixiecore.yaml
-  - plans/kube-vip.yaml
-  - plans/kubeadm-upgrade-apply.yaml
-  - plans/rebase-image.yaml
-  - plans/ssh-host-keys.yaml
   - prometheus-operator.yaml
   - samcday-rbac.yaml
   - system-upgrade-controller-crds.yaml
+  - system-upgrade-controller-plans.yaml
   - system-upgrade-controller.yaml
   - tofu.yaml
   - velero.yaml
