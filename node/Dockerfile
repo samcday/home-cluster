@@ -12,6 +12,7 @@ RUN rpm-ostree install \
         iperf3 \
         man-db \
         man-pages \
+        squid \
         tcpdump \
         usbip \
         usbutils \
