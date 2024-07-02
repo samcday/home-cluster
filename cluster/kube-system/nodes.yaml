@@ -1,3 +1,15 @@
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: m710q-4
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+    samcday.com/boot-profiles: base,var,tpm
+  labels:
+    samcday.com/mac: 6c-4b-90-76-c6-00
+---
 apiVersion: v1
 kind: Node
 metadata:
