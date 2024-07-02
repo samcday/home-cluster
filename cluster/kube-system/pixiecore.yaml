@@ -25,7 +25,7 @@ spec:
           - pipefail
           - -c
           - |
-            apk add bash curl fcgiwrap jq nginx openssl # sops
+            apk add bash curl fcgiwrap jq nginx # sops
 
             # 3.9.0 is quite new, is what ships the new (awesome) encrypted comment support
             curl -sLo /usr/local/bin/sops https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64
