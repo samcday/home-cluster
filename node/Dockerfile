@@ -25,8 +25,6 @@ COPY usr/ /usr
 RUN chmod 700 /etc/kubeadm.conf.d && \
     ostree container commit
 
-RUN echo 'include /etc/squid/conf.d/*.conf' >> /etc/squid/squid.conf
-
 # enable services
 RUN systemctl enable \
         containerd.service \
