@@ -77,3 +77,27 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: ceph-block
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  name: navidrome-public
+  namespace: music
+spec:
+  ingressClassName: public-nginx
+  rules:
+  - host: navidrome-public.samcday.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: navidrome-public
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts: [navidrome-public.samcday.com]
+    secretName: public-certificate
