@@ -28,13 +28,12 @@ systemd:
           enabled: true
           contents: |
             [Unit]
-            ConditionPathExists=!/etc/kubeadm.conf.d/00-base.yaml
-            After=network-online.target
+            ConditionPathExists=!/etc/zincati/config.d/90-disable.toml
+            After=network-online.target coreos-ignition-firstboot-complete.service
             [Service]
-            After=coreos-ignition-firstboot-complete.service
             Type=oneshot
             RemainAfterExit=yes
-            ExecStart=rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest --bypass-driver
+            ExecStart=bash -c 'until ping -W1 -c1 1.1.1.1; do sleep 1s; done; rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest --bypass-driver'
             [Install]
             WantedBy=multi-user.target
 sops:
@@ -61,8 +60,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-02T10:16:36Z"
-    mac: ENC[AES256_GCM,data:EmljPJYcbt1S8PaKMX+7N+MonxPP/GiEWxe57NywZgjm3owACWXRKYv9ckoa0Qp3iS1YDfbrEqtVAxYtlb28yIRcqo+uwTWMn/HZWAyxdtQ6KD6gPLVTCEE+we80nWrMbELfNeBL7Etzgy+e3pnx9J4jl0PvKMBQ/QtYdAPlDZE=,iv:abdFXTK5gwemx0Ey8gil4ef6pWVbq5jmPMQObrBvEqg=,tag:J59R0BHCRY7ObFBU2EnI6Q==,type:str]
+    lastmodified: "2024-07-02T10:52:32Z"
+    mac: ENC[AES256_GCM,data:Ue7ambVpjlMCJ7ybL/f48krKGxgVJrzostdLxM1GFflLbe0U1fE4typcUu/QBD4GW/XfAbgAdMGIjB/COgMeWbwO/BQi+vaOJrf4Vn82ky1ZaRTp7CXmlE7sTT1vsuzlglwHfJQphT0h+9fckxoPCKw6ap/AzOz+pkbxS9d3Nx8=,iv:uUxrApdoRTAllTTBY22+q44BK0qd2+OkMLDo1wEcV1o=,tag:f0o2UiG+8No4EE01VGWXHQ==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
