@@ -101,5 +101,5 @@ spec:
     serviceMonitor:
       enabled: true
     tolerations:
-      - key: com.samcday/shrimpy-boi
+      - key: samcday.com/shrimpy-boi
         operator: Exists

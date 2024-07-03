@@ -8,7 +8,7 @@ spec:
   concurrency: 1
   version: v0.5.0 # TODO: image automation on ghcr.io/kube-vip/kube-vip ?
   tolerations:
-    - {key: com.samcday/shrimpy-boi, operator: Exists}
+    - {key: samcday.com/shrimpy-boi, operator: Exists}
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:

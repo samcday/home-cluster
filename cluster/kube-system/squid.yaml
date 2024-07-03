@@ -74,7 +74,7 @@ spec:
             - name: metrics
               containerPort: 9301
       tolerations:
-        - key: com.samcday/shrimpy-boi
+        - key: samcday.com/shrimpy-boi
           operator: Exists
 ---
 apiVersion: monitoring.coreos.com/v1

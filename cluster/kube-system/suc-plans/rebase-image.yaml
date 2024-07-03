@@ -7,7 +7,7 @@ spec:
   concurrency: 1
   version: "2024070317" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
   tolerations:
-    - {key: com.samcday/shrimpy-boi, operator: Exists}
+    - {key: samcday.com/shrimpy-boi, operator: Exists}
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:

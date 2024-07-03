@@ -25,5 +25,5 @@ spec:
     # https://kubernetes-sigs.github.io/node-feature-discovery/v0.16/deployment/helm.html#chart-parameters
     worker:
       tolerations:
-        - key: com.samcday/shrimpy-boi
+        - key: samcday.com/shrimpy-boi
           operator: Exists
