@@ -25,10 +25,6 @@ if [[ -z "$node" ]]; then
   booterr "boot request for unknown mac $mac_addr"
 fi
 
-if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | keys | any(. == "samcday.com/boot")' >/dev/null 2>&1; then
-  booterr "boot request for $node which is missing boot annotation"
-fi
-
 if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | keys | any(. == "samcday.com/boot-profiles")' >/dev/null 2>&1; then
   booterr "boot request for $node which is missing boot-profiles annotation"
 fi

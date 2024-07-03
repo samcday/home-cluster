@@ -25,13 +25,6 @@ if [[ -z "$bootprofiles" ]]; then
   exit
 fi
 
-if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | keys | any(. == "samcday.com/boot")' >/dev/null 2>&1; then
-  echo "ignition request for $node which is missing boot annotation" >&2
-  echo "Status: 404"
-  echo
-  exit
-fi
-
 token=$($kubeadm token create)
 cahash=$(chroot /host bash -c "openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt \
        | openssl rsa -pubin -outform der 2>/dev/null \
