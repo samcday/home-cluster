@@ -17,6 +17,7 @@ spec:
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
+      allowSnippetAnnotations: true
       metrics:
         enabled: true
       nodeSelector:
