@@ -28,10 +28,30 @@ storage:
     files:
         - path: /etc/systemd/system/rpm-ostreed.service.d/http-proxy.conf
           overwrite: true
-          contents: |
-            [Service]
-            Environment="http_proxy=http://squid.samcday.com:80"
-            Environment="https_proxy=http://squid.samcday.com:80"
+          contents:
+            inline: |
+                [Service]
+                Environment="http_proxy=http://squid.samcday.com:80"
+                Environment="https_proxy=http://squid.samcday.com:80"
+        - path: /etc/ostree/remotes.d/fedora.conf
+          overwrite: true
+          contents:
+            inline: |
+                [remote "fedora"]
+                url=https://ostree.fedoraproject.org
+                gpg-verify=true
+                gpgkeypath=/etc/pki/rpm-gpg/
+                contenturl=mirrorlist=https://ostree.fedoraproject.org/mirrorlist
+                proxy=http://squid.samcday.com:80
+        - path: /etc/ostree/remotes.d/fedora-compose.conf
+          overwrite: true
+          contents:
+            inline: |
+                [remote "fedora-compose"]
+                url=https://kojipkgs.fedoraproject.org/compose/ostree/repo/
+                gpg-verify=true
+                gpgkeypath=/etc/pki/rpm-gpg/
+                proxy=http://squid.samcday.com:80
         - path: /etc/squid/ca.pem
           overwrite: true
           contents:
@@ -80,8 +100,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-03T15:35:02Z"
-    mac: ENC[AES256_GCM,data:O1GLmtZEEP7shm8hJD2vRJujyhjswMyb8WtclhQVSUfzIkM1D44bGn4Yuv4hyxtvbE3VHJVC/RgG/d+qqMlG+9jdZBJV3ZTtbnGGcY6BGBai+3AcR1Qo8YLGYykV2RDxsYDKWaB0sRyawFTpXxzc+auW3EsWqKkwiM+htBgKotQ=,iv:OTGJUcx0w9sJ0Y+cWee72lZtUooxaRO8t2NpAk8GzeY=,tag:mIvhaerd+nN+wYxPQNOkBg==,type:str]
+    lastmodified: "2024-07-03T15:52:39Z"
+    mac: ENC[AES256_GCM,data:XQiCPsa3/b8FPu2RUPYi2Ud+yP4fFGf/LeeTG6S/cPQXYir0ZRsMv0DkrYsAQniqZoLRSljZYIHaNrW7uBp757Co4ziivE8l0+8j0OEt46A38ZuS0d+H8wGRRxRlaio7oxeHUL2qtqEFbLTAV6cAcj0bDky2PL5qzywJpRJg3tU=,iv:zWYAo3tCnqJptOSWTHqioYKcOgOJ86Gxho7PKgdwYCM=,tag:rpVJGzmGSBESkjgQ1O5Kdg==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
