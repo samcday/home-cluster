@@ -23,7 +23,15 @@ passwd:
           ssh_authorized_keys:
             - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ
 storage:
+    directories:
+        - path: /etc/systemd/system/rpm-ostreed.service.d
     files:
+        - path: /etc/systemd/system/rpm-ostreed.service.d/http-proxy.conf
+          overwrite: true
+          contents: |
+            [Service]
+            Environment="http_proxy=http://squid.samcday.com"
+            Environment="https_proxy=http://squid.samcday.com"
         - path: /etc/squid/ca.pem
           overwrite: true
           contents:
@@ -72,8 +80,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-02T15:34:38Z"
-    mac: ENC[AES256_GCM,data:/HcshEL46f2nRV5KsdEeSeW4tCsrAXt4TCyQGWFUhRcqqLdRD3qjJ3XRiKwxiKxncYCz4a9yIrUSp90kDDVcIRaxRR3c0gqYoZmlCjOOy1TzaTkGelYR3M2HQiSPdB5MEZh+3StH1K8KW8HMOI+EV8ola38MpFBtRMNRK6uGmWM=,iv:u/e2/ZkdbREuK9En3irEqh3LBdt0gZqdlqcNgfOE0Bo=,tag:g4MqVIyOrpkVCXUopSJx3w==,type:str]
+    lastmodified: "2024-07-03T15:19:50Z"
+    mac: ENC[AES256_GCM,data:vbjwaev/5oxWP3C95mkKZKt5ngSG9IVkdg497Mjao7KA7cjZ4etEcXS6RSFcODK3AmpqtaT4hNloO5ti+2fRYSG2q2F3pUSmQOW+TwVpLMydp8846908hiu02A0DsMIllI89aaxcr1F/eUAL3NEQb0OmB9HkQS5eFzihu9ydAKE=,iv:2i4fxNp8NnzIKbjatgxRJIhmlaxSh81VmP9gKRe9gJs=,tag:twNTlghltpZKgd2T4PunJw==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
