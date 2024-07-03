@@ -59,6 +59,13 @@ spec:
               - source_labels:
                   - __journal_priority_keyword
                 target_label: level
+          - job_name: squid
+            pipeline_stages:
+            static_configs:
+              - targets: [localhost]
+                labels:
+                  job: squid-host
+                  __path__: /var/log/squid/*.log
     extraPorts:
       syslog:
         name: tcp-syslog
