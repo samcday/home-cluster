@@ -59,3 +59,9 @@ configMapGenerator:
     options:
       annotations:
         grafana_folder: 'Prometheus'
+  - name: squid-dashboards
+    files:
+      - squid.json
+    options:
+      annotations:
+        grafana_folder: 'Squid'
