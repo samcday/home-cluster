@@ -16,6 +16,8 @@ configMapGenerator:
       - pixiecore-api/boot-request.sh
       - pixiecore-api/generate-ignition.sh
       - pixiecore-api/nginx.conf
+  - name: squid-haproxy-config
+    files: [squid/haproxy.cfg]
 resources:
   - ../config
   - bind-usb-hdmi.yaml
@@ -34,6 +36,7 @@ resources:
   - pixiecore.yaml
   - prometheus-operator.yaml
   - samcday-rbac.yaml
+  - squid.yaml
   - system-upgrade-controller-crds.yaml
   - system-upgrade-controller-plans.yaml
   - system-upgrade-controller.yaml

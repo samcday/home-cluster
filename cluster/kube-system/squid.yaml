@@ -1,0 +1,42 @@
+# It's a "Squid".
+# Actually, it's a couple of haproxy replicas bouncing the traffic over to the real squids, which
+# are running on all the nodes.
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: squid
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.5.6
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: config
+        mountPath: /usr/local/etc/haproxy/haproxy.cfg
+        subPath: haproxy.cfg
+    additionalVolumes:
+      - name: config
+        configMap:
+          name: squid-haproxy-config
+    image:
+      repository: haproxy
+      tag: 3.0.2
+    livenessProbe:
+      httpGet: ~
+    ports:
+      - name: http
+        containerPort: 3128
+    readinessProbe: ~
+    replicaCount: 2
+    service:
+      type: LoadBalancer
+      loadBalancerClass: io.cilium/l2-announcer
