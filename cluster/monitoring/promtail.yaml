@@ -81,12 +81,18 @@ spec:
       - name: machine-id
         hostPath:
           path: /etc/machine-id
+      - name: squid
+        hostPath:
+          path: /var/log/squid
     extraVolumeMounts:
       - name: journal
         mountPath: /var/log/journal
         readOnly: true
       - name: machine-id
         mountPath: /etc/machine-id
+        readOnly: true
+      - name: squid
+        mountPath: /var/log/squid
         readOnly: true
     serviceMonitor:
       enabled: true
