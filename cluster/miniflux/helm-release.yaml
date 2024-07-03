@@ -32,7 +32,7 @@ spec:
       HTTPS_PROXY: squid.samcday.com:80
       METRICS_ALLOWED_NETWORKS: 0.0.0.0/0
       METRICS_COLLECTOR: "1"
-      NO_PROXY: *.samcday.com
+      NO_PROXY: "*.samcday.com"
       RUN_MIGRATIONS: "1"
     envValueFrom:
       ADMIN_PASSWORD:
