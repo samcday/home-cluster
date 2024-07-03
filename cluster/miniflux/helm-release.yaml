@@ -17,13 +17,21 @@ spec:
   releaseName: miniflux
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: squid-ca
+        mountPath: /usr/local/share/ca-certificates/squid-ca.crt
+    additionalVolumes:
+      - name: squid-ca
+        hostPath:
+          path: /etc/pki/ca-trust/source/anchors/squid-ca.pem
     command:
       - /bin/ash
       - -c
       - |-
         set -ueo pipefail
         export DATABASE_URL=postgres://$PGUSER:$PGPASSWORD@db-rw/miniflux
-        exec /usr/bin/miniflux
+        update-ca-certificates
+        exec sudo -u nobody /usr/bin/miniflux
     env:
       ADMIN_USERNAME: admin
       BASE_URL: https://miniflux.samcday.com
@@ -71,3 +79,5 @@ spec:
         containerPort: 8080
     readinessProbe: ~
     replicaCount: 2
+    securityContext:
+      runAsUser: 0
