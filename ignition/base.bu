@@ -30,8 +30,8 @@ storage:
           overwrite: true
           contents: |
             [Service]
-            Environment="http_proxy=http://squid.samcday.com"
-            Environment="https_proxy=http://squid.samcday.com"
+            Environment="http_proxy=http://squid.samcday.com:80"
+            Environment="https_proxy=http://squid.samcday.com:80"
         - path: /etc/squid/ca.pem
           overwrite: true
           contents:
@@ -80,8 +80,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-03T15:19:50Z"
-    mac: ENC[AES256_GCM,data:vbjwaev/5oxWP3C95mkKZKt5ngSG9IVkdg497Mjao7KA7cjZ4etEcXS6RSFcODK3AmpqtaT4hNloO5ti+2fRYSG2q2F3pUSmQOW+TwVpLMydp8846908hiu02A0DsMIllI89aaxcr1F/eUAL3NEQb0OmB9HkQS5eFzihu9ydAKE=,iv:2i4fxNp8NnzIKbjatgxRJIhmlaxSh81VmP9gKRe9gJs=,tag:twNTlghltpZKgd2T4PunJw==,type:str]
+    lastmodified: "2024-07-03T15:35:02Z"
+    mac: ENC[AES256_GCM,data:O1GLmtZEEP7shm8hJD2vRJujyhjswMyb8WtclhQVSUfzIkM1D44bGn4Yuv4hyxtvbE3VHJVC/RgG/d+qqMlG+9jdZBJV3ZTtbnGGcY6BGBai+3AcR1Qo8YLGYykV2RDxsYDKWaB0sRyawFTpXxzc+auW3EsWqKkwiM+htBgKotQ=,iv:OTGJUcx0w9sJ0Y+cWee72lZtUooxaRO8t2NpAk8GzeY=,tag:mIvhaerd+nN+wYxPQNOkBg==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0

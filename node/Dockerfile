@@ -39,3 +39,6 @@ RUN systemctl enable \
 # Otherwise, re-provisions result in Ceph being unable to re-open the bluestore lvm2
 # https://github.com/coreos/fedora-coreos-tracker/issues/1517
 RUN rm /etc/lvm/devices/system.devices
+
+# Ensure rpm-ostree uses squid
+RUN echo 'proxy=http://squid.samcday.com:80' | tee -a /etc/ostree/remotes.d/fedora-compose.conf | tee -a /etc/ostree/remotes.d/fedora.conf
