@@ -31,7 +31,7 @@ spec:
         set -ueo pipefail
         export DATABASE_URL=postgres://$PGUSER:$PGPASSWORD@db-rw/miniflux
         update-ca-certificates
-        exec sudo -u nobody /usr/bin/miniflux
+        exec su nobody -c /usr/bin/miniflux
     env:
       ADMIN_USERNAME: admin
       BASE_URL: https://miniflux.samcday.com
