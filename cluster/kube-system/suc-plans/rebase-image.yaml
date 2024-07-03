@@ -30,7 +30,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: "2024070303" # {"$imagepolicy": "flux-system:home-cluster-librem:tag"}
+  version: "2024070311" # {"$imagepolicy": "flux-system:home-cluster-librem:tag"}
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
