@@ -33,6 +33,7 @@ storage:
                 [Service]
                 Environment="http_proxy=http://squid.samcday.com:80"
                 Environment="https_proxy=http://squid.samcday.com:80"
+                Environment="no_proxy=harbor.samcday.com"
         - path: /etc/ostree/remotes.d/fedora.conf
           overwrite: true
           contents:
@@ -73,7 +74,7 @@ systemd:
             [Service]
             Type=oneshot
             RemainAfterExit=yes
-            ExecStart=bash -c 'until ping -W1 -c1 1.1.1.1; do sleep 1s; done; rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest --bypass-driver'
+            ExecStart=bash -c 'systemctl restart rpm-ostreed.service; sleep 3; until ping -W1 -c1 1.1.1.1; do sleep 1s; done; rpm-ostree rebase --reboot ostree-unverified-registry:ghcr.io/samcday/home-cluster-node:latest --bypass-driver'
             [Install]
             WantedBy=multi-user.target
 sops:
@@ -100,8 +101,8 @@ sops:
             Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
             nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-03T15:52:39Z"
-    mac: ENC[AES256_GCM,data:XQiCPsa3/b8FPu2RUPYi2Ud+yP4fFGf/LeeTG6S/cPQXYir0ZRsMv0DkrYsAQniqZoLRSljZYIHaNrW7uBp757Co4ziivE8l0+8j0OEt46A38ZuS0d+H8wGRRxRlaio7oxeHUL2qtqEFbLTAV6cAcj0bDky2PL5qzywJpRJg3tU=,iv:zWYAo3tCnqJptOSWTHqioYKcOgOJ86Gxho7PKgdwYCM=,tag:rpVJGzmGSBESkjgQ1O5Kdg==,type:str]
+    lastmodified: "2024-07-03T16:18:43Z"
+    mac: ENC[AES256_GCM,data:TECfQGRj2IRa7D8QoPUEaLpIpqLUuIQQF9FK8IVkICB6Z+bVOar3uvv/Ol4aZ8S7X23J3Txqw+SaUQWxryAzqnMHzFVYZJMLJuYEFhafLZAZQNU5N1RSjijpsoEZdvaPTFvp5QcIdOOqz3CFqszBdSNhQWB8gc5R7jlvF9vKhMw=,iv:USOfZ3Jm26IakuwnstPzJTLRiI0CnHCOvjePuVzk9Mo=,tag:UYDEuIDWtwH6u0gCyfPwvw==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
