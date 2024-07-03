@@ -96,3 +96,7 @@ spec:
         readOnly: true
     serviceMonitor:
       enabled: true
+    containerSecurityContext:
+      capabilities:
+        # Dropping caps breaks ability to read /var/log/squid/*.log for inscrutable reasons..
+        drop: []
