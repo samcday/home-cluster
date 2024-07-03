@@ -66,6 +66,10 @@ spec:
                 labels:
                   job: squid-host
                   __path__: /var/log/squid/*.log
+    containerSecurityContext:
+      capabilities:
+        # Dropping caps breaks ability to read /var/log/squid/*.log for inscrutable reasons..
+        drop: []
     extraPorts:
       syslog:
         name: tcp-syslog
@@ -96,7 +100,6 @@ spec:
         readOnly: true
     serviceMonitor:
       enabled: true
-    containerSecurityContext:
-      capabilities:
-        # Dropping caps breaks ability to read /var/log/squid/*.log for inscrutable reasons..
-        drop: []
+    tolerations:
+      - key: com.samcday/shrimpy-boi
+        operator: Exists
