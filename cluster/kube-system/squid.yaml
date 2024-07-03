@@ -38,5 +38,7 @@ spec:
     readinessProbe: ~
     replicaCount: 2
     service:
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: squid.samcday.com
       type: LoadBalancer
       loadBalancerClass: io.cilium/l2-announcer
