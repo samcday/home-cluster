@@ -28,8 +28,11 @@ spec:
       ADMIN_USERNAME: admin
       BASE_URL: https://miniflux.samcday.com
       CREATE_ADMIN: "1"
+      HTTP_PROXY: squid.samcday.com:80
+      HTTPS_PROXY: squid.samcday.com:80
       METRICS_ALLOWED_NETWORKS: 0.0.0.0/0
       METRICS_COLLECTOR: "1"
+      NO_PROXY: *.samcday.com
       RUN_MIGRATIONS: "1"
     envValueFrom:
       ADMIN_PASSWORD:
