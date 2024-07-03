@@ -70,9 +70,9 @@ spec:
     additionalVolumeMounts:
     args:
       - api
-      - http://localhost:80
+      - http://localhost:38122
       - --port
-      - '8080'
+      - '38123'
     envValueFrom:
     hostNetwork: true
     image:
