@@ -67,7 +67,7 @@ metadata:
 spec:
   podMetricsEndpoints:
     - port: metrics
-      path: /
+      path: /metrics
   selector:
     matchLabels:
       app.kubernetes.io/instance: squid
