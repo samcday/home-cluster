@@ -19,6 +19,22 @@ spec:
   interval: 1h
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalContainers:
+      - name: squid-exporter
+        image: boynux/squid-exporter:v1.12.0
+        args:
+          - -squid-hostname
+          - $(NODE_NAME)
+          - -squid-port
+          - '3128'
+        env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        ports:
+          - name: metrics
+            containerPort: 9301
     additionalVolumeMounts:
       - name: config
         mountPath: /usr/local/etc/haproxy/haproxy.cfg
@@ -42,3 +58,16 @@ spec:
         external-dns.alpha.kubernetes.io/hostname: squid.samcday.com
       type: LoadBalancer
       loadBalancerClass: io.cilium/l2-announcer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: squid
+  namespace: kube-system
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: squid
