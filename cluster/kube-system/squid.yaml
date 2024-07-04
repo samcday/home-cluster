@@ -98,9 +98,9 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      sub_filter 'builds.coreos.fedoraproject.org' 'mirror.samcday.com/builds.coreos.fedoraproject.org';
       rewrite ^/builds.coreos.fedoraproject.org(.*)$ "://builds.coreos.fedoraproject.org$1";
       rewrite ^(.*)$ "https$1" break;
+      sub_filter 'builds.coreos.fedoraproject.org' 'mirror.samcday.com/builds.coreos.fedoraproject.org';
 spec:
   ingressClassName: nginx
   rules:
