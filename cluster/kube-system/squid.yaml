@@ -98,6 +98,9 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/configuration-snippet: |
+      # https://serverfault.com/a/683955
+      # Pretty sure James would have added this answer back when we were on the same PaaS team
+      # in the Sydney Atlassian office. This One Weird Trick saved me a decade later.
       rewrite ^/builds.coreos.fedoraproject.org(.*)$ "://builds.coreos.fedoraproject.org$1";
       rewrite ^(.*)$ "https$1" break;
 
