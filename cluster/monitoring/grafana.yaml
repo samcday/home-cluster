@@ -48,6 +48,7 @@ spec:
         ssl_mode: require
     persistence:
       enabled: false
+    replicas: 2
     serviceMonitor:
       enabled: true
     sidecar:
