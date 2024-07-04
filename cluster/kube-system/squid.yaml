@@ -101,7 +101,7 @@ metadata:
       rewrite ^/builds.coreos.fedoraproject.org(.*)$ "://builds.coreos.fedoraproject.org$1";
       rewrite ^(.*)$ "https$1" break;
       sub_filter_once off;
-      sub_filter_types application/json;
+      sub_filter_types *;
       sub_filter 'builds.coreos.fedoraproject.org' 'mirror.samcday.com/builds.coreos.fedoraproject.org';
 spec:
   ingressClassName: nginx
