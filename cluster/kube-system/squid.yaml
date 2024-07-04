@@ -100,6 +100,7 @@ metadata:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^/builds.coreos.fedoraproject.org(.*)$ "://builds.coreos.fedoraproject.org$1";
       rewrite ^(.*)$ "https$1" break;
+      proxy_set_header Accept-Encoding "";
       sub_filter_once off;
       sub_filter_types *;
       sub_filter 'builds.coreos.fedoraproject.org' 'mirror.samcday.com/builds.coreos.fedoraproject.org';
