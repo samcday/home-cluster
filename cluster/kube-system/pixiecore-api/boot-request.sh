@@ -29,11 +29,16 @@ if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | key
   booterr "boot request for $node which is missing boot-profiles annotation"
 fi
 
-resp=$(curl --fail https://builds.coreos.fedoraproject.org/streams/stable.json | jq .architectures.x86_64.artifacts.metal.formats.pxe)
+resp=$(curl -s --fail https://mirror.samcday.com/builds.coreos.fedoraproject.org/streams/stable.json | jq .architectures.x86_64.artifacts.metal.formats.pxe)
 
 kernel=$(jq -r .kernel.location    <<< "$resp")
 rootfs=$(jq -r .rootfs.location    <<< "$resp")
 initrd=$(jq -r .initramfs.location <<< "$resp")
+
+# Ensure the artifacts are pulled from mirror.
+kernel=${kernel/\/\/builds.coreos.fedoraproject.org///mirror.samcday.com/builds.coreos.fedoraproject.org}
+rootfs=${rootfs/\/\/builds.coreos.fedoraproject.org///mirror.samcday.com/builds.coreos.fedoraproject.org}
+initrd=${initrd/\/\/builds.coreos.fedoraproject.org///mirror.samcday.com/builds.coreos.fedoraproject.org}
 
 cat <<HERE
 {
