@@ -23,6 +23,7 @@ spec:
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
+      allowSnippetAnnotations: true
       extraArgs:
         publish-status-address: 241b6c4d-1df3-4bc2-a4be-674bbe85bce5.cfargotunnel.com
       extraContainers:
