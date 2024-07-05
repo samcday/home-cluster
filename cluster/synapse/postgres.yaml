@@ -40,7 +40,7 @@ spec:
         - create database mautrix_whatsapp owner mautrix_whatsapp;
         - create user signald;
         - create database signald owner signald;
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
+  imageName: ghcr.io/cloudnative-pg/postgresql:17beta2-bullseye
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'

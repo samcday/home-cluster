@@ -32,7 +32,7 @@ spec:
   externalClusters:
     - name: grafana-db-20230921
       barmanObjectStore: *objstore
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-6@sha256:dd1790b33c60bbc9a1d23c3464f9dd8aef26cb21007c70ca588014307d376b09
+  imageName: ghcr.io/cloudnative-pg/postgresql:17beta2-bullseye
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'
