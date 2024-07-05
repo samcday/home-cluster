@@ -2,15 +2,6 @@
   "extends": [
     "config:recommended"
   ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["cluster/.*postgres\\.yaml"],
-      "matchStrings": ["imageName: (?<depName>.*?):(?<currentValue>.*?)\\n"],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "loose"
-    }
-  ],
   "flux": {
     "fileMatch": ["cluster/.*\\.yaml"]
   },
