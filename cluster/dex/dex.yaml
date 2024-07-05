@@ -23,6 +23,18 @@ spec:
         config:
           inCluster: true
       enablePasswordDB: true
+      staticClients:
+        - id: tailscale
+          redirectURIs: [https://login.tailscale.com/a/oauth_response]
+          name: Tailscale
+          secretEnv: TS_SECRET
+      staticPasswords:
+        - email: me@samcday.com
+          hashFromEnv: PASS_HASH
+          username: samcday
+    envFrom:
+      - secretRef:
+          name: dex-secrets
     ingress:
       enabled: true
       className: public-nginx
