@@ -303,8 +303,7 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        "example.com": user
-        "@admin:example.com": admin
+        "@sam:samcday.com": admin
 
     # Settings for relay mode
     relay:
