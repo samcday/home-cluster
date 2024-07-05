@@ -6,8 +6,9 @@
     {
       "customType": "regex",
       "fileMatch": ["cluster/.*postgres\\.yaml"],
-      "matchStrings": ["imageName: (?<depName>.*?):(?<currentValue>.*?)\\n"],
-      "datasourceTemplate": "docker"
+      "matchStrings": ["imageName: (?<depName>.*?):(?<currentValue>[^@]*?)@?(?<currentDigest>.*?)"],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "loose"
     }
   ],
   "flux": {
