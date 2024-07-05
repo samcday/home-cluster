@@ -1,5 +1,6 @@
 app_service_config_files:
   - /config/registration-heisenbridge.yaml
+  - /config/registration-meta.yaml
   - /config/registration-signal.yaml
   - /config/registration-telegram.yaml
   - /config/registration-whatsapp.yaml
