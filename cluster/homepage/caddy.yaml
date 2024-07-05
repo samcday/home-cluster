@@ -17,13 +17,6 @@ spec:
       containers:
         - image: caddy:2-alpine
           name: caddy
-          resources:
-            limits:
-              cpu: 100m
-              memory: 300Mi
-            requests:
-              cpu: 100m
-              memory: 300Mi
           command:
             - caddy
             - file-server
@@ -33,7 +26,12 @@ spec:
           volumeMounts:
             - name: matrix-well-known
               mountPath: /static/.well-known/matrix
+            - name: webfinger
+              mountPath: /static/webfinger
       volumes:
         - name: matrix-well-known
           configMap:
             name: matrix-well-known
+        - name: webfinger
+          configMap:
+            name: webfinger
