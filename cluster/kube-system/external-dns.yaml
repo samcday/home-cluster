@@ -30,7 +30,8 @@ spec:
           name: cloudflare
           key: token
     extraArgs:
-      - --annotation-filter="tailscale.com/funnel notin (true)"
+      - --annotation-filter
+      - tailscale.com/funnel notin (true)
     logLevel: debug
     policy: sync
     provider: cloudflare
