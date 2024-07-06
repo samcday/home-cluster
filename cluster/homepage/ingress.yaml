@@ -5,6 +5,7 @@ metadata:
   namespace: homepage
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
 spec:
   ingressClassName: public-nginx
@@ -30,6 +31,7 @@ metadata:
   namespace: homepage
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /webfinger/$resource
     nginx.ingress.kubernetes.io/configuration-snippet: |
       set $resource $arg_resource;

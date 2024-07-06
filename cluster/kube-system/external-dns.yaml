@@ -29,9 +29,6 @@ spec:
         secretKeyRef:
           name: cloudflare
           key: token
-    extraArgs:
-      - --ingress-class=nginx
-      - --managed-record-types=A
     logLevel: debug
     policy: sync
     provider: cloudflare
@@ -41,38 +38,3 @@ spec:
       - service
       - ingress
     txtOwnerId: home-cluster-20230903
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: external-dns-public
-  namespace: kube-system
-spec:
-  chart:
-    spec:
-      chart: external-dns
-      version: 1.14.5
-      sourceRef:
-        kind: HelmRepository
-        name: external-dns
-        namespace: flux-system
-  interval: 1h
-  values:
-    # https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
-    env:
-    - name: CF_API_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: cloudflare
-          key: token
-    extraArgs:
-      - --ingress-class=public-nginx
-      - --cloudflare-proxied
-    logLevel: debug
-    policy: sync
-    provider: cloudflare
-    serviceMonitor:
-      enabled: true
-    sources:
-      - ingress
-    txtOwnerId: home-cluster-public-20240629

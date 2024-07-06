@@ -40,6 +40,7 @@ spec:
       className: public-nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
       hosts:
         - host: dex.samcday.com
           paths:

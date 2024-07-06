@@ -4,8 +4,9 @@ metadata:
   name: synapse
   namespace: synapse
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
     cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: public-nginx
   rules:
