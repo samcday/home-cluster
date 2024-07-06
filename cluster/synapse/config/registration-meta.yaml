@@ -9,3 +9,6 @@ namespaces:
     - exclusive: true
       regex: '@metabot:samcday\.com'
     aliases: []
+    - exclusive: true
+      regex: '@meta_.*:samcday\.com'
+    aliases: []
