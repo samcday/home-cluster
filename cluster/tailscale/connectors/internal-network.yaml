@@ -1,0 +1,7 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: internal-network
+spec:
+  subnetRouter:
+    advertiseRoutes: [10.0.1.0/24]

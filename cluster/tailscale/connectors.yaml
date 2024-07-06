@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: connectors
+  namespace: tailscale
+spec:
+  interval: 1h
+  path: cluster/tailscale/connectors
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+    namespace: flux-system
+  timeout: 5m
