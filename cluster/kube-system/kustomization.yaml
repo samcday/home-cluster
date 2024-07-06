@@ -20,7 +20,6 @@ configMapGenerator:
     files: [squid/haproxy.cfg]
 resources:
   - ../config
-  - bind-usb-hdmi.yaml
   - cert-manager.yaml
   - cilium-l2-lb.yaml
   - descheduler.yaml
