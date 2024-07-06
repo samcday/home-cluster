@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mastodon
+  namespace: mastodon
+spec:
+  chart:
+    spec:
+      chart: .
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: mastodon-chart
+        namespace: mastodon
+  interval: 1h
+  # https://github.com/mastodon/chart/blob/main/values.yaml
+  values:
+    # https://github.com/bitnami/charts/blob/main/bitnami/elasticsearch/values.yaml
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts:
+        - host: social.samcday.com
+          paths:
+            - path: '/'
+      ingressClassName: public-nginx
+      tls:
+        - secretName: tls
+          hosts: [social.samcday.com]
+    mastodon:
+      createAdmin:
+        enabled: true
+        username: me
+        email: me@samcday.com
+      local_domain: social.samcday.com
+      secrets:
+        existingSecret: secrets
+      singleUserMode: true
+      smtp:
+        auth_method: plain
+        ca_file: /etc/ssl/certs/ca-certificates.crt
+        delivery_method: smtp
+        domain: mastodon.samcday.com
+        enable_starttls: auto
+        from_address: postmaster@mastodon.samcday.com
+        port: 587
+        server: smtp.mailgun.org
+        tls: false
+        existingSecret: mailgun
+    postgresql:
+      enabled: false
+      postgresqlHostname: public-db.postgres.svc.cluster.local.
+      postgresqlPort: 5432
+      auth:
+        database: mastodon
+        existingSecret: mastodon-owner-user.public-db.credentials.postgresql.acid.zalan.do
+        username: mastodon_owner_user
+    # https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
+    redis:
+      architecture: standalone
+      global:
+        storageClass: syncthing
+      master:
+        tolerations: *cloudtol
+      replica:
+        replicaCount: 0
+        tolerations: *cloudtol
+    tolerations: *cloudtol
