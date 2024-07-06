@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mastodon
@@ -17,23 +17,32 @@ spec:
   # https://github.com/mastodon/chart/blob/main/values.yaml
   values:
     # https://github.com/bitnami/charts/blob/main/bitnami/elasticsearch/values.yaml
+    elasticsearch:
+      clusterDomain: home-cluster.local
     ingress:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
       hosts:
-        - host: social.samcday.com
+        - host: mastodon.samcday.com
           paths:
             - path: '/'
       ingressClassName: public-nginx
       tls:
         - secretName: tls
-          hosts: [social.samcday.com]
+          hosts: [mastodon.samcday.com]
     mastodon:
       createAdmin:
         enabled: true
         username: me
         email: me@samcday.com
-      local_domain: social.samcday.com
+      local_domain: samcday.com
+      web_domain: mastodon.samcday.com
+      persistence:
+        assets:
+          storageClassName: ceph-block
+        system:
+          storageClassName: ceph-block
       secrets:
         existingSecret: secrets
       singleUserMode: true
@@ -50,20 +59,23 @@ spec:
         existingSecret: mailgun
     postgresql:
       enabled: false
-      postgresqlHostname: public-db.postgres.svc.cluster.local.
+      postgresqlHostname: db-rw
       postgresqlPort: 5432
       auth:
         database: mastodon
-        existingSecret: mastodon-owner-user.public-db.credentials.postgresql.acid.zalan.do
-        username: mastodon_owner_user
+        existingSecret: db-app
+        username: mastodon
     # https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
     redis:
       architecture: standalone
-      global:
-        storageClass: syncthing
-      master:
-        tolerations: *cloudtol
       replica:
         replicaCount: 0
-        tolerations: *cloudtol
-    tolerations: *cloudtol
+    s3:
+      enabled: true
+      existingSecret: bucket
+      endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
+  valuesFrom:
+    - kind: ConfigMap
+      name: bucket
+      valuesKey: BUCKET_NAME
+      targetPath: s3.bucket

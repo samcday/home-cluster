@@ -26,12 +26,7 @@ spec:
           volumeMounts:
             - name: matrix-well-known
               mountPath: /static/.well-known/matrix
-            - name: webfinger
-              mountPath: /static/webfinger
       volumes:
         - name: matrix-well-known
           configMap:
             name: matrix-well-known
-        - name: webfinger
-          configMap:
-            name: webfinger

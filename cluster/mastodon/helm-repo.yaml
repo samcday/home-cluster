@@ -8,4 +8,4 @@ spec:
   ref:
     branch: main
   # Temporary fork including https://github.com/mastodon/chart/pull/61
-  url: https://github.com/samcday/mastodon-chart.git
+  url: https://github.com/mastodon/chart.git

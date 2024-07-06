@@ -20,40 +20,16 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-  tls:
-    - hosts: [samcday.com]
-      secretName: certificate
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: webfinger
-  namespace: homepage
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /webfinger/$resource
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      set $resource $arg_resource;
-      if ($resource = "acct%3Ame%40samcday.com") {
-        set $resource "me";
-      }
-      if ($resource = "acct:me@samcday.com") {
-        set $resource "me";
-      }
-spec:
-  ingressClassName: public-nginx
-  rules:
     - host: samcday.com
       http:
         paths:
           - backend:
               service:
-                name: caddy
+                name: webfinger-generic
                 port:
                   number: 80
             path: /.well-known/webfinger
-            pathType: ImplementationSpecific
+            pathType: Prefix
   tls:
     - hosts: [samcday.com]
       secretName: certificate

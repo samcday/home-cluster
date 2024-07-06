@@ -1,16 +1,38 @@
-apiVersion: v1
-kind: ConfigMap
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
 metadata:
   name: webfinger
   namespace: homepage
-data:
-  me: |-
-    {
-      "subject": "acct:me@samcday.com",
-      "links": [
-        {
-          "rel": "http://openid.net/specs/connect/1.0/issuer",
-          "href": "https://dex.samcday.com"
-        }
-      ]
-    }
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.5.6
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumes:
+      - name: script
+        configMap:
+          name: webfinger-script
+    additionalVolumeMounts:
+      - name: script
+        mountPath: /script
+    args:
+      - run
+      - --allow-net
+      - /script/webfinger.ts
+    image:
+      repository: denoland/deno
+      tag: 1.44.4
+    livenessProbe:
+      httpGet:
+        path: /
+    ports:
+      - name: http
+        containerPort: 8000
