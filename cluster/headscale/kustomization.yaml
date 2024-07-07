@@ -8,6 +8,7 @@ configMapGenerator:
 resources:
   - ../config
   - helm-release.yaml
+  - internal-net-router.yaml
   - namespace.yaml
   - postgres.yaml
   - pvc.yaml
