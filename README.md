@@ -8,7 +8,7 @@ The core cluster is:
 
  - 4x Lenovo Thinkcentre M710q
  - 1x Lenovo Thinkcentre M715q
- - 5 port gigabit switch
+ - 8 port gigabit switch
  - AVM FRITZ!Box 4040 router
 
 The cluster is powered by Kubernetes. Everything is managed, GitOps style, from this repository.
