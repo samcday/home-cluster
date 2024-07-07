@@ -19,6 +19,9 @@ spec:
     # https://github.com/bitnami/charts/blob/main/bitnami/elasticsearch/values.yaml
     elasticsearch:
       clusterDomain: home-cluster.local
+    image:
+      repository: ghcr.io/mastodon/mastodon
+      tag: "v4.2.9"
     ingress:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
