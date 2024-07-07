@@ -60,6 +60,18 @@ spec:
         server: smtp.mailgun.org
         tls: false
         existingSecret: mailgun
+      # TODO: figure out why this is necessary
+      web: &aff
+        affinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/part-of
+                    operator: In
+                    values:
+                      - rails
+              topologyKey: kubernetes.io/hostname
+      workers: *aff
     postgresql:
       enabled: false
       postgresqlHostname: db-rw
