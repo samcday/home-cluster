@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: vanilla-megabase
+  name: last-1-1-megabase
   namespace: factorio
 spec:
   chart:
@@ -45,30 +45,29 @@ spec:
       - name: caddyfile
         configMap:
           name: caddyfile
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values: [librem13]
     factorioServer:
       generate_new_save: false
-      save_name: 2021megabae
+      save_name: last-1-1-megabase
       update_mods_on_start: true
-    fullnameOverride: vanilla-megabase
+    fullnameOverride: last-1-1-megabase
     image:
-      tag: 1.1.94
+      tag: 1.1.109
     mods:
       enabled: true
       portal:
-        - auto-research
+        - AutoDeconstruct
+        - BottleneckLite
+        - bullet-trails
+        - DiscoScience
+        - EvenDistributionLite
         - flib
-        # - graftorio2
+        - graftorio2
+        - GUI_Unifyer
         - helmod
-        - ModuleInserter
+        - informatron
+        - Milestones
+        - ModuleInserterEx
+        - Todo-List
         - VehicleSnap
     persistence:
       enabled: true
@@ -85,9 +84,13 @@ spec:
       graftorio2-disable-train-stats: true
       graftorio2-nth-tick: 1800
       graftorio2-server-save: true
-      name: samcday's (mostly) vanilla megabase project
+      name: Last 1.1 hurrah
       non_blocking_saving: true
       require_user_verification: true
       username: samcday
       visibility:
         public: false
+    service:
+      type: LoadBalancer
+      port: 34197
+      loadBalancerClass: io.cilium/l2-announcer
