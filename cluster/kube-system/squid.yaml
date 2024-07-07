@@ -10,12 +10,12 @@ metadata:
 spec:
   chart:
     spec:
-      chart: generic
+      chart: charts/generic
       sourceRef:
-        kind: HelmRepository
-        name: community-tooling-charts
+        kind: GitRepository
+        name: samcday-community-tooling-charts
         namespace: flux-system
-      version: 7.5.6
+      # version: 7.5.6
   interval: 1h
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
