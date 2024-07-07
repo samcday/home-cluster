@@ -16,6 +16,7 @@ spec:
         name: samcday-community-tooling-charts
         namespace: flux-system
       # version: 7.5.6
+      reconcileStrategy: Revision
   interval: 1h
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
