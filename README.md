@@ -25,5 +25,5 @@ The router runs OpenWRT, the image is built in [`devices/router/`][].
 [`node/`]: ./node/README.md
 [`ignition/`]: ./ignition/README.md
 [Ignition]: https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/
-[`cluster/`]./cluster/README.md
-[`devices/router/`]./devices/router/README.md
+[`cluster/`]: ./cluster/README.md
+[`devices/router/`]: ./devices/router/README.md
