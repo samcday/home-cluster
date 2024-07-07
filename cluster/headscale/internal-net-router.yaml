@@ -35,7 +35,7 @@ spec:
                   key: TS_AUTHKEY
                   optional: true
             - name: TS_ROUTES
-              value: 10.0.1.0/24
+              value: 10.0.1.0/24,172.30.0.0/16
           securityContext:
             capabilities:
               add: [NET_ADMIN]
