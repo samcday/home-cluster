@@ -6,7 +6,7 @@ metadata:
 spec:
   approvePlan: auto
   interval: 1h
-  path: ./tofu/main
+  path: ./tofu
   runnerPodTemplate:
     spec:
       envFrom:
