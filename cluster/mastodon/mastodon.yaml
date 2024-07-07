@@ -21,7 +21,7 @@ spec:
       clusterDomain: home-cluster.local
     image:
       repository: ghcr.io/mastodon/mastodon
-      tag: "v4.2.9"
+      tag: "v4.2.10"
     ingress:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
