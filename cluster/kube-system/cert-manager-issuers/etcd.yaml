@@ -1,10 +1,9 @@
 # This is the etcd CA for the underlying etcd cluster. It was scooped up by running this on a control-plane node:
 # kubectl create secret generic -n kube-system etcd-ca --from-file=tls.crt=/etc/kubernetes/pki/etcd/ca.crt --from-file=tls.key=/etc/kubernetes/pki/etcd/ca.key
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: etcd-ca
-  namespace: kube-system
+  name: etcd
 spec:
   ca:
     secretName: etcd-ca
