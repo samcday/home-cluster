@@ -24,6 +24,7 @@ resources:
   - cilium-l2-lb.yaml
   - descheduler.yaml
   - etcd-snapshot.yaml
+  - etcd-svc.yaml
   - external-dns.yaml
   - goldpinger.yaml
   - ingress-nginx.yaml

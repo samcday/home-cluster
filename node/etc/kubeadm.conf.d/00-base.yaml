@@ -13,6 +13,7 @@ etcd:
         extraArgs:
             auto-compaction-retention: "1"
             listen-metrics-urls: http://0.0.0.0:2381
+        serverCertSANs: [etcd.kube-system.svc.home-cluster.local]
 networking:
     dnsDomain: home-cluster.local
     podSubnet: 172.30.0.0/16
