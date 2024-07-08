@@ -23,6 +23,7 @@ resources:
   - cert-manager.yaml
   - cilium-l2-lb.yaml
   - descheduler.yaml
+  - etcd-ca.yaml
   - etcd-snapshot.yaml
   - external-dns.yaml
   - goldpinger.yaml
