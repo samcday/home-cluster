@@ -18,8 +18,6 @@ spec:
           name: mautrix-meta
           ports:
             - containerPort: 29319
-            - name: metrics
-              containerPort: 8002
           volumeMounts:
             - name: data
               mountPath: /data
@@ -71,16 +69,3 @@ spec:
     targetPort: 29319
   selector:
     app.kubernetes.io/name: bridge-meta
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: bridge-meta
-  namespace: synapse
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-      path: /
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bridge-meta
