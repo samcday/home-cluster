@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: admin
+spec:
+  commonName: kubernetes-admin
+  duration: 336h # 2 weeks
+  issuerRef:
+    name: ca
+    kind: Issuer
+  secretName: admin
+  subject:
+    organizations: [system:masters]
+  usages: [client auth]
