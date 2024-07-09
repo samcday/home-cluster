@@ -30,6 +30,9 @@ etcd:
   compactionInterval: "0"
   prefix: "/{{ $.Values.clusterName }}/"
 
+# the hostname used to externally access this apiserver
+externalHostname: ~ # required
+
 parentClusterDomain: cluster.local
 
 scheduler:

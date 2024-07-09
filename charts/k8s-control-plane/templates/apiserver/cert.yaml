@@ -14,9 +14,8 @@ spec:
     # parent cluster service name
     - apiserver.{{ $.Release.Namespace }}.svc.{{ $.Values.parentClusterDomain }}
 
-    # external hostnames
-    # TODO: values
-    - cloud-cluster.samcday.com
+    # external hostname
+    - {{ $.Values.externalHostname }}
   duration: 336h # 2 weeks
   issuerRef:
     name: ca

@@ -1,9 +1,12 @@
-{{- if (empty (default "" $.Values.clusterName)) -}}
-{{ fail "missing clusterName" -}}
-{{- end -}}
+A control-plane for the cluster "{{- if (empty (default "" $.Values.clusterName)) -}}
+{{- fail "missing clusterName" -}}
+{{- end -}}" has been deployed. It can be reached at https://{{- if (empty (default "" $.Values.externalHostname)) -}}
+{{- fail "missing externalHostname" -}}
+{{- end -}}:6443/
+
 {{- if (empty (default (list) $.Values.serviceCIDRs)) -}}
-{{ fail "missing serviceCIDRs" -}}
+{{- fail "missing serviceCIDRs" -}}
 {{- end -}}
 {{- if (gt 2 (len $.Values)) -}}
-{{ fail "too many serviceCIDRs" -}}
+{{- fail "too many serviceCIDRs" -}}
 {{- end -}}
