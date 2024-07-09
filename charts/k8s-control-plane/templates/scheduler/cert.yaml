@@ -4,10 +4,9 @@ metadata:
   name: kube-scheduler
 spec:
   commonName: system:kube-scheduler
-  duration: 24h
+  duration: 336h # 2 weeks
   issuerRef:
     name: ca
     kind: Issuer
-  renewBefore: 12h
   secretName: kube-scheduler
   usages: [client auth]

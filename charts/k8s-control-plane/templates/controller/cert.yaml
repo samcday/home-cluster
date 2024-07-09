@@ -4,10 +4,9 @@ metadata:
   name: kube-controller-manager
 spec:
   commonName: system:kube-controller-manager
-  duration: 24h
+  duration: 336h # 2 weeks
   issuerRef:
     name: ca
     kind: Issuer
-  renewBefore: 12h
   secretName: kube-controller-manager
   usages: [client auth]

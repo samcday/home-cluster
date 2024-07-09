@@ -8,6 +8,5 @@ spec:
   issuerRef:
     name: front-proxy-ca
     kind: Issuer
-  renewBefore: 12h
   secretName: front-proxy-client
   usages: [client auth]

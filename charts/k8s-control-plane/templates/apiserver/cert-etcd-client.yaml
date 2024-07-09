@@ -5,7 +5,6 @@ metadata:
 spec:
   secretName: apiserver-etcd-client
   duration: 24h
-  renewBefore: 12h
   usages: [client auth]
   commonName: cloud
   issuerRef:
