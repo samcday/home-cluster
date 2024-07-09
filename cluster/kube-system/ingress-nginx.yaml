@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-      version: 4.10.2
+      version: 4.11.0
   interval: 1h
   values:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
