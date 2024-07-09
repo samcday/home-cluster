@@ -45,6 +45,11 @@ spec:
     grafana:
       enabled: false
       forceDeployDatasources: true
+    kubeApiServer:
+      serviceMonitor:
+        relabelings:
+          - replacement: home-cluster
+            targetLabel: cluster
     # Using Cilium kube-proxy replacement
     kubeProxy:
       enabled: false
