@@ -5,11 +5,16 @@ metadata:
 spec:
   commonName: kube-apiserver
   dnsNames:
+    # standard names used in-cluster
     - kubernetes
     - kubernetes.default
     - kubernetes.default.svc
     - kubernetes.default.svc.{{ $.Values.clusterDomain }}
 
+    # parent cluster service name
+    - apiserver.{{ $.Release.Namespace }}.svc.{{ $.Values.parentClusterDomain }}
+
+    # external hostnames
     # TODO: values
     - cloud-cluster.samcday.com
   duration: 24h
