@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: charts/k8s-control-plane
-      reconciliationStrategy: Revision
+      reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository
         name: home-cluster
