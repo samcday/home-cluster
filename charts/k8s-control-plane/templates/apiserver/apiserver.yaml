@@ -1,0 +1,113 @@
+{{- if (empty $.Values.etcd.endpoints) -}}{{- fail "missing etcd.endpoints" -}}{{- end -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiserver
+  labels:
+    app: apiserver
+spec:
+  replicas: {{ required "missing apiServer.replicas" $.Values.apiServer.replicas }}
+  selector:
+    matchLabels:
+      app: apiserver
+  template:
+    metadata:
+      labels:
+        app: apiserver
+    spec:
+      containers:
+        - image: {{ with $.Values.apiServer.image -}}
+                   {{- required "missing apiServer.image.repository" .repository }}:
+                   {{- tpl (required "missing apiServer.image.tag" .tag) $ -}}
+                 {{ end }}
+          {{- with $.Values.apiServer.image.pullPolicy }}
+          imagePullPolicy: {{ . }}
+          {{- end }}
+          name: apiserver
+          command:
+            - kube-apiserver
+            # TODO
+            - --advertise-address=1.2.3.4
+            - --allow-privileged=true
+            - --authorization-mode=Node,RBAC
+            - --client-ca-file=/apiserver-cert/ca.crt
+            - --enable-admission-plugins=NodeRestriction
+            - --enable-bootstrap-token-auth=true
+            - --etcd-cafile=/apiserver-etcd-client/ca.crt
+            - --etcd-certfile=/apiserver-etcd-client/tls.crt
+            {{- with $.Values.etcd.compactionInterval }}
+            - --etcd-compaction-interval={{ . }}
+            {{- end }}
+            - --etcd-keyfile=/apiserver-etcd-client/tls.key
+            - --etcd-prefix={{ tpl (required "missing etcd.prefix" $.Values.etcd.prefix) $ }}
+            - --etcd-servers={{ join "," (required "missing etcd.endpoints" $.Values.etcd.endpoints) }}
+            - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+            - --proxy-client-cert-file=/front-proxy-client/tls.crt
+            - --proxy-client-key-file=/front-proxy-client/tls.key
+            - --requestheader-allowed-names=front-proxy-client
+            - --requestheader-client-ca-file=/front-proxy-client/ca.crt
+            - --requestheader-extra-headers-prefix=X-Remote-Extra-
+            - --requestheader-group-headers=X-Remote-Group
+            - --requestheader-username-headers=X-Remote-User
+            - --secure-port=6443
+            - --service-account-issuer=https://kubernetes.default.svc.{{ $.Values.clusterDomain }}
+            - --service-account-key-file=/sa/tls.crt
+            - --service-account-signing-key-file=/sa/tls.key
+            # TODO
+            - --service-cluster-ip-range=172.31.0.0/16,fd7f:bc81:7c5c::/112
+            - --tls-cert-file=/apiserver-cert/tls.crt
+            - --tls-private-key-file=/apiserver-cert/tls.key
+          livenessProbe:
+            failureThreshold: 8
+            httpGet:
+              path: /livez
+              port: 6443
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 15
+          ports:
+            - containerPort: 6443
+              name: apiserver
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: 6443
+              scheme: HTTPS
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 15
+          startupProbe:
+            failureThreshold: 24
+            httpGet:
+              path: /livez
+              port: 6443
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 15
+          volumeMounts:
+            - name: apiserver-cert
+              mountPath: /apiserver-cert
+            - name: apiserver-etcd-client
+              mountPath: /apiserver-etcd-client
+            - name: front-proxy-client
+              mountPath: /front-proxy-client
+            - name: sa
+              mountPath: /sa
+      volumes:
+        - name: apiserver-cert
+          secret:
+            secretName: apiserver-cert
+        - name: apiserver-etcd-client
+          secret:
+            secretName: apiserver-etcd-client
+        - name: front-proxy-client
+          secret:
+            secretName: front-proxy-client
+        - name: sa
+          secret:
+            secretName: sa

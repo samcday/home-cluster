@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sa
+spec:
+  commonName: sa
+  duration: 8760h # 1 year
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+  secretName: sa

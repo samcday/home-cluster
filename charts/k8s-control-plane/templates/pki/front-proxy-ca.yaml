@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: front-proxy-ca
+spec:
+  commonName: front-proxy-ca
+  duration: 8760h # 1 year
+  isCA: true
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+  secretName: front-proxy-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: front-proxy-ca
+spec:
+  ca:
+    secretName: front-proxy-ca

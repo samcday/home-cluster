@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: apiserver
+spec:
+  commonName: kube-apiserver
+  dnsNames:
+    - kubernetes
+    - kubernetes.default
+    - kubernetes.default.svc
+    - kubernetes.default.svc.{{ $.Values.clusterDomain }}
+
+    # TODO: values
+    - cloud-cluster.samcday.com
+  duration: 24h
+  issuerRef:
+    name: ca
+    kind: Issuer
+  renewBefore: 12h
+  secretName: apiserver-cert
+  usages: [server auth]

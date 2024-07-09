@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ca
+spec:
+  commonName: kubernetes
+  duration: 8760h # 1 year
+  isCA: true
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+  secretName: ca
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ca
+spec:
+  ca:
+    secretName: ca

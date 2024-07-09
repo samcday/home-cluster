@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: apiserver-etcd-client
+spec:
+  secretName: apiserver-etcd-client
+  duration: 24h
+  renewBefore: 12h
+  usages: [client auth]
+  commonName: cloud
+  issuerRef:
+    name: etcd
+    kind: ClusterIssuer
