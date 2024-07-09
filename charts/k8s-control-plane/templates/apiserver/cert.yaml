@@ -17,7 +17,7 @@ spec:
     # external hostnames
     # TODO: values
     - cloud-cluster.samcday.com
-  duration: 24h
+  duration: 264h # 11 days, so that renewals should always happen before 7 days warning of kube-prom-stack runbooks
   issuerRef:
     name: ca
     kind: Issuer
