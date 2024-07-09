@@ -14,6 +14,8 @@ apiServer:
 
 clusterDomain: cluster.local
 
+clusterName: ~ # required
+
 controllerManager:
   image:
     repository: registry.k8s.io/kube-controller-manager
@@ -26,7 +28,7 @@ etcd:
   # It's assumed that this control plane is using a multi-tenanted etcd cluster with RBAC enabled,
   # and thus the compaction API is not permitted.
   compactionInterval: "0"
-  prefix: "/{{ $.Release.Name }}/"
+  prefix: "/{{ $.Values.clusterName }}/"
 
 scheduler:
   image:
@@ -35,8 +37,10 @@ scheduler:
     tag: "v{{ $.Values.version }}"
   replicas: 2
 
-version: 1.30.2
+# Can be either an IPv4 subnet, an IPv6 subnet, or exactly one of each.
+serviceCIDRs: []
 
+version: 1.30.2
 
 # # Default values for k8s-control-plane.
 # # This is a YAML-formatted file.

@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apiserver
-  labels:
-    app: apiserver
 spec:
   replicas: {{ required "missing apiServer.replicas" $.Values.apiServer.replicas }}
   selector:
@@ -53,8 +51,7 @@ spec:
             - --service-account-issuer=https://kubernetes.default.svc.{{ $.Values.clusterDomain }}
             - --service-account-key-file=/sa/tls.crt
             - --service-account-signing-key-file=/sa/tls.key
-            # TODO
-            - --service-cluster-ip-range=172.31.0.0/16,fd7f:bc81:7c5c::/112
+            - --service-cluster-ip-range={{ join "," (required "missing serviceCIDRs" $.Values.serviceCIDRs) }}
             - --tls-cert-file=/apiserver-cert/tls.crt
             - --tls-private-key-file=/apiserver-cert/tls.key
           livenessProbe:
@@ -69,7 +66,7 @@ spec:
             timeoutSeconds: 15
           ports:
             - containerPort: 6443
-              name: apiserver
+              name: https
           readinessProbe:
             failureThreshold: 3
             httpGet:

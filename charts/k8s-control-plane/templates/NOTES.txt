@@ -1,0 +1,9 @@
+{{- if (empty (default "" $.Values.clusterName)) -}}
+{{ fail "missing clusterName" -}}
+{{- end -}}
+{{- if (empty (default (list) $.Values.serviceCIDRs)) -}}
+{{ fail "missing serviceCIDRs" -}}
+{{- end -}}
+{{- if (gt 2 (len $.Values)) -}}
+{{ fail "too many serviceCIDRs" -}}
+{{- end -}}

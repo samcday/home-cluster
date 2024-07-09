@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kube-controller-manager
+spec:
+  commonName: system:kube-controller-manager
+  duration: 24h
+  issuerRef:
+    name: ca
+    kind: Issuer
+  renewBefore: 12h
+  secretName: kube-controller-manager
+  usages: [client auth]

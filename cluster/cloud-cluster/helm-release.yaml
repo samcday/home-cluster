@@ -22,6 +22,7 @@ spec:
         spec:
           type: LoadBalancer
           loadBalancerClass: io.cilium/l2-announcer
+    clusterName: cloud
     etcd:
       endpoints: [https://etcd.kube-system.svc.home-cluster.local:2379]
-      prefix: cloud
+    serviceCIDRs: [172.33.0.0/16]

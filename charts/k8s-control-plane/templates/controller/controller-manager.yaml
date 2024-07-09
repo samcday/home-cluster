@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: controller-manager
+spec:
+  replicas: {{ required "missing controllerManager.replicas" $.Values.controllerManager.replicas }}
+  selector:
+    matchLabels:
+      app: kube-controller-manager
+  template:
+    metadata:
+      labels:
+        app: kube-controller-manager
+    spec:
+      containers:
+        - image: {{ with $.Values.controllerManager.image -}}
+                   {{- required "missing controllerManager.image.repository" .repository }}:
+                   {{- tpl (required "missing controllerManager.image.tag" .tag) $ -}}
+                 {{ end }}
+          {{- with $.Values.controllerManager.image.pullPolicy }}
+          imagePullPolicy: {{ . }}
+          {{- end }}
+          name: controller-manager
+          command:
+            - kube-controller-manager
+            - --allocate-node-cidrs=true
+            - --authentication-kubeconfig=/kubeconfig
+            - --authorization-kubeconfig=/kubeconfig
+            - --bind-address=0.0.0.0
+            - --client-ca-file=/ca/tls.crt
+            - --cluster-cidr=172.30.0.0/16,fdab:bc3f:3e04::/56
+            - --cluster-name=kubernetes
+            - --cluster-signing-cert-file=/ca/tls.crt
+            - --cluster-signing-key-file=/ca/tls.key
+            - --controllers=*,bootstrapsigner,tokencleaner
+            - --kubeconfig=/kubeconfig
+            - --leader-elect=true
+            - --requestheader-client-ca-file=/front-proxy-ca.crt
+            - --root-ca-file=/ca/tls.crt
+            - --service-account-private-key-file=/sa/tls.key
+            - --service-cluster-ip-range={{ join "," (required "missing serviceCIDRs" $.Values.serviceCIDRs) }}
+            - --use-service-account-credentials=true
+          livenessProbe:
+            failureThreshold: 8
+            httpGet:
+              path: /healthz
+              port: 10257
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 15
+          ports:
+            - containerPort: 10257
+              name: https
+          startupProbe:
+            failureThreshold: 24
+            httpGet:
+              path: /healthz
+              port: 10257
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 15
+          volumeMounts:
+            - name: ca
+              mountPath: /ca
+            - name: cert
+              mountPath: /cert
+            - name: front-proxy-ca
+              mountPath: /front-proxy-ca.crt
+              subPath: tls.crt
+            - name: kubeconfig
+              mountPath: /kubeconfig
+              subPath: kubeconfig
+            - name: sa
+              mountPath: /sa
+      volumes:
+        - name: ca
+          secret:
+            secretName: ca
+        - name: cert
+          secret:
+            secretName: kube-controller-manager
+        - name: front-proxy-ca
+          secret:
+            secretName: front-proxy-ca
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+        - name: sa
+          secret:
+            secretName: sa

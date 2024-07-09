@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kube-scheduler
+spec:
+  commonName: system:kube-scheduler
+  duration: 24h
+  issuerRef:
+    name: ca
+    kind: Issuer
+  renewBefore: 12h
+  secretName: kube-scheduler
+  usages: [client auth]

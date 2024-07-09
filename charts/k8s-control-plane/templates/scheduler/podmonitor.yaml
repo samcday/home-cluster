@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: scheduler
+spec:
+  jobLabel: app
+  podMetricsEndpoints:
+    - port: https
+      relabelings:
+        - replacement: {{ $.Values.clusterName }}
+          targetLabel: cluster
+      scheme: https
+      tlsConfig:
+        # TODO: should use a less privileged user here
+        cert:
+          secret:
+            name: admin
+            key: tls.crt
+        insecureSkipVerify: true
+        keySecret:
+          name: admin
+          key: tls.key
+  selector:
+    matchLabels:
+      app: kube-scheduler
