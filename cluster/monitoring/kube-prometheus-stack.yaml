@@ -50,9 +50,19 @@ spec:
         relabelings:
           - replacement: home-cluster
             targetLabel: cluster
+    kubeControllerManager:
+      serviceMonitor:
+        relabelings:
+          - replacement: home-cluster
+            targetLabel: cluster
     # Using Cilium kube-proxy replacement
     kubeProxy:
       enabled: false
+    kubeScheduler:
+      serviceMonitor:
+        relabelings:
+          - replacement: home-cluster
+            targetLabel: cluster
     prometheus:
       ingress:
         enabled: true
