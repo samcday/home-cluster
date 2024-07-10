@@ -1,7 +1,7 @@
 acls:
   # personal devices go where they please okty.
   - action: accept
-    src: [sam]
+    src: [sam, cloud-cluster]
     dst: ["*:*"]
   # https://github.com/juanfont/headscale/issues/502
   - action: accept
