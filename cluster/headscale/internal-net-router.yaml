@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: internal-net-router
   namespace: headscale
@@ -54,6 +54,7 @@ rules:
   resources: [secrets]
   verbs: [create]
 - apiGroups: [""]
+  resourceNames: [internal-net-router-0, internal-net-router-1]
   resources: [secrets]
   verbs: [get, update, patch]
 ---
