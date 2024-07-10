@@ -25,7 +25,7 @@ spec:
             - name: TS_KUBE_SECRET
               value: internal-net-router-auth
             - name: TS_USERSPACE
-              value: "false"
+              value: "true"
             - name: TS_DEBUG_FIREWALL_MODE
               value: auto
             - name: TS_AUTHKEY
