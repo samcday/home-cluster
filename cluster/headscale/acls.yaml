@@ -14,3 +14,5 @@ autoApprovers:
     10.0.1.0/24: [tag:subnet-router]
     172.30.0.0/16: [tag:subnet-router]
     172.31.0.0/16: [tag:subnet-router]
+tagOwners:
+  tag:subnet-router: []
