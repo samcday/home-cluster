@@ -8,3 +8,6 @@ acls:
     dst:
       - cloud-cluster:*
       - sam:6443
+autoApprovers:
+  routes:
+    10.0.1.0/24: [tag:subnet-router]
