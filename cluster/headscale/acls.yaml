@@ -1,6 +1,12 @@
 acls:
+  # personal devices go where they please okty.
   - action: accept
     src: [sam]
     dst: ["*:*"]
+
+  # cloud nodes -> apiserver
+  - action: accept
+    src: [cloud-cluster]
+    dst: ["sam:6443"]
 groups:
 tagOwners:
