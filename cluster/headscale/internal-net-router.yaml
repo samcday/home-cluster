@@ -25,6 +25,8 @@ spec:
             - name: TS_KUBE_SECRET
               value: internal-net-router-auth
             - name: TS_USERSPACE
+              # kernel mode breaks in weird ways when routing to Cilium L2LB IPs.
+              # maybe because of the eBPF Magick(tm)?
               value: "true"
             - name: TS_DEBUG_FIREWALL_MODE
               value: auto
