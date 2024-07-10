@@ -6,7 +6,7 @@ metadata:
   labels:
     app: headscale
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: internal-net-router
@@ -23,7 +23,10 @@ spec:
             - name: TS_EXTRA_ARGS
               value: --login-server=https://headscale.taild2b250.ts.net
             - name: TS_KUBE_SECRET
-              value: internal-net-router-auth
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
             - name: TS_USERSPACE
               # kernel mode breaks in weird ways when routing to Cilium L2LB IPs.
               # maybe because of the eBPF Magick(tm)?
@@ -35,7 +38,6 @@ spec:
                 secretKeyRef:
                   name: internal-net-router-auth
                   key: TS_AUTHKEY
-                  optional: true
             - name: TS_ROUTES
               value: 10.0.1.0/24,172.30.0.0/16,172.31.0.0/16
           securityContext:
