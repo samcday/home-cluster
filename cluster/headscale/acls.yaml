@@ -1,23 +1,7 @@
 acls:
-  # personal devices go where they please okty.
   - action: accept
-    src: [sam, cloud-cluster]
-    dst:
-      - "group:all:*"
-  # https://github.com/juanfont/headscale/issues/502
-  - action: accept
-    src: ["group:all"]
-    dst: ["tag:subnet-router:0"]
-  # cloud nodes -> apiserver
+    src: [sam]
+    dst: [sam:*]
   - action: accept
     src: [cloud-cluster]
-    dst: ["10.0.1.0/24:6443"]
-  - action: accept
-    src: [cloud-cluster]
-    dst: ["*:6443"]
-  - action: accept
-    src: [cloud-cluster]
-    dst: ["*:*"]
-groups:
-  group:all: [sam, cloud-cluster]
-tagOwners:
+    dst: [cloud-cluster:*]
