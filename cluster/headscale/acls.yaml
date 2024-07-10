@@ -2,7 +2,8 @@ acls:
   # personal devices go where they please okty.
   - action: accept
     src: [sam, cloud-cluster]
-    dst: ["*:*"]
+    dst:
+      - "group:all:*"
   # https://github.com/juanfont/headscale/issues/502
   - action: accept
     src: ["group:all"]
