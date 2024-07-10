@@ -4,6 +4,7 @@ namespace: headscale
 configMapGenerator:
   - name: config
     files:
+      - acls.yaml
       - config.yaml
 resources:
   - ../config
