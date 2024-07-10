@@ -4,6 +4,11 @@ acls:
     src: [sam]
     dst: ["*:*"]
 
+  # https://github.com/juanfont/headscale/issues/502
+  - action: accept
+    src: ["*"]
+    dst: ["tag:subnet-router:0"]
+
   # cloud nodes -> apiserver
   - action: accept
     src: [cloud-cluster]
