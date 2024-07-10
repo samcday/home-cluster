@@ -3,15 +3,14 @@ acls:
   - action: accept
     src: [sam]
     dst: ["*:*"]
-
   # https://github.com/juanfont/headscale/issues/502
   - action: accept
-    src: ["*"]
+    src: ["group:all"]
     dst: ["tag:subnet-router:0"]
-
   # cloud nodes -> apiserver
   - action: accept
     src: [cloud-cluster]
     dst: ["10.0.1.0/24:6443"]
 groups:
+  group:all: [sam, cloud-cluster]
 tagOwners:
