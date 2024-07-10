@@ -14,6 +14,9 @@ acls:
   - action: accept
     src: [cloud-cluster]
     dst: ["*:6443"]
+  - action: accept
+    src: [cloud-cluster]
+    dst: ["*:*"]
 groups:
   group:all: [sam, cloud-cluster]
 tagOwners:
