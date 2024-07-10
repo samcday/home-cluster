@@ -54,7 +54,6 @@ rules:
   resources: [secrets]
   verbs: [create]
 - apiGroups: [""]
-  resourceNames: [internal-net-router-auth]
   resources: [secrets]
   verbs: [get, update, patch]
 ---
