@@ -3,6 +3,9 @@ acls:
     src: ["*"]
     dst: ["*:22"]
   - action: accept
+    src: ["*"]
+    dst: ["*:6443"]
+  - action: accept
     src: [sam]
     dst:
       - sam:*
