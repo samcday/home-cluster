@@ -7,6 +7,6 @@ acls:
   # cloud nodes -> apiserver
   - action: accept
     src: [cloud-cluster]
-    dst: ["sam:6443"]
+    dst: ["10.0.1.0/24:6443"]
 groups:
 tagOwners:
