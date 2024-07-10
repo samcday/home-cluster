@@ -1,9 +1,13 @@
 acls:
   - action: accept
+    src: ["*"]
+    dst: ["*:22"]
+  - action: accept
     src: [sam]
     dst:
       - sam:*
       - "*:*"
   - action: accept
     src: [cloud-cluster]
-    dst: [cloud-cluster:*]
+    dst:
+      - cloud-cluster:*
