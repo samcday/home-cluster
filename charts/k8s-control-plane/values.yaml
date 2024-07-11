@@ -40,7 +40,7 @@ konnectivity:
     replicas: 1
   port: 8091
   server:
-    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.30.2
+    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.30.3
 
 parentClusterDomain: cluster.local
 
