@@ -3,7 +3,7 @@ kind: Kustomization
 configMapGenerator:
   - name: control-plane-values
     files:
-      - values.yaml=cluster-plane-values.yaml
+      - values.yaml=control-plane-values.yaml
 resources:
   - ../config
   - cilium.yaml
