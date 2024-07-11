@@ -58,6 +58,7 @@ spec:
         tag: v0.16.0-rc.4
       serviceAccount:
         allowedNamespaces:
+          - cloud-cluster
           - flux-system
           - kube-system
 ---
