@@ -33,3 +33,4 @@ spec:
     externalHostname: cloud-cluster.samcday.com
     parentClusterDomain: home-cluster.local
     serviceCIDRs: [172.29.0.0/16]
+    serviceIP: 172.29.0.1

@@ -16,8 +16,9 @@ spec:
 
     # external hostname
     - {{ $.Values.externalHostname }}
-  {{- if $.Values.externalIP }}
   ipAddresses:
+  {{- if $.Values.externalIP }}
+    - {{ required "missing serviceIP" $.Values.serviceIP }}
     - {{ $.Values.externalIP }}
   {{- end }}
   duration: 336h # 2 weeks

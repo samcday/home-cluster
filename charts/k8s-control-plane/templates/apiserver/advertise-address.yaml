@@ -18,7 +18,7 @@ spec:
               ip=$(kubectl get svc apiserver -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
               kubectl create configmap advertise-address --from-literal=value="$ip" --dry-run=client --output yaml \
                 | kubectl apply -f-
-              kubectl patch cert apiserver --type merge -p "{\"spec\":{\"ipAddresses\":[\"$ip\"]}}"
+              kubectl patch cert apiserver --type merge -p "{\"spec\":{\"ipAddresses\":[\"$ip\", "{{ $.Values.serviceIP }}"]}}"
       serviceAccount: advertise-address
       restartPolicy: OnFailure
   ttlSecondsAfterFinished: 60
