@@ -43,7 +43,8 @@ data:
     kind: KubeletConfiguration
     cgroupDriver: systemd
     {{- with $.Values.clusterDNS }}
-    clusterDNS: {{ . | toYaml }}
+    clusterDNS:
+      {{- . | toYaml | nindent 2 }}
     {{- end }}
     clusterDomain: {{ $.Values.clusterDomain }}
     rotateCertificates: true
