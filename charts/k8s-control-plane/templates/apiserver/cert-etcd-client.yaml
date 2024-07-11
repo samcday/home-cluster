@@ -8,4 +8,4 @@ spec:
   usages: [client auth]
   commonName: cloud
   issuerRef:
-    {{- required "missing etcd.certIssuer" $.Values.etcd.certIssuer | nindent 4 }}
+    {{- required "missing etcd.certIssuer" $.Values.etcd.certIssuer | toYaml | nindent 4 }}
