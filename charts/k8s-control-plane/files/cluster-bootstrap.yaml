@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-info
+  namespace: kube-public
+data:
+  kubeconfig: |
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM5akNDQWQ2Z0F3SUJBZ0lRTGR2M0l2Q1phaWFJMnVzejNMb090akFOQmdrcWhraUc5dzBCQVFzRkFEQVYKTVJNd0VRWURWUVFERXdwcmRXSmxjbTVsZEdWek1CNFhEVEkwTURjd09UQTNOVGN4TTFvWERUSTFNRGN3T1RBMwpOVGN4TTFvd0ZURVRNQkVHQTFVRUF4TUthM1ZpWlhKdVpYUmxjekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFECmdnRVBBRENDQVFvQ2dnRUJBS0JpU3p5Q0lKblduQ0RWY1JQUVNQSWUraUhNc3M3dVgxczJaZmpMNytsRFdmSGYKOThDNnU1OUJ2SmFkNDR0ZmVGemJHbHZPSjc1c2lZR29mRVBnalF3SXMyYXZJdUR2aklETFFzYi9va0Q2QVVBSApsL1lSMUEvVFhJeldDYkNRU3ZrbDg2QVc1WmxsWngrNDBsaTQveUd2dDVVVWFzb1VQVDZwSzZxTFVNVWxQajN1Ci9FRU82eXBLdXFWbldxN1JPalFyRHg2YitXU1lnN1FKNC9Xb2N5ZlF2UlBibjNzNGJPUTc4NGtNZFhubzdSVWIKUmpqSEpuVDNSNCtaU1pteXJEZnhkbWQ1N2dkY2NSMmltY3RtcmdTcmVNUzVZOEEyQUI0YnM1UHg5cUZOeXhPWAp4aWl1SEo4YXNaY1BtVGRpeVVSaSt3RHFGY0JLckpCVkxEZ1hKVzBDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvCkJBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk0xVHF5aXg1VmJZd29YaVpFQzAKbFpOK29HWUJNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNKbHRQclNFYVdTL2pZNmlUUHFTTXg0WTJHcE8zegpwVytRNHFWSE11ODlBQTVkbVZDOW9rTHlZZ1U0Qmw3aUd4cFdhbitReXo5V0VqaTg1Q29Wc1VrdW9vMU1sWWswCk1lYmZ3Z2t5c3JVNllZU1RiNldYVHFOZU1NQUxmek5kUUR3SDIvZGk3ck5KblJpUFlGQlFsSXo5SnEzcklidlgKNGdWSEF6WThBNGdlM2p2cThqUVdIeXF0UTF2WjFLT0o1ckxxK0hXL3ZCYU1STzEzSmtDdnRVYmRFbkQwMHJMZgptSFRtQkJ6UUdXT3dwN3VuVzNJUkZNZFVhR0JwVHB4RDRBM3NWYW1FQ045TTJGUzlNUlB0Tk0zR0tjNkNsRU9CCjE2aytYOG5zVDZWWjhxWFRDTlZmZGZMeDJFOVdRS0thSzE1U2k3L2U2LzNwK0UrZ0laRHJ3UDNQCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+        server: https://{{ $.Values.externalHostname }}:6443
+      name: ""
+    contexts: null
+    current-context: ""
+    kind: Config
+    preferences: {}
+    users: null
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeadm-config
+  namespace: kube-system
+data:
+  ClusterConfiguration: |
+    apiVersion: kubeadm.k8s.io/v1beta3
+    kind: ClusterConfiguration
+    clusterName: {{ $.Values.clusterName }}
+    kubernetesVersion: v{{ $.Values.version }}
+    networking:
+      dnsDomain: {{ $.Values.clusterDomain }}
+      serviceSubnet: {{ join "," $.Values.serviceCIDRs }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubelet-config
+  namespace: kube-system
+data:
+  kubelet: |
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    cgroupDriver: systemd
+    {{- with $.Values.clusterDNS }}
+    clusterDNS: {{ . | toYaml }}
+    {{- end }}
+    clusterDomain: {{ $.Values.clusterDomain }}
+    rotateCertificates: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:node-autoapprove-bootstrap
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:node-autoapprove-certificate-rotation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:nodes
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:kubelet-bootstrap
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:node-bootstrapper
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:get-nodes
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeadm:get-nodes
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeadm:get-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+---
+{{ if $.Values.konnectivity.enabled }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: konnectivity-agent
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kube-system
+  name: konnectivity-agent
+spec:
+  selector:
+    matchLabels:
+      app: konnectivity-agent
+  template:
+    metadata:
+      labels:
+        app: konnectivity-agent
+    spec:
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: konnectivity-agent
+          image: {{ $.Values.konnectivity.agent.image }}
+          command: [/proxy-agent]
+          args:
+            - --logtostderr=true
+            - --ca-cert=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            - --proxy-server-host={{ $.Values.externalHostname }}
+            - --proxy-server-port=8091
+            - --service-account-token-path=/var/run/secrets/tokens/konnectivity-agent-token
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              port: 8093
+              path: /healthz
+            initialDelaySeconds: 15
+            timeoutSeconds: 15
+          resources:
+            requests:
+              cpu: 50m
+            limits:
+              memory: 30Mi
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              port: 8093
+              path: /readyz
+            initialDelaySeconds: 15
+            timeoutSeconds: 15
+          volumeMounts:
+            - mountPath: /var/run/secrets/tokens
+              name: konnectivity-agent-token
+      hostNetwork: true
+      serviceAccountName: konnectivity-agent
+      volumes:
+        - name: konnectivity-agent-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  path: konnectivity-agent-token
+                  audience: system:konnectivity-server
+---
+{{ end }}

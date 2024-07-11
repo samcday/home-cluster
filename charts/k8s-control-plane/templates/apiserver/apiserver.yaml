@@ -28,7 +28,10 @@ spec:
             - --advertise-address=1.2.3.4
             - --allow-privileged=true
             - --authorization-mode=Node,RBAC
-            - --client-ca-file=/apiserver-cert/ca.crt
+            - --client-ca-file=/cert/ca.crt
+            {{- if $.Values.konnectivity.enabled }}
+            - --egress-selector-config-file=/esc
+            {{- end }}
             - --enable-admission-plugins=NodeRestriction
             - --enable-bootstrap-token-auth=true
             - --etcd-cafile=/apiserver-etcd-client/ca.crt
@@ -39,6 +42,8 @@ spec:
             - --etcd-keyfile=/apiserver-etcd-client/tls.key
             - --etcd-prefix={{ tpl (required "missing etcd.prefix" $.Values.etcd.prefix) $ }}
             - --etcd-servers={{ join "," (required "missing etcd.endpoints" $.Values.etcd.endpoints) }}
+            - --kubelet-client-certificate=/admin/tls.crt
+            - --kubelet-client-key=/admin/tls.key
             - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
             - --proxy-client-cert-file=/front-proxy-client/tls.crt
             - --proxy-client-key-file=/front-proxy-client/tls.key
@@ -52,8 +57,8 @@ spec:
             - --service-account-key-file=/sa/tls.crt
             - --service-account-signing-key-file=/sa/tls.key
             - --service-cluster-ip-range={{ join "," (required "missing serviceCIDRs" $.Values.serviceCIDRs) }}
-            - --tls-cert-file=/apiserver-cert/tls.crt
-            - --tls-private-key-file=/apiserver-cert/tls.key
+            - --tls-cert-file=/cert/tls.crt
+            - --tls-private-key-file=/cert/tls.key
           livenessProbe:
             failureThreshold: 8
             httpGet:
@@ -87,16 +92,62 @@ spec:
             successThreshold: 1
             timeoutSeconds: 15
           volumeMounts:
-            - name: apiserver-cert
-              mountPath: /apiserver-cert
+            - name: admin
+              mountPath: /admin
+            - name: cert
+              mountPath: /cert
             - name: apiserver-etcd-client
               mountPath: /apiserver-etcd-client
             - name: front-proxy-client
               mountPath: /front-proxy-client
             - name: sa
               mountPath: /sa
+        {{- if $.Values.konnectivity.enabled }}
+            - name: apiserver-egress
+              mountPath: /esc
+              subPath: egress.yaml
+            - name: konnectivity
+              mountPath: /konnectivity
+        - name: konnectivity-server
+          image: {{ $.Values.konnectivity.server.image }}
+          command: [/proxy-server]
+          args:
+            - --uds-name=/konnectivity/socket
+            - --delete-existing-uds-file
+            - --cluster-cert=/apiserver-cert/tls.crt
+            - --cluster-key=/apiserver-cert/tls.key
+            - --server-port=0
+            - --agent-port=8091
+            - --health-port=8092
+            - --admin-port=8093
+            - --keepalive-time=1h
+            - --mode=grpc
+            - --agent-namespace=kube-system
+            - --agent-service-account=konnectivity-agent
+            - --kubeconfig=/kubeconfig
+            - --authentication-audience=system:konnectivity-server
+            - --server-count={{ $.Values.apiServer.replicas }}
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              host: 127.0.0.1
+              port: 8092
+              path: /healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 60
+          volumeMounts:
+            - name: admin
+              mountPath: /cert
+            - name: cert
+              mountPath: /apiserver-cert
+            - name: konnectivity
+              mountPath: /konnectivity
+            - name: kubeconfig
+              mountPath: /kubeconfig
+              subPath: kubeconfig
+        {{ end }}
       volumes:
-        - name: apiserver-cert
+        - name: cert
           secret:
             secretName: apiserver-cert
         - name: apiserver-etcd-client
@@ -108,3 +159,50 @@ spec:
         - name: sa
           secret:
             secretName: sa
+        {{ if $.Values.konnectivity.enabled }}
+        - name: admin
+          secret:
+            secretName: admin
+        - name: apiserver-egress
+          configMap:
+            name: apiserver-egress
+        - name: konnectivity
+          emptyDir: {}
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+        {{ end }}
+---
+{{ if $.Values.konnectivity.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apiserver-egress
+data:
+    egress.yaml: |
+      apiVersion: apiserver.k8s.io/v1beta1
+      kind: EgressSelectorConfiguration
+      egressSelections:
+        - name: cluster
+          connection:
+            proxyProtocol: GRPC
+            transport:
+              uds:
+                udsName: /konnectivity/socket
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:konnectivity-server
+  labels:
+    kubernetes.io/cluster-service: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:konnectivity-server
+---
+{{ end }}

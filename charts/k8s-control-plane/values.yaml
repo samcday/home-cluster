@@ -33,6 +33,13 @@ etcd:
 # the hostname used to externally access this apiserver
 externalHostname: ~ # required
 
+konnectivity:
+  enabled: true
+  agent:
+    image: registry.k8s.io/kas-network-proxy/proxy-agent:v0.30.2
+  server:
+    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.30.2
+
 parentClusterDomain: cluster.local
 
 scheduler:

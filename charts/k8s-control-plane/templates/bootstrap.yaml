@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bootstrap
+spec:
+  template:
+    spec:
+      containers:
+        - name: bootstrap
+          image: bitnami/kubectl:{{ $.Values.version }}
+          command:
+            - bash
+            - -uexo
+            - pipefail
+            - -c
+            - |
+              kubectl apply -f- <<HERE
+              {{- tpl ($.Files.Get "files/cluster-bootstrap.yaml") $ | nindent 14 }}
+              HERE
+          env:
+            - name: KUBECONFIG
+              value: /kubeconfig
+          volumeMounts:
+            - name: cert
+              mountPath: /cert
+            - name: kubeconfig
+              mountPath: /kubeconfig
+              subPath: kubeconfig
+      volumes:
+        - name: cert
+          secret:
+            secretName: admin
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+      restartPolicy: OnFailure
+  ttlSecondsAfterFinished: 60
