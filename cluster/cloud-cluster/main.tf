@@ -33,7 +33,7 @@ resource "hcloud_network" "network" {
 }
 
 resource "hcloud_network_subnet" "subnet" {
-  network_id   = hcloud_network.mynet.network
+  network_id   = hcloud_network.network.id
   type         = "cloud"
   network_zone = "eu-central"
   ip_range     = "172.28.0.0/16"
