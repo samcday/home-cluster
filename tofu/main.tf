@@ -12,10 +12,6 @@ terraform {
       source  = "integrations/github"
       version = "6.2.3"
     }
-    hcloud = {
-      source  = "hetznercloud/hcloud"
-      version = "1.47.0"
-    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.31.0"
@@ -26,5 +22,4 @@ terraform {
 provider "b2" {}
 provider "dmsnitch" {}
 provider "github" {}
-provider "hcloud" {}
 provider "kubernetes" {}

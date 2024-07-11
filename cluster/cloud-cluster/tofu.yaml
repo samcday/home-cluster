@@ -1,0 +1,22 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: tofu
+  namespace: cloud-cluster
+spec:
+  approvePlan: auto
+  interval: 1h
+  path: ./cluster/cloud-cluster
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: HCLOUD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hcloud
+              key: token
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster-https
+    namespace: flux-system
+  storeReadablePlan: human
