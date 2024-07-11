@@ -42,7 +42,7 @@ spec:
       HCLOUD_FIREWALL: firewall
       HCLOUD_NETWORK: network
       HCLOUD_SSH_KEY: samcday
-    envFromConfigMap: cluster-autoscaler-config
+    envFromSecret: cluster-autoscaler-config
     extraEnvSecrets:
       HCLOUD_TOKEN:
         name: hcloud
