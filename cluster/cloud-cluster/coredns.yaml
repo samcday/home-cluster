@@ -21,3 +21,6 @@ spec:
   targetNamespace: kube-system
   values:
     # https://github.com/coredns/helm/blob/master/charts/coredns/values.yaml
+    k8sAppLabelOverride: kube-dns
+    service:
+      clusterIP: 172.33.0.10
