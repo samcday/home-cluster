@@ -26,3 +26,8 @@ resource "hcloud_firewall" "firewall" {
     ]
   }
 }
+
+resource "hcloud_network" "network" {
+  name     = "network"
+  ip_range = "172.28.0.0/16"
+}
