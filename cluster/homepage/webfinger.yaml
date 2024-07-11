@@ -29,7 +29,7 @@ spec:
       - /script/webfinger.ts
     image:
       repository: denoland/deno
-      tag: 1.44.4
+      tag: 1.45.0
     livenessProbe:
       httpGet:
         path: /
