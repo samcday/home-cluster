@@ -16,6 +16,7 @@ config:
         apt-get update
         apt install -y containerd kubelet kubeadm kubectl
         systemctl enable containerd.service kubelet.service
+        echo 'KUBELET_EXTRA_ARGS="--cloud-provider=external"' > /etc/default/kubelet
         mkdir -p /etc/containerd
         containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' > /etc/containerd/config.toml
         systemctl restart containerd.service
