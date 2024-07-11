@@ -12,6 +12,10 @@ apiServer:
     spec:
       type: ClusterIP
 
+bootstrapTokens:
+  # - id: abcdef
+  #   secret: 0123456789abcdef
+
 clusterDomain: cluster.local
 
 clusterName: ~ # required

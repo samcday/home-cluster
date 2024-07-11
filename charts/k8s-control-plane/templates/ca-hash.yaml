@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ca-hash
+spec:
+  template:
+    spec:
+      containers:
+        - name: ca-hash
+          image: bitnami/kubectl:{{ $.Values.version }}
+          command:
+            - bash
+            - -uexo
+            - pipefail
+            - -c
+            - |
+              hash=$(openssl x509 -pubkey -in /var/run/secrets/kubernetes.io/serviceaccount/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
+              kubectl create configmap ca-hash --from-literal=hash="$hash" --dry-run=client --output yaml \
+                | kubectl apply -f-
+      serviceAccount: ca-hash
+      restartPolicy: OnFailure
+  ttlSecondsAfterFinished: 60
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ca-hash
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ca-hash
+rules:
+- apiGroups: [""]
+  resources: [configmaps]
+  verbs: [create]
+- apiGroups: [""]
+  resourceNames: [ca-hash]
+  resources: [configmaps]
+  verbs: [get, update, patch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ca-hash
+subjects:
+  - kind: ServiceAccount
+    name: ca-hash
+roleRef:
+  kind: Role
+  name: ca-hash
+  apiGroup: rbac.authorization.k8s.io

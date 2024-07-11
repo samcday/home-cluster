@@ -202,4 +202,18 @@ spec:
                   path: konnectivity-agent-token
                   audience: system:konnectivity-server
 ---
-{{ end }}
+{{- end }}
+{{- range $.Values.bootstrapTokens }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bootstrap-token-{{ required "token missing id" .id }}
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
+stringData:
+  token-id: {{ .id }}
+  token-secret: {{ required "token missing secret" .secret }}
+  usage-bootstrap-authentication: "true"
+  usage-bootstrap-signing: "true"
+---
+{{- end }}
