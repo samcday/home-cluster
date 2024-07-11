@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hccm
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: hcloud-cloud-controller-manager
+      sourceRef:
+        kind: HelmRepository
+        name: hcloud
+        namespace: flux-system
+      version: 1.20.0
+  interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+            patch: |
+              - op: replace
+                path: /spec/template/spec/containers/0/volumeMounts
+                value:
+                  - name: cert
+                    mountPath: /cert
+                  - name: kubeconfig
+                    mountPath: /kubeconfig
+                    subPath: kubeconfig
+              - op: replace
+                path: /spec/template/spec/hostNetwork
+                value: false
+              - op: remove
+                path: /spec/template/spec/dnsPolicy
+                value: false
+              - op: replace
+                path: /spec/template/spec/volumes
+                value:
+                  - name: cert
+                    secret:
+                      secretName: admin
+                  - name: kubeconfig
+                    configMap:
+                      name: kubeconfig
+  values:
+    # https://github.com/hetznercloud/hcloud-cloud-controller-manager/blob/main/chart/values.yaml
+    args:
+      kubeconfig: /kubeconfig
+    env:
+      HCLOUD_NETWORK_DISABLE_ATTACHED_CHECK:
+        value: 'true'
+    monitoring:
+      podMonitor:
+        enabled: true
+    networking:
+      enabled: true
+      clusterCIDR: 172.28.0.0/16
+      network:
+        value: network
+        valueFrom: ~
