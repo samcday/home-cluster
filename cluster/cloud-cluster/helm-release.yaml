@@ -20,4 +20,4 @@ spec:
     - kind: Secret
       name: node-bootstrap-token
       valuesKey: secret
-      targetPath: bootstrapTokens.0.secret
+      targetPath: bootstrapTokens[0].secret
