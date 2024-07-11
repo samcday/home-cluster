@@ -14,7 +14,7 @@ spec:
             - pipefail
             - -c
             - |
-              hash=$(openssl x509 -pubkey -in /var/run/secrets/kubernetes.io/serviceaccount/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
+              hash=$(openssl x509 -pubkey -in /ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
               kubectl create configmap ca-hash --from-literal=hash="$hash" --dry-run=client --output yaml \
                 | kubectl apply -f-
           volumeMounts:
