@@ -34,12 +34,12 @@ resource "hcloud_firewall" "firewall" {
 
 resource "hcloud_network" "network" {
   name     = "network"
-  ip_range = "172.28.0.0/16"
+  ip_range = "172.28.0.0/15"
 }
 
 resource "hcloud_network_subnet" "subnet" {
   network_id   = hcloud_network.network.id
   type         = "cloud"
   network_zone = "eu-central"
-  ip_range     = "172.28.255.0/24"
+  ip_range     = "172.29.0.0/16"
 }
