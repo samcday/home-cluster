@@ -22,8 +22,6 @@ spec:
         spec:
           type: LoadBalancer
           loadBalancerClass: io.cilium/l2-announcer
-    bootstrapTokens:
-      - id: v4kos4
     clusterCIDRs: [172.28.0.0/16]
     clusterDNS: [172.29.0.10]
     clusterName: cloud
@@ -39,5 +37,4 @@ spec:
   valuesFrom:
     - kind: Secret
       name: node-bootstrap-token
-      valuesKey: secret
-      targetPath: bootstrapTokens[0].secret
+      targetPath: bootstrapTokens[0]
