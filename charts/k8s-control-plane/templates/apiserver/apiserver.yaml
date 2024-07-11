@@ -24,8 +24,11 @@ spec:
           name: apiserver
           command:
             - kube-apiserver
-            # TODO
-            - --advertise-address=1.2.3.4
+            {{- if $.Values.externalIP }}
+            - --advertise-address={{ $.Values.externalIP }}
+            {{- else }}
+            - --advertise-address=$(ADVERTISE_ADDRESS)
+            {{- end }}
             - --allow-privileged=true
             - --authorization-mode=Node,RBAC
             - --client-ca-file=/cert/ca.crt
@@ -59,6 +62,14 @@ spec:
             - --service-cluster-ip-range={{ join "," (required "missing serviceCIDRs" $.Values.serviceCIDRs) }}
             - --tls-cert-file=/cert/tls.crt
             - --tls-private-key-file=/cert/tls.key
+          {{- if not $.Values.externalIP }}
+          env:
+            - name: ADVERTISE_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: advertise-address
+                  key: value
+          {{- end }}
           livenessProbe:
             failureThreshold: 8
             httpGet:

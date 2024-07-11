@@ -30,6 +30,7 @@ data:
     kubernetesVersion: v{{ $.Values.version }}
     networking:
       dnsDomain: {{ $.Values.clusterDomain }}
+      podSubnet: {{ join "," $.Values.clusterCIDRs }}
       serviceSubnet: {{ join "," $.Values.serviceCIDRs }}
 ---
 apiVersion: v1

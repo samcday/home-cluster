@@ -38,6 +38,10 @@ etcd:
 # the hostname used to externally access this apiserver
 externalHostname: ~ # required
 
+# if not explicitly provided, it's assumed the apiserver Service is a LoadBalancer, so a Job
+# will run during chart reconciliation to fetch the LB IP.
+externalIP: ~
+
 konnectivity:
   enabled: true
   agent:

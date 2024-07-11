@@ -16,6 +16,10 @@ spec:
 
     # external hostname
     - {{ $.Values.externalHostname }}
+  {{- if $.Values.externalIP }}
+  ipAddresses:
+    - {{ $.Values.externalIP }}
+  {{- end }}
   duration: 336h # 2 weeks
   issuerRef:
     name: ca

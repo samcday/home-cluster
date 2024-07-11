@@ -28,7 +28,7 @@ spec:
             - --authorization-kubeconfig=/kubeconfig
             - --bind-address=0.0.0.0
             - --client-ca-file=/ca/tls.crt
-            - --cluster-cidr=172.30.0.0/16,fdab:bc3f:3e04::/56
+            - --cluster-cidr={{ join "," (required "missing clusterCIDRs" $.Values.clusterCIDRs) }}
             - --cluster-name={{ $.Values.clusterName }}
             - --cluster-signing-cert-file=/ca/tls.crt
             - --cluster-signing-key-file=/ca/tls.key

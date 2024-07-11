@@ -22,7 +22,8 @@ spec:
         spec:
           type: LoadBalancer
           loadBalancerClass: io.cilium/l2-announcer
-    clusterDNS: [172.33.0.10]
+    clusterCIDRs: [172.28.0.0/16]
+    clusterDNS: [172.29.0.10]
     clusterName: cloud
     etcd:
       certIssuer:
@@ -31,4 +32,4 @@ spec:
       endpoints: [https://etcd.kube-system.svc.home-cluster.local:2379]
     externalHostname: cloud-cluster.samcday.com
     parentClusterDomain: home-cluster.local
-    serviceCIDRs: [172.33.0.0/16]
+    serviceCIDRs: [172.29.0.0/16]
