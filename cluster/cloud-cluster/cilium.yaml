@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: cilium
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+      version: 1.15.6
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: kube-system
+  targetNamespace: kube-system
+  values:
+    # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
+    autoDirectNodeRoutes: true
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: 172.32.0.0/16
+    k8sServiceHost: cloud-cluster.samcday.com
+    k8sServicePort: 6443
+    kubeProxyReplacement: strict
+    loadBalancer:
+      serviceTopology: true
+    operator:
+      rollOutPods: true
+      replicas: 1
+    routingMode: native
+    tunnel: disabled
