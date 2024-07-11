@@ -44,7 +44,7 @@ data:
     cgroupDriver: systemd
     {{- with $.Values.clusterDNS }}
     clusterDNS:
-      {{- . | toYaml | nindent 2 }}
+      {{ . | toYaml | nindent 2 }}
     {{- end }}
     clusterDomain: {{ $.Values.clusterDomain }}
     rotateCertificates: true
