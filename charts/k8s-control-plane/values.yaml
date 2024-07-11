@@ -14,6 +14,7 @@ apiServer:
 
 bootstrapTokens:
   # - id: abcdef
+  #   extraGroups: [system:bootstrappers:kubeadm:default-node-token]
   #   secret: 0123456789abcdef
 
 clusterDomain: cluster.local

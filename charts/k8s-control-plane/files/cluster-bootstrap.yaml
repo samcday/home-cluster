@@ -212,6 +212,9 @@ type: bootstrap.kubernetes.io/token
 stringData:
   token-id: {{ .id }}
   token-secret: {{ required "token missing secret" .secret }}
+  {{- with .extraGroups }}
+  auth-extra-groups: {{ . | join "," }}
+  {{- end }}
   usage-bootstrap-authentication: "true"
   usage-bootstrap-signing: "true"
 ---
