@@ -25,6 +25,9 @@ spec:
     clusterDNS: [172.33.0.10]
     clusterName: cloud
     etcd:
+      certIssuer:
+        name: etcd
+        kind: ClusterIssuer
       endpoints: [https://etcd.kube-system.svc.home-cluster.local:2379]
     externalHostname: cloud-cluster.samcday.com
     parentClusterDomain: home-cluster.local

@@ -8,5 +8,4 @@ spec:
   usages: [client auth]
   commonName: cloud
   issuerRef:
-    name: etcd
-    kind: ClusterIssuer
+    {{- required "missing etcd.certIssuer" $.Values.etcd.certIssuer | nindent 4 }}
