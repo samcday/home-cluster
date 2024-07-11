@@ -128,6 +128,7 @@ metadata:
   namespace: kube-system
   name: konnectivity-agent
 spec:
+  replicas: {{ required "missing konnectivity.agent.replicas" $.Values.konnectivity.agent.replicas }}
   selector:
     matchLabels:
       app: konnectivity-agent
@@ -136,9 +137,6 @@ spec:
       labels:
         app: konnectivity-agent
     spec:
-      priorityClassName: system-cluster-critical
-      tolerations:
-        - operator: Exists
       containers:
         - name: konnectivity-agent
           image: {{ $.Values.konnectivity.agent.image }}
@@ -147,8 +145,26 @@ spec:
             - --logtostderr=true
             - --ca-cert=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
             - --proxy-server-host={{ $.Values.externalHostname }}
-            - --proxy-server-port=8091
+            - --proxy-server-port={{ $.Values.konnectivity.port }}
+            - --sync-interval=5s
+            - --sync-interval-cap=30s
+            - --sync-forever
+            - --probe-interval=5s
             - --service-account-token-path=/var/run/secrets/tokens/konnectivity-agent-token
+            - --agent-identifiers=ipv4=${HOST_IP}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
           livenessProbe:
             httpGet:
               scheme: HTTP
@@ -172,7 +188,10 @@ spec:
             - mountPath: /var/run/secrets/tokens
               name: konnectivity-agent-token
       hostNetwork: true
+      priorityClassName: system-cluster-critical
       serviceAccountName: konnectivity-agent
+      tolerations:
+        - operator: Exists
       volumes:
         - name: konnectivity-agent-token
           projected:

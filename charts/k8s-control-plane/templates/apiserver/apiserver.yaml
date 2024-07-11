@@ -117,7 +117,7 @@ spec:
             - --cluster-cert=/apiserver-cert/tls.crt
             - --cluster-key=/apiserver-cert/tls.key
             - --server-port=0
-            - --agent-port=8091
+            - --agent-port={{ $.Values.konnectivity.port }}
             - --health-port=8092
             - --admin-port=8093
             - --keepalive-time=1h

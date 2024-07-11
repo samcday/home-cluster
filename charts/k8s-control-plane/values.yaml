@@ -37,6 +37,8 @@ konnectivity:
   enabled: true
   agent:
     image: registry.k8s.io/kas-network-proxy/proxy-agent:v0.30.3
+    replicas: 1
+  port: 8091
   server:
     image: registry.k8s.io/kas-network-proxy/proxy-server:v0.30.2
 
