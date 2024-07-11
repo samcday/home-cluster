@@ -9,6 +9,11 @@ terraform {
 
 provider "hcloud" {}
 
+resource "hcloud_ssh_key" "samcday" {
+  name       = "samcday"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ"
+}
+
 resource "hcloud_placement_group" "placement-group" {
   name = "placement-group"
   type = "spread"
