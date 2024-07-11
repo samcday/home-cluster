@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cluster-autoscaler-config
+stringData:
+  HCLOUD_CLUSTER_CONFIG: |
+    {{- tpl (toYaml $.Values.config) $ | fromYaml | toJson | b64enc | nindent 4 }}

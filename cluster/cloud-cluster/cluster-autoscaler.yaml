@@ -1,0 +1,96 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cluster-autoscaler
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: cluster-autoscaler
+      sourceRef:
+        kind: HelmRepository
+        name: autoscaler
+        namespace: flux-system
+      version: 9.37.0
+  interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+            patch: |
+              - op: remove
+                path: /spec/template/spec/containers/0/command/2
+              - op: remove
+                path: /spec/template/spec/serviceAccountName
+  values:
+    # https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/values.yaml
+    autoscalingGroups:
+      - name: pool1
+        maxSize: 1
+        minSize: 1
+        instanceType: cax11
+        region: nbg1
+    cloudProvider: hetzner
+    extraArgs:
+      kubeconfig: /kubeconfig
+      leader-elect: false
+    extraEnv:
+      HCLOUD_FIREWALL: firewall
+      HCLOUD_NETWORK: network
+      HCLOUD_SSH_KEY: samcday
+    envFromConfigMap: cluster-autoscaler-config
+    extraEnvSecrets:
+      HCLOUD_TOKEN:
+        name: hcloud
+        key: token
+    extraVolumeMounts:
+      - name: cert
+        mountPath: /cert
+      - name: kubeconfig
+        mountPath: /kubeconfig
+        subPath: kubeconfig
+    extraVolumes:
+      - name: cert
+        secret:
+          secretName: admin
+      - name: kubeconfig
+        configMap:
+          name: kubeconfig
+    rbac:
+      create: false
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cluster-autoscaler-config
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: cluster/cloud-cluster/autoscaler-config
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  interval: 1h
+  values:
+    token:
+      id: v4kos4
+  valuesFrom:
+    - kind: Secret
+      name: node-ts-auth
+      valuesKey: authkey
+      targetPath: tsAuthKey
+    - kind: Secret
+      name: node-bootstrap-token
+      valuesKey: secret
+      targetPath: token.secret
+    - kind: ConfigMap
+      name: ca-hash
+      valuesKey: hash
+      targetPath: hash
