@@ -37,3 +37,5 @@ spec:
       - name: kubeconfig
         configMap:
           name: kubeconfig
+    rbac:
+      create: false
