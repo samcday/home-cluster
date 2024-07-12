@@ -28,8 +28,7 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: data
-    command:
-      - headscale
+    args:
       - serve
     deploymentStrategy:
       type: Recreate
