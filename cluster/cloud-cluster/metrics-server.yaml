@@ -14,23 +14,12 @@ spec:
         namespace: flux-system
       version: 3.12.1
   interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: kube-system
+  targetNamespace: kube-system
   values:
     # https://github.com/kubernetes-sigs/metrics-server/blob/master/charts/metrics-server/values.yaml
     args:
-      - --kubeconfig=/kubeconfig
       - --kubelet-insecure-tls
-    extraVolumeMounts:
-      - name: cert
-        mountPath: /cert
-      - name: kubeconfig
-        mountPath: /kubeconfig
-        subPath: kubeconfig
-    extraVolumes:
-      - name: cert
-        secret:
-          secretName: admin
-      - name: kubeconfig
-        configMap:
-          name: kubeconfig
-    rbac:
-      create: false
