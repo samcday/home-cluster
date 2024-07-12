@@ -18,5 +18,4 @@ spec:
   values:
     # https://github.com/kubernetes-sigs/metrics-server/blob/master/charts/metrics-server/values.yaml
     args:
-      # Kubelets are all accessed via Tailnet, so this should be okay
       - --kubelet-insecure-tls
