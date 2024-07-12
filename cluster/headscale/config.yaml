@@ -135,7 +135,7 @@ derp:
 disable_check_updates: false
 
 # Time before an inactive ephemeral node is deleted?
-ephemeral_node_inactivity_timeout: 30m
+ephemeral_node_inactivity_timeout: 1m6s
 
 database:
   type: postgres
