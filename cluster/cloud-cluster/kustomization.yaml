@@ -12,5 +12,6 @@ resources:
   - coredns.yaml
   - hccm.yaml
   - helm-release.yaml
+  - metrics-server.yaml
   - namespace.yaml
   - tofu.yaml
