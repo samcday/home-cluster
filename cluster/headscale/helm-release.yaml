@@ -38,8 +38,8 @@ spec:
           name: db-app
           key: password
     image:
-      repository: headscale/headscale
-      tag: v0.23.0-alpha12-debug
+      repository: ghcr.io/samcday/headscale
+      tag: v0.23.0-alpha12-sam.1
     ingress:
       enabled: true
       annotations:
