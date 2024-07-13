@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     cloudflare = {
-      source = "cloudflare/cloudflare"
+      source  = "cloudflare/cloudflare"
       version = "4.37.0"
     }
     hcloud = {
@@ -51,12 +51,12 @@ resource "hcloud_network_subnet" "subnet" {
 
 resource "cloudflare_tunnel" "tunnel" {
   name       = "cloud-cluster"
-  secret = ""
+  secret     = ""
   account_id = "444c14b123bd021dcdf0400fbd847d63"
 }
 
 output "tunnel_token" {
-  value = cloudflare_tunnel.tunnel.tunnel_token
+  value     = cloudflare_tunnel.tunnel.tunnel_token
   sensitive = true
 }
 

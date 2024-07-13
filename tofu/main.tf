@@ -5,7 +5,7 @@ terraform {
       version = "0.8.12"
     }
     cloudflare = {
-      source = "cloudflare/cloudflare"
+      source  = "cloudflare/cloudflare"
       version = "4.37.0"
     }
     dmsnitch = {
