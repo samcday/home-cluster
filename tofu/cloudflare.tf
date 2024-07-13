@@ -1,3 +1,5 @@
+data "cloudflare_api_token_permission_groups" "all" {}
+
 resource "cloudflare_api_token" "cloud-cluster" {
   name = "cloud-cluster"
 
