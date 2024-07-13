@@ -8,11 +8,16 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "1.47.0"
     }
+    random = {
+      source = "hashicorp/random"
+      version = "3.6.2"
+    }
   }
 }
 
 provider "cloudflare" {}
 provider "hcloud" {}
+provider "random" {}
 
 resource "hcloud_ssh_key" "samcday" {
   name       = "samcday"
@@ -49,14 +54,23 @@ resource "hcloud_network_subnet" "subnet" {
   ip_range     = "172.29.0.0/16"
 }
 
+resource "random_password" "tunnel_secret" {
+  length           = 32
+}
+
 resource "cloudflare_tunnel" "tunnel" {
   name       = "cloud-cluster"
-  secret     = ""
+  secret     = random_password.tunnel_secret.result
   account_id = "444c14b123bd021dcdf0400fbd847d63"
 }
 
 output "tunnel_token" {
   value     = cloudflare_tunnel.tunnel.tunnel_token
+  sensitive = true
+}
+
+output "tunnel_secret" {
+  value     = random_password.tunnel_secret.result
   sensitive = true
 }
 
