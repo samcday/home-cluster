@@ -13,14 +13,7 @@ spec:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
-  install:
-    remediation:
-      retries: -1
   interval: 1h
-  releaseName: external-dns
-  upgrade:
-    remediation:
-      retries: -1
   values:
     # https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
     env:
@@ -37,7 +30,4 @@ spec:
     provider: cloudflare
     serviceMonitor:
       enabled: true
-    sources:
-      - service
-      - ingress
     txtOwnerId: home-cluster-20230903
