@@ -42,6 +42,10 @@ spec:
     logLevel: debug
     policy: sync
     provider: cloudflare
+    rbac:
+      create: false
+    serviceAccount:
+      create: false
     serviceMonitor:
       enabled: true
     txtOwnerId: cloud-cluster-20240713
