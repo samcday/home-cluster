@@ -35,6 +35,9 @@ spec:
         instanceType: cax11
         region: nbg1
     cloudProvider: hetzner
+    deployment:
+      annotations:
+        reloader.stakater.com/auto: "true"
     extraArgs:
       kubeconfig: /kubeconfig
       leader-elect: false
