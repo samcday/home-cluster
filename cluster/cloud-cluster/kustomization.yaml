@@ -1,18 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-configMapGenerator:
-  - name: control-plane-values
-    files:
-      - values.yaml=control-plane-values.yaml
 namespace: cloud-cluster
 resources:
   - ../config
-  - cilium.yaml
-  - cluster-autoscaler.yaml
-  - coredns.yaml
-  - csi-driver.yaml
-  - hccm.yaml
-  - helm-release.yaml
-  - metrics-server.yaml
-  - namespace.yaml
-  - tofu.yaml
+  - core/
+  - kustomizations.yaml

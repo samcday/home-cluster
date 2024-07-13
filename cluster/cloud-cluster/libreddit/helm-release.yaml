@@ -14,7 +14,6 @@ spec:
         namespace: flux-system
       version: 7.6.0
   interval: 1h
-  releaseName: libreddit
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
     env:
@@ -23,8 +22,6 @@ spec:
       tag: latest
     ingress:
       enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
       className: nginx
       hosts:
         - host: libreddit.samcday.com
@@ -33,7 +30,6 @@ spec:
               servicePortName: http
       tls:
         - hosts: [libreddit.samcday.com]
-          secretName: certificate
     livenessProbe:
       httpGet:
         path: /settings
