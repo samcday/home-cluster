@@ -35,6 +35,7 @@ resources:
   - nodes.yaml
   - pixiecore.yaml
   - prometheus-operator.yaml
+  - reloader.yaml
   - samcday-rbac.yaml
   - squid.yaml
   - system-upgrade-controller-crds.yaml
