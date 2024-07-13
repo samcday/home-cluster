@@ -24,6 +24,8 @@ spec:
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
     env:
+      REDLIB_DEFAULT_SHOW_NSFW: "on"
+      REDLIB_DEFAULT_USE_HLS: "on"
     image:
       repository: quay.io/redlib/redlib
       tag: latest
