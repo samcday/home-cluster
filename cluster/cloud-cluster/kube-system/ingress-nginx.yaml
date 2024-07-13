@@ -87,5 +87,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: cloudflared-tunnel
-      valuesKey: cname
-      targetPath: cloudflared-tunnel.stringData.secret
+      valuesKey: token
+      targetPath: cloudflared-tunnel.stringData.token
