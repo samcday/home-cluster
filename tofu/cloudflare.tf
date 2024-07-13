@@ -5,7 +5,7 @@ resource "cloudflare_api_token" "cloud-cluster" {
 
   policy {
     permission_groups = [
-      data.cloudflare_api_token_permission_groups.all.account["Cloudflare Tunnel Edit"],
+      data.cloudflare_api_token_permission_groups.all.account["Cloudflare Tunnel Write"],
     ]
     resources = {
       "com.cloudflare.api.account.*" = "*"
