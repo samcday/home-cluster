@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: redlib
-  namespace: redlib
+  namespace: cloud-cluster
 spec:
   chart:
     spec:
@@ -19,7 +19,7 @@ spec:
   kubeConfig:
     secretRef:
       name: admin-kubeconfig
-  storageNamespace: kube-system
+  storageNamespace: redlib
   targetNamespace: redlib
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
