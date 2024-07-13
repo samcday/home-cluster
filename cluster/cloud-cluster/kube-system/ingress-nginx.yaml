@@ -81,6 +81,9 @@ spec:
       name: admin-kubeconfig
   storageNamespace: kube-system
   targetNamespace: kube-system
+  values:
+    cloudflared-tunnel:
+      kind: Secret
   valuesFrom:
     - kind: Secret
       name: cloudflared-tunnel
