@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: libreddit
-  namespace: libreddit
+  name: redlib
+  namespace: redlib
 spec:
   chart:
     spec:
@@ -13,23 +13,29 @@ spec:
         name: community-tooling-charts
         namespace: flux-system
       version: 7.6.0
+  createNamespace: true
   interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: redlib
+  targetNamespace: redlib
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
     env:
     image:
-      repository: libreddit/libreddit
+      repository: redlib/redlib
       tag: latest
     ingress:
       enabled: true
       className: nginx
       hosts:
-        - host: libreddit.samcday.com
+        - host: redlib.samcday.com
           paths:
             - path: /
               servicePortName: http
       tls:
-        - hosts: [libreddit.samcday.com]
+        - hosts: [redlib.samcday.com]
     livenessProbe:
       httpGet:
         path: /settings

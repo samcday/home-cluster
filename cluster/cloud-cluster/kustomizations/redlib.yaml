@@ -2,14 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: libreddit
+  name: redlib
   namespace: cloud-cluster
 spec:
   interval: 1h
-  kubeConfig:
-    secretRef:
-      name: admin-kubeconfig
-  path: cluster/cloud-cluster/libreddit
+  path: cluster/cloud-cluster/redlib
   prune: true
   sourceRef:
     kind: GitRepository

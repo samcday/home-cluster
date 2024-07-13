@@ -6,9 +6,6 @@ metadata:
   namespace: cloud-cluster
 spec:
   interval: 1h
-  kubeConfig:
-    secretRef:
-      name: admin-kubeconfig
   path: cluster/cloud-cluster/kube-system
   prune: true
   sourceRef:
