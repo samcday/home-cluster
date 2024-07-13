@@ -14,7 +14,7 @@ resource "cloudflare_api_token" "cloud-cluster" {
     ]
     resources = {
       "com.cloudflare.api.account.*" = "*"
-      "com.cloudflare.api.account.zone.${cloudflare_zone.samcday.id}" = "*"
+      "com.cloudflare.api.account.zone.${data.cloudflare_zone.samcday.id}" = "*"
     }
   }
 }
