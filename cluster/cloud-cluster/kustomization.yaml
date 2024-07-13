@@ -10,6 +10,7 @@ resources:
   - cilium.yaml
   - cluster-autoscaler.yaml
   - coredns.yaml
+  - csi-driver.yaml
   - hccm.yaml
   - helm-release.yaml
   - metrics-server.yaml
