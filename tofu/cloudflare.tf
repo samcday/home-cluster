@@ -16,11 +16,11 @@ resource "cloudflare_api_token" "cloud-cluster" {
 
 resource "kubernetes_secret" "cloudflared-tunnel-token" {
   metadata {
-    name      = "cloudflare-token"
+    name      = "cloudflare"
     namespace = "cloud-cluster"
   }
 
   data = {
-    "CLOUDFLARE_API_TOKEN" = cloudflare_api_token.cloud-cluster.value
+    "token" = cloudflare_api_token.cloud-cluster.value
   }
 }

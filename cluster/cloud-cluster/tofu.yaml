@@ -18,8 +18,8 @@ spec:
         - name: CLOUDFLARE_API_TOKEN
           valueFrom:
             secretKeyRef:
-              name: cloudflare-token
-              key: CLOUDFLARE_API_TOKEN
+              name: cloudflare
+              key: token
   sourceRef:
     kind: GitRepository
     name: home-cluster-https
