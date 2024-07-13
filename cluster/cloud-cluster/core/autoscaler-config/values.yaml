@@ -1,14 +1,13 @@
 config:
   imagesForArch:
-    arm64: ubuntu-24.04
-    amd64: ubuntu-24.04
+    arm64: ubuntu-22.04
+    amd64: ubuntu-22.04
   nodeConfigs:
     pool1:
       cloudInit: |
         #!/bin/bash
         set -uexo pipefail
         export DEBIAN_FRONTEND=noninteractive
-        systemctl disable --now apparmor.service
         curl -fsSL https://tailscale.com/install.sh | sh
         tailscale up --accept-routes --login-server=https://headscale.taild2b250.ts.net/ --auth-key={{ $.Values.tsAuthKey }}
         curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
