@@ -1,10 +1,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: factorio-server-charts
+  name: samcday-hetznercloud-csi-driver
   namespace: flux-system
 spec:
   interval: 1h
   ref:
     branch: main
-  url: https://github.com/samcday/factorio-server-charts.git
+  url: https://github.com/samcday/hetznercloud-csi-driver.git

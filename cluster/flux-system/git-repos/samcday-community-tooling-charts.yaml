@@ -7,4 +7,4 @@ spec:
   interval: 1h
   ref:
     branch: main
-  url: https://github.com/samcday/community-tooling-charts
+  url: https://github.com/samcday/community-tooling-charts.git
