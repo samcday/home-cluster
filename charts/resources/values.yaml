@@ -1,0 +1,7 @@
+# resource1:
+#   apiVersion: v1
+#   kind: Secret
+#   metadata:
+#     name: resource1 # optional - defaults to resource key
+#   stringData:
+#     foo: bar

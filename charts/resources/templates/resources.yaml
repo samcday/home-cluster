@@ -1,0 +1,7 @@
+{{- range $k, $v := $.Values }}
+{{- $metadata := default (dict) (get $v "metadata") -}}
+{{- $_ := set $metadata "name" (default $k (get $metadata "name")) -}}
+{{- $_ := set $v "metadata" $metadata -}}
+{{- $v | toYaml }}
+---
+{{- end }}
