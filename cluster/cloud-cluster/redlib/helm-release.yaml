@@ -19,7 +19,7 @@ spec:
   kubeConfig:
     secretRef:
       name: admin-kubeconfig
-  storageNamespace: redlib
+  storageNamespace: kube-system
   targetNamespace: redlib
   values:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
