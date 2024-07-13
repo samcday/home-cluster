@@ -4,6 +4,10 @@ terraform {
       source  = "Backblaze/b2"
       version = "0.8.12"
     }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "4.37.0"
+    }
     dmsnitch = {
       source  = "plukevdh/dmsnitch"
       version = "0.1.5"
@@ -20,6 +24,7 @@ terraform {
 }
 
 provider "b2" {}
+provider "cloudflare" {}
 provider "dmsnitch" {}
 provider "github" {}
 provider "kubernetes" {}

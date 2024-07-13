@@ -15,8 +15,18 @@ spec:
             secretKeyRef:
               name: hcloud
               key: token
+        - name: CLOUDFLARE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare-token
+              key: CLOUDFLARE_API_TOKEN
   sourceRef:
     kind: GitRepository
     name: home-cluster-https
     namespace: flux-system
   storeReadablePlan: human
+  writeOutputsToSecret:
+    name: cloudflared-tunnel
+    outputs:
+      - tunnel_token:token
+      - tunnel_cname:cname

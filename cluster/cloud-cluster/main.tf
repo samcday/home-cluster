@@ -1,5 +1,9 @@
 terraform {
   required_providers {
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "4.37.0"
+    }
     hcloud = {
       source  = "hetznercloud/hcloud"
       version = "1.47.0"
@@ -7,6 +11,7 @@ terraform {
   }
 }
 
+provider "cloudflare" {}
 provider "hcloud" {}
 
 resource "hcloud_ssh_key" "samcday" {
@@ -42,4 +47,18 @@ resource "hcloud_network_subnet" "subnet" {
   type         = "cloud"
   network_zone = "eu-central"
   ip_range     = "172.29.0.0/16"
+}
+
+resource "cloudflare_tunnel" "tunnel" {
+  name       = "cloud-cluster"
+  secret = ""
+  account_id = "444c14b123bd021dcdf0400fbd847d63"
+}
+
+output "tunnel_token" {
+  value = cloudflare_tunnel.tunnel.tunnel_token
+}
+
+output "tunnel_cname" {
+  value = cloudflare_tunnel.tunnel.cname
 }

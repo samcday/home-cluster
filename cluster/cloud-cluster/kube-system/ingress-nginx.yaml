@@ -23,8 +23,6 @@ spec:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
       allowSnippetAnnotations: true
-      extraArgs:
-        publish-status-address: 241b6c4d-1df3-4bc2-a4be-674bbe85bce5.cfargotunnel.com
       extraContainers:
         - image: cloudflare/cloudflared:2024.6.1
           name: cloudflared
@@ -35,9 +33,12 @@ spec:
             - --no-tls-verify
             - --url
             - https://localhost:443
-          envFrom:
-            - secretRef:
-                name: cloudflared-tunnel-token
+          env:
+            - name: TUNNEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflared-tunnel
+                  key: token
           resources:
             requests:
               cpu: 100m
@@ -54,3 +55,8 @@ spec:
       service:
         enabled: false
       terminationGracePeriodSeconds: 5
+  valuesFrom:
+    - kind: Secret
+      name: cloudflared-tunnel
+      valuesKey: cname
+      targetPath: controller.extraArgs.publish-status-address
