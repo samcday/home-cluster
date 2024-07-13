@@ -10,4 +10,5 @@ resources:
   - cluster-autoscaler.yaml
   - control-plane.yaml
   - csi-driver.yaml
+  - external-dns.yaml
   - hccm.yaml
