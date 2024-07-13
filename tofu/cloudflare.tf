@@ -20,6 +20,6 @@ resource "kubernetes_secret" "cloudflared-tunnel-token" {
   }
 
   data = {
-    "CLOUDFLARE_API_TOKEN" = cloudflare_api_token.cloud-cluster.tunnel_token
+    "CLOUDFLARE_API_TOKEN" = cloudflare_api_token.cloud-cluster.value
   }
 }
