@@ -60,7 +60,7 @@ resource "random_password" "tunnel_secret" {
 
 resource "cloudflare_tunnel" "tunnel" {
   name       = "cloud-cluster"
-  secret     = random_password.tunnel_secret.result
+  secret     = base64encode(random_password.tunnel_secret.result)
   account_id = "444c14b123bd021dcdf0400fbd847d63"
 }
 
