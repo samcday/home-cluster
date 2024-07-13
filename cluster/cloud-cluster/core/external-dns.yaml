@@ -13,6 +13,8 @@ spec:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
+  install:
+    crds: Skip
   interval: 1h
   values:
     # https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
