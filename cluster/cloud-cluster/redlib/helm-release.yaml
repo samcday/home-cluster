@@ -25,7 +25,7 @@ spec:
     # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
     env:
     image:
-      repository: redlib/redlib
+      repository: quay.io/redlib/redlib
       tag: latest
     ingress:
       enabled: true
