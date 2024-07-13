@@ -71,7 +71,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: cluster/cloud-cluster/autoscaler-config
+      chart: cluster/cloud-cluster/core/autoscaler-config
       reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository
