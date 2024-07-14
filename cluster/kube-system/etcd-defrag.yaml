@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etcd-defrag
+  namespace: kube-system
+spec:
+  schedule: "14 9 * * 1-5"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: etcd-defrag
+              image: ghcr.io/ahrtr/etcd-defrag:v0.10.0 # Please replace the version with the latest version.
+              args:
+                - --endpoints=https://etcd.kube-system.svc.home-cluster.local:2379
+                - --cacert=/cert/ca.crt
+                - --cert=/cert/tls.crt
+                - --key=/cert/tls.key
+                - --cluster
+                - --defrag-rule
+                - "dbQuotaUsage > 0.8 || dbSize - dbSizeInUse > 200*1024*1024"
+              volumeMounts:
+                - mountPath: /cert
+                  name: cert
+          volumes:
+            - name: cert
+              secret:
+                secretName: etcd-admin
+          restartPolicy: OnFailure
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
+            - effect: NoExecute
+              operator: Exists
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: Exists
