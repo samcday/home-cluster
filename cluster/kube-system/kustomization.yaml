@@ -23,6 +23,8 @@ resources:
   - cert-manager.yaml
   - cilium-l2-lb.yaml
   - descheduler.yaml
+  - etcd-admin-cert.yaml
+  - etcd-defrag.yaml
   - etcd-snapshot.yaml
   - etcd-svc.yaml
   - external-dns.yaml

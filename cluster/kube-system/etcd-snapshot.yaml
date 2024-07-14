@@ -18,18 +18,16 @@ spec:
                 - |
                   set -uexo pipefail
                   etcdctl \
-                    --cacert /pki/ca.crt \
-                    --cert /pki/peer.crt \
-                    --key /pki/peer.key \
+                    --endpoints https://etcd.kube-system.svc.home-cluster.local:2379 \
+                    --cacert /cert/ca.crt \
+                    --cert /cert/tls.crt \
+                    --key /cert/tls.key \
                     snapshot save /backup/etcd
-              securityContext:
-                privileged: true
-                runAsUser: 0
               volumeMounts:
                 - name: backup
                   mountPath: /backup
-                - name: etcd-pki
-                  mountPath: /pki
+                - mountPath: /cert
+                  name: cert
           containers:
             - name: copy-snapshot
               image: rclone/rclone:1
@@ -45,16 +43,15 @@ spec:
                   mountPath: /backup
                 - name: rclone-config
                   mountPath: /config/rclone
-          hostNetwork: true
           nodeSelector:
             node-role.kubernetes.io/control-plane: ""
           restartPolicy: OnFailure
           volumes:
             - name: backup
               emptyDir: {}
-            - name: etcd-pki
-              hostPath:
-                path: /etc/kubernetes/pki/etcd
+            - name: cert
+              secret:
+                secretName: etcd-admin
             - name: rclone-config
               secret:
                 secretName: backups-bucket
