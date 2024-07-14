@@ -12,6 +12,9 @@ kubeProxyReplacement: strict
 l2announcements:
   enabled: true
 loadBalancer:
+  algorithm: maglev
+  dsrDispatch: opt
+  mode: dsr
   serviceTopology: true
 operator:
   rollOutPods: true
