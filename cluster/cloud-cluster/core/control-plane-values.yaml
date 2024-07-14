@@ -2,8 +2,6 @@ apiServer:
   service:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: cloud-cluster.samcday.com
-    labels:
-      bgp: 'yes'
     spec:
       externalTrafficPolicy: Local
       loadBalancerClass: io.cilium/bgp-control-plane

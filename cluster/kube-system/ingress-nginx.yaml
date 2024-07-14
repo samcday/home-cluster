@@ -28,7 +28,5 @@ spec:
       replicaCount: 3
       service:
         externalTrafficPolicy: Local
-        labels:
-          bgp: 'yes'
         loadBalancerClass: io.cilium/bgp-control-plane
       terminationGracePeriodSeconds: 5

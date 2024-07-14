@@ -41,8 +41,6 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: squid.samcday.com
       externalTrafficPolicy: Local
-      labels:
-        bgp: 'yes'
       loadBalancerClass: io.cilium/bgp-control-plane
       type: LoadBalancer
 ---
