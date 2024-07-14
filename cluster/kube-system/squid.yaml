@@ -40,8 +40,10 @@ spec:
     service:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: squid.samcday.com
+      labels:
+        bgp: 'yes'
+      loadBalancerClass: io.cilium/bgp-control-plane
       type: LoadBalancer
-      loadBalancerClass: io.cilium/l2-announcer
 ---
 apiVersion: apps/v1
 kind: DaemonSet

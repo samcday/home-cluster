@@ -13,6 +13,8 @@ mwan3
 openssh-server
 openssh-sftp-server
 prometheus-node-exporter-lua
+quagga-bgpd
+quagga-zebra
 usb-modeswitch
 usbmuxd
 usbutils

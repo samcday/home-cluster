@@ -13,3 +13,34 @@ spec:
   blocks:
     - start: '10.0.1.20'
       stop: '10.0.1.99'
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumBGPPeeringPolicy
+metadata:
+ name: lb
+spec:
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  virtualRouters:
+    - localASN: 64665
+      serviceSelector:
+        matchExpressions:
+          - {key: somekey, operator: NotIn, values: [never-used-value]}
+      neighbors:
+        - peerAddress: 10.0.1.1/24
+          peerASN: 64666
+          gracefulRestart:
+            enabled: true
+            restartTimeSeconds: 120
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: bgp-svc
+spec:
+  blocks:
+    - cidr: 10.0.2.0/24
+  serviceSelector:
+    matchLabels:
+      bgp: 'yes'

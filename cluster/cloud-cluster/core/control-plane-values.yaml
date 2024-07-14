@@ -2,9 +2,11 @@ apiServer:
   service:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: cloud-cluster.samcday.com
+    labels:
+      bgp: 'yes'
     spec:
       type: LoadBalancer
-      loadBalancerClass: io.cilium/l2-announcer
+      loadBalancerClass: io.cilium/bgp-control-plane
 bootstrapTokens:
   - id: v4kos4
     extraGroups: [system:bootstrappers:kubeadm:default-node-token]

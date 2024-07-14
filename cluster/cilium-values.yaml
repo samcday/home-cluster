@@ -1,6 +1,8 @@
 # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
 
 autoDirectNodeRoutes: true
+bgpControlPlane:
+  enabled: true
 ipam:
   mode: kubernetes
 ipv4NativeRoutingCIDR: 172.30.0.0/16
