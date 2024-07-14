@@ -21,7 +21,7 @@ configMapGenerator:
 resources:
   - ../config
   - cert-manager.yaml
-  - cilium-l2-lb.yaml
+  - cilium-lb.yaml
   - descheduler.yaml
   - etcd-admin-cert.yaml
   - etcd-defrag.yaml
