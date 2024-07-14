@@ -27,6 +27,7 @@ spec:
         goharbor.io/harbor-container-webhook-disable: 'true'
       replicaCount: 3
       service:
+        externalTrafficPolicy: Local
         labels:
           bgp: 'yes'
         loadBalancerClass: io.cilium/bgp-control-plane

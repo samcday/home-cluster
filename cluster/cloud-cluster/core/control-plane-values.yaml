@@ -5,8 +5,9 @@ apiServer:
     labels:
       bgp: 'yes'
     spec:
-      type: LoadBalancer
+      externalTrafficPolicy: Local
       loadBalancerClass: io.cilium/bgp-control-plane
+      type: LoadBalancer
 bootstrapTokens:
   - id: v4kos4
     extraGroups: [system:bootstrappers:kubeadm:default-node-token]
