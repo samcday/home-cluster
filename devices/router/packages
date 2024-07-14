@@ -19,6 +19,7 @@ usbutils
 screen
 tailscale
 tang
+tcpdump
 usb-modeswitch
 usbutils
 zsh
