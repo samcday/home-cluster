@@ -91,6 +91,9 @@ spec:
       visibility:
         public: false
     service:
-      type: LoadBalancer
+      externalTrafficPolicy: Local
+      labels:
+        bgp: 'yes'
+      loadBalancerClass: io.cilium/bgp-control-plane
       port: 34197
-      loadBalancerClass: io.cilium/l2-announcer
+      type: LoadBalancer
