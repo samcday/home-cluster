@@ -12,3 +12,4 @@ resources:
   - csi-driver.yaml
   - external-dns.yaml
   - hccm.yaml
+  - namespaces.yaml
