@@ -30,7 +30,7 @@ spec:
         affinity:
           podAntiAffinityType: required
         backup:
-          barmanObjectStore: &objstore
+          barmanObjectStore:
             data:
               compression: bzip2
             destinationPath: s3://samcday-invidious-pgbackups
@@ -47,12 +47,25 @@ spec:
           retentionPolicy: 90d
         bootstrap:
           recovery:
-            source: db-20240715
+            recoveryTarget:
+              targetLSN: 4C/C4000060
+            source: db-20231101
             database: invidious
             owner: invidious
         externalClusters:
-          - name: db-20240715
-            barmanObjectStore: *objstore
+          - name: db-20231101
+            barmanObjectStore:
+              data:
+                compression: bzip2
+              destinationPath: s3://samcday-home-cluster-backups/postgres/invidious
+              endpointURL: https://s3.eu-central-003.backblazeb2.com
+              s3Credentials:
+                accessKeyId:
+                  name: old-bucket
+                  key: ACCESS_KEY_ID
+                secretAccessKey:
+                  name: old-bucket
+                  key: ACCESS_SECRET_KEY
         imageCatalogRef:
           apiGroup: postgresql.cnpg.io
           kind: ClusterImageCatalog
@@ -72,7 +85,7 @@ spec:
         schedule: "0 0 4 * * *"
         backupOwnerReference: self
         cluster:
-          name: db-20240715
+          name: db-2024071501
 ---
 apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
