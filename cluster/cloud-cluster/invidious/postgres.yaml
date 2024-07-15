@@ -23,7 +23,7 @@ spec:
   storageNamespace: invidious
   targetNamespace: invidious
   values:
-    db:
+    db-20240715:
       apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       spec:
@@ -47,11 +47,11 @@ spec:
           retentionPolicy: 90d
         bootstrap:
           recovery:
-            source: homedb
+            source: db-20231101
             database: invidious
             owner: invidious
         externalClusters:
-          - name: homedb
+          - name: db-20231101
             barmanObjectStore:
               data:
                 compression: bzip2
@@ -83,7 +83,7 @@ spec:
         schedule: "0 0 4 * * *"
         backupOwnerReference: self
         cluster:
-          name: db
+          name: db-20240715
 ---
 apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
