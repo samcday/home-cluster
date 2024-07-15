@@ -7,8 +7,7 @@ acls:
     src: [cloud-cluster]
     dst:
       - cloud-cluster:*
-      - 10.0.2.0/24:6443 # apiserver
-      - 10.0.2.0/24:8091 # konnectivity-server
+      - 10.0.2.0/24:* # services subnet (apiserver + konnectivity in here too)
       - tag:subnet-router:0
 autoApprovers:
   routes:
