@@ -3,7 +3,7 @@
 clusterDomain: home-cluster.local
 helmController: &gofast
   container:
-    additionalargs:
+    additionalArgs:
       - --concurrent=10
   replicas: 2
   resources: &nocpureq
