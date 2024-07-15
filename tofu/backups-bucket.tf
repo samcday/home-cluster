@@ -46,7 +46,6 @@ locals {
     "forgejo",
     "harbor",
     "headscale",
-    "invidious",
     "mastodon",
     "miniflux",
     "monitoring",
