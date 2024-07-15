@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cnpg-vpa
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  dependsOn:
+    - name: cnpg-operator
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: cnpg-system
+  targetNamespace: cnpg-system
+  values:
+    cnpg:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: cnpg-system-operator-cloudnative-pg
+        updatePolicy:
+          updateMode: Auto
