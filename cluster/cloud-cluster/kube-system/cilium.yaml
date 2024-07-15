@@ -13,6 +13,8 @@ spec:
         name: cilium
         namespace: flux-system
       version: 1.15.7
+  driftDetection:
+    mode: enabled
   interval: 1h
   kubeConfig:
     secretRef:

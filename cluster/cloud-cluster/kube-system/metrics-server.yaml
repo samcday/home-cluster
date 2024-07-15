@@ -13,6 +13,8 @@ spec:
         name: metrics-server
         namespace: flux-system
       version: 3.12.1
+  driftDetection:
+    mode: enabled
   interval: 1h
   kubeConfig:
     secretRef:

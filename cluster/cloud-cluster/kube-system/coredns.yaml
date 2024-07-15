@@ -13,6 +13,8 @@ spec:
         name: coredns
         namespace: flux-system
       version: 1.31.0
+  driftDetection:
+    mode: enabled
   interval: 1h
   kubeConfig:
     secretRef:
