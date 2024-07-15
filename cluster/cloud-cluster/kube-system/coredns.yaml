@@ -24,5 +24,6 @@ spec:
   values:
     # https://github.com/coredns/helm/blob/master/charts/coredns/values.yaml
     k8sAppLabelOverride: kube-dns
+    replicaCount: 2
     service:
       clusterIP: 172.27.0.10
