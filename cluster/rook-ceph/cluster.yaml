@@ -156,6 +156,16 @@ spec:
             csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
       - name: ceph-objectstore
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+          host:
+            name: obj.samcday.com
+          ingressClassName: nginx
+          tls:
+            - hosts: [obj.samcday.com]
+              secretName: rgw-cert
         spec:
           metadataPool:
             failureDomain: host
@@ -178,16 +188,6 @@ spec:
                 memory: 1Gi
             instances: 2
             priorityClassName: system-cluster-critical
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt
-            host:
-              name: obj.samcday.com
-            ingressClassName: nginx
-            tls:
-              - hosts: [obj.samcday.com]
-                secretName: rgw-cert
         storageClass:
           enabled: true
           name: ceph-bucket
