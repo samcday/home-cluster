@@ -1,0 +1,20 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: namespaces
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  values:
+    _:
+      kind: Namespace
+    mimir:
