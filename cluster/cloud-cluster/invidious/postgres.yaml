@@ -23,14 +23,14 @@ spec:
   storageNamespace: invidious
   targetNamespace: invidious
   values:
-    db-20240715:
+    db-2024071501:
       apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       spec:
         affinity:
           podAntiAffinityType: required
         backup:
-          barmanObjectStore:
+          barmanObjectStore: &objstore
             data:
               compression: bzip2
             destinationPath: s3://samcday-invidious-pgbackups
@@ -47,25 +47,12 @@ spec:
           retentionPolicy: 90d
         bootstrap:
           recovery:
-            recoveryTarget:
-              targetLSN: 4C/C4000060
-            source: db-20231101
+            source: db-20240715
             database: invidious
             owner: invidious
         externalClusters:
-          - name: db-20231101
-            barmanObjectStore:
-              data:
-                compression: bzip2
-              destinationPath: s3://samcday-home-cluster-backups/postgres/invidious
-              endpointURL: https://s3.eu-central-003.backblazeb2.com
-              s3Credentials:
-                accessKeyId:
-                  name: old-bucket
-                  key: ACCESS_KEY_ID
-                secretAccessKey:
-                  name: old-bucket
-                  key: ACCESS_SECRET_KEY
+          - name: db-20240715
+            barmanObjectStore: *objstore
         imageCatalogRef:
           apiGroup: postgresql.cnpg.io
           kind: ClusterImageCatalog

@@ -30,7 +30,7 @@ spec:
           db:
             user: _PGUSER_
             password: _PGPASSWORD_
-            host: db-20240715-rw.invidious.svc.cluster.local
+            host: db-2024071501-rw.invidious.svc.cluster.local
             port: 5432
             dbname: invidious
 
@@ -132,12 +132,12 @@ spec:
                   - name: PGUSER
                     valueFrom:
                       secretKeyRef:
-                        name: db-20240715-app
+                        name: db-2024071501-app
                         key: username
                   - name: PGPASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: db-20240715-app
+                        name: db-2024071501-app
                         key: password
                   - name: CAPTCHA_KEY
                     valueFrom:
