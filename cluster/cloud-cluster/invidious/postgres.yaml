@@ -48,7 +48,7 @@ spec:
         bootstrap:
           recovery:
             recoveryTarget:
-              targetTime: "2024-07-15T16:50:47Z"
+              targetLSN: 4C/C4000060
             source: db-20231101
             database: invidious
             owner: invidious
