@@ -7,12 +7,13 @@ metadata:
 spec:
   chart:
     spec:
-      chart: kured
-      version: 5.4.5
+      chart: charts/kured
+      reconcileStrategy: Revision
       sourceRef:
-        kind: HelmRepository
-        name: kubereboot
+        kind: GitRepository
+        name: samcday-kured-charts
         namespace: flux-system
+      # version: 5.4.5
   interval: 1h
   values:
     # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
@@ -22,6 +23,9 @@ spec:
       prometheusUrl: http://kube-prometheus-stack-prometheus.monitoring.svc.home-cluster.local:9090
       rebootSentinelCommand: sh -c 'rpm-ostree status --pending-exit-77 > /dev/null; [ $? -eq 77 ]'
       useRebootSentinelHostPath: false
+    metrics:
+      create: true
+      createPrometheusRules: true
     tolerations:
       - key: samcday.com/shrimpy-boi
         operator: Exists
