@@ -1,0 +1,122 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: invidious-postgres
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  dependsOn:
+    - name: namespaces
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: invidious
+  targetNamespace: invidious
+  values:
+    db:
+      apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      spec:
+        affinity:
+          podAntiAffinityType: required
+        backup:
+          barmanObjectStore:
+            data:
+              compression: bzip2
+            destinationPath: s3://samcday-invidious-pgbackups
+            endpointURL: https://s3.eu-central-003.backblazeb2.com
+            s3Credentials:
+              accessKeyId:
+                name: postgres-backups-bucket
+                key: ACCESS_KEY_ID
+              secretAccessKey:
+                name: postgres-backups-bucket
+                key: ACCESS_SECRET_KEY
+            wal:
+              compression: bzip2
+          retentionPolicy: 90d
+        bootstrap:
+          recovery:
+            source: homedb
+            database: invidious
+            owner: invidious
+        externalClusters:
+          - name: homedb
+            barmanObjectStore:
+              data:
+                compression: bzip2
+              destinationPath: s3://samcday-home-cluster-backups/postgres/invidious
+              endpointURL: https://s3.eu-central-003.backblazeb2.com
+              s3Credentials:
+                accessKeyId:
+                  name: old-bucket
+                  key: ACCESS_KEY_ID
+                secretAccessKey:
+                  name: old-bucket
+                  key: ACCESS_SECRET_KEY
+        imageCatalogRef:
+          apiGroup: postgresql.cnpg.io
+          kind: ClusterImageCatalog
+          name: postgresql
+          major: 15
+        inheritedMetadata:
+          labels:
+            goharbor.io/harbor-container-webhook-disable: 'true'
+        instances: 2
+        storage:
+          size: 10Gi
+          storageClass: hcloud-volumes
+    db-backup:
+      apiVersion: postgresql.cnpg.io/v1
+      kind: ScheduledBackup
+      spec:
+        schedule: "0 0 4 * * *"
+        backupOwnerReference: self
+        cluster:
+          name: db
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: invidious-pgbackups-bucket
+  namespace: cloud-cluster
+spec:
+  approvePlan: auto
+  interval: 1h
+  path: ./tofu-modules/postgres-backups-bucket
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: KUBE_CONFIG_PATH
+          value: /kubeconfig
+      volumeMounts:
+        - name: cert
+          mountPath: /cert
+        - name: kubeconfig
+          mountPath: /kubeconfig
+      volumes:
+        - name: cert
+          secret:
+            secretName: admin
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster-https
+    namespace: flux-system
+  storeReadablePlan: human
+  vars:
+    - name: namespace
+      value: invidious
+ 
