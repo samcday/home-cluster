@@ -1,0 +1,43 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cnpg-catalog
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  dependsOn:
+    - name: cnpg-operator
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: cnpg-system
+  targetNamespace: cnpg-system
+  values:
+    # https://raw.githubusercontent.com/cloudnative-pg/postgres-containers/main/Debian/ClusterImageCatalog-bookworm.yaml
+    postgresql:
+      apiVersion: postgresql.cnpg.io/v1
+      kind: ClusterImageCatalog
+      spec:
+        images:
+          - major: 12
+            image: ghcr.io/cloudnative-pg/postgresql:12.19-8-bookworm@sha256:a7b52aade3de185b744259963fea7a854d65ff20607f994cb11744020bf99282
+          - major: 13
+            image: ghcr.io/cloudnative-pg/postgresql:13.15-8-bookworm@sha256:9c1bc46510a0672e04b4a8ffef5ed1b70ca5e7a3dc8c0ecf084260d3b2209f30
+          - major: 14
+            image: ghcr.io/cloudnative-pg/postgresql:14.12-8-bookworm@sha256:7e33a4a857e153495cde86718e1062baaba4b3b46bf641a6ec5fc0427f30f356
+          - major: 15
+            image: ghcr.io/cloudnative-pg/postgresql:15.7-7-bookworm@sha256:bc9230afe6cf6c1b3287915947dd9bb69d0c35098a012c33a5b4470d7c2fb6fa
+          - major: 16
+            image: ghcr.io/cloudnative-pg/postgresql:16.3-7-bookworm@sha256:8308c11dfa6efa262dc3d0ba16ff4e80084d48e07bbf94e9a267d22f0f492dda
+          - major: 17
+            image: ghcr.io/cloudnative-pg/postgresql:17beta2-3-bookworm@sha256:cf2a23fcde5e6709bc14f927b3225c45cb00c9c5194d6261e9e8c83580ff017b
