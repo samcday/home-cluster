@@ -47,6 +47,8 @@ spec:
           retentionPolicy: 90d
         bootstrap:
           recovery:
+            recoveryTarget:
+              targetTime: "2024-07-15T16:50:47Z"
             source: db-20231101
             database: invidious
             owner: invidious
