@@ -176,8 +176,18 @@ spec:
               requests:
                 cpu: ~
                 memory: 1Gi
-            instances: 1
+            instances: 2
             priorityClassName: system-cluster-critical
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+            host:
+              name: obj.samcday.com
+            ingressClassName: nginx
+            tls:
+              - hosts: [obj.samcday.com]
+                secretName: rgw-cert
         storageClass:
           enabled: true
           name: ceph-bucket
