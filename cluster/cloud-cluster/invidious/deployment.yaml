@@ -171,7 +171,7 @@ spec:
               paths:
               - backend:
                   service:
-                    name: invidious
+                    name: service
                     port:
                       number: 3000
                 path: /
