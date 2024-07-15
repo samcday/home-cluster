@@ -24,9 +24,10 @@ spec:
       rebootSentinelCommand: sh -c 'rpm-ostree status --pending-exit-77 > /dev/null; [ $? -eq 77 ]'
       useRebootSentinelHostPath: false
     metrics:
-      alertPeriodHours: 1
       create: true
       createPrometheusRules: true
+      prometheusRule:
+        alertPeriodHours: 1
     tolerations:
       - key: samcday.com/shrimpy-boi
         operator: Exists
