@@ -39,7 +39,7 @@ spec:
           key: password
     image:
       repository: ghcr.io/samcday/headscale
-      tag: v0.23.0-alpha12-sam.6-debug
+      tag: v0.23.0-alpha12-sam.8-debug
     ingress:
       enabled: true
       annotations:
