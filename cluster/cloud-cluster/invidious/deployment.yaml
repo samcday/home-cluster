@@ -30,7 +30,7 @@ spec:
           db:
             user: _PGUSER_
             password: _PGPASSWORD_
-            host: db-20240715-rw.invidious.svc.home-cluster.local
+            host: db-20240715-rw.invidious.svc.cluster.local
             port: 5432
             dbname: invidious
 
