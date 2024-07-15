@@ -15,8 +15,6 @@ spec:
       version: 0.21.5
   driftDetection:
     mode: enabled
-  install:
-    createNamespace: true
   interval: 1h
   kubeConfig:
     secretRef:

@@ -21,5 +21,8 @@ spec:
   storageNamespace: kube-system
   targetNamespace: kube-system
   values:
-    invidious:
+    _:
       kind: Namespace
+    cnpg-system:
+    invidious:
+    redlib:

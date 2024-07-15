@@ -1,8 +1,11 @@
-{{- range $k, $v := $.Values }}
+{{- range $k, $v := $.Values -}}
+{{- $v := default (dict) $v -}}
+{{- if not (eq $k "_") -}}
 {{- $_ := set $v "apiVersion" (default "v1" (get $v "apiVersion")) -}}
 {{- $metadata := default (dict) (get $v "metadata") -}}
 {{- $_ := set $metadata "name" (default $k (get $metadata "name")) -}}
 {{- $_ := set $v "metadata" $metadata -}}
-{{- $v | toYaml }}
+{{- mustMerge $v (default (dict) $.Values._) | toYaml }}
 ---
+{{- end }}
 {{- end }}

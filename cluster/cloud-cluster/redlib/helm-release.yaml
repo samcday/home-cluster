@@ -13,8 +13,6 @@ spec:
         name: community-tooling-charts
         namespace: flux-system
       version: 7.6.0
-  install:
-    createNamespace: true
   interval: 1h
   kubeConfig:
     secretRef:
