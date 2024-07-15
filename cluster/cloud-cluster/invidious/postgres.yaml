@@ -99,6 +99,9 @@ spec:
       env:
         - name: KUBE_CONFIG_PATH
           value: /kubeconfig
+      envFrom:
+        - secretRef:
+            name: b2-env
       volumeMounts:
         - name: cert
           mountPath: /cert
