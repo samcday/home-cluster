@@ -104,6 +104,7 @@ spec:
           mountPath: /cert
         - name: kubeconfig
           mountPath: /kubeconfig
+          subPath: kubeconfig
       volumes:
         - name: cert
           secret:
