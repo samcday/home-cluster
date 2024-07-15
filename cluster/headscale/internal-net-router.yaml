@@ -39,7 +39,7 @@ spec:
                   name: internal-net-router-auth
                   key: TS_AUTHKEY
             - name: TS_ROUTES
-              value: 10.0.1.0/24,172.30.0.0/16,172.31.0.0/16
+              value: 10.0.2.0/24,10.0.1.0/24,172.30.0.0/16,172.31.0.0/16
           securityContext:
             capabilities:
               add: [NET_ADMIN]
