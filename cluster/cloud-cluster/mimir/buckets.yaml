@@ -34,10 +34,10 @@ spec:
     namespace: flux-system
   storeReadablePlan: human
   vars:
-    - name: namespace
-      value: mimir
     - name: name
-      value: ruler
+      value: mimir-ruler
+  writeOutputsToSecret:
+    name: mimir-ruler-bucket
 ---
 apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
@@ -59,31 +59,7 @@ spec:
     namespace: flux-system
   storeReadablePlan: human
   vars:
-    - name: namespace
-      value: mimir
     - name: name
-      value: blocks
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: tf-runner-mimir-buckets
-  namespace: cloud-cluster
-rules:
-  - apiGroups: []
-    resourceNames: [blocks-bucket, ruler-bucket]
-    resources: [secrets]
-    verbs: ['*']
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: tf-runner-mimir-buckets
-  namespace: cloud-cluster
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: tf-runner-mimir-buckets
-subjects:
-  - kind: ServiceAccount
-    name: tf-runner
+      value: mimir-blocks
+  writeOutputsToSecret:
+    name: mimir-blocks-bucket

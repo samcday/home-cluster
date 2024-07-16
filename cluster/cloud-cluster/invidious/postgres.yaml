@@ -38,10 +38,10 @@ spec:
             s3Credentials:
               accessKeyId:
                 name: pgbackups-bucket
-                key: ACCESS_KEY_ID
+                key: access_key_id
               secretAccessKey:
                 name: pgbackups-bucket
-                key: SECRET_ACCESS_KEY
+                key: secret_access_key
             wal:
               compression: bzip2
           retentionPolicy: 90d
@@ -86,6 +86,19 @@ spec:
         backupOwnerReference: self
         cluster:
           name: db-2024071501
+    pgbackups-bucket:
+      kind: Secret
+      metadata:
+        cnpg.io/reload: true
+  valuesFrom:
+    - kind: Secret
+      name: invidious-pgbackups-bucket
+      valuesKey: access_key_id
+      targetPath: pgbackups-bucket.stringData.access_key_id
+    - kind: Secret
+      name: invidious-pgbackups-bucket
+      valuesKey: secret_access_key
+      targetPath: pgbackups-bucket.stringData.secret_access_key
 ---
 apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
@@ -123,7 +136,5 @@ spec:
     namespace: flux-system
   storeReadablePlan: human
   vars:
-    - name: namespace
-      value: invidious
     - name: name
-      value: pgbackups
+      value: invidious-pgbackups
