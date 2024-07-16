@@ -106,13 +106,6 @@ spec:
                   failureThreshold: 2
                 ports:
                   - containerPort: 3000
-                resources:
-                  requests:
-                    cpu: 250m
-                    memory: 192Mi
-                  limits:
-                    cpu: '2'
-                    memory: 512Mi
                 volumeMounts:
                   - name: config
                     mountPath: /config
@@ -196,3 +189,13 @@ spec:
           targetPort: 3000
         selector:
           app: invidious
+    vpa:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: deployment
+        updatePolicy:
+          updateMode: Auto
