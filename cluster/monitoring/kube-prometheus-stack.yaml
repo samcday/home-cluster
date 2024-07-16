@@ -85,18 +85,12 @@ spec:
         externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 30d
-        retentionSize: 30GB
+        remoteWrite:
+          - url: https://mimir.samcday.com/api/v1/push
+        retention: 1d
+        retentionSize: 1GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ReadWriteOnce]
-              resources:
-                requests:
-                  storage: 50Gi
-              storageClassName: ceph-block
         walCompression: true
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml
     prometheus-node-exporter:
