@@ -24,7 +24,7 @@ spec:
       replicas: 2
     ingester:
       zoneAwareReplication:
-        topologyKey: kubernetes.io/hostname
+        enabled: false
     ingress:
       enabled: true
       annotations:
