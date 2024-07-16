@@ -138,3 +138,5 @@ spec:
   vars:
     - name: name
       value: invidious-pgbackups
+  writeOutputsToSecret:
+    name: invidious-pgbackups-bucket
