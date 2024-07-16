@@ -21,11 +21,32 @@ spec:
   targetNamespace: etcd
   values:
     # https://github.com/bitnami/charts/blob/main/bitnami/etcd/values.yaml
-    auth:
-      rbac:
-        create: true
+    # auth:
+    #   client:
+    #     certFilename: tls.crt
+    #     certKeyFilename: tls.key
+    #     existingSecret: etcd-client
+    #     enableAuthentication: true
+    #     secureTransport: true
+    #   peer:
+    #     certFilename: tls.crt
+    #     certKeyFilename: tls.key
+    #     existingSecret: etcd-peer
+    #     secureTransport: true
+    #   rbac:
+    #     create: true
     autoCompactionMode: periodic
     autoCompactionRetention: 30m
+    # TODO:
+    # metrics:
+    #   enabled: true
+    #   podMonitor:
+    #     enabled: true
+    #   prometheusRule:
+    #     enabled: true
+    persistence:
+      enabled: false
+    podAntiAffinityPreset: hard
     replicaCount: 3
   valuesFrom:
     - kind: Secret
