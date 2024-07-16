@@ -48,6 +48,6 @@ resource "kubernetes_secret" "secret" {
 
   data = {
     ACCESS_KEY_ID     = "${b2_application_key.key.application_key_id}"
-    ACCESS_SECRET_KEY = "${b2_application_key.key.application_key}"
+    SECRET_ACCESS_KEY = "${b2_application_key.key.application_key}"
   }
 }

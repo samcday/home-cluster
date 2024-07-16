@@ -41,7 +41,7 @@ spec:
                 key: ACCESS_KEY_ID
               secretAccessKey:
                 name: pgbackups-bucket
-                key: ACCESS_SECRET_KEY
+                key: SECRET_ACCESS_KEY
             wal:
               compression: bzip2
           retentionPolicy: 90d
@@ -65,7 +65,7 @@ spec:
                   key: ACCESS_KEY_ID
                 secretAccessKey:
                   name: old-bucket
-                  key: ACCESS_SECRET_KEY
+                  key: SECRET_ACCESS_KEY
         imageCatalogRef:
           apiGroup: postgresql.cnpg.io
           kind: ClusterImageCatalog
