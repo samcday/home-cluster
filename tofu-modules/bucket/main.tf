@@ -39,7 +39,7 @@ resource "b2_application_key" "key" {
 
 resource "kubernetes_secret" "secret" {
   metadata {
-    name      = var.name
+    name      = "${var.name}-bucket"
     namespace = var.namespace
     labels = {
       "cnpg.io/reload" : "true",
