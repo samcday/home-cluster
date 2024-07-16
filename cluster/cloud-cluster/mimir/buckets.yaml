@@ -50,25 +50,9 @@ spec:
   path: ./tofu-modules/bucket
   runnerPodTemplate:
     spec:
-      env:
-        - name: KUBE_CONFIG_PATH
-          value: /kubeconfig
       envFrom:
         - secretRef:
             name: b2-env
-      volumeMounts:
-        - name: cert
-          mountPath: /cert
-        - name: kubeconfig
-          mountPath: /kubeconfig
-          subPath: kubeconfig
-      volumes:
-        - name: cert
-          secret:
-            secretName: admin
-        - name: kubeconfig
-          configMap:
-            name: kubeconfig
   sourceRef:
     kind: GitRepository
     name: home-cluster-https
@@ -79,3 +63,27 @@ spec:
       value: mimir
     - name: name
       value: blocks
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tf-runner-mimir-buckets
+  namespace: cloud-cluster
+rules:
+  - apiGroups: []
+    resourceNames: [blocks-bucket, ruler-bucket]
+    resources: [secrets]
+    verbs: ['*']
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tf-runner-mimir-buckets
+  namespace: cloud-cluster
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tf-runner-mimir-buckets
+subjects:
+  - kind: ServiceAccount
+    name: tf-runner
