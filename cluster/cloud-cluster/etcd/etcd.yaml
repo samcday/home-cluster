@@ -7,12 +7,12 @@ metadata:
 spec:
   chart:
     spec:
-      chart: generic
+      chart: etcd
       sourceRef:
         kind: HelmRepository
-        name: community-tooling-charts
+        name: bitnami
         namespace: flux-system
-      version: 7.6.0
+      version: 10.2.7
   interval: 1h
   kubeConfig:
     secretRef:
