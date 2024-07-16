@@ -12,3 +12,35 @@ spec:
     name: home-cluster
     namespace: flux-system
   timeout: 5m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kustomizations
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  values:
+    _:
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      spec:
+        interval: 1h
+        prune: true
+        sourceRef:
+          kind: GitRepository
+          name: home-cluster
+          namespace: flux-system
+        timeout: 5m
+    etcd:
+      spec:
+        path: cluster/cloud-cluster/etcd

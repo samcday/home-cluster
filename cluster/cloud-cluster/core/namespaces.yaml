@@ -24,5 +24,6 @@ spec:
     _:
       kind: Namespace
     cnpg-system:
+    etcd:
     invidious:
     redlib:
