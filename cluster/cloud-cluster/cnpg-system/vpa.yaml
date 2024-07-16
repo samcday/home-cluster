@@ -30,6 +30,6 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: cnpg-system-operator-cloudnative-pg
+          name: cnpg-system-cnpg-operator-cloudnative-pg
         updatePolicy:
           updateMode: Auto
