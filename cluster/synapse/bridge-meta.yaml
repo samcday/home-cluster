@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: bridge-meta
     spec:
       containers:
-        - image: dock.mau.dev/mautrix/meta:v0.3.1
+        - image: dock.mau.dev/mautrix/meta:v0.3.2
           name: mautrix-meta
           ports:
             - containerPort: 29319
