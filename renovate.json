@@ -5,10 +5,13 @@
   "flux": {
     "fileMatch": ["cluster/.*\\.yaml"]
   },
-  "kubernetes": {
+  "helm-values": {
     "fileMatch": ["cluster/.*\\.yaml$"]
   },
-  "helm-values": {
+  "ignorePaths": [
+    "cluster/cloud-cluster/cnpg-system/catalog.yaml"
+  ],
+  "kubernetes": {
     "fileMatch": ["cluster/.*\\.yaml$"]
   },
   "packageRules": [
