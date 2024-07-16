@@ -37,10 +37,10 @@ spec:
             endpointURL: https://s3.eu-central-003.backblazeb2.com
             s3Credentials:
               accessKeyId:
-                name: postgres-backups-bucket
+                name: pgbackups-bucket
                 key: ACCESS_KEY_ID
               secretAccessKey:
-                name: postgres-backups-bucket
+                name: pgbackups-bucket
                 key: ACCESS_SECRET_KEY
             wal:
               compression: bzip2
@@ -95,7 +95,7 @@ metadata:
 spec:
   approvePlan: auto
   interval: 1h
-  path: ./tofu-modules/postgres-backups-bucket
+  path: ./tofu-modules/bucket
   runnerPodTemplate:
     spec:
       env:
@@ -125,4 +125,5 @@ spec:
   vars:
     - name: namespace
       value: invidious
- 
+    - name: name
+      value: pgbackups

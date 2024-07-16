@@ -1,0 +1,81 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: mimir-ruler-bucket
+  namespace: cloud-cluster
+spec:
+  approvePlan: auto
+  interval: 1h
+  path: ./tofu-modules/bucket
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: KUBE_CONFIG_PATH
+          value: /kubeconfig
+      envFrom:
+        - secretRef:
+            name: b2-env
+      volumeMounts:
+        - name: cert
+          mountPath: /cert
+        - name: kubeconfig
+          mountPath: /kubeconfig
+          subPath: kubeconfig
+      volumes:
+        - name: cert
+          secret:
+            secretName: admin
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster-https
+    namespace: flux-system
+  storeReadablePlan: human
+  vars:
+    - name: namespace
+      value: mimir
+    - name: name
+      value: ruler
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: mimir-blocks-bucket
+  namespace: cloud-cluster
+spec:
+  approvePlan: auto
+  interval: 1h
+  path: ./tofu-modules/bucket
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: KUBE_CONFIG_PATH
+          value: /kubeconfig
+      envFrom:
+        - secretRef:
+            name: b2-env
+      volumeMounts:
+        - name: cert
+          mountPath: /cert
+        - name: kubeconfig
+          mountPath: /kubeconfig
+          subPath: kubeconfig
+      volumes:
+        - name: cert
+          secret:
+            secretName: admin
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster-https
+    namespace: flux-system
+  storeReadablePlan: human
+  vars:
+    - name: namespace
+      value: mimir
+    - name: name
+      value: blocks
