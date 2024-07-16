@@ -57,6 +57,7 @@ spec:
               endpoint: obj.samcday.com:443
         limits:
           compactor_block_upload_enabled: true
+          max_global_series_per_user: 0
         multitenancy_enabled: false
     minio:
       enabled: false
