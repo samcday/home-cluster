@@ -87,6 +87,10 @@ spec:
         probeSelectorNilUsesHelmValues: false
         remoteWrite:
           - url: https://mimir.samcday.com/api/v1/push
+            queueConfig:
+              # default is 50, which gets spicy if upstream is down for a while and this
+              # Prom wants to catch up on a backlog.
+              max_shards: 4
         retention: 1d
         retentionSize: 1GB
         ruleSelectorNilUsesHelmValues: false
