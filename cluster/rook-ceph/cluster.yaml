@@ -163,8 +163,8 @@ spec:
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/proxy-buffering: "off"
             nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-            nginx.ingress.kubernetes.io/proxy-send-timeout: "0"
-            nginx.ingress.kubernetes.io/proxy-read-timeout: "0"
+            nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "300s"
           host:
             name: obj.samcday.com
           ingressClassName: nginx
