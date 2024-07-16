@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mimir
-  namespace: mimir
+  namespace: cloud-cluster
 spec:
   chart:
     spec:
@@ -14,28 +14,23 @@ spec:
         namespace: flux-system
       version: 5.4.0
   interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: mimir
+  targetNamespace: mimir
   values:
     # https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml
-    global:
-      clusterDomain: home-cluster.local.
-      extraVolumeMounts:
-        - name: etcd-cert
-          mountPath: /etcd-cert
-      extraVolumes:
-        - name: etcd-cert
-          secret:
-            secretName: etcd-client-cert
     alertmanager:
       enabled: false
     distributor:
       replicas: 2
     ingester:
       zoneAwareReplication:
-        enabled: false
+        enabled: true
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
@@ -45,23 +40,25 @@ spec:
       ingressClassName: nginx
       tls:
         - hosts: [mimir.samcday.com]
-          secretName: cert
-    metaMonitoring:
-      dashboards:
-        enabled: true
-      serviceMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true
-        mimirAlerts: true
-        mimirRules: true
+    # metaMonitoring:
+    #   dashboards:
+    #     enabled: true
+    #   serviceMonitor:
+    #     enabled: true
+    #   prometheusRule:
+    #     enabled: true
+    #     mimirAlerts: true
+    #     mimirRules: true
     mimir:
       structuredConfig:
+        blocks_storage:
+          s3:
+            bucket_name: samcday-mimir-blocks
         common:
           storage:
             backend: s3
             s3:
-              endpoint: obj.samcday.com:443
+              endpoint: s3.eu-central-003.backblazeb2.com:443
         distributor:
           ha_tracker:
             enable_ha_tracker: true
@@ -69,21 +66,18 @@ spec:
               store: etcd
               prefix: mimir/ha-tracker/
               etcd:
-                endpoints: [etcd.kube-system.svc.home-cluster.local.:2379]
-                tls_enabled: true
-                tls_cert_path: /etcd-cert/tls.crt
-                tls_key_path: /etcd-cert/tls.key
-                tls_ca_path: /etcd-cert/ca.crt
+                endpoints: [etcd-etcd.etcd.svc.cluster.local.:2379]
         limits:
           accept_ha_samples: true
           compactor_block_upload_enabled: true
           max_global_series_per_user: 0
         multitenancy_enabled: false
+        ruler_storage:
+          s3:
+            bucket_name: samcday-mimir-ruler
     minio:
       enabled: false
     nginx:
-      enabled: false
-    rollout_operator:
       enabled: false
     runtimeConfig:
       distributor_limits:
@@ -94,31 +88,20 @@ spec:
       overrides:
         anonymous:
           ingestion_rate: 50000
-    store_gateway:
-      zoneAwareReplication:
-        enabled: false
   valuesFrom:
     - kind: Secret
-      name: blocks-bucket
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: mimir-blocks-bucket
+      valuesKey: access_key_id
       targetPath: mimir.structuredConfig.blocks_storage.s3.access_key_id
     - kind: Secret
-      name: blocks-bucket
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: mimir-blocks-bucket
+      valuesKey: secret_access_key
       targetPath: mimir.structuredConfig.blocks_storage.s3.secret_access_key
-    - kind: ConfigMap
-      name: blocks-bucket
-      valuesKey: BUCKET_NAME
-      targetPath: mimir.structuredConfig.blocks_storage.s3.bucket_name
     - kind: Secret
-      name: ruler-bucket
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: mimir-ruler-bucket
+      valuesKey: access_key_id
       targetPath: mimir.structuredConfig.ruler_storage.s3.access_key_id
     - kind: Secret
-      name: ruler-bucket
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: mimir-ruler-bucket
+      valuesKey: secret_access_key
       targetPath: mimir.structuredConfig.ruler_storage.s3.secret_access_key
-    - kind: ConfigMap
-      name: ruler-bucket
-      valuesKey: BUCKET_NAME
-      targetPath: mimir.structuredConfig.ruler_storage.s3.bucket_name
