@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: snapshot-controller
+      sourceRef:
+        kind: HelmRepository
+        name: piraeus-charts
+        namespace: flux-system
+      version: 3.0.5
+  interval: 1h
+  values:
+    # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-controller/values.yaml
+    controller:
+      serviceMonitor:
+        create: true
+    args:
+      leaderElection: false
