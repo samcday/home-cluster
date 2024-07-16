@@ -18,6 +18,13 @@ spec:
     # https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml
     global:
       clusterDomain: home-cluster.local.
+      extraVolumeMounts:
+        - name: etcd-cert
+          mountPath: /etcd-cert
+      extraVolumes:
+        - name: etcd-cert
+          secret:
+            secretName: etcd-client-cert
     alertmanager:
       enabled: false
     distributor:
@@ -55,7 +62,20 @@ spec:
             backend: s3
             s3:
               endpoint: obj.samcday.com:443
+        distributor:
+          ha_tracker:
+            enable_ha_tracker: true
+            kvstore:
+              store: etcd
+              prefix: mimir/ha-tracker/
+              etcd:
+                endpoints: [etcd.kube-system.svc.home-cluster.local.:2379]
+                tls_enabled: true
+                tls_cert_path: /etcd-cert/tls.crt
+                tls_key_path: /etcd-cert/tls.key
+                tls_ca_path: /etcd-cert/ca.crt
         limits:
+          accept_ha_samples: true
           compactor_block_upload_enabled: true
           max_global_series_per_user: 0
         multitenancy_enabled: false
