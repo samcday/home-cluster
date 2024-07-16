@@ -30,7 +30,7 @@ spec:
       spec:
         images:
           - major: 12
-            image: ghcr.io/cloudnative-pg/postgresql:12.19-8-bookworm@sha256:a7b52aade3de185b744259963fea7a854d65ff20607f994cb11744020bf99282
+            image: ghcr.io/cloudnative-pg/postgresql:12.19-8-bookworm@sha256:e223f9b8a44fde58527f58d228d71442bec948d709bb97742df361de2bdac969
           - major: 13
             image: ghcr.io/cloudnative-pg/postgresql:13.15-8-bookworm@sha256:9c1bc46510a0672e04b4a8ffef5ed1b70ca5e7a3dc8c0ecf084260d3b2209f30
           - major: 14
