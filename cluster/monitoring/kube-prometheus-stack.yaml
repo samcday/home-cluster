@@ -82,6 +82,8 @@ spec:
                 labels:
                   instance: home-cluster-router
         enableAdminAPI: true
+        externalLabels:
+          cluster: home
         externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
@@ -91,6 +93,8 @@ spec:
               # default is 50, which gets spicy if upstream is down for a while and this
               # Prom wants to catch up on a backlog.
               max_shards: 4
+        replicaExternalLabelName: __replica__
+        replicas: 2
         retention: 1d
         retentionSize: 1GB
         ruleSelectorNilUsesHelmValues: false
