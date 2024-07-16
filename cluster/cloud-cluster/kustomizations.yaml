@@ -45,3 +45,6 @@ spec:
     etcd:
       spec:
         path: cluster/cloud-cluster/etcd
+    mimir:
+      spec:
+        path: cluster/cloud-cluster/mimir
