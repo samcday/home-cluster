@@ -30,7 +30,7 @@ spec:
     # https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/values.yaml
     autoscalingGroups:
       - name: pool1
-        maxSize: 2
+        maxSize: 10
         minSize: 1
         instanceType: cax11
         region: nbg1
