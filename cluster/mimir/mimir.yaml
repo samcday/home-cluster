@@ -71,6 +71,9 @@ spec:
       ingester_limits:
         max_ingestion_rate: 50000
         max_series: 1000000
+      overrides:
+        anonymous:
+          ingestion_rate: 50000
     store_gateway:
       zoneAwareReplication:
         enabled: false
