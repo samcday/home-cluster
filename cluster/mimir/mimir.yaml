@@ -66,6 +66,8 @@ spec:
     rollout_operator:
       enabled: false
     runtimeConfig:
+      distributor_limits:
+        max_ingestion_rate: 50000
       ingester_limits:
         max_ingestion_rate: 50000
         max_series: 1000000
