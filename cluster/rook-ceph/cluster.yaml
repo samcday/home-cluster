@@ -160,6 +160,7 @@ spec:
           enabled: true
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
           host:
             name: obj.samcday.com
           ingressClassName: nginx
