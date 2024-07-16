@@ -48,8 +48,8 @@ spec:
       enabled: false
     podAntiAffinityPreset: hard
     replicaCount: 3
-  valuesFrom:
-    - kind: Secret
-      name: etcd-root-password
-      valuesKey: password
-      targetPath: auth.rbac.rootPassword
+  # valuesFrom:
+  #   - kind: Secret
+  #     name: etcd-root-password
+  #     valuesKey: password
+  #     targetPath: auth.rbac.rootPassword
