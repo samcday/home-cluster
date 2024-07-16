@@ -38,6 +38,6 @@ spec:
           - major: 15
             image: ghcr.io/cloudnative-pg/postgresql:15.7-7-bookworm@sha256:bc9230afe6cf6c1b3287915947dd9bb69d0c35098a012c33a5b4470d7c2fb6fa
           - major: 16
-            image: ghcr.io/cloudnative-pg/postgresql:16.3-7-bookworm@sha256:8308c11dfa6efa262dc3d0ba16ff4e80084d48e07bbf94e9a267d22f0f492dda
+            image: ghcr.io/cloudnative-pg/postgresql:16.3-7-bookworm@sha256:d153e187a3a7b14618cdaa2c6369dc17250caed165df107c63507b6717f3127c
           - major: 17
             image: ghcr.io/cloudnative-pg/postgresql:17beta2-3-bookworm@sha256:cf2a23fcde5e6709bc14f927b3225c45cb00c9c5194d6261e9e8c83580ff017b
