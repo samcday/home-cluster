@@ -87,18 +87,26 @@ spec:
         externalUrl: https://prometheus.samcday.com
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        remoteWrite:
-          - url: https://mimir.samcday.com/api/v1/push
-            queueConfig:
-              # default is 50, which gets spicy if upstream is down for a while and this
-              # Prom wants to catch up on a backlog.
-              max_shards: 4
+        # remoteWrite:
+        #   - url: https://mimir.samcday.com/api/v1/push
+        #     queueConfig:
+        #       # default is 50, which gets spicy if upstream is down for a while and this
+        #       # Prom wants to catch up on a backlog.
+        #       max_shards: 4
         replicaExternalLabelName: __replica__
         replicas: 2
-        retention: 1d
-        retentionSize: 1GB
+        retention: 90d
+        retentionSize: 30GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ReadWriteOnce]
+              resources:
+                requests:
+                  storage: 50Gi
+              storageClassName: ceph-block
         walCompression: true
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml
     prometheus-node-exporter:
