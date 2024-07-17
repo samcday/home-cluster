@@ -1,5 +1,8 @@
 # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
 
+dashboards:
+  enabled: true
+
 hubble:
   peerService:
     clusterDomain: home-cluster.local
@@ -19,6 +22,8 @@ hubble:
       - port-distribution
       - icmp
       - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}
+    dashboards:
+      enabled: true
     serviceMonitor:
       enabled: true
   ui:
@@ -34,6 +39,8 @@ hubble:
         - hosts: [hubble.samcday.com]
           secretName: hubble-cert
 operator:
+  dashboards:
+    enabled: true
   prometheus:
     serviceMonitor:
       enabled: true
