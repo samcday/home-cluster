@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: bridge-whatsapp
     spec:
       containers:
-        - image: dock.mau.dev/mautrix/whatsapp:v0.10.8
+        - image: dock.mau.dev/mautrix/whatsapp:v0.10.9
           name: mautrix-whatsapp
           ports:
             - containerPort: 29318
