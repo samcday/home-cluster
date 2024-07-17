@@ -29,7 +29,7 @@ spec:
       tag: latest
     ingress:
       enabled: true
-      className: nginx
+      className: public-nginx
       hosts:
         - host: redlib.samcday.com
           paths:
