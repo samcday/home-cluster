@@ -19,12 +19,14 @@ spec:
           image: ghcr.io/tailscale/tailscale:v1.68.1
           env:
             - name: TS_EXTRA_ARGS
-              value: --login-server=https://headscale.taild2b250.ts.net --socks5-server=localhost:1055
+              value: --login-server=https://headscale.taild2b250.ts.net
             - name: TS_KUBE_SECRET
               valueFrom:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.name
+            - name: TS_SOCKS5_SERVER
+              value: "0.0.0.0:1055"
             - name: TS_USERSPACE
               # kernel mode breaks in weird ways when routing to Cilium L2LB IPs.
               # maybe because of the eBPF Magick(tm)?
