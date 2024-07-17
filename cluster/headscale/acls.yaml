@@ -3,6 +3,7 @@ acls:
     src: [sam]
     dst:
       - "*:*"
+      - tag:subnet-router:0
       - tag:cloud-subnet-router:0
   - action: accept
     src: [cloud-cluster]
