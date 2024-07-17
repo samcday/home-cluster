@@ -2,8 +2,20 @@
 
 dashboards:
   enabled: true
-
 hubble:
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction
+    dashboards:
+      enabled: true
+    serviceMonitor:
+      enabled: true
   peerService:
     clusterDomain: home-cluster.local
   relay:
@@ -13,19 +25,9 @@ hubble:
       enabled: true
       serviceMonitor:
         enabled: true
-  metrics:
-    enabled:
-      - dns
-      - drop
-      - tcp
-      - flow
-      - port-distribution
-      - icmp
-      - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}
-    dashboards:
-      enabled: true
-    serviceMonitor:
-      enabled: true
+    tls:
+      server:
+        enabled: true
   ui:
     enabled: true
     rollOutPods: true
