@@ -27,4 +27,4 @@ spec:
   storeReadablePlan: human
   # suspend: true
   writeOutputsToSecret:
-    name: cloudflare
+    name: tofu-output

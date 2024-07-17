@@ -39,8 +39,8 @@ spec:
             - name: TUNNEL_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: cloudflare
-                  key: tunnel_token
+                  name: cloudflare-tunnel
+                  key: token
           resources:
             requests:
               cpu: 100m
@@ -65,6 +65,6 @@ spec:
       terminationGracePeriodSeconds: 5
   valuesFrom:
     - kind: Secret
-      name: cloudflare
+      name: tofu-output
       valuesKey: tunnel_cname
       targetPath: controller.extraArgs.publish-status-address

@@ -23,11 +23,13 @@ spec:
   values:
     cloudflare:
       kind: Secret
+    cloudflare-tunnel:
+      kind: Secret
   valuesFrom:
     - kind: Secret
-      name: cloudflare
+      name: tofu-output
       valuesKey: tunnel_token
-      targetPath: cloudflare.stringData.tunnel_token
+      targetPath: cloudflare-tunnel.stringData.token
     - kind: Secret
       name: cloudflare
       valuesKey: token
