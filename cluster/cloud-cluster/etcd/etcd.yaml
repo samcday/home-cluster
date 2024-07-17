@@ -46,6 +46,7 @@ spec:
     #     enabled: true
     podAntiAffinityPreset: hard
     replicaCount: 3
+    resourcesPreset: none
   # valuesFrom:
   #   - kind: Secret
   #     name: etcd-root-password
