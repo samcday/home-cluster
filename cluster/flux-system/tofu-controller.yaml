@@ -40,6 +40,7 @@ spec:
       retries: -1
   values:
     # https://github.com/flux-iac/tofu-controller/blob/main/charts/tofu-controller/values.yaml
+    allowBreakTheGlass: true
     allowCrossNamespaceRefs: true
     # branchPlanner:
     #   enabled: true
