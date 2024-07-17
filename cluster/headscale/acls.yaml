@@ -8,12 +8,16 @@ acls:
     dst:
       - cloud-cluster:*
       - 10.0.2.0/24:* # services subnet (apiserver + konnectivity in here too)
+      - 10.0.3.0/24:*
       - tag:subnet-router:0
+      - tag:cloud-subnet-router:0
 autoApprovers:
   routes:
     10.0.1.0/24: [tag:subnet-router]
     10.0.2.0/24: [tag:subnet-router]
+    10.0.3.0/24: [tag:cloud-subnet-router]
     172.30.0.0/16: [tag:subnet-router]
     172.31.0.0/16: [tag:subnet-router]
 tagOwners:
+  tag:cloud-subnet-router: [cloud-cluster]
   tag:subnet-router: [sam]

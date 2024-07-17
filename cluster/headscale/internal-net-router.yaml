@@ -3,8 +3,6 @@ kind: StatefulSet
 metadata:
   name: internal-net-router
   namespace: headscale
-  labels:
-    app: headscale
 spec:
   replicas: 1
   selector:
