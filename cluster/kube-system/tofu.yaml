@@ -5,6 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   approvePlan: auto
+  disableDriftDetection: true
   interval: 1h
   path: ./tofu
   runnerPodTemplate:
@@ -17,7 +18,6 @@ spec:
     name: home-cluster-https
     namespace: flux-system
   storeReadablePlan: human
-  suspend: true
   varsFrom:
     - kind: Secret
       name: tofu-env

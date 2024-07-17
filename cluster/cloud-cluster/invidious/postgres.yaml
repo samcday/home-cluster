@@ -107,6 +107,7 @@ metadata:
   namespace: cloud-cluster
 spec:
   approvePlan: auto
+  disableDriftDetection: true
   interval: 1h
   path: ./tofu-modules/bucket
   runnerPodTemplate:
@@ -135,7 +136,6 @@ spec:
     name: home-cluster-https
     namespace: flux-system
   storeReadablePlan: human
-  suspend: true
   vars:
     - name: name
       value: invidious-pgbackups
