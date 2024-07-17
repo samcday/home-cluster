@@ -49,7 +49,7 @@ spec:
                         apiVersion: v1
                         fieldPath: metadata.name
                   - name: TS_USERSPACE
-                    value: "false"
+                    value: "true"
                   - name: TS_DEBUG_FIREWALL_MODE
                     value: auto
                   - name: TS_AUTHKEY
