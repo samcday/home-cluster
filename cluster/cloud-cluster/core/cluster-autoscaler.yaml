@@ -44,6 +44,7 @@ spec:
     extraEnv:
       HCLOUD_FIREWALL: firewall
       HCLOUD_NETWORK: network
+      HCLOUD_PUBLIC_IPV4: "false"
       HCLOUD_SSH_KEY: samcday
     envFromSecret: cluster-autoscaler-config
     extraEnvSecrets:
