@@ -13,14 +13,7 @@ spec:
         name: jetstack
         namespace: flux-system
       version: v1.15.1
-  install:
-    remediation:
-      retries: -1
   interval: 1h
-  releaseName: cert-manager
-  upgrade:
-    remediation:
-      retries: -1
   values:
     # https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
     installCRDs: true

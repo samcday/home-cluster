@@ -19,6 +19,12 @@ provider "cloudflare" {}
 provider "hcloud" {}
 provider "random" {}
 
+data "cloudflare_api_token_permission_groups" "all" {}
+
+data "cloudflare_zone" "samcday" {
+  name = "samcday.com"
+}
+
 resource "hcloud_ssh_key" "samcday" {
   name       = "samcday"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwawprQXEkGl38Q7T0PNseL0vpoyr4TbATMkEaZJTWQ"
@@ -64,6 +70,19 @@ resource "cloudflare_tunnel" "tunnel" {
   account_id = "444c14b123bd021dcdf0400fbd847d63"
 }
 
+resource "cloudflare_api_token" "token" {
+  name = "cloud-cluster"
+
+  policy {
+    permission_groups = [
+      data.cloudflare_api_token_permission_groups.all.zone["DNS Write"],
+    ]
+    resources = {
+      "com.cloudflare.api.account.zone.${data.cloudflare_zone.samcday.id}" = "*"
+    }
+  }
+}
+
 output "tunnel_token" {
   value     = cloudflare_tunnel.tunnel.tunnel_token
   sensitive = true
@@ -76,4 +95,9 @@ output "tunnel_secret" {
 
 output "tunnel_cname" {
   value = cloudflare_tunnel.tunnel.cname
+}
+
+output "token" {
+  value     = cloudflare_api_token.token.value
+  sensitive = true
 }
