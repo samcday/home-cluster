@@ -44,8 +44,6 @@ spec:
     #     enabled: true
     #   prometheusRule:
     #     enabled: true
-    persistence:
-      enabled: false
     podAntiAffinityPreset: hard
     replicaCount: 3
   # valuesFrom:
