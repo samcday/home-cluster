@@ -49,13 +49,15 @@ spec:
               cpu: '2'
               memory: 1Gi
       kind: Deployment
-      # metrics:
-      #   enabled: true
+      metrics:
+        enabled: true
       publishService:
         enabled: false
       replicaCount: 2
       service:
         enabled: false
+      serviceMonitor:
+        enabled: true
       terminationGracePeriodSeconds: 5
   valuesFrom:
     - kind: Secret

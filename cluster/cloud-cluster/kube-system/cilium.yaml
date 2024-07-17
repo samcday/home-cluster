@@ -23,6 +23,35 @@ spec:
   targetNamespace: kube-system
   values:
     # https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
+    hubble:
+      relay:
+        enabled: true
+        rollOutPods: true
+        prometheus:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+      metrics:
+        enabled:
+          - dns
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}
+        serviceMonitor:
+          enabled: true
+      ui:
+        enabled: true
+        rollOutPods: true
+        # ingress:
+        #   enabled: true
+        #   className: nginx
+        #   hosts: [hubble.samcday.com]
+        #   tls:
+        #     - hosts: [hubble.samcday.com]
+        #       secretName: hubble-cert
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 172.28.0.0/16
@@ -32,7 +61,14 @@ spec:
     loadBalancer:
       serviceTopology: true
     operator:
+      prometheus:
+        serviceMonitor:
+          enabled: true
       rollOutPods: true
       replicas: 1
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     routingMode: native
     tunnel: disabled

@@ -40,15 +40,15 @@ spec:
       ingressClassName: nginx
       tls:
         - hosts: [mimir.samcday.com]
-    # metaMonitoring:
-    #   dashboards:
-    #     enabled: true
-    #   serviceMonitor:
-    #     enabled: true
-    #   prometheusRule:
-    #     enabled: true
-    #     mimirAlerts: true
-    #     mimirRules: true
+    metaMonitoring:
+      dashboards:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
+        mimirAlerts: true
+        mimirRules: true
     mimir:
       structuredConfig:
         blocks_storage:

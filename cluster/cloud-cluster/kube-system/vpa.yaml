@@ -23,6 +23,13 @@ spec:
   targetNamespace: kube-system
   values:
     # https://github.com/cowboysysop/charts/blob/master/charts/vertical-pod-autoscaler/values.yaml
+    admissionController:
+      metrics: &mon
+        serviceMonitor:
+          enabled: true
     recommender:
       extraArgs:
         pod-recommendation-min-memory-mb: 64
+      metrics: *mon
+    updater:
+      metrics: *mon
