@@ -71,16 +71,6 @@ spec:
           name: mimir-mimir-query-scheduler
         updatePolicy:
           updateMode: Auto
-    rollout-operator:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
-      spec:
-        targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: mimir-mimir-rollout-operator
-        updatePolicy:
-          updateMode: Auto
     ruler:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
