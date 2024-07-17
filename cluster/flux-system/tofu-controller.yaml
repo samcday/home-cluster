@@ -41,8 +41,8 @@ spec:
   values:
     # https://github.com/flux-iac/tofu-controller/blob/main/charts/tofu-controller/values.yaml
     allowCrossNamespaceRefs: true
-    branchPlanner:
-      enabled: true
+    # branchPlanner:
+    #   enabled: true
     caCertValidityDuration: 24h
     certRotationCheckFrequency: 30m
     clusterDomain: home-cluster.local
