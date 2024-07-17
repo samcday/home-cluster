@@ -27,7 +27,7 @@ spec:
       replicas: 2
     ingester:
       zoneAwareReplication:
-        enabled: false
+        enabled: true
     ingress:
       enabled: true
       annotations:
@@ -79,8 +79,6 @@ spec:
       enabled: false
     nginx:
       enabled: false
-    rollout_operator:
-      enabled: false
     runtimeConfig:
       distributor_limits:
         max_ingestion_rate: 50000
@@ -90,9 +88,6 @@ spec:
       overrides:
         anonymous:
           ingestion_rate: 50000
-    store_gateway:
-      zoneAwareReplication:
-        enabled: false
   valuesFrom:
     - kind: Secret
       name: mimir-blocks-bucket
