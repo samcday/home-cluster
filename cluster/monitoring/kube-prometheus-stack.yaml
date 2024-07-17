@@ -48,12 +48,12 @@ spec:
     kubeApiServer:
       serviceMonitor:
         relabelings:
-          - replacement: home-cluster
+          - replacement: home
             targetLabel: cluster
     kubeControllerManager:
       serviceMonitor:
         relabelings:
-          - replacement: home-cluster
+          - replacement: home
             targetLabel: cluster
     # Using Cilium kube-proxy replacement
     kubeProxy:
@@ -61,7 +61,7 @@ spec:
     kubeScheduler:
       serviceMonitor:
         relabelings:
-          - replacement: home-cluster
+          - replacement: home
             targetLabel: cluster
     prometheus:
       ingress:
