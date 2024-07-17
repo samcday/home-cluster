@@ -25,6 +25,7 @@ spec:
     name: home-cluster-https
     namespace: flux-system
   storeReadablePlan: human
+  suspend: true
   writeOutputsToSecret:
     name: cloudflared-tunnel
     outputs:
