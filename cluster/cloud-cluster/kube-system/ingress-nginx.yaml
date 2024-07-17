@@ -25,29 +25,6 @@ spec:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
       allowSnippetAnnotations: true
-      extraContainers:
-        - image: cloudflare/cloudflared:2024.6.1
-          name: cloudflared
-          args:
-            - tunnel
-            - --no-autoupdate
-            - run
-            - --no-tls-verify
-            - --url
-            - https://localhost:443
-          env:
-            - name: TUNNEL_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: cloudflared-tunnel
-                  key: token
-          resources:
-            requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
-              cpu: '2'
-              memory: 1Gi
       kind: Deployment
       metrics:
         enabled: true
