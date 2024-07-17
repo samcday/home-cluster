@@ -1,0 +1,123 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mimir-vpas
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: mimir
+  targetNamespace: mimir
+  values:
+    distributor:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-distributor
+        updatePolicy:
+          updateMode: Auto
+    overrides-exporter:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-overrides-exporter
+        updatePolicy:
+          updateMode: Auto
+    querier:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-querier
+        updatePolicy:
+          updateMode: Auto
+    query-frontend:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-query-frontend
+        updatePolicy:
+          updateMode: Auto
+    query-scheduler:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-query-scheduler
+        updatePolicy:
+          updateMode: Auto
+    rollout-operator:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-rollout-operator
+        updatePolicy:
+          updateMode: Auto
+    ruler:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mimir-mimir-ruler
+        updatePolicy:
+          updateMode: Auto
+    compactor:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: StatefulSet
+          name: mimir-mimir-compactor
+        updatePolicy:
+          updateMode: Auto
+    ingester:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: StatefulSet
+          name: mimir-mimir-ingester
+        updatePolicy:
+          updateMode: Auto
+    store-gateway:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: StatefulSet
+          name: mimir-mimir-store-gateway
+        updatePolicy:
+          updateMode: Auto
