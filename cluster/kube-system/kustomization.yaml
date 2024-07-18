@@ -34,7 +34,6 @@ resources:
   - kured.yaml
   - node-feature-discovery.yaml
   - node-problem-detector.yaml
-  - node-tailscale.yaml
   - nodes.yaml
   - pixiecore.yaml
   - prometheus-operator.yaml
