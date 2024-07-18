@@ -13,6 +13,12 @@ acls:
       - 172.27.0.0/16:*
       - tag:subnet-router:*
       - tag:cloud-subnet-router:*
+  - action: accept
+    src: [tag:cluster]
+    dst:
+      - "*:*"
+      - tag:subnet-router:*
+      - tag:cloud-subnet-router:*
 autoApprovers:
   routes:
     10.0.1.0/24: [tag:subnet-router]
@@ -22,4 +28,5 @@ autoApprovers:
     172.31.0.0/16: [tag:subnet-router]
 tagOwners:
   tag:cloud-subnet-router: [cloud-cluster]
+  tag:cluster: [sam]
   tag:subnet-router: [sam]
