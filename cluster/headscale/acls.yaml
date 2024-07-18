@@ -30,7 +30,7 @@ acls:
     dst:
       - "172.27.0.0/16:*"
   - action: accept
-    src: [tag:cloud]
+    src: [tag:cluster]
     dst:
       - "*:*"
 autoApprovers:
