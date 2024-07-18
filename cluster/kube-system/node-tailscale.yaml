@@ -19,7 +19,7 @@ spec:
             - name: TS_EXTRA_ARGS
               value: --login-server=https://headscale.taild2b250.ts.net --accept-routes
             - name: TS_USERSPACE
-              value: "false"
+              value: "true"
             - name: TS_DEBUG_FIREWALL_MODE
               value: auto
             - name: TS_AUTHKEY
