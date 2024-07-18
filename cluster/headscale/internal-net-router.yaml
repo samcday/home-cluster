@@ -25,8 +25,6 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.name
-            - name: TS_SOCKS5_SERVER
-              value: "0.0.0.0:1055"
             - name: TS_USERSPACE
               # kernel mode breaks in weird ways when routing to Cilium L2LB IPs.
               # maybe because of the eBPF Magick(tm)?

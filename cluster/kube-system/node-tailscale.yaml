@@ -27,6 +27,8 @@ spec:
                 secretKeyRef:
                   name: node-tailscale
                   key: authkey
+            - name: TS_SOCKS5_SERVER
+              value: "0.0.0.0:1055"
             - name: TS_STATE_DIR
               value: /state
             - name: TS_KUBE_SECRET
