@@ -14,11 +14,21 @@ acls:
       - tag:subnet-router:*
       - tag:cloud-subnet-router:*
   - action: accept
-    src: [tag:cluster]
+    src: [tag:subnet-router]
     dst:
-      - "*:*"
+      - "10.0.1.0/24:*"
+      - "10.0.2.0/24:*"
+      - "172.30.0.0/16:*"
+      - "172.31.0.0/16:*"
+  - action: accept
+    src: [tag:subnet-router, tag:cloud-subnet-router]
+    dst:
       - tag:subnet-router:*
       - tag:cloud-subnet-router:*
+  - action: accept
+    src: [tag:cloud-subnet-router]
+    dst:
+      - "172.27.0.0/16:*"
 autoApprovers:
   routes:
     10.0.1.0/24: [tag:subnet-router]
