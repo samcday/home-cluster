@@ -1,7 +1,7 @@
 # Homeserver details.
 homeserver:
     # The address that this appservice can use to connect to the homeserver.
-    address: https://homeserver.samcday.com
+    address: http://synapse.synapse.svc.home-cluster.local.:8008
     # The domain of the homeserver (for MXIDs, etc).
     domain: samcday.com
     
