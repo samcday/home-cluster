@@ -37,7 +37,7 @@ spec:
           volumeMounts:
             - name: tailscaled-state
               mountPath: /state
-      hostNetwork: true
+      # hostNetwork: true
       nodeSelector:
         kubernetes.io/hostname: m715q-1
       tolerations:

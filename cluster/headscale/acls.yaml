@@ -29,6 +29,10 @@ acls:
     src: [tag:cloud-subnet-router]
     dst:
       - "172.27.0.0/16:*"
+  - action: accept
+    src: [tag:cloud]
+    dst:
+      - "*:*"
 autoApprovers:
   routes:
     10.0.1.0/24: [tag:subnet-router]
