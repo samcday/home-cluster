@@ -26,6 +26,3 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
-    mimir:
-      spec:
-        path: cluster/mimir
