@@ -95,8 +95,8 @@ spec:
               max_shards: 4
         replicaExternalLabelName: __replica__
         replicas: 2
-        retention: 90d
-        retentionSize: 30GB
+        retention: 1d
+        retentionSize: 1GB
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:
