@@ -48,9 +48,9 @@ spec:
           storage: 10Gi
       s3:
         enabled: true
+        alias_host: samcday-mastodon.s3.eu-central-003.backblazeb2.com
         bucket: samcday-mastodon
         endpoint: https://s3.eu-central-003.backblazeb2.com:443
-        hostname: samcday-mastodon.s3.eu-central-003.backblazeb2.com
       secrets:
         existingSecret: secrets
       singleUserMode: true
