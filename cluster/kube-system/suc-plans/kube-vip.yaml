@@ -23,7 +23,7 @@ spec:
       - |
         set -uexo pipefail
         docker run --network host --rm localhost:30002/ghcr.io/kube-vip/kube-vip:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION manifest pod \
-          --address 10.0.1.9 \
+          --address 10.0.1.254 \
           --controlplane \
           --arp \
           --leaderElection > /etc/kubernetes/manifests/kube-vip.yaml

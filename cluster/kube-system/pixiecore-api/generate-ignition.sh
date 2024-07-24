@@ -69,7 +69,7 @@ storage:
           $controlplane
           discovery:
               bootstrapToken:
-                  apiServerEndpoint: 10.0.1.9:6443
+                  apiServerEndpoint: 10.0.1.254:6443
                   token: "$token"
                   caCertHashes: ["$cahash"]
 HERE

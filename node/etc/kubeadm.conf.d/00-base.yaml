@@ -3,7 +3,7 @@ kind: ClusterConfiguration
 apiServer:
     extraArgs:
         etcd-compaction-interval: "0"
-controlPlaneEndpoint: 10.0.1.9:6443
+controlPlaneEndpoint: 10.0.1.254:6443
 controllerManager:
     extraArgs:
         bind-address: 0.0.0.0
