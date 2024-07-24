@@ -47,6 +47,8 @@ spec:
           retentionPolicy: 90d
         bootstrap:
           recovery:
+            recoveryTarget:
+              targetLSN: 4/3D000060
             source: db
             database: mastodon
             owner: mastodon
