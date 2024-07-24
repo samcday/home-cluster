@@ -2,6 +2,15 @@
   "extends": [
     "config:recommended"
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["kube-vip\\.yaml$"],
+      "matchStrings": ["version: (?<currentValue>.+)$"],
+      "depNameTemplate": "ghcr.io/kube-vip/kube-vip",
+      "datasourceTemplate": "docker"
+    }
+  ],
   "flux": {
     "fileMatch": ["cluster/.*\\.yaml"]
   },
