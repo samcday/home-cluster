@@ -21,84 +21,84 @@ spec:
   storageNamespace: mastodon
   targetNamespace: mastodon
   values:
-    mastodon-elasticsearch-coordinating:
+    mastodon-mastodon-elasticsearch-coordinating:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mastodon-elasticsearch-coordinating
+          name: mastodon-mastodon-elasticsearch-coordinating
         updatePolicy:
           updateMode: Auto
-    mastodon-elasticsearch-data:
+    mastodon-mastodon-elasticsearch-data:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mastodon-elasticsearch-data
+          name: mastodon-mastodon-elasticsearch-data
         updatePolicy:
           updateMode: Auto
-    mastodon-elasticsearch-ingest:
+    mastodon-mastodon-elasticsearch-ingest:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mastodon-elasticsearch-ingest
+          name: mastodon-mastodon-elasticsearch-ingest
         updatePolicy:
           updateMode: Auto
-    mastodon-elasticsearch-master:
+    mastodon-mastodon-elasticsearch-master:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mastodon-elasticsearch-master
+          name: mastodon-mastodon-elasticsearch-master
         updatePolicy:
           updateMode: Auto
-    mastodon-redis-master:
+    mastodon-mastodon-redis-master:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mastodon-redis-master
+          name: mastodon-mastodon-redis-master
         updatePolicy:
           updateMode: Auto
-    mastodon-sidekiq-all-queues:
+    mastodon-mastodon-sidekiq-all-queues:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mastodon-sidekiq-all-queues
+          name: mastodon-mastodon-sidekiq-all-queues
         updatePolicy:
           updateMode: Auto
-    mastodon-streaming:
+    mastodon-mastodon-streaming:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mastodon-streaming
+          name: mastodon-mastodon-streaming
         updatePolicy:
           updateMode: Auto
-    mastodon-web:
+    mastodon-mastodon-web:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
       spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mastodon-web
+          name: mastodon-mastodon-web
         updatePolicy:
           updateMode: Auto
 
