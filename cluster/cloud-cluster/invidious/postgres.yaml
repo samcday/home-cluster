@@ -48,16 +48,16 @@ spec:
         bootstrap:
           recovery:
             recoveryTarget:
-              targetLSN: 4C/C4000060
-            source: db-20231101
+              targetLSN: 4/2B000000
+            source: db
             database: invidious
             owner: invidious
         externalClusters:
-          - name: db-20231101
+          - name: db
             barmanObjectStore:
               data:
                 compression: bzip2
-              destinationPath: s3://samcday-home-cluster-backups/postgres/invidious
+              destinationPath: s3://samcday-home-cluster-backups/postgres/mastodon
               endpointURL: https://s3.eu-central-003.backblazeb2.com
               s3Credentials:
                 accessKeyId:
@@ -85,7 +85,7 @@ spec:
         schedule: "0 0 4 * * *"
         backupOwnerReference: self
         cluster:
-          name: db-2024071501
+          name: db
     pgbackups-bucket:
       kind: Secret
       metadata:
