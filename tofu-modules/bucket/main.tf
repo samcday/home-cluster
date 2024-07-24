@@ -13,9 +13,14 @@ variable "name" {
   type = string
 }
 
+variable "type" {
+  type = string
+  default = "allPrivate"
+}
+
 resource "b2_bucket" "bucket" {
   bucket_name = "samcday-${var.name}"
-  bucket_type = "allPrivate"
+  bucket_type = var.type
   lifecycle_rules {
     days_from_hiding_to_deleting = 7
     file_name_prefix             = ""

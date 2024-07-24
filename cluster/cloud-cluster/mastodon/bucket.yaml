@@ -21,5 +21,7 @@ spec:
   vars:
     - name: name
       value: mastodon
+    - name: type
+      value: allPublic
   writeOutputsToSecret:
     name: mastodon-bucket
