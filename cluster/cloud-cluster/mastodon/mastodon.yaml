@@ -78,11 +78,11 @@ spec:
       workers: *aff
     postgresql:
       enabled: false
-      postgresqlHostname: db-20231101-rw
+      postgresqlHostname: db-20240724-rw
       postgresqlPort: 5432
       auth:
         database: mastodon
-        existingSecret: db-20231101-app
+        existingSecret: db-20240724-app
         username: mastodon
     # https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
     redis:
