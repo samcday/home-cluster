@@ -1,0 +1,25 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: mastodon-bucket
+  namespace: cloud-cluster
+spec:
+  approvePlan: auto
+  disableDriftDetection: true
+  interval: 1h
+  path: ./tofu-modules/bucket
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: b2-env
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster-https
+    namespace: flux-system
+  storeReadablePlan: human
+  vars:
+    - name: name
+      value: mastodon
+  writeOutputsToSecret:
+    name: mastodon-bucket

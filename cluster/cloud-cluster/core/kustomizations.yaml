@@ -45,6 +45,9 @@ spec:
     etcd:
       spec:
         path: cluster/cloud-cluster/etcd
+    mastodon:
+      spec:
+        path: cluster/cloud-cluster/mastodon
     mimir:
       spec:
         path: cluster/cloud-cluster/mimir

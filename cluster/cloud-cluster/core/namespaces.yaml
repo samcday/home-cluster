@@ -26,5 +26,6 @@ spec:
     cnpg-system:
     etcd:
     invidious:
+    mastodon:
     mimir:
     redlib:

@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: mastodon-chart
-  namespace: mastodon
+  namespace: cloud-cluster
 spec:
   interval: 1h
   ref:

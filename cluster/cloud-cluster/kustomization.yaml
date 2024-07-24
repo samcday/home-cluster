@@ -4,5 +4,4 @@ namespace: cloud-cluster
 resources:
   - ../config
   - core/
-  - kustomizations.yaml
   - tofu.yaml

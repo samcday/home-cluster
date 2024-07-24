@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mastodon
-  namespace: mastodon
+  namespace: cloud-cluster
 spec:
   chart:
     spec:
@@ -12,28 +12,27 @@ spec:
       sourceRef:
         kind: GitRepository
         name: mastodon-chart
-        namespace: mastodon
+  driftDetection:
+    mode: enabled
   interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: mastodon
+  targetNamespace: mastodon
   # https://github.com/mastodon/chart/blob/main/values.yaml
   values:
-    # https://github.com/bitnami/charts/blob/main/bitnami/elasticsearch/values.yaml
-    elasticsearch:
-      clusterDomain: home-cluster.local
     image:
       repository: ghcr.io/mastodon/mastodon
       tag: "v4.2.10"
     ingress:
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
       hosts:
         - host: mastodon.samcday.com
           paths:
             - path: '/'
       ingressClassName: public-nginx
       tls:
-        - secretName: tls
-          hosts: [mastodon.samcday.com]
+        - hosts: [mastodon.samcday.com]
     mastodon:
       createAdmin:
         enabled: true
@@ -43,9 +42,14 @@ spec:
       web_domain: mastodon.samcday.com
       persistence:
         assets:
-          storageClassName: ceph-block
+          storageClassName: hcloud-volumes
         system:
-          storageClassName: ceph-block
+          storageClassName: hcloud-volumes
+          storage: 10Gi
+      s3:
+        enabled: true
+        bucket: samcday-mastodon
+        endpoint: s3.eu-central-003.backblazeb2.com:443
       secrets:
         existingSecret: secrets
       singleUserMode: true
@@ -85,12 +89,12 @@ spec:
       architecture: standalone
       replica:
         replicaCount: 0
-    s3:
-      enabled: true
-      existingSecret: bucket
-      endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
   valuesFrom:
-    - kind: ConfigMap
-      name: bucket
-      valuesKey: BUCKET_NAME
-      targetPath: s3.bucket
+    - kind: Secret
+      name: mastodon-bucket
+      valuesKey: access_key_id
+      targetPath: mastodon.s3.access_key
+    - kind: Secret
+      name: mastodon-bucket
+      valuesKey: secret_access_key
+      targetPath: mastodon.s3.access_secret
