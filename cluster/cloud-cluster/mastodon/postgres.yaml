@@ -23,7 +23,7 @@ spec:
   storageNamespace: mastodon
   targetNamespace: mastodon
   values:
-    db:
+    db-20240724:
       apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       spec:
@@ -85,7 +85,7 @@ spec:
         schedule: "0 0 4 * * *"
         backupOwnerReference: self
         cluster:
-          name: db
+          name: db-20240724
     pgbackups-bucket:
       kind: Secret
       metadata:
