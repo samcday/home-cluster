@@ -22,7 +22,7 @@ spec:
       - -c
       - |
         set -uexo pipefail
-        docker run --network host --rm localhost:30002/ghcr.io/kube-vip/kube-vip:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION manifest pod \
+        docker run --network host --rm harbor.samcday.com/ghcr.io/kube-vip/kube-vip:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION manifest pod \
           --address 10.0.1.254 \
           --controlplane \
           --arp \
