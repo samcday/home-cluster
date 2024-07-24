@@ -49,7 +49,7 @@ spec:
       s3:
         enabled: true
         bucket: samcday-mastodon
-        endpoint: s3.eu-central-003.backblazeb2.com:443
+        endpoint: https://s3.eu-central-003.backblazeb2.com:443
       secrets:
         existingSecret: secrets
       singleUserMode: true
