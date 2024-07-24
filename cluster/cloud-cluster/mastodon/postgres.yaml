@@ -48,7 +48,7 @@ spec:
         bootstrap:
           recovery:
             recoveryTarget:
-              targetLSN: 4/3D000060
+              targetLSN: 4/3C001C20
             source: db
             database: mastodon
             owner: mastodon
