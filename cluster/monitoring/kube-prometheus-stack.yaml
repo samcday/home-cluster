@@ -45,6 +45,9 @@ spec:
     grafana:
       enabled: false
       forceDeployDatasources: true
+      sidecar:
+        datasources:
+          isDefaultDatasource: false
     kubeApiServer:
       serviceMonitor:
         relabelings:
