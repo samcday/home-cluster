@@ -44,7 +44,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     extraArgs:
-      expander: least-nodes,most-pods
+      expander: most-pods
       kubeconfig: /kubeconfig
       leader-elect: false
     extraEnv:
