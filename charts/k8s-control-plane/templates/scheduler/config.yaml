@@ -1,0 +1,11 @@
+{{- $strat := dig "deployment" "spec" "strategy" "type" "" $.Values.scheduler -}}
+{{- $replicas := int64 (dig "deployment" "spec" "replicas" 1 $.Values.scheduler) -}}
+{{- $config := default (dict) $.Values.scheduler.config -}}
+{{- if and (eq "Recreate" $strat) (eq $replicas 1) -}}
+{{- $config = mergeOverwrite (dict "leaderElection" (dict "leaderElect" false)) $config -}}
+{{- end -}}
+apiVersion: v1
+kind: ConfigMap
+data:
+  scheduler.conf: |-
+    {{- $config | toYaml | nindent 4 }}

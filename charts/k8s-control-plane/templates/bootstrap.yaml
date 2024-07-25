@@ -15,7 +15,7 @@ spec:
             - -c
             - |
               kubectl apply -f- <<HERE
-              {{- tpl ($.Files.Get "files/cluster-bootstrap.yaml") $ | nindent 14 }}
+              {{- tpl ($.Files.Get "files/cluster-bootstrap.yaml") $ | nindent 14 -}}
               HERE
           env:
             - name: KUBECONFIG

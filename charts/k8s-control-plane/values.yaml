@@ -59,11 +59,18 @@ konnectivity:
 parentClusterDomain: cluster.local
 
 scheduler:
+  config:
+    apiVersion: kubescheduler.config.k8s.io/v1
+    kind: KubeSchedulerConfiguration
+  deployment:
+    annotations:
+    labels:
+    spec:
+      replicas: 2
   image:
     repository: registry.k8s.io/kube-scheduler
     pullPolicy: IfNotPresent
     tag: "v{{ $.Values.version }}"
-  replicas: 2
 
 # Can be either an IPv4 subnet, an IPv6 subnet, or exactly one of each.
 serviceCIDRs: []

@@ -1,4 +1,4 @@
-{{- if not $.Values.externalIP }}
+{{- if not $.Values.externalIP -}}
 apiVersion: batch/v1
 kind: Job
 metadata:

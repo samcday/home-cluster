@@ -1,9 +1,23 @@
+{{- $dep := $.Values.scheduler.deployment -}}
+{{- $spec := $dep.spec -}}
+{{- $barfSpec := omit $spec "replicas" "selector" "template" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: scheduler
+  {{- with $dep.annotations }}
+  annotations:
+    {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with $dep.labels }}
+  labels:
+    {{- . | toYaml | nindent 4 }}
+  {{- end }}
 spec:
-  replicas: {{ required "missing scheduler.replicas" $.Values.scheduler.replicas }}
+  {{- if not (empty $barfSpec) }}
+  {{- $barfSpec | toYaml | nindent 2 }}
+  {{- end }}
+  replicas: {{ required "missing scheduler.deployment.spec.replicas" $spec.replicas }}
   selector:
     matchLabels:
       app: kube-scheduler
@@ -13,14 +27,12 @@ spec:
         app: kube-scheduler
     spec:
       containers:
-        - image: {{ with $.Values.scheduler.image -}}
-                   {{- required "missing scheduler.image.repository" .repository }}:
-                   {{- tpl (required "missing scheduler.image.tag" .tag) $ -}}
-                 {{ end }}
-          {{- with $.Values.scheduler.image.pullPolicy }}
-          imagePullPolicy: {{ . }}
+        - name: scheduler
+          {{- with $.Values.scheduler.image }}
+          image: {{ required "missing scheduler.image.repository" .repository }}:
+                 {{- tpl (required "missing scheduler.image.tag" .tag) $ }}
+          imagePullPolicy: {{ .pullPolicy }}
           {{- end }}
-          name: scheduler
           command:
             - kube-scheduler
             - --authentication-kubeconfig=/kubeconfig

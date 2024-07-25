@@ -114,7 +114,7 @@ rules:
   verbs:
   - get
 ---
-{{ if $.Values.konnectivity.enabled }}
+{{- if $.Values.konnectivity.enabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:

@@ -19,5 +19,11 @@ etcd:
   endpoints: [https://etcd.kube-system.svc.home-cluster.local:2379]
 externalHostname: cloud-cluster.samcday.com
 parentClusterDomain: home-cluster.local
+scheduler:
+  deployment:
+    spec:
+      replicas: 1
+      strategy:
+        type: Recreate
 serviceCIDRs: [172.27.0.0/16]
 serviceIP: 172.27.0.1
