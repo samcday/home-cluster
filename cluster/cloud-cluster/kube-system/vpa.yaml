@@ -30,6 +30,7 @@ spec:
     recommender:
       extraArgs:
         pod-recommendation-min-memory-mb: 16
+        recommendation-margin-fraction: 0.05
       metrics: *mon
     updater:
       metrics: *mon
