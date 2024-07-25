@@ -35,7 +35,7 @@ spec:
         instanceType: cax11
         region: nbg1
       - name: bigboi
-        maxSize: 2
+        maxSize: 1
         minSize: 0
         instanceType: cax31
         region: nbg1
