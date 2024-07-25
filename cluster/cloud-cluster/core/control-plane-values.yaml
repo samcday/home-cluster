@@ -20,6 +20,13 @@ etcd:
 externalHostname: cloud-cluster.samcday.com
 parentClusterDomain: home-cluster.local
 scheduler:
+  config:
+    profiles:
+      - pluginConfig:
+          - name: NodeResourcesFit
+            args:
+              scoringStrategy:
+                type: MostAllocated
   deployment:
     spec:
       replicas: 1
