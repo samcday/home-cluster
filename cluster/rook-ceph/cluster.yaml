@@ -19,15 +19,16 @@ spec:
   postRenderers:
     - kustomize:
         patches:
-          # Remove CephNodeNetworkPacketDrops, it's currently flapping
-          # and making a lot of noise. Should be able to remove this
-          # when I replace the Fritz 4040 with a switch.
           - target:
               group: monitoring.coreos.com
               version: v1
               kind: PrometheusRule
               name: prometheus-ceph-rules
             patch: |
+              # CephNodeDiskspaceWarning
+              - op: remove
+                path: /spec/groups/6/rules/4
+              # CephNodeNetworkPacketDrops
               - op: remove
                 path: /spec/groups/6/rules/1
   values:
