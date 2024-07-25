@@ -26,6 +26,8 @@ spec:
       repository: ghcr.io/mastodon/mastodon
       tag: "v4.2.10"
     ingress:
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: 100mb
       hosts:
         - host: mastodon.samcday.com
           paths:
