@@ -47,6 +47,7 @@ spec:
         alias_host: samcday-mastodon.s3.eu-central-003.backblazeb2.com
         bucket: samcday-mastodon
         endpoint: https://s3.eu-central-003.backblazeb2.com:443
+        existingSecret: s3-creds
       secrets:
         existingSecret: secrets
       singleUserMode: true
@@ -75,12 +76,38 @@ spec:
       architecture: standalone
       replica:
         replicaCount: 0
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mastodon-s3-creds
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: charts/resources
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: home-cluster
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: mastodon
+  targetNamespace: mastodon
+  values:
+    s3-creds:
+      kind: Secret
   valuesFrom:
     - kind: Secret
       name: mastodon-bucket
       valuesKey: access_key_id
-      targetPath: mastodon.s3.access_key
+      targetPath: s3-creds.stringData.AWS_ACCESS_KEY
     - kind: Secret
       name: mastodon-bucket
       valuesKey: secret_access_key
-      targetPath: mastodon.s3.access_secret
+      targetPath: s3-creds.stringData.AWS_SECRET_ACCESS_KEY
