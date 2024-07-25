@@ -23,6 +23,31 @@ spec:
   targetNamespace: kube-system
   values:
     # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: descheduler-highutil
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: descheduler
+      sourceRef:
+        kind: HelmRepository
+        name: descheduler
+        namespace: flux-system
+      version: 0.30.1
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: kube-system
+  targetNamespace: kube-system
+  values:
+    # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml
     deschedulerPolicy:
       profiles:
         - name: default
@@ -32,30 +57,11 @@ spec:
                 ignorePvcPods: true
                 evictLocalStoragePods: true
                 nodeFit: true
-            - name: RemoveDuplicates
-            - name: RemovePodsHavingTooManyRestarts
-              args:
-                podRestartThreshold: 100
-                includingInitContainers: true
-            - name: RemovePodsViolatingNodeAffinity
-              args:
-                nodeAffinityType: [requiredDuringSchedulingIgnoredDuringExecution]
-            - name: RemovePodsViolatingNodeTaints
-            - name: RemovePodsViolatingInterPodAntiAffinity
-            - name: RemovePodsViolatingTopologySpreadConstraint
+                nodeSelector: node.kubernetes.io/instance-type=cax11
             - name: HighNodeUtilization
               args:
                 thresholds:
-                  memory: 50
+                  memory: 100
           plugins:
             balance:
-              enabled:
-                - RemoveDuplicates
-                - RemovePodsViolatingTopologySpreadConstraint
-                - HighNodeUtilization
-            deschedule:
-              enabled:
-                - RemovePodsHavingTooManyRestarts
-                - RemovePodsViolatingNodeTaints
-                - RemovePodsViolatingNodeAffinity
-                - RemovePodsViolatingInterPodAntiAffinity
+              enabled: [HighNodeUtilization]
