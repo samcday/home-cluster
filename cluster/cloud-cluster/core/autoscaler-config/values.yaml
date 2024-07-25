@@ -8,10 +8,10 @@ config:
         #!/bin/bash
         set -uexo pipefail
         cat > /etc/apt/sources.list <<HERE
-        deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
-        deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
-        deb http://archive.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
-        deb http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+        deb http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
+        deb http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted universe multiverse
+        deb http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
+        deb http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted universe multiverse
         HERE
         export DEBIAN_FRONTEND=noninteractive
         curl -fsSL https://tailscale.com/install.sh | sh
