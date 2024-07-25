@@ -42,12 +42,6 @@ spec:
         email: me@samcday.com
       local_domain: samcday.com
       web_domain: mastodon.samcday.com
-      persistence:
-        assets:
-          storageClassName: hcloud-volumes
-        system:
-          storageClassName: hcloud-volumes
-          storage: 10Gi
       s3:
         enabled: true
         alias_host: samcday-mastodon.s3.eu-central-003.backblazeb2.com
@@ -67,17 +61,6 @@ spec:
         server: smtp.mailgun.org
         tls: false
         existingSecret: mailgun
-      # TODO: figure out why this is necessary
-      web: &aff
-        affinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/part-of
-                    operator: In
-                    values:
-                      - rails
-              topologyKey: kubernetes.io/hostname
       workers: *aff
     postgresql:
       enabled: false
