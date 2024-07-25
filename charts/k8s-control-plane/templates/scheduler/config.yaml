@@ -1,6 +1,6 @@
 {{- $strat := dig "deployment" "spec" "strategy" "type" "" $.Values.scheduler -}}
 {{- $replicas := int64 (dig "deployment" "spec" "replicas" 1 $.Values.scheduler) -}}
-{{- $config := default (dict) $.Values.scheduler.config -}}
+{{- $config := mergeOverwrite (default (dict) $.Values.scheduler.config) (dict "clientConnection" (dict "kubeconfig" "/kubeconfig")) -}}
 {{- if and (eq "Recreate" $strat) (eq $replicas 1) -}}
 {{- $config = mergeOverwrite (dict "leaderElection" (dict "leaderElect" false)) $config -}}
 {{- end -}}

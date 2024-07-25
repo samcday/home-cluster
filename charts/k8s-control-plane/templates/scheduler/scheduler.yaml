@@ -37,10 +37,7 @@ spec:
           {{- end }}
           command:
             - kube-scheduler
-            - --authentication-kubeconfig=/kubeconfig
-            - --authorization-kubeconfig=/kubeconfig
             - --bind-address=0.0.0.0
-            - --kubeconfig=/kubeconfig
             - --config=/config
           livenessProbe:
             failureThreshold: 8
