@@ -34,6 +34,11 @@ spec:
         minSize: 1
         instanceType: cax11
         region: nbg1
+      - name: bigboi
+        maxSize: 2
+        minSize: 0
+        instanceType: cax31
+        region: nbg1
     cloudProvider: hetzner
     deployment:
       annotations:
