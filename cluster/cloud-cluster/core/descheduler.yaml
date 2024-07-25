@@ -43,6 +43,10 @@ spec:
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingTopologySpreadConstraint
             - name: HighNodeUtilization
+              args:
+                thresholds:
+                  cpu: 100
+                  memory: 100
           plugins:
             balance:
               enabled:
