@@ -7,6 +7,12 @@ config:
       cloudInit: |
         #!/bin/bash
         set -uexo pipefail
+        cat > /etc/apt/sources.list <<HERE
+        deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
+        deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
+        deb http://archive.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+        deb http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+        HERE
         export DEBIAN_FRONTEND=noninteractive
         curl -fsSL https://tailscale.com/install.sh | sh
         tailscale up --accept-routes --accept-dns=false --login-server=https://headscale.taild2b250.ts.net/ --auth-key={{ $.Values.tsAuthKey }}
