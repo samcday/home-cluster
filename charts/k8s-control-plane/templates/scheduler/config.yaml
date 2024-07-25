@@ -6,6 +6,8 @@
 {{- end -}}
 apiVersion: v1
 kind: ConfigMap
+metadata:
+  name: scheduler-config
 data:
   scheduler.conf: |-
     {{- $config | toYaml | nindent 4 }}

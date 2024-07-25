@@ -23,6 +23,8 @@ spec:
       app: kube-scheduler
   template:
     metadata:
+      annotations:
+        config-hash: {{ sha1sum (print (toYaml $.Values.scheduler.config) (dig "deployment" "spec" "strategy" "type" "" $.Values.scheduler) (dig "deployment" "spec" "replicas" 1 $.Values.scheduler)) }}
       labels:
         app: kube-scheduler
     spec:
@@ -39,7 +41,7 @@ spec:
             - --authorization-kubeconfig=/kubeconfig
             - --bind-address=0.0.0.0
             - --kubeconfig=/kubeconfig
-            - --leader-elect=true
+            - --config=/config
           livenessProbe:
             failureThreshold: 8
             httpGet:
@@ -66,6 +68,9 @@ spec:
           volumeMounts:
             - name: cert
               mountPath: /cert
+            - name: config
+              mountPath: /config
+              subPath: scheduler.conf
             - name: kubeconfig
               mountPath: /kubeconfig
               subPath: kubeconfig
@@ -73,6 +78,9 @@ spec:
         - name: cert
           secret:
             secretName: kube-scheduler
+        - name: config
+          configMap:
+            name: scheduler-config
         - name: kubeconfig
           configMap:
             name: kubeconfig
