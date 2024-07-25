@@ -105,7 +105,7 @@ spec:
     - kind: Secret
       name: mastodon-bucket
       valuesKey: access_key_id
-      targetPath: s3-creds.stringData.AWS_ACCESS_KEY
+      targetPath: s3-creds.stringData.AWS_ACCESS_KEY_ID
     - kind: Secret
       name: mastodon-bucket
       valuesKey: secret_access_key
