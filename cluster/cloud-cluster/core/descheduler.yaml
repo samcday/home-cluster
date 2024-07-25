@@ -31,6 +31,7 @@ spec:
               args:
                 ignorePvcPods: true
                 evictLocalStoragePods: true
+                nodeFit: true
             - name: RemoveDuplicates
             - name: RemovePodsHavingTooManyRestarts
               args:
@@ -45,8 +46,7 @@ spec:
             - name: HighNodeUtilization
               args:
                 thresholds:
-                  cpu: 100
-                  memory: 100
+                  memory: 50
           plugins:
             balance:
               enabled:
