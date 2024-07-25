@@ -29,7 +29,7 @@ spec:
           enabled: true
     recommender:
       extraArgs:
-        pod-recommendation-min-memory-mb: 64
+        pod-recommendation-min-memory-mb: 16
       metrics: *mon
     updater:
       metrics: *mon
