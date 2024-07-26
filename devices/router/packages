@@ -1,3 +1,4 @@
+bash
 curl
 etherwake
 htop
@@ -19,6 +20,7 @@ usb-modeswitch
 usbmuxd
 usbutils
 screen
+shadow-chsh
 tailscale
 tang
 tcpdump
