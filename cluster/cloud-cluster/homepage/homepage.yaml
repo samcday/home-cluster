@@ -186,3 +186,22 @@ spec:
             targetPort: 8000
         selector:
           app.kubernetes.io/name: webfinger
+    www-ingress:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+      spec:
+        ingressClassName: public-nginx
+        rules:
+          - host: www.samcday.com
+            http:
+              paths:
+                - backend:
+                    service:
+                      name: caddy-service
+                      port:
+                        number: 80
+                  path: /
+                  pathType: Prefix
