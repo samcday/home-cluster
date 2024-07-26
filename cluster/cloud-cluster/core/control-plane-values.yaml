@@ -27,6 +27,11 @@ scheduler:
             args:
               scoringStrategy:
                 type: MostAllocated
+                resources:
+                  - name: cpu
+                    weight: 1
+                  - name: memory
+                    weight: 10
   deployment:
     spec:
       replicas: 1
