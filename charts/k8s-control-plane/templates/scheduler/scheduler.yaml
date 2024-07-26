@@ -71,7 +71,7 @@ volumes:
 {{- $extraContainers := list -}}
 {{- range $v := $templateSpec.containers -}}
 {{- if (eq "kube-scheduler" $v.name) -}}
-{{- $container = mustMergeOverwrite $container (omit $v "command" "ports" "volumeMounts") -}}
+{{- $container = mustMergeOverwrite $container (default (dict) (omit $v "command" "ports" "volumeMounts")) -}}
 {{- $_ := set $container "command" (concat $container.command (default (list) $v.command)) -}}
 {{- $_ := set $container "ports" (concat $container.ports (default (list) $v.ports)) -}}
 {{- $_ := set $container "volumeMounts" (concat $container.volumeMounts (default (list) $v.volumeMounts)) -}}
