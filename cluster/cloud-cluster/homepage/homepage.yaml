@@ -132,6 +132,7 @@ spec:
                 livenessProbe:
                   httpGet:
                     path: /
+                    port: 8000
                 ports:
                   - name: http
                     containerPort: 8000
