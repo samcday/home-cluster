@@ -46,7 +46,7 @@ spec:
           plugins:
             balance:
               enabled:
-                - RemoveDuplicates
+                # - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
