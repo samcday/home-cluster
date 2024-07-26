@@ -42,6 +42,6 @@ scheduler:
           containers:
             - name: kube-scheduler
               command:
-                - -v=10
+                - -v=4
 serviceCIDRs: [172.27.0.0/16]
 serviceIP: 172.27.0.1
