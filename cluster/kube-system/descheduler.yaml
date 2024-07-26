@@ -24,7 +24,7 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                ignorePvcPods: true
+                ignorePvcPods: false
                 evictLocalStoragePods: true
             - name: RemoveDuplicates
             - name: RemovePodsHavingTooManyRestarts

@@ -29,7 +29,7 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                ignorePvcPods: true
+                ignorePvcPods: false
                 evictLocalStoragePods: true
             - name: RemoveDuplicates
             - name: RemovePodsHavingTooManyRestarts
@@ -86,7 +86,7 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                ignorePvcPods: true
+                ignorePvcPods: false
                 evictLocalStoragePods: true
                 nodeFit: true
                 nodeSelector: node.kubernetes.io/instance-type=cax11
