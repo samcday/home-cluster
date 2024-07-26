@@ -54,6 +54,7 @@ spec:
                 - RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingInterPodAntiAffinity
+    schedule: "*/15 * * * *"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -96,3 +97,4 @@ spec:
           plugins:
             balance:
               enabled: [HighNodeUtilization]
+    schedule: "*/15 * * * *"
