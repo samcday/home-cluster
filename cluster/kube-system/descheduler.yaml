@@ -38,7 +38,7 @@ spec:
             - name: RemovePodsViolatingTopologySpreadConstraint
             - name: LowNodeUtilization
               args:
-                namespaces:
+                evictableNamespaces:
                   exclude: [rook-ceph]
                 thresholds:
                   cpu: 50
