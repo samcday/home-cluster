@@ -1,3 +1,4 @@
+{{- if $.Values.scheduler.enabled -}}
 {{- $strat := dig "deployment" "spec" "strategy" "type" "" $.Values.scheduler -}}
 {{- $replicas := int64 (dig "deployment" "spec" "replicas" 1 $.Values.scheduler) -}}
 {{- $config := mergeOverwrite (default (dict) $.Values.scheduler.config) (dict "clientConnection" (dict "kubeconfig" "/kubeconfig")) -}}
@@ -11,3 +12,4 @@ metadata:
 data:
   scheduler.conf: |-
     {{- $config | toYaml | nindent 4 }}
+{{- end -}}

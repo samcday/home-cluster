@@ -59,6 +59,7 @@ konnectivity:
 parentClusterDomain: cluster.local
 
 scheduler:
+  enabled: true
   config:
     apiVersion: kubescheduler.config.k8s.io/v1
     kind: KubeSchedulerConfiguration
@@ -67,6 +68,25 @@ scheduler:
     labels:
     spec:
       replicas: 2
+      # template:
+      #   metadata:
+      #     annotations:
+      #     labels:
+      #   spec:
+      #     # extra containers can be added, and the main container can be fully customized
+      #     containers:
+      #       - name: extra-sidecar
+      #       - name: kube-scheduler
+      #         # command, ports and volumeMounts are appended to base instead of overwriting:
+      #         command: [extra, args]
+      #         ports:
+      #           - name: extra
+      #         volumeMounts:
+      #           - name: extra
+      #     nodeSelector:
+      #       foo: bar
+      #     volumes:
+      #       - name: extra
   image:
     repository: registry.k8s.io/kube-scheduler
     pullPolicy: IfNotPresent

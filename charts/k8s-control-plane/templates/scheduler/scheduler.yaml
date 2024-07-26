@@ -1,10 +1,92 @@
+{{- define "scheduler-container" -}}
+name: kube-scheduler
+{{- with $.Values.scheduler.image }}
+image: {{ required "missing scheduler.image.repository" .repository }}:
+        {{- tpl (required "missing scheduler.image.tag" .tag) $ }}
+imagePullPolicy: {{ .pullPolicy }}
+{{- end }}
+command:
+  - kube-scheduler
+  - --authentication-kubeconfig=/kubeconfig
+  - --authorization-kubeconfig=/kubeconfig
+  - --bind-address=0.0.0.0
+  - --config=/config
+livenessProbe:
+  failureThreshold: 8
+  httpGet:
+    path: /healthz
+    port: 10259
+    scheme: HTTPS
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 15
+ports:
+  - containerPort: 10259
+    name: https
+startupProbe:
+  failureThreshold: 24
+  httpGet:
+    path: /healthz
+    port: 10259
+    scheme: HTTPS
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 15
+volumeMounts:
+  - name: cert
+    mountPath: /cert
+  - name: config
+    mountPath: /config
+    subPath: scheduler.conf
+  - name: kubeconfig
+    mountPath: /kubeconfig
+    subPath: kubeconfig
+{{- end -}}
+{{- define "scheduler-volumes" -}}
+volumes:
+  - name: cert
+    secret:
+      secretName: kube-scheduler
+  - name: config
+    configMap:
+      name: scheduler-config
+  - name: kubeconfig
+    configMap:
+      name: kubeconfig
+{{- end -}}
+
+{{- if $.Values.scheduler.enabled -}}
 {{- $dep := $.Values.scheduler.deployment -}}
 {{- $spec := $dep.spec -}}
 {{- $barfSpec := omit $spec "replicas" "selector" "template" -}}
+
+{{- $template := default (dict) $spec.template -}}
+{{- $templateSpec := default (dict) $template.spec -}}
+{{- $barfTemplate := omit $templateSpec "containers" "volumes" -}}
+
+{{- $container := fromYaml (include "scheduler-container" $) -}}
+
+{{- $extraContainers := list -}}
+{{- range $v := $templateSpec.containers -}}
+{{- if (eq "kube-scheduler" $v.name) -}}
+{{- $container = mustMergeOverwrite $container (omit $v "command" "ports" "volumeMounts") -}}
+{{- $_ := set $container "command" (concat $container.command $v.command) -}}
+{{- $_ := set $container "ports" (concat $container.ports $v.ports) -}}
+{{- $_ := set $container "volumeMounts" (concat $container.volumeMounts $v.volumeMounts) -}}
+{{- else -}}
+{{- $extraContainers = append $extraContainers $v -}}
+{{- end -}}
+{{- end -}}
+
+{{- $containers := list ($container) -}}
+{{- $volumes := (fromYaml (include "scheduler-volumes" $)).volumes -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scheduler
+  name: kube-scheduler
   {{- with $dep.annotations }}
   annotations:
     {{- . | toYaml | nindent 4 }}
@@ -25,61 +107,23 @@ spec:
     metadata:
       annotations:
         config-hash: {{ sha1sum (print (toYaml $.Values.scheduler.config) (dig "deployment" "spec" "strategy" "type" "" $.Values.scheduler) (dig "deployment" "spec" "replicas" 1 $.Values.scheduler)) }}
+        {{- with (dig "metadata" "annotations" (dict) $template) }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         app: kube-scheduler
+        {{- with (dig "metadata" "labels" (dict) $template) }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       containers:
-        - name: scheduler
-          {{- with $.Values.scheduler.image }}
-          image: {{ required "missing scheduler.image.repository" .repository }}:
-                 {{- tpl (required "missing scheduler.image.tag" .tag) $ }}
-          imagePullPolicy: {{ .pullPolicy }}
-          {{- end }}
-          command:
-            - kube-scheduler
-            - --authentication-kubeconfig=/kubeconfig
-            - --authorization-kubeconfig=/kubeconfig
-            - --bind-address=0.0.0.0
-            - --config=/config
-          livenessProbe:
-            failureThreshold: 8
-            httpGet:
-              path: /healthz
-              port: 10259
-              scheme: HTTPS
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 15
-          ports:
-            - containerPort: 10259
-              name: https
-          startupProbe:
-            failureThreshold: 24
-            httpGet:
-              path: /healthz
-              port: 10259
-              scheme: HTTPS
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 15
-          volumeMounts:
-            - name: cert
-              mountPath: /cert
-            - name: config
-              mountPath: /config
-              subPath: scheduler.conf
-            - name: kubeconfig
-              mountPath: /kubeconfig
-              subPath: kubeconfig
+        {{- toYaml $containers | nindent 8 }}
       volumes:
-        - name: cert
-          secret:
-            secretName: kube-scheduler
-        - name: config
-          configMap:
-            name: scheduler-config
-        - name: kubeconfig
-          configMap:
-            name: kubeconfig
+        {{- toYaml $volumes | nindent 8 }}
+        {{- with $templateSpec.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with $barfTemplate }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+{{- end -}}
