@@ -31,7 +31,7 @@ scheduler:
                   - name: cpu
                     weight: 1
                   - name: memory
-                    weight: 10
+                    weight: 100
   deployment:
     spec:
       replicas: 1
