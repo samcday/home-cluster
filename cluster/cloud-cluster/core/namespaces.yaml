@@ -25,6 +25,7 @@ spec:
       kind: Namespace
     cnpg-system:
     etcd:
+    homepage:
     invidious:
     mastodon:
     mimir:

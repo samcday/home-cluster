@@ -42,12 +42,24 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
+    cnpg-system:
+      spec:
+        path: cluster/cloud-cluster/cnpg-system
     etcd:
       spec:
         path: cluster/cloud-cluster/etcd
+    homepage:
+      spec:
+        path: cluster/cloud-cluster/homepage
+    kube-system:
+      spec:
+        path: cluster/cloud-cluster/kube-system
     mastodon:
       spec:
         path: cluster/cloud-cluster/mastodon
     mimir:
       spec:
         path: cluster/cloud-cluster/mimir
+    redlib:
+      spec:
+        path: cluster/cloud-cluster/redlib
