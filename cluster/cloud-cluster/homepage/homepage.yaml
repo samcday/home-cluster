@@ -191,7 +191,8 @@ spec:
       kind: Ingress
       metadata:
         annotations:
-          nginx.ingress.kubernetes.io/permanent-redirect: https://samcday.com
+          nginx.ingress.kubernetes.io/rewrite-target: https://samcday.com/$1
+          nginx.ingress.kubernetes.io/use-regex: "true"
       spec:
         ingressClassName: public-nginx
         rules:
@@ -203,5 +204,5 @@ spec:
                       name: caddy-service
                       port:
                         number: 80
-                  path: /
-                  pathType: Prefix
+                  path: /(.*)
+                  pathType: ImplementationSpecific
