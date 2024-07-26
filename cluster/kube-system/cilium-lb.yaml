@@ -27,7 +27,7 @@ spec:
     matchLabels:
       node-role.kubernetes.io/control-plane: ""
   virtualRouters:
-    - localASN: 64665
+    - localASN: 64666
       serviceSelector:
         matchExpressions:
           - {key: somekey, operator: NotIn, values: [never-used-value]}
