@@ -40,7 +40,7 @@ spec:
               args:
                 thresholds:
                   cpu: 50
-                  memory: 50
+                  memory: 65
                 targetThresholds:
                   cpu: 75
                   memory: 75
