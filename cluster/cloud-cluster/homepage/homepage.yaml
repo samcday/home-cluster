@@ -191,7 +191,7 @@ spec:
       kind: Ingress
       metadata:
         annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/permanent-redirect: https://samcday.com
       spec:
         ingressClassName: public-nginx
         rules:
