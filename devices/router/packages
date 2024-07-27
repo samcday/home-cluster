@@ -2,7 +2,11 @@ bash
 curl
 etherwake
 frr-bgpd
+frr-pythontools
+frr-staticd
 frr-vtysh
+frr-watchfrr
+frr-zebra
 htop
 jq
 kmod-usb-net-cdc-ether

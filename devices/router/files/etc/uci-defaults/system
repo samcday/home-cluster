@@ -15,3 +15,5 @@ EOI
 
 service log restart || true
 ntpd -q -p 0.openwrt.pool.ntp.org || true
+
+chsh -s /bin/bash || true
