@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 set -uexo pipefail
 
-openwrt_version="23.05.3"
+openwrt_version="23.05.4"
 
 export IPADDR="10.0.1.1"
 export IPADDR_RESTRICTED="10.0.2.1"
@@ -10,11 +10,12 @@ export HOSTNAME="home-cluster-router"
 export SSID="sam-home-cluster"
 export INJECT_ENV='$HOSTNAME $SSID $IPADDR $IPADDR_RESTRICTED'
 
-if [[ ! -f _build/.setup ]]; then
+if [[ ! -f "_build/.setup-${openwrt_version}" ]]; then
+  rm -rf _build/
   mkdir -p _build/
   curl -s --retry 2 --fail -L https://downloads.openwrt.org/releases/${openwrt_version}/targets/ipq40xx/generic/openwrt-imagebuilder-${openwrt_version}-ipq40xx-generic.Linux-x86_64.tar.xz | \
     tar --strip-components=1 -C _build/ -Jxvf -
-  touch _build/.setup
+  touch "_build/.setup-${openwrt_version}"
 fi
 
 for f in $(find files/ -type f); do
