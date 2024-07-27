@@ -87,7 +87,7 @@ spec:
                     service:
                       name: webfinger-service
                       port:
-                        number: 80
+                        number: 8000
                   path: /.well-known/webfinger
                   pathType: Prefix
         tls:
