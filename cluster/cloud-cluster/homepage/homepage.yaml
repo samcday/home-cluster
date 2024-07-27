@@ -85,7 +85,7 @@ spec:
               paths:
                 - backend:
                     service:
-                      name: webfinger-generic
+                      name: webfinger-service
                       port:
                         number: 80
                   path: /.well-known/webfinger
