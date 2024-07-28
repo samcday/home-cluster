@@ -52,19 +52,19 @@ spec:
         existingSecret: secrets
       sidekiq:
         workers:
+          - name: scheduler
+            concurrency: 1
+            replicas: 1
+            queues: [scheduler]
           - name: all-queues
             concurrency: 25
             replicas: 2
-            resources: {}
-            affinity: {}
-            topologySpreadConstraints: {}
             queues:
               - default,8
               - push,6
               - ingress,4
               - mailers,2
               - pull
-              - scheduler
       singleUserMode: true
       smtp:
         auth_method: plain
