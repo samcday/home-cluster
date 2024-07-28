@@ -86,7 +86,7 @@ meta:
     # * instagram - connect to Instagram DMs via instagram.com
     #
     # Remember to change the appservice id, bot profile info, bridge username_template and management_room_text too.
-    mode: facebook
+    mode: messenger
     # When in Instagram mode, should the bridge connect to WhatsApp servers for encrypted chats?
     # In FB/Messenger mode encryption is always enabled, this option only affects Instagram mode.
     ig_e2ee: false
