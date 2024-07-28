@@ -93,7 +93,7 @@ spec:
             - name: HighNodeUtilization
               args:
                 thresholds:
-                  memory: 100
+                  memory: 75
           plugins:
             balance:
               enabled: [HighNodeUtilization]
