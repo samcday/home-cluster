@@ -55,3 +55,12 @@ spec:
         varlog: true
     controller:
       type: deployment
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts: [alloy.cloud.samcday.com]
+      ingressClassName: nginx
+      tls:
+        - hosts: [alloy.cloud.samcday.com]
+          secretName: cert
