@@ -55,7 +55,7 @@ spec:
           }
 
           mimir.rules.kubernetes "default" {
-            address = "https://mimir.samcday.com/prometheus/api/v1/rules"
+            address = "https://mimir.samcday.com/prometheus
           }
       mounts:
         varlog: true
