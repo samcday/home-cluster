@@ -53,5 +53,9 @@ spec:
           prometheus.operator.probes "probes" {
             forward_to = [prometheus.remote_write.mimir.receiver]
           }
+
+          mimir.rules.kubernetes "default" {
+            address = "https://mimir.samcday.com/prometheus/api/v1/rules"
+          }
       mounts:
         varlog: true
