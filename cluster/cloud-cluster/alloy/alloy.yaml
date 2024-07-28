@@ -24,6 +24,8 @@ spec:
   values:
     # https://github.com/grafana/alloy/blob/main/operations/helm/charts/alloy/values.yaml
     alloy:
+      clustering:
+        enabled: true
       configMap:
         content: |-
           prometheus.exporter.self "default" {
@@ -53,8 +55,6 @@ spec:
           }
       mounts:
         varlog: true
-    controller:
-      type: deployment
     ingress:
       enabled: true
       annotations:
