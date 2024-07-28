@@ -62,6 +62,8 @@ spec:
         server: smtp.mailgun.org
         tls: false
         existingSecret: mailgun
+      web:
+        replicas: 2
     postgresql:
       enabled: false
       postgresqlHostname: db-20240724-rw
