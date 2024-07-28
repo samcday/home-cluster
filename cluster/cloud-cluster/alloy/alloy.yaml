@@ -53,3 +53,5 @@ spec:
           }
       mounts:
         varlog: true
+    controller:
+      type: deployment
