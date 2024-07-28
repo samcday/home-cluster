@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy
+  namespace: cloud-cluster
+spec:
+  chart:
+    spec:
+      chart: alloy
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      version: 0.5.1
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  kubeConfig:
+    secretRef:
+      name: admin-kubeconfig
+  storageNamespace: alloy
+  targetNamespace: alloy
+  values:
+    # https://github.com/grafana/alloy/blob/main/operations/helm/charts/alloy/values.yaml
+    alloy:
+      configMap:
+        content: |-
+          prometheus.exporter.self "default" {
+          }
+
+          prometheus.scrape "metamonitoring" {
+            targets    = prometheus.exporter.self.default.targets
+            forward_to = [prometheus.remote_write.mimir.receiver]
+          }
+
+          prometheus.remote_write "mimir" {
+            endpoint {
+              url = "https://mimir.samcday.com/api/v1/push"
+            }
+          }
+
+          prometheus.operator.podmonitors "pods" {
+            forward_to = [prometheus.remote_write.mimir.receiver]
+          }
+
+          prometheus.operator.servicemonitors "services" {
+            forward_to = [prometheus.remote_write.mimir.receiver]
+          }
+
+          prometheus.operator.probes "probes" {
+            forward_to = [prometheus.remote_write.mimir.receiver]
+          }
+      mounts:
+        varlog: true

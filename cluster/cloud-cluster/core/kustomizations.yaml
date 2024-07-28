@@ -42,6 +42,9 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
+    alloy:
+      spec:
+        path: cluster/cloud-cluster/alloy
     cnpg-system:
       spec:
         path: cluster/cloud-cluster/cnpg-system

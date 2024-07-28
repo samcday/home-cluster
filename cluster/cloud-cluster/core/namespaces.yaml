@@ -23,6 +23,7 @@ spec:
   values:
     _:
       kind: Namespace
+    alloy:
     cnpg-system:
     etcd:
     homepage:
