@@ -80,6 +80,8 @@ spec:
   targetNamespace: kube-system
   values:
     # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml
+    cmdOptions:
+      v: 4
     deschedulerPolicy:
       profiles:
         - name: default
