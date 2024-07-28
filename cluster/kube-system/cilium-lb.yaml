@@ -44,7 +44,8 @@ metadata:
   name: bgp-svc
 spec:
   blocks:
-    - cidr: 10.0.2.0/24
+    - start: '10.0.2.1'
+      stop: '10.0.2.253'
   serviceSelector:
     matchExpressions:
       - {key: announce, operator: NotIn, values: [l2]}
