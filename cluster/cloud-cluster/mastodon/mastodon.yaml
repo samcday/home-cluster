@@ -77,6 +77,8 @@ spec:
         server: smtp.mailgun.org
         tls: false
         existingSecret: mailgun
+      streaming:
+        replicas: 2
       web:
         replicas: 2
     postgresql:
