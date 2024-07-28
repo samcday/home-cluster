@@ -50,6 +50,21 @@ spec:
         existingSecret: s3-creds
       secrets:
         existingSecret: secrets
+      sidekiq:
+        workers:
+          - name: all-queues
+            concurrency: 25
+            replicas: 2
+            resources: {}
+            affinity: {}
+            topologySpreadConstraints: {}
+            queues:
+              - default,8
+              - push,6
+              - ingress,4
+              - mailers,2
+              - pull
+              - scheduler
       singleUserMode: true
       smtp:
         auth_method: plain
