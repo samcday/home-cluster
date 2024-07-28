@@ -1,0 +1,30 @@
+# Deploys/upgrades kube-vip on control-plane nodes.
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: kube-vip-bgp
+  namespace: kube-system
+spec:
+  concurrency: 1
+  version: v0.8.2
+  tolerations:
+    - {key: samcday.com/shrimpy-boi, operator: Exists}
+  serviceAccountName: system-upgrade
+  nodeSelector:
+    matchExpressions:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+  upgrade:
+    image: busybox:stable
+    command:
+      - chroot
+      - /host
+      - /bin/bash
+      - -c
+      - |
+        set -uexo pipefail
+        docker run --network host --rm harbor.samcday.com/ghcr.io/kube-vip/kube-vip:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION manifest pod \
+          --address 10.0.2.254 \
+          --controlplane \
+          --bgp \
+          --localAS 64666 \
+          --bgppeers 10.0.1.1:64666::false > /etc/kubernetes/manifests/kube-vip-bgp.yaml
