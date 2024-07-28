@@ -91,7 +91,6 @@ spec:
                 ignorePvcPods: false
                 evictLocalStoragePods: true
                 nodeFit: true
-                nodeSelector: node.kubernetes.io/instance-type=cax11
             - name: HighNodeUtilization
               args:
                 thresholds:
