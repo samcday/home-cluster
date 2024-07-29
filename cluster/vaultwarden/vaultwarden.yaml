@@ -26,7 +26,7 @@ spec:
     envValueFrom:
       DATABASE_URL:
         secretKeyRef:
-          secretName: db-20240729
+          name: db-20240729
           key: uri
     image:
       repository: ghcr.io/dani-garcia/vaultwarden
