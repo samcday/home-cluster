@@ -30,7 +30,7 @@ spec:
       SMTP_FROM: vaultwarden@samcday.com
       SMTP_HOST: mail.smtp2go.com
       SMTP_PORT: 2525
-      SMTP_SECURITY: force_tls
+      SMTP_SECURITY: starttls
       SMTP_USERNAME: samcday_vaultwarden
     envFrom:
       - secretRef:
