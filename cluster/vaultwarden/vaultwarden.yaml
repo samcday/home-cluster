@@ -27,6 +27,11 @@ spec:
       DOMAIN: https://vaultwarden.samcday.com
       INVITATIONS_ALLOWED: "false"
       SIGNUPS_ALLOWED: "false"
+      SMTP_FROM: vaultwarden@samcday.com
+      SMTP_HOST: mail.smtp2go.com
+      SMTP_PORT: 2525
+      SMTP_SECURITY: force_tls
+      SMTP_USERNAME: samcday_vaultwarden
     envFrom:
       - secretRef:
           name: env
