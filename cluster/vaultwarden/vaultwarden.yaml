@@ -23,6 +23,13 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: data
+    env:
+      DOMAIN: https://vaultwarden.samcday.com
+      INVITATIONS_ALLOWED: "false"
+      SIGNUPS_ALLOWED: "false"
+    envFrom:
+      - secretRef:
+          name: env
     envValueFrom:
       DATABASE_URL:
         secretKeyRef:
