@@ -26,6 +26,9 @@ spec:
     env:
       DOMAIN: https://vaultwarden.samcday.com
       INVITATIONS_ALLOWED: "false"
+      PUSH_ENABLED: "true"
+      PUSH_IDENTITY_URI: https://identity.bitwarden.eu
+      PUSH_RELAY_URI: https://api.bitwarden.eu
       SIGNUPS_ALLOWED: "false"
       SMTP_FROM: vaultwarden@samcday.com
       SMTP_HOST: mail.smtp2go.com
