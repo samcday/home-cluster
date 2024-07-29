@@ -29,3 +29,27 @@ resource "kubernetes_secret" "cloudflared-tunnel-token" {
     "token" = cloudflare_api_token.cloud-cluster.value
   }
 }
+
+resource "cloudflare_record" "smtp2go_cname" {
+  zone_id = data.cloudflare_zone.samcday.zone_id
+  name    = "em510336"
+  value   = "return.smtp2go.net"
+  type    = "CNAME"
+  proxied = false
+}
+
+resource "cloudflare_record" "smtp2go_dkim" {
+  zone_id = data.cloudflare_zone.samcday.zone_id
+  name    = "s510336._domainkey"
+  value   = "dkim.smtp2go.net"
+  type    = "CNAME"
+  proxied = false
+}
+
+resource "cloudflare_record" "smtp2go_link" {
+  zone_id = data.cloudflare_zone.samcday.zone_id
+  name    = "smtp2go-link"
+  value   = "track.smtp2go.net"
+  type    = "CNAME"
+  proxied = false
+}
