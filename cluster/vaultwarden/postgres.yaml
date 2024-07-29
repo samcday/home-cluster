@@ -1,0 +1,50 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db-20240729
+  namespace: vaultwarden
+spec:
+  affinity:
+    podAntiAffinityType: required
+  backup:
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      destinationPath: s3://samcday-home-cluster-backups/postgres/vaultwarden
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: postgres-backups-bucket
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: postgres-backups-bucket
+          key: SECRET_ACCESS_KEY
+      wal:
+        compression: bzip2
+    retentionPolicy: 90d
+  bootstrap:
+    initdb:
+      database: vaultwarden
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql
+    major: 15
+  inheritedMetadata:
+    labels:
+      goharbor.io/harbor-container-webhook-disable: 'true'
+  instances: 2
+  storage:
+    size: 5Gi
+    storageClass: ceph-block
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: db
+  namespace: vaultwarden
+spec:
+  schedule: "0 0 4 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: db-20240729

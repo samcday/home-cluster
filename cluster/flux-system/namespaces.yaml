@@ -18,3 +18,4 @@ spec:
     _:
       kind: Namespace
     mimir:
+    vaultwarden:

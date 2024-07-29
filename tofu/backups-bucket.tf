@@ -51,6 +51,7 @@ locals {
     "monitoring",
     "paperless",
     "synapse",
+    "vaultwarden",
   ])
 }
 

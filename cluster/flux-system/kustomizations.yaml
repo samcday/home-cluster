@@ -26,3 +26,6 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
+    vaultwarden:
+      spec:
+        path: cluster/vaultwarden
