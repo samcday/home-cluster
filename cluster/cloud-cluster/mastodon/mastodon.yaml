@@ -70,13 +70,13 @@ spec:
         auth_method: plain
         ca_file: /etc/ssl/certs/ca-certificates.crt
         delivery_method: smtp
-        domain: mastodon.samcday.com
+        domain: samcday.com
         enable_starttls: auto
-        from_address: postmaster@mastodon.samcday.com
-        port: 587
-        server: smtp.mailgun.org
-        tls: false
-        existingSecret: mailgun
+        from_address: mastodon@samcday.com
+        port: 2525
+        server: mail.smtp2go.com
+        tls: true
+        existingSecret: smtp
       streaming:
         replicas: 2
       web:
