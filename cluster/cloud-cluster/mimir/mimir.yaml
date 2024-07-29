@@ -79,8 +79,12 @@ spec:
       enabled: false
     nginx:
       enabled: false
+    query_frontend:
+      replicas: 2
     rollout_operator:
       enabled: false
+    ruler:
+      remoteEvaluationDedicatedQueryPath: true
     runtimeConfig:
       distributor_limits:
         max_ingestion_rate: 50000
