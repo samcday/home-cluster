@@ -4,14 +4,14 @@ metadata:
   name: etcd-defrag
   namespace: kube-system
 spec:
-  schedule: "14 9 * * 1-5"
+  schedule: "0 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
             - name: etcd-defrag
-              image: ghcr.io/ahrtr/etcd-defrag:v0.15.0 # Please replace the version with the latest version.
+              image: ghcr.io/ahrtr/etcd-defrag:v0.15.0
               args:
                 - --endpoints=https://etcd.kube-system.svc.home-cluster.local:2379
                 - --cacert=/cert/ca.crt
