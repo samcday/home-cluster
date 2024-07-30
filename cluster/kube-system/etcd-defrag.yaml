@@ -19,7 +19,7 @@ spec:
                 - --key=/cert/tls.key
                 - --cluster
                 - --defrag-rule
-                - "dbQuotaUsage > 0.25"
+                - "dbSizeInUse / dbSize < 0.5 || dbSizeInUse > 100*1024*1024"
               volumeMounts:
                 - mountPath: /cert
                   name: cert
