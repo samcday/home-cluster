@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: cnpg
         namespace: flux-system
-      version: 0.21.5
+      version: 0.21.6
   interval: 1h
   values:
     # https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
