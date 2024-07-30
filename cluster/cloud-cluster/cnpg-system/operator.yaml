@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: cnpg
         namespace: flux-system
-      version: 0.21.5
+      version: 0.21.6
   driftDetection:
     mode: enabled
   interval: 1h
