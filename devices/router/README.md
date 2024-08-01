@@ -1,11 +1,19 @@
 # home-cluster router
 
-This directory contains scripts/files necessary to build a custom OpenWRT image (using [imagebuilder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder)) for the AVM FRITZ!Box 4040 that handles routing for my home cluster.
+This directory contains scripts/files necessary to build a custom OpenWRT image using [Image Builder][].
 
-## Netboot infra
+There is one router for each "availability zone". They're all flashed with the same image built from this tree.
 
-The nodes that make up my home cluster can bootstrap the installation of CoreOS from this router.
+## Building
 
-The router itself is configured with static DHCP assignments for each node, and will serve up the iPXE binary, Ignition config, and CoreOS kernel/initrd/rootfs artifacts.
+```
+./build-image.sh <name> <platform> <target> <profile>
 
-All of these artifacts are located on an external USB drive. Preparation of these artifacts is handled in [`../boot`](../boot/README.md).
+# Example to build for an AVM 4040
+./build-image.sh az1-router ipq40xx generic avm_fritzbox-4040
+
+# And for an RT-AX53U:
+./build-image.sh az3-router ramips mt7621 asus_rt-ax53u
+```
+
+[Image Builder]: https://openwrt.org/docs/guide-user/additional-software/imagebuilder

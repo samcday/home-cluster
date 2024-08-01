@@ -1,39 +1,52 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-set -uexo pipefail
+set -ueo pipefail
+
+usage() {
+  echo "$1" >&2
+  echo "Usage: ./build-image.sh <name> <platform> <target> <profile>"
+  exit 1
+}
+
+hostname=$1
+platform=$2
+target=$3
+export PROFILE=$4
+
+export PROFILE=${PROFILE:-avm_fritzbox-4040}
 
 openwrt_version="23.05.4"
 
+export HOSTNAME=$hostname
 export IPADDR="10.0.1.1"
-export IPADDR_RESTRICTED="10.0.2.1"
-export HOSTNAME="home-cluster-router"
 export SSID="sam-home-cluster"
-export INJECT_ENV='$HOSTNAME $SSID $IPADDR $IPADDR_RESTRICTED'
+export INJECT_ENV='$HOSTNAME $SSID $IPADDR'
 
-if [[ ! -f "_build/.setup-${openwrt_version}" ]]; then
-  rm -rf _build/
-  mkdir -p _build/
-  curl -s --retry 2 --fail -L https://downloads.openwrt.org/releases/${openwrt_version}/targets/ipq40xx/generic/openwrt-imagebuilder-${openwrt_version}-ipq40xx-generic.Linux-x86_64.tar.xz | \
-    tar --strip-components=1 -C _build/ -Jxvf -
-  touch "_build/.setup-${openwrt_version}"
+build_dir="_build/${platform}-${target}-${openwrt_version}"
+
+if [[ ! -f "${build_dir}/.setup" ]]; then
+  rm -rf "${build_dir}"
+  mkdir -p "${build_dir}"
+  curl -s --retry 2 --fail -L "https://downloads.openwrt.org/releases/${openwrt_version}/targets/${platform}/${target}/openwrt-imagebuilder-${openwrt_version}-${platform}-${target}.Linux-x86_64.tar.xz" | \
+    tar --strip-components=1 -C "${build_dir}" -Jxvf -
+  touch "${build_dir}/.setup"
 fi
 
 for f in $(find files/ -type f); do
-  mkdir -p $(dirname _build/$f)
-  envsubst "$INJECT_ENV" < $f > _build/$f
+  mkdir -p "$(dirname "$build_dir/$f")"
+  envsubst "$INJECT_ENV" < "$f" > "$build_dir/$f"
 done
 
 for src in $(find files.enc/ -type f); do
   dst=${src/files.enc/files}
-  mkdir -p $(dirname _build/$dst)
-  sops -d $src > _build/$dst
+  mkdir -p "$(dirname "$build_dir/$dst")"
+  sops -d "$src" > "$build_dir/$dst"
 done
 
 # imagebuilder settings
 export BIN_DIR="."
 export FILES="files"
-export PACKAGES=$(cat packages | xargs)
-export PROFILE=avm_fritzbox-4040
+export PACKAGES=$(xargs < packages)
 export DISABLED_SERVICES="dropbear" # using openssh-server instead
 
-make -C _build/ image PACKAGES="$PACKAGES"
+make -C $build_dir image PACKAGES="$PACKAGES"
