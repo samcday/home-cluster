@@ -2,7 +2,6 @@ set -uexo pipefail
 
 uci -q batch << EOI
 set system.@system[0].zonename='Europe/Berlin'
-set system.@system[0].hostname='sam-home-cluster'
 commit system
 set network.lan.ipaddr='10.0.1.1'
 commit network

@@ -4,12 +4,12 @@ uci -q batch << EOI
 set wireless.@wifi-device[0].disabled='0'
 set wireless.@wifi-device[1].disabled='0'
 
-set wireless.@wifi-iface[0].ssid='${SSID}'
+set wireless.@wifi-iface[0].ssid='sam-home-cluster'
 set wireless.@wifi-iface[0].encryption=sae
 set wireless.@wifi-iface[0].ieee80211r='1'
 set wireless.@wifi-iface[0].mobility_domain='babe'
 
-set wireless.@wifi-iface[1].ssid='${SSID}'
+set wireless.@wifi-iface[1].ssid='sam-home-cluster'
 set wireless.@wifi-iface[1].encryption=sae
 set wireless.@wifi-iface[1].ieee80211r='1'
 set wireless.@wifi-iface[0].mobility_domain='babe'
