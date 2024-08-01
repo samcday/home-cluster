@@ -9,6 +9,7 @@ frr-watchfrr
 frr-zebra
 htop
 jq
+kmod-nft-bridge
 kmod-usb-net-cdc-ether
 kmod-usb-net-cdc-ncm
 kmod-usb-net-ipheth
@@ -16,6 +17,7 @@ kmod-usb-net-rndis
 libimobiledevice
 luci
 luci-app-mwan3
+mesh11sd
 mwan3
 openssh-server
 openssh-sftp-server
@@ -30,4 +32,6 @@ tang
 tcpdump
 usb-modeswitch
 usbutils
+-wpad-basic-mbedtls
+wpad-mbedtls
 zsh

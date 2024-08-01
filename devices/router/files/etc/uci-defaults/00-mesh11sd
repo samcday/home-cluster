@@ -1,0 +1,8 @@
+set -uexo pipefail
+
+uci -q batch <<EOI
+set mesh11sd.setup.auto_config='1'
+set mesh11sd.setup.auto_mesh_id='sam-home-cluster'
+set mesh11sd.setup.auto_mesh_band='5g'
+set mesh11sd.setup.mesh_gate_encryption='1'
+EOI

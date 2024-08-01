@@ -18,9 +18,7 @@ export PROFILE=${PROFILE:-avm_fritzbox-4040}
 openwrt_version="23.05.4"
 
 export HOSTNAME=$hostname
-export IPADDR="10.0.1.1"
-export SSID="sam-home-cluster"
-export INJECT_ENV='$HOSTNAME $SSID $IPADDR'
+export INJECT_ENV='$HOSTNAME'
 
 build_dir="_build/${platform}-${target}-${openwrt_version}"
 
@@ -43,10 +41,16 @@ for src in $(find files.enc/ -type f); do
   sops -d "$src" > "$build_dir/$dst"
 done
 
+packages=$(xargs < packages)
+
+if [[ "$target" == "mt7621" ]]; then
+  packages="$packages -kmod-ath10k-ct -ath10k-firmware-qca4019-ct ath10k-firmware-qca4019 kmod-ath10k"
+fi
+
 # imagebuilder settings
 export BIN_DIR="."
 export FILES="files"
-export PACKAGES=$(xargs < packages)
 export DISABLED_SERVICES="dropbear" # using openssh-server instead
+export PACKAGES=$packages
 
 make -C $build_dir image PACKAGES="$PACKAGES"

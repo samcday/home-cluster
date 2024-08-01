@@ -4,12 +4,8 @@ uci -q batch << EOI
 set system.@system[0].zonename='Europe/Berlin'
 set system.@system[0].hostname='${HOSTNAME}'
 
-set system.@system[0].log_ip='172.31.0.9'
-set system.@system[0].log_port='514'
-set system.@system[0].log_proto='udp'
-
 commit system
-set network.lan.ipaddr='${IPADDR}'
+set network.lan.ipaddr='10.0.1.1'
 commit network
 EOI
 
