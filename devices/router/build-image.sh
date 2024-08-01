@@ -24,7 +24,7 @@ rm -rf "$build_dir/files"
 
 for f in $(find files/ -type f); do
   mkdir -p "$(dirname "$build_dir/$f")"
-  envsubst "$INJECT_ENV" < "$f" > "$build_dir/$f"
+  cp "$f" "$build_dir/$f"
 done
 
 for src in $(find files.enc/ -type f); do
