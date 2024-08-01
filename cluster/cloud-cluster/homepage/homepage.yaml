@@ -124,7 +124,7 @@ spec:
           spec:
             containers:
               - name: webfinger
-                image: denoland/deno:1.45.4
+                image: denoland/deno:1.45.5
                 args:
                   - run
                   - --allow-net
