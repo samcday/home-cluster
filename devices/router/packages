@@ -27,7 +27,6 @@ usbmuxd
 usbutils
 screen
 shadow-chsh
-tailscale
 tang
 tcpdump
 usb-modeswitch
