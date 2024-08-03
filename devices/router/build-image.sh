@@ -11,16 +11,16 @@ export PROFILE=${PROFILE:-avm_fritzbox-4040}
 openwrt_version="23.05.4"
 
 build_dir="_build/${platform}-${target}-${openwrt_version}"
+tarball=openwrt-imagebuilder-${openwrt_version}-${platform}-${target}.Linux-x86_64.tar.xz
 
-if [[ ! -f "${build_dir}/.setup" ]]; then
-  rm -rf "${build_dir}"
-  mkdir -p "${build_dir}"
-  curl -s --retry 2 --fail -L "https://downloads.openwrt.org/releases/${openwrt_version}/targets/${platform}/${target}/openwrt-imagebuilder-${openwrt_version}-${platform}-${target}.Linux-x86_64.tar.xz" | \
-    tar --strip-components=1 -C "${build_dir}" -Jxvf -
-  touch "${build_dir}/.setup"
+if [[ ! -f "_build/${tarball}" ]]; then
+  mkdir -p "_build"
+  curl --retry 2 --fail -o "_build/$tarball" -L "https://downloads.openwrt.org/releases/${openwrt_version}/targets/${platform}/${target}/${tarball}"
 fi
 
-rm -rf "$build_dir/files"
+rm -rf "$build_dir"
+mkdir -p "$build_dir"
+tar --strip-components=1 -C "${build_dir}" -Jxvf "_build/$tarball"
 
 for f in $(find files/ -type f); do
   mkdir -p "$(dirname "$build_dir/$f")"
