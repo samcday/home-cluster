@@ -33,6 +33,7 @@ cahash=$(chroot /host bash -c "openssl x509 -pubkey -in /etc/kubernetes/pki/ca.c
 echo "content-type: application/json"
 echo
 
+controlplane=""
 if $kubectl get "$node" -o jsonpath='{.metadata.labels}' | jq -e '. | keys | any(. == "node-role.kubernetes.io/control-plane")' >/dev/null 2>&1; then
   certkey=$($kubeadm certs certificate-key)
   $kubeadm init phase upload-certs --upload-certs --certificate-key "$certkey" >&2
