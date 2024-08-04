@@ -4,9 +4,7 @@ set -ueo pipefail
 
 platform=$1
 target=$2
-export PROFILE=$3
-
-export PROFILE=${PROFILE:-avm_fritzbox-4040}
+profile=$3
 
 openwrt_version="23.05.4"
 
@@ -40,5 +38,6 @@ export BIN_DIR="."
 export FILES="files"
 export DISABLED_SERVICES="dropbear" # using openssh-server instead
 export PACKAGES=$packages
+export PROFILE=$profile
 
-make -C $build_dir image PACKAGES="$PACKAGES"
+make -C "$build_dir" image PACKAGES="$PACKAGES"

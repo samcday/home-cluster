@@ -9,7 +9,6 @@ frr-watchfrr
 frr-zebra
 htop
 jq
-kmod-nft-bridge
 luci
 openssh-server
 openssh-sftp-server
