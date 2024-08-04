@@ -72,6 +72,6 @@ storage:
               bootstrapToken:
                   apiServerEndpoint: 10.0.1.254:6443
                   token: "$token"
-                  caCertHashes: ["$cahash"]
+                  caCertHashes: ["sha256:$cahash"]
 HERE
 rm -rf /host/tmp/ignition
