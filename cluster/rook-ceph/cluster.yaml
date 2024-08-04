@@ -103,7 +103,7 @@ spec:
         nodes:
           - name: az1-3
             devices:
-              - name: /dev/disk/by-label/root-osd
+              - name: /dev/disk/by-partlabel/root-osd
           - name: m710q-1
             devices:
               - name: nvme0n1
