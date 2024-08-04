@@ -96,8 +96,8 @@ spec:
             memory: 2Gi
         prepareosd: *resources
       storage:
-        useAllDevices: true
-        useAllNodes: true
+        useAllDevices: false
+        useAllNodes: false
         config:
           encryptedDevice: "true"
         nodes:
