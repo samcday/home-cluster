@@ -6,6 +6,7 @@ configMapGenerator:
     files:
       - base.bu
       - tpm.bu
+      - root-osd.bu
       - var.bu
     options:
       disableNameSuffixHash: true
