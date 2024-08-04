@@ -69,6 +69,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
+    topology.kubernetes.io/zone: az1
     samcday.com/mac: 6c-4b-90-6e-ab-ee
 ---
 apiVersion: v1
@@ -80,4 +81,5 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
+    topology.kubernetes.io/zone: az1
     samcday.com/mac: 6c-4b-90-3d-02-ee
