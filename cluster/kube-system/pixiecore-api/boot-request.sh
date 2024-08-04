@@ -29,6 +29,11 @@ if ! $kubectl get "$node" -o jsonpath='{.metadata.annotations}' | jq -e '. | key
   booterr "boot request for $node which is missing boot-profiles annotation"
 fi
 
+boot_device=$($kubectl get "$node" -o jsonpath='{.metadata.annotations.samcday\.com/boot-device}')
+if [[ -z "$boot_device" ]]; then
+  boot_device="/dev/sda"
+fi
+
 resp=$(curl -s --fail https://mirror.samcday.com/builds.coreos.fedoraproject.org/streams/stable.json | jq .architectures.x86_64.artifacts.metal.formats.pxe)
 
 kernel=$(jq -r .kernel.location    <<< "$resp")
@@ -44,6 +49,6 @@ cat <<HERE
 {
   "kernel": "$kernel",
   "initrd": ["$initrd"],
-  "cmdline": "coreos.live.rootfs_url={{ URL \"$rootfs\" }} coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url={{ URL \"/ignition/$mac_addr\" }}"
+  "cmdline": "coreos.live.rootfs_url={{ URL \"$rootfs\" }} coreos.inst.install_dev=$boot_device coreos.inst.ignition_url={{ URL \"/ignition/$mac_addr\" }}"
 }
 HERE

@@ -9,7 +9,8 @@ storage:
               label: root
               size_mib: 9216
               resize: true
-            - size_mib: 0
+            - number: 5
+              size_mib: 0
               label: var
     filesystems:
         - path: /var
@@ -47,8 +48,8 @@ sops:
             SWdtSE1tbWY5SGlwVG55dERqTXp0QjQKOx/9dREgGHEQrd1Kv3ukWgEBB2pD5P8K
             Sm4uBvytaIoPBmKYMQyF4EwUh7PEULA+zl1b6g+GxZ0x1M4HlWK7Eg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-01T17:21:02Z"
-    mac: ENC[AES256_GCM,data:hfe72dA2GRr9Ux+V1gX0lzPGEgKBB/5VMhW1g7ugpxnMqBacA9XK7jhv3/mMZ6snBWkqneUHg6BhgFW6I6P363/+33UHylmu9iDbip0I7um3GFDB1dEqopku5Iny1vaUm7IAwYyqvqFzKc9Rj/MagXE354Ee9xOwwNynNymVUOU=,iv:OTZIms5PVTSZgPORBoVQBMFjRj28V/QpDDee8YNGGVE=,tag:UojyS9PKecL8zTjnaqqmOA==,type:str]
+    lastmodified: "2024-08-04T17:32:05Z"
+    mac: ENC[AES256_GCM,data:aUWUGFTNChEEfCpJnS7EDbXy5wWoeCcs429h8h44m2zZWVYNwgDDKg+lnyggah9UyK2gJ41m3EkI3RKJfQ/y4zhnJCRw0OZ+B+ynemhwf6uzyX5RdfvWHW50uw3letipbRtPPVE8D2ekKWgb+VbdC0ByxTZFjsr3pBvG0rlfIwI=,iv:IinZXfk4kJS9CodeBpsYMNQVNSZLhfHSLvE6r4H8B6k=,tag:upWL5Yok0Zs1AYVdJ/QiIA==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
