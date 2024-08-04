@@ -67,7 +67,8 @@ spec:
       - name: scripts
         configMap:
           name: pixiecore-api-scripts
-    additionalVolumeMounts:
+    annotations:
+      reloader.stakater.com/auto: "true"
     args:
       - api
       - http://localhost:38122
