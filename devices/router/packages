@@ -11,7 +11,6 @@ htop
 jq
 kmod-nft-bridge
 luci
-mesh11sd
 openssh-server
 openssh-sftp-server
 prometheus-node-exporter-lua
@@ -21,6 +20,4 @@ shadow-chsh
 tang
 tcpdump
 usbutils
--wpad-basic-mbedtls
-wpad-mbedtls
 zsh

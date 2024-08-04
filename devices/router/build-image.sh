@@ -35,10 +35,6 @@ done
 
 packages=$(xargs < packages)
 
-if [[ "$target" == "mt7621" ]] || [[ "$platform" == "ipq40xx" ]]; then
-  packages="$packages -kmod-ath10k-ct -ath10k-firmware-qca4019-ct ath10k-firmware-qca4019 kmod-ath10k"
-fi
-
 # imagebuilder settings
 export BIN_DIR="."
 export FILES="files"
