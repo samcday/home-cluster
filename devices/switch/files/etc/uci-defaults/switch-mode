@@ -1,0 +1,21 @@
+set -uexo pipefail
+
+uci -q batch << EOI
+set dhcp.lan.ignore='1'
+del dhcp.wan
+commit dhcp
+
+set network.lan.proto='dhcp'
+del network.wan
+del network.wan6
+
+del network.@device[0].ports
+add_list network.@device[0].ports='lan1'
+add_list network.@device[0].ports='lan2'
+add_list network.@device[0].ports='lan3'
+add_list network.@device[0].ports='lan4'
+add_list network.@device[0].ports='wan'
+commit network
+EOI
+
+service network restart || true

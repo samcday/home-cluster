@@ -1,0 +1,14 @@
+bash
+curl
+htop
+jq
+luci
+openssh-server
+openssh-sftp-server
+prometheus-node-exporter-lua
+usbutils
+screen
+shadow-chsh
+tcpdump
+usbutils
+zsh
