@@ -28,6 +28,3 @@ spec:
       createPrometheusRules: true
       prometheusRule:
         alertPeriodHours: 1
-    tolerations:
-      - key: samcday.com/shrimpy-boi
-        operator: Exists

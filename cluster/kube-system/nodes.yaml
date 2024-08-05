@@ -46,23 +46,6 @@ metadata:
 apiVersion: v1
 kind: Node
 metadata:
-  name: m715q-1
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
-    samcday.com/boot-profiles: base,var,tpm
-  labels:
-    samcday.com/mac: 6c-4b-90-17-1e-be
-spec:
-  taints:
-    # This is a very underpowered machine that is mostly here to serve
-    # etcd quorum duties.
-    - key: samcday.com/shrimpy-boi
-      effect: NoExecute
----
-apiVersion: v1
-kind: Node
-metadata:
   name: az1-1
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled

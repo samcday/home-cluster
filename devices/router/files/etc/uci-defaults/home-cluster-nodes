@@ -48,12 +48,6 @@ set dhcp.m710q_4.mac='$node4_mac'
 set dhcp.m710q_4.ip='10.0.1.13'
 set dhcp.m710q_4.tag='home-cluster'
 
-set dhcp.m715q_1=host
-set dhcp.m715q_1.name='m715q-1'
-set dhcp.m715q_1.mac='$node5_mac'
-set dhcp.m715q_1.ip='10.0.1.14'
-set dhcp.m715q_1.tag='home-cluster'
-
 set dhcp.az1_1=host
 set dhcp.az1_1.name='az1-1'
 set dhcp.az1_1.mac='6c:4b:90:6e:ab:ee'
@@ -89,10 +83,6 @@ set etherwake.m710q_3.mac='$node3_mac'
 set etherwake.m710q_4=target
 set etherwake.m710q_4.name='m710q-4'
 set etherwake.m710q_4.mac='$node4_mac'
-
-set etherwake.m715q_1=target
-set etherwake.m715q_1.name='m715q-1'
-set etherwake.m715q_1.mac='$node5_mac'
 
 commit etherwake
 EOI

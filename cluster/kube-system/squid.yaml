@@ -74,9 +74,6 @@ spec:
           ports:
             - name: metrics
               containerPort: 9301
-      tolerations:
-        - key: samcday.com/shrimpy-boi
-          operator: Exists
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
