@@ -8,7 +8,7 @@ ipam:
 ipv4NativeRoutingCIDR: 172.30.0.0/16
 k8sServiceHost: 10.0.1.254
 k8sServicePort: 6443
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
 l2announcements:
   enabled: true
 loadBalancer:
@@ -18,7 +18,7 @@ loadBalancer:
   serviceTopology: true
 operator:
   rollOutPods: true
-  replicas: 1
+  replicas: 2
 podLabels:
   # currently harbor is accessed via a NodePort. Cilium makes NodePorts.
   # So Cilium cannot depend on Harbor.
