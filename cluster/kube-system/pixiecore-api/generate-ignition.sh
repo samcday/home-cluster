@@ -47,6 +47,7 @@ IFS=","; for n in $bootprofiles; do
         - local: $n.ign"
 done
 
+hostname=${node/node\/}
 
 rm -rf /host/tmp/ignition
 mkdir -p /host/tmp/ignition
@@ -59,6 +60,10 @@ ignition:
     merge: $merge
 storage:
   files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: $hostname
     - path: /etc/kubeadm.conf.d/70-join.yaml
       contents:
         inline: |
