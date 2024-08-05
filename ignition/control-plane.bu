@@ -1,0 +1,75 @@
+variant: fcos
+version: 1.5.0
+storage:
+    directories:
+        - path: /etc/kubeadm.conf.d
+          mode: 448
+          overwrite: true
+    files:
+        - path: /etc/kubeadm.conf.d/00-base.yaml
+          overwrite: true
+          contents:
+            inline: |
+                apiVersion: kubeadm.k8s.io/v1beta3
+                kind: ClusterConfiguration
+                apiServer:
+                    extraArgs:
+                        etcd-compaction-interval: "0"
+                controlPlaneEndpoint: 10.0.1.254:6443
+                controllerManager:
+                    extraArgs:
+                        bind-address: 0.0.0.0
+                        flex-volume-plugin-dir: /var/lib/kubelet/volume-plugins
+                etcd:
+                    local:
+                        extraArgs:
+                            auto-compaction-retention: "1"
+                            listen-metrics-urls: http://0.0.0.0:2381
+                        serverCertSANs: [etcd.kube-system.svc.home-cluster.local]
+                networking:
+                    dnsDomain: home-cluster.local
+                    podSubnet: 172.30.0.0/16
+                    serviceSubnet: 172.31.0.0/16
+                scheduler:
+                    extraArgs:
+                        bind-address: 0.0.0.0
+        - path: /etc/kubeadm.conf.d/50-init.yaml
+          overwrite: true
+          contents:
+            inline: |
+                ---
+                apiVersion: kubeadm.k8s.io/v1beta3
+                kind: InitConfiguration
+                nodeRegistration:
+                    kubeletExtraArgs:
+                        volume-plugin-dir: /var/lib/kubelet/volume-plugins
+                skipPhases: [addon/kube-proxy]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age10c9vvuvfkflc7zypu6zm8dtw0gdn028nlr3gslt35df8vdqrap5q36xav4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0QnNERW5pK25TaEhiaVhk
+            dmNYU1pSQ2FjdUdGV01TWVBDM1czMjJUd3g4CnlIQUhxcGc1eTZYaUQ1cWxLeE5z
+            SU1qSTRxaXYxbDVNeU5oRnVzMTJsWmMKLS0tIGkvR0NGNzU2RWo4aHBGNGMwRXAr
+            bXZHWm84MmRDSUZNMUVFdmpXRlNtTDQKlvuTj7Q8cD9XNxwU0g4R04mZ9q2W18zC
+            NGSlPN7s+D0AsQ3GWNj7En3vqTH1tsHILUMY8LVTEDRo//UvkaA3lA==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1fy4cp7t9hmllws7e8e499uhvrgjnp26ys2msunlxzky7qsyrwu3qgvzq9a
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXYUZyU1FrL3BadWJmUUJV
+            cmJqMURXY0NkNFdqMHlHekRua1BrRUZtOWpnCi8zNUxNL2oyQzNSSVFBMXNVaitr
+            Z1NsSUxTbG40VzlUYnJKMlZrdWpJcjQKLS0tICszcmpBRmVvQXpJa3N3NWlydkEz
+            Z1BrNWZudm5VV3R3SzdFSDB2VzdERHcK6iFxAbKL16w2H/lD12R5SKsQ82M8dESk
+            nn0/+f/sSy32vZX3W+8pSHVWRw9YnNOHRhD8tzipvE16DPhLRP4iZw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-08-05T18:07:28Z"
+    mac: ENC[AES256_GCM,data:klzqkwSXjB1ucke5087TjAq7d4gEHMJ3PQZ2mIqEfphtUCmL+pIpW6BnijSOv6BZb0BAcoTjtwsJVNAZWVPBnD83InZsZrcTGYZBBh3llzBWdiuTy3QJmHDk0xJOcZIDtj7+vOOQVB2VY5J3q5VAjyaFYGIHUYH+HwCcf9ZpWoE=,iv:NBXVlZIcsGRjNMddzfPxX8sAkLx0WO4xoBQMIRMniR0=,tag:Wmo0yrrUBGUDt3PHH+Ueow==,type:str]
+    pgp: []
+    encrypted_comment_regex: cryptme
+    version: 3.9.0
