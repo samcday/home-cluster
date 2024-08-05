@@ -10,7 +10,7 @@
 #
 # https://myheadscale.example.com:443
 #
-server_url: https://headscale.taild2b250.ts.net
+server_url: https://headscale-1.taild2b250.ts.net
 
 # Address to listen to / bind to on the server
 #

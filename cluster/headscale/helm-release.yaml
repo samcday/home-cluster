@@ -47,12 +47,12 @@ spec:
         tailscale.com/funnel: "true"
       className: tailscale
       hosts:
-        - host: headscale
+        - host: headscale-1
           paths:
             - path: /
               servicePortName: http
       tls:
-        - hosts: [headscale]
+        - hosts: [headscale-1]
     livenessProbe:
       httpGet:
         path: /metrics
