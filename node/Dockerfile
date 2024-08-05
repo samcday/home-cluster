@@ -23,8 +23,6 @@ RUN rpm-ostree install \
 
 COPY etc/ /etc
 COPY usr/ /usr
-RUN chmod 700 /etc/kubeadm.conf.d && \
-    ostree container commit
 
 # enable services
 RUN systemctl enable \

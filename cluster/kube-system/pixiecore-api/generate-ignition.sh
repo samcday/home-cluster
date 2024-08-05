@@ -40,6 +40,8 @@ if $kubectl get "$node" -o jsonpath='{.metadata.labels}' | jq -e '. | keys | any
   controlplane="
             controlPlane:
               certificateKey: \"$certkey\""
+  merge+="
+        - local: control-plane.ign"
 fi
 
 IFS=","; for n in $bootprofiles; do
@@ -70,8 +72,6 @@ storage:
           ---
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: JoinConfiguration
-          nodeRegistration:
-              taints: []
           $controlplane
           discovery:
               bootstrapToken:
