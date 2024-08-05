@@ -11,6 +11,13 @@ storage:
             - number: 6
               size_mib: 0
               label: root-osd
+    luks:
+        - name: root-osd
+          device: /dev/disk/by-partlabel/root-osd
+          discard: true
+          key_file:
+            # cryptme
+            inline: ENC[AES256_GCM,data:86MZ9rnBIcreAnDvd5yVnrUa+aVPMunHwVBYp84=,iv:8wnne1rY1IvxKGKPAdx1T/hPh0OU1K26xD76D3Ykg5Q=,tag:Gj6bNySLx3TpZbizPXu1Pg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -35,8 +42,8 @@ sops:
             eVV0ZE0rM28zWHBUTXRWT0hUb1plU3cKT4peUxsfp8nrYMIIJUbx4FdcN4b+9cai
             VicWKkzH4Xudg4vscVLdJ4MDVxZXbdMcbepj/ConN/4HDNdSEA421g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-08-04T17:39:59Z"
-    mac: ENC[AES256_GCM,data:7TE99aPrGLt9VCSjiI1j8Odcm+0kkofpUdDqMOsgmVdi89Qj4sf4y9LR/uUExa7AVJ+HIPmf1PonzL9i2Etsv92TzCJSzRDwqqX9GpU8FVxMpcho/Z80QptlmOja6i9ln2hNaQRPVYcClEJORYgrsZtwjma5Olk1XFqXU3r+I2w=,iv:EN0DDOnt9gdBls9zoN9xsBUPFSkYh84YQV+4upo6G4M=,tag:oxXNvMl+rZ6v+Xt2H8/yHA==,type:str]
+    lastmodified: "2024-08-05T07:11:37Z"
+    mac: ENC[AES256_GCM,data:lZo9gpvisMX7zNkumhnyHWLp+aGqrYJq/TuHhW5JCKY1llBKOFDH/g2S4T5E195zd90v6fNBRPUTmShXqquEcPEhvYavmZZOK7dDkLK5hoeuOFFVbpPj7eV42Cz6v05EGIdopT3W7zlsdFqBidtR5wZ82ZOXBriPHiSAGrChip8=,iv:3AC7B8ZMx3KFqdl2mi/fwNY/zyjqm0iz4a2s9OOerjw=,tag:FVxG8gSvMRHY4+5p/g+N9A==,type:str]
     pgp: []
     encrypted_comment_regex: cryptme
     version: 3.9.0
