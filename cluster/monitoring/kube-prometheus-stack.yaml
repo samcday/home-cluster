@@ -98,6 +98,9 @@ spec:
               max_shards: 4
         replicaExternalLabelName: __replica__
         replicas: 2
+        resources:
+          requests:
+            memory: 4Gi
         retention: 1d
         retentionSize: 1GB
         ruleSelectorNilUsesHelmValues: false
