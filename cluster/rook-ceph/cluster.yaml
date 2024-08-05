@@ -104,6 +104,9 @@ spec:
           - name: az1-2
             devices:
               - name: nvme0n1
+          - name: az2-1
+            devices:
+              - name: nvme0n1
           - name: m710q-1
             devices:
               - name: nvme0n1
