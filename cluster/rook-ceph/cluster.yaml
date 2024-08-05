@@ -104,11 +104,6 @@ spec:
           - name: az1-2
             devices:
               - name: nvme0n1
-          - name: az1-3
-            devices:
-              - name: /dev/mapper/root-osd
-                config:
-                  encryptedDevice: "false"
           - name: m710q-1
             devices:
               - name: nvme0n1
