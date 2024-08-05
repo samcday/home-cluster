@@ -46,7 +46,6 @@ locals {
     "forgejo",
     "harbor",
     "headscale",
-    "mastodon",
     "miniflux",
     "monitoring",
     "paperless",
