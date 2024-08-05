@@ -66,6 +66,12 @@ set dhcp.az1_3.mac='6c:4b:90:2d:cd:18'
 set dhcp.az1_3.ip='10.0.1.17'
 set dhcp.az1_3.tag='home-cluster'
 
+set dhcp.az3_1=host
+set dhcp.az3_1.name='az3-1'
+set dhcp.az3_1.mac='c4:65:16:9e:9a:e6'
+set dhcp.az3_1.ip='10.0.1.18'
+set dhcp.az3_1.tag='home-cluster'
+
 commit dhcp
 
 set etherwake.m710q_1=target
