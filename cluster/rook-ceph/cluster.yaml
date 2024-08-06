@@ -110,9 +110,6 @@ spec:
           - name: m710q-2
             devices:
               - name: nvme0n1
-          - name: m710q-3
-            devices:
-              - name: nvme0n1
     cephFileSystems:
       - name: ceph-filesystem
         spec:

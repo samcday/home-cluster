@@ -13,17 +13,6 @@ metadata:
 apiVersion: v1
 kind: Node
 metadata:
-  name: m710q-3
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
-    samcday.com/boot-profiles: base,var,tpm
-  labels:
-    samcday.com/mac: 6c-4b-90-4d-e0-39
----
-apiVersion: v1
-kind: Node
-metadata:
   name: az1-cp
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
@@ -32,6 +21,7 @@ metadata:
   labels:
     node-role.kubernetes.io/control-plane: ""
     samcday.com/mac: 6c-4b-90-50-9f-0d
+    topology.kubernetes.io/zone: az1
 ---
 apiVersion: v1
 kind: Node
@@ -42,8 +32,8 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az1
     samcday.com/mac: 6c-4b-90-6e-ab-ee
+    topology.kubernetes.io/zone: az1
 ---
 apiVersion: v1
 kind: Node
@@ -54,8 +44,8 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az1
     samcday.com/mac: 6c-4b-90-3d-02-ee
+    topology.kubernetes.io/zone: az1
 ---
 apiVersion: v1
 kind: Node
@@ -67,8 +57,21 @@ metadata:
     samcday.com/boot-device: /dev/nvme0n1
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az1
     samcday.com/mac: 6c-4b-90-3f-79-31
+    topology.kubernetes.io/zone: az1
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: az2-cp
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+    samcday.com/boot-profiles: base,var,tpm
+  labels:
+    node-role.kubernetes.io/control-plane: ""
+    samcday.com/mac: 6c-4b-90-4d-e0-39
+    topology.kubernetes.io/zone: az2
 ---
 apiVersion: v1
 kind: Node
@@ -79,8 +82,8 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az2
     samcday.com/mac: 6c-4b-90-76-c6-00
+    topology.kubernetes.io/zone: az2
 ---
 apiVersion: v1
 kind: Node
@@ -92,8 +95,8 @@ metadata:
     samcday.com/boot-device: /dev/nvme0n1
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az3
     samcday.com/mac: c4-65-16-9e-9a-e6
+    topology.kubernetes.io/zone: az3
 ---
 apiVersion: v1
 kind: Node
@@ -105,5 +108,5 @@ metadata:
     samcday.com/boot-device: /dev/nvme0n1
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    topology.kubernetes.io/zone: az3
     samcday.com/mac: 6c-4b-90-2d-cd-18
+    topology.kubernetes.io/zone: az3
