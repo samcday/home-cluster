@@ -5,6 +5,7 @@ configMapGenerator:
   - name: butane
     files:
       - base.bu
+      - control-plane.bu
       - tpm.bu
       - var.bu
     options:
