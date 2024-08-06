@@ -23,9 +23,6 @@ kind: CiliumBGPPeeringPolicy
 metadata:
  name: lb
 spec:
-  nodeSelector:
-    matchLabels:
-      node-role.kubernetes.io/control-plane: ""
   virtualRouters:
     - localASN: 64666
       serviceSelector:
