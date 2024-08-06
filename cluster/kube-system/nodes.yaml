@@ -93,7 +93,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     kustomize.toolkit.fluxcd.io/ssa: merge
-    samcday.com/boot-device: /dev/nvme0n1
+    samcday.com/boot-device: /dev/nvme1n1
     samcday.com/boot-profiles: base,var,tpm
   labels:
     samcday.com/mac: c4-65-16-9e-9a-e6
