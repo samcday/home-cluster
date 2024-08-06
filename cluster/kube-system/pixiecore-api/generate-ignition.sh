@@ -38,8 +38,8 @@ if $kubectl get "$node" -o jsonpath='{.metadata.labels}' | jq -e '. | keys | any
   certkey=$($kubeadm certs certificate-key)
   $kubeadm init phase upload-certs --upload-certs --certificate-key "$certkey" >&2
   controlplane="
-            controlPlane:
-              certificateKey: \"$certkey\""
+          controlPlane:
+            certificateKey: \"$certkey\""
   merge+="
         - local: control-plane.ign"
 fi
