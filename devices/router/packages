@@ -1,6 +1,5 @@
 bash
 curl
-etherwake
 frr-bgpd
 frr-pythontools
 frr-staticd
