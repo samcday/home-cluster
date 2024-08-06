@@ -41,12 +41,12 @@ if $kubectl get "$node" -o jsonpath='{.metadata.labels}' | jq -e '. | keys | any
           controlPlane:
             certificateKey: \"$certkey\""
   merge+="
-        - local: control-plane.ign"
+      - local: control-plane.ign"
 fi
 
 IFS=","; for n in $bootprofiles; do
   merge+="
-        - local: $n.ign"
+      - local: $n.ign"
 done
 
 hostname=${node/node\/}
@@ -74,9 +74,9 @@ storage:
           kind: JoinConfiguration
           $controlplane
           discovery:
-              bootstrapToken:
-                  apiServerEndpoint: 10.0.1.254:6443
-                  token: "$token"
-                  caCertHashes: ["sha256:$cahash"]
+            bootstrapToken:
+              apiServerEndpoint: 10.0.1.254:6443
+              token: "$token"
+              caCertHashes: ["sha256:$cahash"]
 HERE
 rm -rf /host/tmp/ignition
