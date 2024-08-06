@@ -74,6 +74,8 @@ spec:
       - http://localhost:38122
       - --port
       - '38123'
+    deploymentStrategy:
+      type: Recreate
     envValueFrom:
     hostNetwork: true
     image:
