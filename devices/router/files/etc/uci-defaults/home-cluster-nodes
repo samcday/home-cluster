@@ -2,8 +2,6 @@
 
 set -uexo pipefail
 
-node2_mac="6c:4b:90:54:2d:65"
-
 uci -q batch <<EOI
 set dhcp.az1router=host
 set dhcp.az1router.name='az1-router'
@@ -26,25 +24,19 @@ set dhcp.az1_cp.mac='6c:4b:90:50:9f:0d'
 set dhcp.az1_cp.ip='10.0.1.10'
 set dhcp.az1_cp.tag='home-cluster'
 
-set dhcp.m710q_2=host
-set dhcp.m710q_2.name='m710q-2'
-set dhcp.m710q_2.mac='$node2_mac'
-set dhcp.m710q_2.ip='10.0.1.11'
-set dhcp.m710q_2.tag='home-cluster'
+set dhcp.az2_cp=host
+set dhcp.az2_cp.name='az2-cp'
+set dhcp.az2_cp.mac='6c:4b:90:4d:e0:39'
+set dhcp.az2_cp.ip='10.0.1.12'
+set dhcp.az2_cp.tag='home-cluster'
 
 set dhcp.az3_cp=host
 set dhcp.az3_cp.name='az3-cp'
-set dhcp.az3_cp.mac='6c:4b:90:4d:e0:39'
-set dhcp.az3_cp.ip='10.0.1.12'
+set dhcp.az3_cp.mac='6c:4b:90:54:2d:65'
+set dhcp.az3_cp.ip='10.0.1.11'
 set dhcp.az3_cp.tag='home-cluster'
 
 commit dhcp
-
-set etherwake.m710q_2=target
-set etherwake.m710q_2.name='m710q-2'
-set etherwake.m710q_2.mac='$node2_mac'
-
-commit etherwake
 EOI
 
 service dnsmasq restart || true
