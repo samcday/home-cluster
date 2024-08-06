@@ -88,3 +88,6 @@ spec:
     ports:
     readinessProbe: ~
     replicaCount: 1
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
