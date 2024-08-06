@@ -2,17 +2,6 @@
 apiVersion: v1
 kind: Node
 metadata:
-  name: m710q-1
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
-    samcday.com/boot-profiles: base,var,tpm
-  labels:
-    samcday.com/mac: 6c-4b-90-50-9f-0d
----
-apiVersion: v1
-kind: Node
-metadata:
   name: m710q-2
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
@@ -31,6 +20,18 @@ metadata:
     samcday.com/boot-profiles: base,var,tpm
   labels:
     samcday.com/mac: 6c-4b-90-4d-e0-39
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: az1-cp
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+    samcday.com/boot-profiles: base,var,tpm
+  labels:
+    node-role.kubernetes.io/control-plane: ""
+    samcday.com/mac: 6c-4b-90-50-9f-0d
 ---
 apiVersion: v1
 kind: Node
