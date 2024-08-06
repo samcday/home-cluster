@@ -10,6 +10,8 @@ spec:
   nodeSelector:
     matchExpressions:
       - {key: node-role.kubernetes.io/control-plane, operator: Exists}
+  tolerations:
+    - operator: Exists
   upgrade:
     image: busybox:stable
     command:
@@ -33,6 +35,8 @@ spec:
   nodeSelector:
     matchExpressions:
       - {key: kubernetes.io/hostname, operator: In, values: [sam-librem]}
+  tolerations:
+    - operator: Exists
   upgrade:
     image: busybox:stable
     command:

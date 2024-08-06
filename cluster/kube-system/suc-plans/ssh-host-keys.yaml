@@ -12,6 +12,8 @@ spec:
       - {key: node-role.kubernetes.io/control-plane, operator: Exists}
   secrets:
     - name: ssh-host-keys
+  tolerations:
+    - operator: Exists
   upgrade:
     image: busybox:stable
     args:
