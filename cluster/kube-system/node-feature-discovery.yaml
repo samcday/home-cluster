@@ -23,3 +23,7 @@ spec:
       retries: -1
   values:
     # https://kubernetes-sigs.github.io/node-feature-discovery/v0.16/deployment/helm.html#chart-parameters
+    worker:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
