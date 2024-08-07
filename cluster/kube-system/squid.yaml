@@ -74,6 +74,9 @@ spec:
           ports:
             - name: metrics
               containerPort: 9301
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
