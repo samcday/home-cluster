@@ -36,7 +36,7 @@ spec:
     cephBlockPools:
       - name: ceph-blockpool
         spec:
-          failureDomain: host
+          failureDomain: zone
           replicated:
             size: 3
         storageClass:
@@ -146,11 +146,11 @@ spec:
             replicated:
               size: 3
           dataPools:
-            - failureDomain: host
+            - failureDomain: zone
               replicated:
                 size: 3
               name: data0
-            - failureDomain: host
+            - failureDomain: zone
               erasureCoded:
                 dataChunks: 2
                 codingChunks: 1
@@ -217,11 +217,11 @@ spec:
               secretName: rgw-cert
         spec:
           metadataPool:
-            failureDomain: host
+            failureDomain: zone
             replicated:
               size: 3
           dataPool:
-            failureDomain: host
+            failureDomain: zone
             erasureCoded:
               dataChunks: 2
               codingChunks: 1
