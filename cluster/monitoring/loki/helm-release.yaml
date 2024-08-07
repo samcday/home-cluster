@@ -45,9 +45,9 @@ spec:
           endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
           insecure: true
           s3ForcePathStyle: true
+    lokiCanary:
+      enabled: false
     monitoring:
-      lokiCanary:
-        enabled: false
       selfMonitoring:
         enabled: false
         grafanaAgent:
