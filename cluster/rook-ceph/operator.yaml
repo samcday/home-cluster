@@ -141,6 +141,9 @@ spec:
               memory: 256Mi
     monitoring:
       enabled: true
+    provisionerTolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
     resources:
       limits:
         cpu: ~
