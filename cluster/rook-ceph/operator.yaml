@@ -141,9 +141,10 @@ spec:
               memory: 256Mi
     monitoring:
       enabled: true
-    provisionerTolerations:
+    pluginTolerations: &cptoler
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
+    provisionerTolerations: *cptoler
     resources:
       limits:
         cpu: ~
