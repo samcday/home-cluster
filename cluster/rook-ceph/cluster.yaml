@@ -83,7 +83,7 @@ spec:
               operator: Exists
           topologySpreadConstraints:
             - maxSkew: 1
-              topologyKey: kubernetes.io/zone
+              topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
@@ -161,7 +161,7 @@ spec:
                   operator: Exists
               topologySpreadConstraints:
                 - maxSkew: 1
-                  topologyKey: kubernetes.io/zone
+                  topologyKey: topology.kubernetes.io/zone
                   whenUnsatisfiable: DoNotSchedule
                   labelSelector:
                     matchLabels:
