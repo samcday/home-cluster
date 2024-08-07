@@ -71,17 +71,27 @@ spec:
       mon:
         count: 3
       placement:
-        mgr: &cpplacement
-          nodeAffinity:
+        mgr:
+          nodeAffinity: &cpaff
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
                     - key: node-role.kubernetes.io/control-plane
                       operator: Exists
-          tolerations:
+          tolerations: &cptol
             - key: node-role.kubernetes.io/control-plane
               operator: Exists
-        mon: *cpplacement
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/zone
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  ceph_daemon_type: mgr
+                  rook_cluster: rook-ceph
+        mon:
+          nodeAffinity: *cpaff
+          tolerations: *cptol
       removeOSDsIfOutAndSafeToRemove: true
       resources:
         cleanup: &resources
@@ -145,6 +155,19 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
+            placement:
+              tolerations:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+              topologySpreadConstraints:
+                - maxSkew: 1
+                  topologyKey: kubernetes.io/zone
+                  whenUnsatisfiable: DoNotSchedule
+                  labelSelector:
+                    matchLabels:
+                      ceph_daemon_type: mds
+                      rook_cluster: rook-ceph
+                      rook_file_system: ceph-filesystem
             resources:
               limits:
                 cpu: ~
