@@ -46,6 +46,9 @@ spec:
           nodeSelector:
             node-role.kubernetes.io/control-plane: ""
           restartPolicy: OnFailure
+          tolerations:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
           volumes:
             - name: backup
               emptyDir: {}
