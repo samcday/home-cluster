@@ -71,7 +71,7 @@ spec:
       mon:
         count: 3
       placement:
-        mon:
+        mgr: &cpplacement
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
@@ -81,6 +81,7 @@ spec:
           tolerations:
             - key: node-role.kubernetes.io/control-plane
               operator: Exists
+        mon: *cpplacement
       removeOSDsIfOutAndSafeToRemove: true
       resources:
         cleanup: &resources
