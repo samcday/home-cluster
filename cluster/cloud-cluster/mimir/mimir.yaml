@@ -25,9 +25,13 @@ spec:
       enabled: false
     distributor:
       replicas: 2
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
     ingester:
       zoneAwareReplication:
         enabled: false
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
     ingress:
       enabled: true
       annotations:
@@ -81,10 +85,21 @@ spec:
       enabled: false
     query_frontend:
       replicas: 2
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
+    query_scheduler:
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
     rollout_operator:
       enabled: false
     ruler:
       remoteEvaluationDedicatedQueryPath: true
+    ruler_querier:
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
+    ruler_query_scheduler:
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
     runtimeConfig:
       distributor_limits:
         max_ingestion_rate: 50000
@@ -95,6 +110,8 @@ spec:
         anonymous:
           ingestion_rate: 50000
     store_gateway:
+      topologySpreadConstraints:
+        whenUnsatisfiable: DoNotSchedule
       zoneAwareReplication:
         enabled: false
   valuesFrom:
