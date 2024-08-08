@@ -15,6 +15,7 @@ resources:
   - metrics-server.yaml
   - namespace.yaml
   - pagerduty.yaml
+  - prom-operator-crds.yaml
   - promtail.yaml
   - rsyslog.yaml
   # - targetdown-fixed.yaml

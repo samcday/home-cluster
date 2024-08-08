@@ -13,6 +13,8 @@ spec:
         name: prometheus-community
         namespace: flux-system
       version: 61.7.1
+  dependsOn:
+    - name: prom-operator-crds
   install:
     remediation:
       retries: -1
