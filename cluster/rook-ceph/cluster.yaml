@@ -25,6 +25,10 @@ spec:
               kind: PrometheusRule
               name: prometheus-ceph-rules
             patch: |
+              # CephPGImbalance
+              # Can let this back in once az2 has a second OSD.
+              - op: remove
+                path: /spec/groups/2/rules/15
               # CephNodeDiskspaceWarning
               - op: remove
                 path: /spec/groups/6/rules/4
