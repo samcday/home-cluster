@@ -27,10 +27,13 @@ spec:
       metrics: &mon
         serviceMonitor:
           enabled: true
+      priorityClassName: system-cluster-critical
     recommender:
       extraArgs:
         pod-recommendation-min-memory-mb: 16
         recommendation-margin-fraction: 0.05
       metrics: *mon
+      priorityClassName: system-cluster-critical
     updater:
       metrics: *mon
+      priorityClassName: system-cluster-critical
