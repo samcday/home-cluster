@@ -29,15 +29,10 @@ spec:
   values:
     # https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/values.yaml
     autoscalingGroups:
-      - name: pool1
+      - name: cax21
         maxSize: 10
         minSize: 1
-        instanceType: cax11
-        region: nbg1
-      - name: bigboi
-        maxSize: 1
-        minSize: 0
-        instanceType: cax31
+        instanceType: cax21
         region: nbg1
     cloudProvider: hetzner
     deployment:

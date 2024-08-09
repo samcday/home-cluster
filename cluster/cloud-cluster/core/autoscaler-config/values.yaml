@@ -3,7 +3,7 @@ config:
     arm64: ubuntu-22.04
     amd64: ubuntu-22.04
   nodeConfigs:
-    pool1: &cloudInit
+    cax21: &cloudInit
       cloudInit: |
         #!/bin/bash
         set -uexo pipefail
@@ -26,7 +26,6 @@ config:
         containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' > /etc/containerd/config.toml
         systemctl restart containerd.service
         kubeadm join cloud-cluster.samcday.com:6443 --token {{ $.Values.token.id }}.{{ $.Values.token.secret }} --discovery-token-ca-cert-hash sha256:{{ $.Values.hash }}
-    bigboi: *cloudInit
 token:
   id: ~
   secret: ~
