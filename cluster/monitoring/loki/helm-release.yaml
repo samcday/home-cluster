@@ -26,12 +26,14 @@ spec:
     # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
     chunksCache:
       enabled: false
-    compactor:
-      replicas: 1
     global:
       clusterDomain: home-cluster.local
     loki:
       auth_enabled: false
+      compactor:
+        retention_enabled: true
+      limits_config:
+        retention_period: 90d
       schemaConfig:
         configs:
           - from: "2024-05-10"
