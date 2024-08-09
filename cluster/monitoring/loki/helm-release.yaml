@@ -26,6 +26,8 @@ spec:
     # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
     chunksCache:
       enabled: false
+    compactor:
+      replicas: 1
     global:
       clusterDomain: home-cluster.local
     loki:
