@@ -77,14 +77,27 @@ metadata:
 apiVersion: v1
 kind: Node
 metadata:
-  name: az3-cp
+  name: az2-2
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     kustomize.toolkit.fluxcd.io/ssa: merge
     samcday.com/boot-profiles: base,var,tpm
   labels:
-    node-role.kubernetes.io/control-plane: ""
     samcday.com/mac: 6c-4b-90-54-2d-65
+    topology.kubernetes.io/zone: az2
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: az3-cp
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+    samcday.com/boot-device: /dev/nvme0n1
+    samcday.com/boot-profiles: base,var,tpm
+  labels:
+    node-role.kubernetes.io/control-plane: ""
+    samcday.com/mac: 6c-4b-90-3d-87-2c
     topology.kubernetes.io/zone: az3
 ---
 apiVersion: v1

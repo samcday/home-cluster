@@ -32,7 +32,7 @@ set dhcp.az2_cp.tag='home-cluster'
 
 set dhcp.az3_cp=host
 set dhcp.az3_cp.name='az3-cp'
-set dhcp.az3_cp.mac='6c:4b:90:54:2d:65'
+set dhcp.az3_cp.mac='6c:4b:90:3d:87:2c'
 set dhcp.az3_cp.ip='10.0.1.11'
 set dhcp.az3_cp.tag='home-cluster'
 
