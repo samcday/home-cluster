@@ -63,18 +63,18 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: loki-bucket
+      name: loki-bucket-20240809
       valuesKey: AWS_ACCESS_KEY_ID
       targetPath: loki.storage.s3.accessKeyId
     - kind: Secret
-      name: loki-bucket
+      name: loki-bucket-20240809
       valuesKey: AWS_SECRET_ACCESS_KEY
       targetPath: loki.storage.s3.secretAccessKey
     - kind: ConfigMap
-      name: loki-bucket
+      name: loki-bucket-20240809
       valuesKey: BUCKET_NAME
       targetPath: loki.storage.bucketNames.chunks
     - kind: ConfigMap
-      name: loki-bucket
+      name: loki-bucket-20240809
       valuesKey: BUCKET_NAME
       targetPath: loki.storage.bucketNames.ruler

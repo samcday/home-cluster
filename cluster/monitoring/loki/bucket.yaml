@@ -1,7 +1,7 @@
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
-  name: loki-bucket
+  name: loki-bucket-20240809
   namespace: monitoring
 spec:
   generateBucketName: loki
