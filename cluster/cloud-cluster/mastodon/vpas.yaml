@@ -81,6 +81,16 @@ spec:
           name: mastodon-mastodon-sidekiq-all-queues
         updatePolicy:
           updateMode: Auto
+    mastodon-mastodon-sidekiq-scheduler:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: mastodon-mastodon-sidekiq-scheduler
+        updatePolicy:
+          updateMode: Auto
     mastodon-mastodon-streaming:
       apiVersion: autoscaling.k8s.io/v1
       kind: VerticalPodAutoscaler
