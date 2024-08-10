@@ -18,4 +18,5 @@ spec:
     _:
       kind: Namespace
     mimir:
+    postgres:
     vaultwarden:

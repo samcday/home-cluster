@@ -26,6 +26,9 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
+    postgres:
+      spec:
+        path: cluster/postgres
     vaultwarden:
       spec:
         path: cluster/vaultwarden

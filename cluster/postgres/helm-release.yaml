@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  chart:
+    spec:
+      chart: postgres-ha
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      version: 14.2.16
+  interval: 1h
+  values:
+    # https://github.com/bitnami/charts/blob/main/bitnami/postgresql-ha/values.yaml
+    clusterDomain: home-cluster.local
