@@ -35,6 +35,11 @@ spec:
               app.kubernetes.io/instance: postgres
     postgresql:
       existingSecret: secrets
+      tls:
+        enabled: true
+        certificatesSecret: backend-cert
+        certFilename: tls.crt
+        certKeyFilename: tls.key
       topologySpreadConstraints: |
         - maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
