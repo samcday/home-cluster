@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: postgres-ha
+      chart: postgresql-ha
       sourceRef:
         kind: HelmRepository
         name: bitnami
