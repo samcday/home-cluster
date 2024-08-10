@@ -35,7 +35,7 @@ spec:
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'
-  instances: 2
+  instances: 1
   storage:
     size: 5Gi
     storageClass: ceph-block
