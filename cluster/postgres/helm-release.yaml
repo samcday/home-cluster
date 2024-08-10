@@ -18,6 +18,10 @@ spec:
     backup:
       enabled: true
     clusterDomain: home-cluster.local
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     pgpool:
       existingSecret: secrets
       replicaCount: 2
