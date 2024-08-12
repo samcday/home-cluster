@@ -45,7 +45,7 @@ spec:
           key: uri
     image:
       repository: ghcr.io/dani-garcia/vaultwarden
-      tag: 1.31.0
+      tag: 1.32.0
     ingress:
       enabled: true
       annotations:
