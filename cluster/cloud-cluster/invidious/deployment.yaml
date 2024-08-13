@@ -88,7 +88,7 @@ spec:
               app: invidious
           spec:
             containers:
-              - image: quay.io/invidious/invidious:2024.08.11-9bf754e-arm64
+              - image: quay.io/invidious/invidious:2024.08.13-4b8bfe1-arm64
                 name: invidious
                 env:
                   - name: INVIDIOUS_CONFIG_FILE
