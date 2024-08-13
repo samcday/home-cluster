@@ -40,8 +40,9 @@ spec:
         tls:
           - hosts: [alertmanager.samcday.com]
             secretName: alertmanager-certificate
-    # defaultRules:
-      # disabled:
+    defaultRules:
+      disabled:
+        KubeClientCertificateExpiration: true
         # See targetdown-fixed PrometheusRule
         # TargetDown: true
     grafana:
