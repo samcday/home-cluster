@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-      version: 0.3.13
+      version: 0.3.14
   interval: 1h
   values:
     # https://github.com/bitnami/charts/blob/main/bitnami/valkey/values.yaml
