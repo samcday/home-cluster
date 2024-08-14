@@ -6,3 +6,5 @@ metadata:
 spec:
   generateBucketName: loki
   storageClassName: ceph-bucket
+  additionalConfig:
+    maxObjects: "100000"

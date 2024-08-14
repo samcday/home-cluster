@@ -6,3 +6,5 @@ metadata:
 spec:
   generateBucketName: harbor
   storageClassName: ceph-bucket
+  additionalConfig:
+    maxObjects: "50000"

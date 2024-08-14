@@ -6,3 +6,5 @@ metadata:
 spec:
   generateBucketName: forgejo
   storageClassName: ceph-bucket
+  additionalConfig:
+    maxObjects: "10000"
