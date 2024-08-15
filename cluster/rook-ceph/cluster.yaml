@@ -137,6 +137,9 @@ spec:
           - name: az2-1
             devices:
               - name: nvme0n1
+          - name: az2-2
+            devices:
+              - name: nvme0n1
           - name: az3-1
             devices:
               - name: nvme0n1
