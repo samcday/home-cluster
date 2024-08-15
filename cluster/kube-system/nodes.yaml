@@ -128,7 +128,7 @@ metadata:
 apiVersion: v1
 kind: Node
 metadata:
-  name: az3-2
+  name: az3-3
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     kustomize.toolkit.fluxcd.io/ssa: merge
