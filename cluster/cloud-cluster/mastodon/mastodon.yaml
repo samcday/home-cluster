@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/mastodon/mastodon
-      tag: "v4.2.10"
+      tag: "v4.2.11"
     ingress:
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: 100m
