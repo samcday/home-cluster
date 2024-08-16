@@ -8,8 +8,8 @@ handlers:
     formatter: precise
 loggers:
   synapse.storage.SQL:
-    level: DEBUG
+    level: INFO
 root:
-  level: DEBUG
+  level: INFO
   handlers: [console]
 disable_existing_loggers: false
