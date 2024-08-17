@@ -7,12 +7,11 @@ metadata:
 spec:
   chart:
     spec:
-      chart: vertical-pod-autoscaler
+      chart: charts/vertical-pod-autoscaler
       sourceRef:
-        kind: HelmRepository
-        name: cowboysysop
+        kind: GitRepository
+        name: samcday-charts
         namespace: flux-system
-      version: 9.8.3
   driftDetection:
     mode: enabled
   interval: 1h
