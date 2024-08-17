@@ -91,33 +91,3 @@ spec:
           name: kube-system-metrics-server
         updatePolicy:
           updateMode: Auto
-    vpa-admission:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
-      spec:
-        targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: kube-system-vpa-vertical-pod-autoscaler-admission-controller
-        updatePolicy:
-          updateMode: Auto
-    vpa-recommender:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
-      spec:
-        targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: kube-system-vpa-vertical-pod-autoscaler-recommender
-        updatePolicy:
-          updateMode: Auto
-    vpa-updater:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
-      spec:
-        targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: kube-system-vpa-vertical-pod-autoscaler-updater
-        updatePolicy:
-          updateMode: Auto
