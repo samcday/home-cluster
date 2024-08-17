@@ -8,6 +8,7 @@ spec:
   chart:
     spec:
       chart: charts/vertical-pod-autoscaler
+      reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository
         name: samcday-charts
@@ -48,6 +49,7 @@ spec:
   chart:
     spec:
       chart: charts/vertical-pod-autoscaler
+      reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository
         name: samcday-charts
