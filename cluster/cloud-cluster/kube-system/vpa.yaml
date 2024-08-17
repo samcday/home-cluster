@@ -1,8 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vpa-webhook
+  namespace: cloud-cluster
+spec:
+  commonName: vpa-webhook.cloud-cluster.svc.home-cluster.local
+  duration: 8760h # 1 year
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+  secretName: vpa-webhook-tls
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: vpa
+  name: vpa-parent
   namespace: cloud-cluster
 spec:
   chart:
@@ -16,34 +28,54 @@ spec:
   driftDetection:
     mode: enabled
   interval: 1h
-  kubeConfig:
-    secretRef:
-      name: admin-kubeconfig
-  storageNamespace: kube-system
-  targetNamespace: kube-system
   values:
     # https://github.com/cowboysysop/charts/blob/master/charts/vertical-pod-autoscaler/values.yaml
     admissionController:
+      extraArgs:
+        kubeconfig: /kubeconfig
+        register-webhook: false
+      extraVolumeMounts: &extramounts
+        - name: cert
+          mountPath: /cert
+        - name: kubeconfig
+          mountPath: /kubeconfig
+          subPath: kubeconfig
+      extraVolumes: &extravols
+        - name: cert
+          secret:
+            secretName: admin
+        - name: kubeconfig
+          configMap:
+            name: kubeconfig
       metrics: &mon
         serviceMonitor:
           enabled: true
-      priorityClassName: system-cluster-critical
+      pdb:
+        create: true
+      replicaCount: 2
+      tls:
+        existingSecret: vpa-webhook-tls
     crds:
       enabled: false
     recommender:
       extraArgs:
+        kubeconfig: /kubeconfig
         pod-recommendation-min-memory-mb: 16
         recommendation-margin-fraction: 0.05
+      extraVolumeMounts: *extramounts
+      extraVolumes: *extravols
       metrics: *mon
-      priorityClassName: system-cluster-critical
     updater:
+      extraArgs:
+        kubeconfig: /kubeconfig
+      extraVolumeMounts: *extramounts
+      extraVolumes: *extravols
       metrics: *mon
-      priorityClassName: system-cluster-critical
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: vpa-crds
+  name: vpa-cluster
   namespace: cloud-cluster
 spec:
   chart:
