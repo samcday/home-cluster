@@ -4,7 +4,7 @@ metadata:
   name: vpa-webhook
   namespace: cloud-cluster
 spec:
-  commonName: vpa-parent-vertical-pod-autoscaler-admission-controller.cloud-cluster.svc.home-cluster.local
+  dnsNames: [vpa-parent-vertical-pod-autoscaler-admission-controller.cloud-cluster.svc.home-cluster.local]
   duration: 8760h # 1 year
   issuerRef:
     name: selfsigned
