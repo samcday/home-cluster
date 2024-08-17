@@ -33,7 +33,9 @@ spec:
     admissionController:
       extraArgs:
         kubeconfig: /kubeconfig
-        register-webhook: false
+        register-by-url: true
+        webhook-address: vpa-parent-vertical-pod-autoscaler-admission-controller.cloud-cluster.svc.home-cluster.local
+        webhook-port: 443
       extraEnvVars:
         # This controls the status/lease object namespace
         - name: NAMESPACE
