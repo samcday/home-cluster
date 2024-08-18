@@ -25,7 +25,6 @@ spec:
       kind: Namespace
     alloy:
     cnpg-system:
-    etcd:
     homepage:
     invidious:
     mastodon:

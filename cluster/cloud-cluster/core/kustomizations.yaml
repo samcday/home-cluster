@@ -48,9 +48,6 @@ spec:
     cnpg-system:
       spec:
         path: cluster/cloud-cluster/cnpg-system
-    etcd:
-      spec:
-        path: cluster/cloud-cluster/etcd
     homepage:
       spec:
         path: cluster/cloud-cluster/homepage
