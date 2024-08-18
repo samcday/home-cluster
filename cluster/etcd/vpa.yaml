@@ -23,6 +23,6 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: etcd-etcd
+          name: etcd
         updatePolicy:
           updateMode: Auto
