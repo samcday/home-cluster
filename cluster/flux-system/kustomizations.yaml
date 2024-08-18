@@ -26,6 +26,9 @@ spec:
           name: home-cluster
           namespace: flux-system
         timeout: 5m
+    etcd:
+      spec:
+        path: cluster/etcd
     vaultwarden:
       spec:
         path: cluster/vaultwarden

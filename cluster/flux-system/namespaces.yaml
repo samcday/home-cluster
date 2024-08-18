@@ -17,5 +17,6 @@ spec:
   values:
     _:
       kind: Namespace
+    etcd:
     mimir:
     vaultwarden:

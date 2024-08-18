@@ -1,0 +1,41 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: etcd
+  namespace: etcd
+spec:
+  chart:
+    spec:
+      chart: etcd
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      version: 10.2.12
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  values:
+    # https://github.com/bitnami/charts/blob/main/bitnami/etcd/values.yaml
+    auth:
+      rbac:
+        create: false
+    autoCompactionMode: periodic
+    autoCompactionRetention: 30m
+    metrics:
+      enabled: true
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
+    podAntiAffinityPreset: hard
+    replicaCount: 3
+    resourcesPreset: none
+    topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: etcd
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
