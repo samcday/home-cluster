@@ -23,6 +23,7 @@ spec:
         create: false
     autoCompactionMode: periodic
     autoCompactionRetention: 30m
+    clusterDomain: home-cluster.local
     metrics:
       enabled: true
       podMonitor:
