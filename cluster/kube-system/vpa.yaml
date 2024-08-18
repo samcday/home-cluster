@@ -31,3 +31,5 @@ spec:
       metrics: *mon
     updater:
       metrics: *mon
+      extraArgs:
+        min-replicas: 1

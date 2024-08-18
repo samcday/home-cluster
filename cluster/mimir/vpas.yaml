@@ -16,93 +16,71 @@ spec:
     mode: enabled
   interval: 1h
   values:
+    _:
+      apiVersion: autoscaling.k8s.io/v1
+      kind: VerticalPodAutoscaler
+      spec:
+        targetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+        updatePolicy:
+          updateMode: Auto
     distributor:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-distributor
-        updatePolicy:
-          updateMode: Auto
     overrides-exporter:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-overrides-exporter
-        updatePolicy:
-          updateMode: Auto
     querier:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-querier
-        updatePolicy:
-          updateMode: Auto
     query-frontend:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-query-frontend
-        updatePolicy:
-          updateMode: Auto
     query-scheduler:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-query-scheduler
-        updatePolicy:
-          updateMode: Auto
     ruler:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
           name: mimir-ruler
-        updatePolicy:
-          updateMode: Auto
     compactor:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
       spec:
         targetRef:
-          apiVersion: apps/v1
           kind: StatefulSet
           name: mimir-compactor
-        updatePolicy:
-          updateMode: Auto
-    ingester:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
+    ingester-zone-a:
       spec:
         targetRef:
-          apiVersion: apps/v1
           kind: StatefulSet
-          name: mimir-ingester
-        updatePolicy:
-          updateMode: Auto
-    store-gateway:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
+          name: mimir-ingester-zone-a
+    ingester-zone-b:
       spec:
         targetRef:
-          apiVersion: apps/v1
           kind: StatefulSet
-          name: mimir-store-gateway
-        updatePolicy:
-          updateMode: Auto
+          name: mimir-ingester-zone-b
+    ingester-zone-c:
+      spec:
+        targetRef:
+          kind: StatefulSet
+          name: mimir-ingester-zone-c
+    store-gateway-zone-a:
+      spec:
+        targetRef:
+          kind: StatefulSet
+          name: mimir-store-gateway-zone-a
+    store-gateway-zone-b:
+      spec:
+        targetRef:
+          kind: StatefulSet
+          name: mimir-store-gateway-zone-b
+    store-gateway-zone-c:
+      spec:
+        targetRef:
+          kind: StatefulSet
+          name: mimir-store-gateway-zone-c
