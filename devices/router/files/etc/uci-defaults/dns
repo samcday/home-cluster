@@ -1,0 +1,17 @@
+# use 1.1.1.1 for upstream DNS, because Vodafone/O2 cable DNS is utter garbage
+set -uexo pipefail
+
+uci -q batch <<EOI
+set network.wan.peerdns="0"
+delete network.wan.dns
+add_list network.wan.dns="1.1.1.1"
+add_list network.wan.dns="1.0.0.1"
+
+set network.wan6.peerdns="0"
+delete network.wan6.dns
+add_list network.wan6.dns="2606:4700:4700::1111"
+add_list network.wan6.dns="2606:4700:4700::1001"
+commit network
+EOI
+
+service network restart || true
