@@ -118,6 +118,43 @@ spec:
   storageNamespace: mastodon
   targetNamespace: mastodon
   values:
+    elasticsearch:
+      coordinating:
+        topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: elasticsearch
+                app.kubernetes.io/component: coordinating-only
+            maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: DoNotSchedule
+      data:
+        topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: elasticsearch
+                app.kubernetes.io/component: data
+            maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: DoNotSchedule
+      ingest:
+        topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: elasticsearch
+                app.kubernetes.io/component: ingest
+            maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: DoNotSchedule
+      master:
+        topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: elasticsearch
+                app.kubernetes.io/component: master
+            maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: DoNotSchedule
     s3-creds:
       kind: Secret
   valuesFrom:
