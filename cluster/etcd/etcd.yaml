@@ -24,6 +24,8 @@ spec:
     autoCompactionMode: periodic
     autoCompactionRetention: 30m
     clusterDomain: home-cluster.local
+    global:
+      storageClass: openebs-hostpath
     metrics:
       enabled: true
       podMonitor:

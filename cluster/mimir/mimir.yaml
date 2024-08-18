@@ -71,7 +71,7 @@ spec:
               store: etcd
               prefix: mimir/ha-tracker/
               etcd:
-                endpoints: [etcd-etcd.etcd.svc.home-cluster.local.:2379]
+                endpoints: [etcd.etcd.svc.home-cluster.local.:2379]
         limits:
           accept_ha_samples: true
           compactor_block_upload_enabled: true
