@@ -29,5 +29,9 @@ spec:
       enabled: false
     mayastor:
       enabled: false
+    openebs-crds:
+      csi:
+        volumeSnapshots:
+          enabled: false
     zfs-localpv:
       enabled: false
