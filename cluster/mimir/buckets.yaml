@@ -1,0 +1,21 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: blocks-bucket
+  namespace: mimir
+spec:
+  generateBucketName: mimir-blocks
+  storageClassName: ceph-bucket
+  additionalConfig:
+    maxObjects: "10000"
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: ruler-bucket
+  namespace: mimir
+spec:
+  generateBucketName: mimir-ruler
+  storageClassName: ceph-bucket
+  additionalConfig:
+    maxObjects: "1000"
