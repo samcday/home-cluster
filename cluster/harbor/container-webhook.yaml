@@ -1,42 +1,42 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: harbor-container-webhook
-  namespace: harbor
-spec:
-  chart:
-    spec:
-      chart: harbor-container-webhook
-      sourceRef:
-        kind: HelmRepository
-        name: harbor-container-webhook
-        namespace: flux-system
-      version: 0.7.0
-  interval: 1h
-  values:
-    # https://github.com/indeedeng/harbor-container-webhook/blob/main/deploy/charts/harbor-container-webhook/values.yaml
-    metrics:
-      serviceMonitor:
-        enabled: true
-    rules:
-      - name: rewrite docker.io
-        matches:
-          - ^docker.io
-        replace: 'harbor.samcday.com/hub.docker.com'
-      - name: rewrite quay.io
-        matches:
-          - ^quay.io
-        replace: 'harbor.samcday.com/quay.io'
-      - name: rewrite ghcr.io
-        matches:
-          - ^ghcr.io
-        replace: 'harbor.samcday.com/ghcr.io'
-      - name: rewrite codeberg.org
-        matches:
-          - ^codeberg.org
-        replace: 'harbor.samcday.com/codeberg.org'
-      - name: rewrite code.forgejo.org
-        matches:
-          - ^code.forgejo.org
-        replace: 'harbor.samcday.com/code.forgejo.org'
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: harbor-container-webhook
+#   namespace: harbor
+# spec:
+#   chart:
+#     spec:
+#       chart: harbor-container-webhook
+#       sourceRef:
+#         kind: HelmRepository
+#         name: harbor-container-webhook
+#         namespace: flux-system
+#       version: 0.7.0
+#   interval: 1h
+#   values:
+#     # https://github.com/indeedeng/harbor-container-webhook/blob/main/deploy/charts/harbor-container-webhook/values.yaml
+#     metrics:
+#       serviceMonitor:
+#         enabled: true
+#     rules:
+#       - name: rewrite docker.io
+#         matches:
+#           - ^docker.io
+#         replace: 'harbor.samcday.com/hub.docker.com'
+#       - name: rewrite quay.io
+#         matches:
+#           - ^quay.io
+#         replace: 'harbor.samcday.com/quay.io'
+#       - name: rewrite ghcr.io
+#         matches:
+#           - ^ghcr.io
+#         replace: 'harbor.samcday.com/ghcr.io'
+#       - name: rewrite codeberg.org
+#         matches:
+#           - ^codeberg.org
+#         replace: 'harbor.samcday.com/codeberg.org'
+#       - name: rewrite code.forgejo.org
+#         matches:
+#           - ^code.forgejo.org
+#         replace: 'harbor.samcday.com/code.forgejo.org'
