@@ -45,5 +45,6 @@ resources:
   - system-upgrade-controller.yaml
   - tofu.yaml
   - velero.yaml
+  - vpa.yaml
 
   - https://raw.githubusercontent.com/cloudnative-pg/postgres-containers/main/Debian/ClusterImageCatalog-bookworm.yaml

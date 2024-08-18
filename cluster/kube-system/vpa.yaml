@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vpa
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: vertical-pod-autoscaler
+      sourceRef:
+        kind: HelmRepository
+        name: cowboysysop
+        namespace: flux-system
+      version: 9.8.3
+  driftDetection:
+    mode: enabled
+  interval: 1h
+  values:
+    # https://github.com/cowboysysop/charts/blob/main/charts/vertical-pod-autoscaler/values.yaml
+    admissionController:
+      metrics: &mon
+        serviceMonitor:
+          enabled: true
+      pdb:
+        create: true
+      replicaCount: 2
+    recommender:
+      extraArgs:
+        pod-recommendation-min-memory-mb: 16
+        recommendation-margin-fraction: 0.05
+      metrics: *mon
+    updater:
+      metrics: *mon
