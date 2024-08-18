@@ -1,8 +1,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mimir-vpas
-  namespace: cloud-cluster
+  name: vpas
+  namespace: mimir
 spec:
   chart:
     spec:
@@ -15,11 +15,6 @@ spec:
   driftDetection:
     mode: enabled
   interval: 1h
-  kubeConfig:
-    secretRef:
-      name: admin-kubeconfig
-  storageNamespace: mimir
-  targetNamespace: mimir
   values:
     distributor:
       apiVersion: autoscaling.k8s.io/v1
@@ -28,7 +23,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-distributor
+          name: mimir-distributor
         updatePolicy:
           updateMode: Auto
     overrides-exporter:
@@ -38,7 +33,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-overrides-exporter
+          name: mimir-overrides-exporter
         updatePolicy:
           updateMode: Auto
     querier:
@@ -48,7 +43,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-querier
+          name: mimir-querier
         updatePolicy:
           updateMode: Auto
     query-frontend:
@@ -58,7 +53,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-query-frontend
+          name: mimir-query-frontend
         updatePolicy:
           updateMode: Auto
     query-scheduler:
@@ -68,7 +63,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-query-scheduler
+          name: mimir-query-scheduler
         updatePolicy:
           updateMode: Auto
     ruler:
@@ -78,7 +73,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: Deployment
-          name: mimir-mimir-ruler
+          name: mimir-ruler
         updatePolicy:
           updateMode: Auto
     compactor:
@@ -88,7 +83,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mimir-mimir-compactor
+          name: mimir-compactor
         updatePolicy:
           updateMode: Auto
     ingester:
@@ -98,7 +93,7 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mimir-mimir-ingester
+          name: mimir-ingester
         updatePolicy:
           updateMode: Auto
     store-gateway:
@@ -108,6 +103,6 @@ spec:
         targetRef:
           apiVersion: apps/v1
           kind: StatefulSet
-          name: mimir-mimir-store-gateway
+          name: mimir-store-gateway
         updatePolicy:
           updateMode: Auto
