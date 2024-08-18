@@ -35,6 +35,7 @@ resources:
   - node-feature-discovery.yaml
   - node-problem-detector.yaml
   - nodes.yaml
+  - openebs.yaml
   - pixiecore.yaml
   - prometheus-operator.yaml
   - reloader.yaml
