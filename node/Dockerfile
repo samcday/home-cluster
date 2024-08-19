@@ -13,6 +13,7 @@ RUN rpm-ostree install \
         man-db \
         man-pages \
         mtr \
+        pciutils \
         squid \
         tcpdump \
         usbip \
