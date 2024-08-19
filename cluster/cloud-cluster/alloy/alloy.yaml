@@ -40,6 +40,9 @@ spec:
             endpoint {
               url = "https://mimir.samcday.com/api/v1/push"
             }
+            external_labels = {
+              cluster = "cloud",
+            }
           }
 
           prometheus.operator.podmonitors "pods" {
