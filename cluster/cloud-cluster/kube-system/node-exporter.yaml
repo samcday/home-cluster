@@ -21,3 +21,7 @@ spec:
       name: admin-kubeconfig
   storageNamespace: kube-system
   targetNamespace: kube-system
+  values:
+    prometheus:
+      monitor:
+        enabled: true
