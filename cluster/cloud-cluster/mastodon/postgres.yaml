@@ -56,7 +56,7 @@ spec:
         inheritedMetadata:
           labels:
             goharbor.io/harbor-container-webhook-disable: 'true'
-        instances: 1
+        instances: 2
         storage:
           size: 10Gi
           storageClass: hcloud-volumes
