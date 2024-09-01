@@ -10,7 +10,7 @@ resources:
   - grafana.yaml
   - grafana-postgres.yaml
   - ingress-nginx-pod-monitor.yaml
-  - loki/
+  # - loki/
   - kube-prometheus-stack.yaml
   - metrics-server.yaml
   - namespace.yaml
