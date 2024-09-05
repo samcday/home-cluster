@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: piraeus-charts
         namespace: flux-system
-      version: 3.0.5
+      version: 3.0.6
   interval: 1h
   values:
     # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-controller/values.yaml
