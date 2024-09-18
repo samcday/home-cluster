@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: etcd-defrag
-              image: ghcr.io/ahrtr/etcd-defrag:v0.16.0
+              image: ghcr.io/ahrtr/etcd-defrag:v0.17.0
               args:
                 - --endpoints=https://etcd.kube-system.svc.home-cluster.local:2379
                 - --cacert=/cert/ca.crt
