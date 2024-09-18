@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-      version: 10.2.16
+      version: 10.2.17
   driftDetection:
     mode: enabled
   interval: 1h
