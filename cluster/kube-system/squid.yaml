@@ -29,7 +29,7 @@ spec:
           name: squid-haproxy-config
     image:
       repository: haproxy
-      tag: 3.0.4
+      tag: 3.0.5
     livenessProbe:
       httpGet: ~
     ports:
