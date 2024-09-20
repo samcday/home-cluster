@@ -36,6 +36,7 @@ spec:
       ND_ENABLESHARING: "true"
       ND_LISTENBRAINZ_BASEURL: https://maloja.samcday.com/apis/listenbrainz/1/
       ND_MUSICFOLDER: /music
+      ND_SHAREURL: https://navidrome-public.samcday.com
     envFrom:
       - secretRef:
           name: navidrome
