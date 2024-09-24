@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: autoscaler
         namespace: flux-system
-      version: 9.39.0
+      version: 9.39.1
   interval: 1h
   postRenderers:
     - kustomize:
