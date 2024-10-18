@@ -26,7 +26,7 @@ spec:
       REDLIB_DEFAULT_USE_HLS: "on"
     image:
       repository: quay.io/redlib/redlib
-      tag: latest
+      tag: sha-3ff907d
     ingress:
       enabled: true
       className: public-nginx
