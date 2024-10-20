@@ -129,8 +129,7 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        "example.com": user
-        "@admin:example.com": admin
+        "@sam:samcday.com": admin
 
 # Config for the bridge's database.
 database:
