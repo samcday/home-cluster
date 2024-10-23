@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: tailscale
         namespace: flux-system
-      version: 1.70.0
+      version: 1.76.1
   interval: 1h
   values:
     # https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/values.yaml
