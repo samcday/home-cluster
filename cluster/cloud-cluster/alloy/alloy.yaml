@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: 0.8.1
+      version: 0.9.2
   driftDetection:
     mode: enabled
   interval: 1h
