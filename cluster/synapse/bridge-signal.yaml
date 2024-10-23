@@ -14,7 +14,9 @@ spec:
         app.kubernetes.io/name: bridge-signal
     spec:
       containers:
-        - image: dock.mau.dev/mautrix/signal:v0.7.2
+        # latest because https://github.com/mautrix/signal/issues/564
+        # if that bites me at some point in future, can yank this back to a stable tagged release
+        - image: dock.mau.dev/mautrix/signal:latest
           name: mautrix-signal
           ports:
             - containerPort: 29328
