@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: "2024102313" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
+  version: "2024102406" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
