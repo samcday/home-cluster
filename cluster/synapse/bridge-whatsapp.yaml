@@ -18,8 +18,8 @@ spec:
           name: mautrix-whatsapp
           ports:
             - containerPort: 29318
-            - name: metrics
-              containerPort: 8002
+            # - name: metrics
+            #   containerPort: 8002
           volumeMounts:
             - name: data
               mountPath: /data
@@ -72,16 +72,16 @@ spec:
     targetPort: 29318
   selector:
     app.kubernetes.io/name: bridge-whatsapp
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: bridge-whatsapp
-  namespace: synapse
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-      path: /
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bridge-whatsapp
+# ---
+# apiVersion: monitoring.coreos.com/v1
+# kind: PodMonitor
+# metadata:
+#   name: bridge-whatsapp
+#   namespace: synapse
+# spec:
+#   podMetricsEndpoints:
+#     - port: metrics
+#       path: /
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: bridge-whatsapp
