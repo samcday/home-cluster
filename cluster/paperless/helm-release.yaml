@@ -39,7 +39,7 @@ spec:
       - /bin/bash
       - -c
       - |-
-        export PAPERLESS_REDIS=redis://:${REDIS_PASS}@valkey-master:6379
+        export PAPERLESS_REDIS=redis://:${REDIS_PASS}@valkey-primary:6379
         /sbin/docker-entrypoint.sh /usr/local/bin/paperless_cmd.sh
     env:
       PAPERLESS_TIME_ZONE: Europe/Berlin

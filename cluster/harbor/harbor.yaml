@@ -59,7 +59,7 @@ spec:
     redis:
       type: external
       external:
-        addr: valkey-master:6379
+        addr: valkey-primary:6379
   valuesFrom:
     - kind: Secret
       name: bucket
