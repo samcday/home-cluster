@@ -20,8 +20,8 @@ spec:
           name: mautrix-signal
           ports:
             - containerPort: 29328
-            - name: metrics
-              containerPort: 8000
+            # - name: metrics
+            #   containerPort: 8000
           volumeMounts:
             - name: data
               mountPath: /data
@@ -98,17 +98,17 @@ spec:
     targetPort: 29328
   selector:
     app.kubernetes.io/name: bridge-signal
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: bridge-signal
-  namespace: synapse
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-      path: /
-    - port: signald-metrics
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bridge-signal
+# ---
+# apiVersion: monitoring.coreos.com/v1
+# kind: PodMonitor
+# metadata:
+#   name: bridge-signal
+#   namespace: synapse
+# spec:
+#   podMetricsEndpoints:
+#     - port: metrics
+#       path: /
+#     - port: signald-metrics
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: bridge-signal
