@@ -19,24 +19,25 @@ spec:
   postRenderers:
     - kustomize:
         patches:
+          # Some of the rules shipped by Rook aren't suitable, but can only be removed with patches like so
+          # https://github.com/rook/rook/blob/release-1.15/deploy/charts/rook-ceph-cluster/prometheus/localrules.yaml
           - target:
               group: monitoring.coreos.com
               version: v1
               kind: PrometheusRule
               name: prometheus-ceph-rules
             patch: |
-              # CephPGImbalance
-              # Can let this back in once az2 has a second OSD.
-              - op: remove
-                path: /spec/groups/2/rules/15
               # CephNodeDiskspaceWarning
               - op: remove
                 path: /spec/groups/6/rules/4
+              # CephNodeNetworkPacketErrors
+              - op: remove
+                path: /spec/groups/6/rules/2
               # CephNodeNetworkPacketDrops
               - op: remove
                 path: /spec/groups/6/rules/1
   values:
-    # https://github.com/rook/rook/blob/release-1.14/deploy/charts/rook-ceph-cluster/values.yaml
+    # https://github.com/rook/rook/blob/release-1.15/deploy/charts/rook-ceph-cluster/values.yaml
     cephBlockPools:
       - name: ceph-blockpool
         spec:
