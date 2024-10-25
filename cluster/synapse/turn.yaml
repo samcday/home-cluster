@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: eturnal
-          image: ghcr.io/processone/eturnal:1.12.0
+          image: ghcr.io/processone/eturnal:1.12.1
           env:
             - name: ETURNAL_RELAY_MIN_PORT
               value: "50000"
