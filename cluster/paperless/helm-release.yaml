@@ -56,7 +56,7 @@ spec:
           key: password
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 2.13.0
+      tag: 2.13.1
     ingress:
       enabled: true
       annotations:
