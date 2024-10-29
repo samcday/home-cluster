@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: synapse
     spec:
       containers:
-        - image: matrixdotorg/synapse:v1.117.0
+        - image: matrixdotorg/synapse:v1.118.0
           name: synapse
           ports:
             - name: synapse
