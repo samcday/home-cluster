@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: 65.5.1
+      version: 65.8.1
   dependsOn:
     - name: prom-operator-crds
   install:
