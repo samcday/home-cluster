@@ -29,7 +29,7 @@ spec:
           provider: aws
     initContainers:
       - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.10.1
+        image: velero/velero-plugin-for-aws:v1.11.0
         volumeMounts:
           - name: plugins
             mountPath: /target
