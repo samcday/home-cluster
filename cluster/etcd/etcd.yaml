@@ -18,7 +18,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: bitnami-etcd
-    namespace: default
   driftDetection:
     mode: enabled
   interval: 1h
