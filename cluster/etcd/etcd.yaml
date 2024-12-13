@@ -15,12 +15,10 @@ metadata:
   name: etcd
   namespace: etcd
 spec:
-  chart:
-    spec:
-      chart: etcd
-      sourceRef:
-        kind: OCIRepository
-        name: bitnami-etcd
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-etcd
+    namespace: default
   driftDetection:
     mode: enabled
   interval: 1h
