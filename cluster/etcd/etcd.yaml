@@ -1,3 +1,13 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bitnami-etcd
+  namespace: etcd
+spec:
+  interval: 1h
+  url: oci://registry-1.docker.io/bitnamicharts/etcd
+  ref:
+    semver: ">= 10.7.1"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -9,10 +19,8 @@ spec:
     spec:
       chart: etcd
       sourceRef:
-        kind: HelmRepository
-        name: bitnami
-        namespace: flux-system
-      version: 10.7.1
+        kind: OCIRepository
+        name: bitnami-etcd
   driftDetection:
     mode: enabled
   interval: 1h
