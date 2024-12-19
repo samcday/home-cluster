@@ -27,7 +27,7 @@ spec:
       extraArgs:
         publish-status-address: 241b6c4d-1df3-4bc2-a4be-674bbe85bce5.cfargotunnel.com
       extraContainers:
-        - image: cloudflare/cloudflared:2024.10.1
+        - image: cloudflare/cloudflared:2024.12.1
           name: cloudflared
           args:
           - tunnel
