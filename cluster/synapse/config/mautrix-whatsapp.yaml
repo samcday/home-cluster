@@ -290,11 +290,11 @@ appservice:
     port: 29318
 
     # The unique ID of this appservice.
-    id: whatsapp
+    id: whatsappenc
     # Appservice bot details.
     bot:
         # Username of the appservice bot.
-        username: whatsappbot
+        username: whatsappbotenc
         # Display name and avatar for bot. Set to "remove" to remove display name/avatar, leave empty
         # to leave display name/avatar as-is.
         displayname: WhatsApp bridge bot
@@ -318,7 +318,7 @@ appservice:
 
     # Localpart template of MXIDs for remote users.
     # {{.}} is replaced with the internal ID of the user.
-    username_template: whatsapp_{{.}}
+    username_template: whatsappenc_{{.}}
 
 # Config options that affect the Matrix connector of the bridge.
 matrix:
@@ -463,7 +463,7 @@ encryption:
     allow_key_sharing: true
     # Pickle key for encrypting encryption keys in the bridge database.
     # If set to generate, a random key will be generated.
-    pickle_key: generate
+    pickle_key: _PICKLE_
     # Options for deleting megolm sessions from the bridge.
     delete_keys:
         # Beeper-specific: delete outbound sessions when hungryserv confirms
