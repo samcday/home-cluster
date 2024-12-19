@@ -290,11 +290,11 @@ appservice:
     port: 29318
 
     # The unique ID of this appservice.
-    id: whatsappenc
+    id: whatsapp
     # Appservice bot details.
     bot:
         # Username of the appservice bot.
-        username: whatsappbotenc
+        username: whatsappbot
         # Display name and avatar for bot. Set to "remove" to remove display name/avatar, leave empty
         # to leave display name/avatar as-is.
         displayname: WhatsApp bridge bot
@@ -318,7 +318,7 @@ appservice:
 
     # Localpart template of MXIDs for remote users.
     # {{.}} is replaced with the internal ID of the user.
-    username_template: whatsappenc_{{.}}
+    username_template: whatsapp_{{.}}
 
 # Config options that affect the Matrix connector of the bridge.
 matrix:

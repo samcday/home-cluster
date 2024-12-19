@@ -1,4 +1,4 @@
-id: whatsappenc
+id: whatsapp
 url: http://bridge-whatsapp:29318
 as_token: _AS_
 hs_token: _HS_
@@ -6,7 +6,7 @@ sender_localpart: _LP_
 rate_limited: false
 namespaces:
     users:
-        - regex: ^@whatsappbotenc:samcday\.com$
+        - regex: ^@whatsappbot:samcday\.com$
           exclusive: true
-        - regex: ^@whatsappenc_[0-9]+:samcday\.com$
+        - regex: ^@whatsapp_[0-9]+:samcday\.com$
           exclusive: true
