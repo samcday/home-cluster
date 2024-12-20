@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: webdav
+  namespace: music
+spec:
+  chart:
+    spec:
+      chart: generic
+      sourceRef:
+        kind: HelmRepository
+        name: community-tooling-charts
+        namespace: flux-system
+      version: 7.7.0
+  interval: 1h
+  values:
+    # https://github.com/community-tooling/charts/blob/main/charts/generic/values.yaml
+    additionalVolumeMounts:
+      - name: music
+        mountPath: /music
+        subPath: consume
+    additionalVolumes:
+      - name: music
+        persistentVolumeClaim:
+          claimName: music
+    args:
+      - serve
+      - webdav
+      - /music
+      - --addr
+      - :8000
+      - --dir-cache-time
+      - "0"
+      - --user
+      - webdav
+      - --pass
+      - $(PASSWORD)
+    envValueFrom:
+      PASSWORD:
+        secretKeyRef:
+          name: webdav-password
+          key: password
+    image:
+      repository: rclone/rclone
+      tag: 1.68.2
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      className: nginx
+      hosts:
+        - host: music-webdav.samcday.com
+          paths:
+            - path: /
+              servicePortName: http
+      tls:
+        - hosts: [music-webdav.samcday.com]
+          secretName: webdav-cert
+    livenessProbe: ~
+    ports:
+      - name: http
+        containerPort: 8000
+    readinessProbe: ~
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
