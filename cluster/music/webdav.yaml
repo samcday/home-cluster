@@ -19,7 +19,6 @@ spec:
     additionalVolumeMounts:
       - name: music
         mountPath: /music
-        subPath: consume
     additionalVolumes:
       - name: music
         persistentVolumeClaim:
