@@ -42,7 +42,7 @@ spec:
           name: navidrome
     image:
       repository: deluan/navidrome
-      tag: 0.53.3
+      tag: 0.54.1
     ingress:
       enabled: true
       annotations:
