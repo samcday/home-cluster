@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: forgejo-runner
     spec:
       initContainers:
-        - image: code.forgejo.org/forgejo/runner:4.0.1
+        - image: code.forgejo.org/forgejo/runner:5.0.4
           name: create-runner-file
           command:
             - forgejo-runner
@@ -43,7 +43,7 @@ spec:
           securityContext:
             privileged: true
         - name: runner
-          image: code.forgejo.org/forgejo/runner:4.0.1
+          image: code.forgejo.org/forgejo/runner:5.0.4
           command:
             - /bin/bash
             - -c
