@@ -47,6 +47,7 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
       className: nginx
       hosts:
         - host: music-webdav.samcday.com
