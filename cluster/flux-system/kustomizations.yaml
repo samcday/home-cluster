@@ -29,6 +29,12 @@ spec:
     etcd:
       spec:
         path: cluster/etcd
+    jellyfin:
+      spec:
+        path: cluster/jellyfin
+    media:
+      spec:
+        path: cluster/media
     mimir:
       spec:
         path: cluster/mimir
