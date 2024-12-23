@@ -1,0 +1,44 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  interval: 1h
+  url: https://jellyfin.github.io/jellyfin-helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  chart:
+    spec:
+      chart: jellyfin
+      sourceRef:
+        kind: HelmRepository
+        name: jellyfin
+      version: 2.1.0
+  interval: 1h
+  values:
+    # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts: [jellyfin.samcday.com]
+      className: nginx
+      tls:
+        - hosts: [jellyfin.samcday.com]
+          secretName: jellyfin-certificate
+    metrics:
+      serviceMonitor:
+        enabled: true
+    persistence:
+      config:
+        enabled: true
+        storageClass: ceph-block
+      # media:
+      #   enabled: true
+      #   existingClaim: media
