@@ -27,7 +27,11 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
-      hosts: [jellyfin.samcday.com]
+      hosts:
+        - host: jellyfin.samcday.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
       className: nginx
       tls:
         - hosts: [jellyfin.samcday.com]
