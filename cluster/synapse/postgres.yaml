@@ -32,14 +32,10 @@ spec:
       localeCollate: C
       localeCType: C
       postInitSQL:
-        - create user mautrix_meta;
-        - create database mautrix_meta owner mautrix_meta;
         - create user mautrix_signal;
         - create database mautrix_signal owner mautrix_signal;
         - create user mautrix_telegram;
         - create database mautrix_telegram owner mautrix_telegram;
-        - create user mautrix_whatsapp;
-        - create database mautrix_whatsapp owner mautrix_whatsapp;
         - create user signald;
         - create database signald owner signald;
   imageCatalogRef:
@@ -53,10 +49,6 @@ spec:
   instances: 1
   managed:
     roles:
-      - name: mautrix_meta
-        login: true
-        passwordSecret:
-          name: mautrix-meta-dbuser
       - name: mautrix_signal
         login: true
         passwordSecret:
@@ -65,10 +57,6 @@ spec:
         login: true
         passwordSecret:
           name: mautrix-telegram-dbuser
-      - name: mautrix_whatsapp
-        login: true
-        passwordSecret:
-          name: mautrix-whatsapp-dbuser
       - name: signald
         login: true
         passwordSecret:
