@@ -54,9 +54,6 @@ spec:
     kube-system:
       spec:
         path: cluster/cloud-cluster/kube-system
-    mastodon:
-      spec:
-        path: cluster/cloud-cluster/mastodon
     mimir:
       spec:
         path: cluster/cloud-cluster/mimir
