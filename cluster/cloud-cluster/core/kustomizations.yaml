@@ -57,6 +57,3 @@ spec:
     mimir:
       spec:
         path: cluster/cloud-cluster/mimir
-    redlib:
-      spec:
-        path: cluster/cloud-cluster/redlib
