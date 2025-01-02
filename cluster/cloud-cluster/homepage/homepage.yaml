@@ -47,10 +47,16 @@ spec:
                 volumeMounts:
                   - name: matrix-well-known
                     mountPath: /static/.well-known/matrix
+                  - name: well-known-webfinger
+                    mountPath: /static/.well-known/webfinger
+                    subPath: webfinger
             volumes:
               - name: matrix-well-known
                 configMap:
                   name: matrix-well-known
+              - name: well-known-webfinger
+                configMap:
+                  name: well-known-webfinger
     caddy-service:
       apiVersion: v1
       kind: Service
@@ -80,16 +86,6 @@ spec:
                         number: 80
                   path: /
                   pathType: Prefix
-          - host: samcday.com
-            http:
-              paths:
-                - backend:
-                    service:
-                      name: webfinger-service
-                      port:
-                        number: 8000
-                  path: /.well-known/webfinger
-                  pathType: Prefix
         tls:
           - hosts: [samcday.com]
             secretName: certificate
@@ -110,6 +106,10 @@ spec:
           {
             "m.server": "homeserver.samcday.com:443"
           }
+    well-known-webfinger:
+      apiVersion: v1
+      kind: ConfigMap
+      data:
         webfinger: |-
           {
             "links": [
