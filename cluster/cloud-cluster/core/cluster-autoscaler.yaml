@@ -41,7 +41,6 @@ spec:
     extraArgs:
       expander: random
       kubeconfig: /kubeconfig
-      leader-elect: false
     extraEnv:
       HCLOUD_FIREWALL: firewall
       HCLOUD_NETWORK: network
