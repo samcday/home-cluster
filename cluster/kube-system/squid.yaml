@@ -118,7 +118,7 @@ spec:
     - host: mirror.samcday.com
       http:
         paths:
-        - pathType: Prefix
+        - pathType: ImplementationSpecific
           path: /builds.coreos.fedoraproject.org
           backend:
             service:
