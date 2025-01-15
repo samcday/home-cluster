@@ -25,6 +25,9 @@ spec:
     # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
     controller:
       allowSnippetAnnotations: true
+      config:
+        # TODO: this is scary, but currently needed for the stupid squid caching proxy hax which
+        annotations-risk-level: Critical
       kind: Deployment
       metrics:
         enabled: true
