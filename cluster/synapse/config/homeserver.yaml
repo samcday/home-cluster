@@ -44,3 +44,5 @@ trusted_key_servers:
 # Disable presence tracking, which is currently fairly resource intensive
 # More info: https://github.com/matrix-org/synapse/issues/9478
 use_presence: false
+
+max_upload_size: 100M
