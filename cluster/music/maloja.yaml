@@ -33,7 +33,7 @@ spec:
           name: maloja
     image:
       repository: krateng/maloja
-      tag: 3.2.2
+      tag: 3.2.4
     ingress:
       enabled: true
       className: nginx
