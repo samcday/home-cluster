@@ -42,7 +42,7 @@ spec:
       goharbor.io/harbor-container-webhook-disable: 'true'
   instances: 1
   storage:
-    size: 5Gi
+    size: 10Gi
     storageClass: ceph-block
 ---
 apiVersion: postgresql.cnpg.io/v1
