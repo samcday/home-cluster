@@ -8,6 +8,7 @@ spec:
   nodeSelector:
     matchExpressions:
       - key: kubernetes.io/os
+        operator: In
         values: [linux]
   version: "2025030207" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
   serviceAccountName: system-upgrade
