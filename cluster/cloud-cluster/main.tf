@@ -9,7 +9,7 @@ terraform {
       version = "1.50.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "3.7.1"
     }
   }
@@ -55,13 +55,13 @@ resource "hcloud_network_subnet" "subnet" {
 }
 
 resource "random_password" "tunnel_secret" {
-  length           = 32
+  length = 32
 }
 
 resource "cloudflare_zero_trust_tunnel_cloudflared" "tunnel" {
-  name       = "cloud-cluster"
-  secret     = base64encode(random_password.tunnel_secret.result)
-  account_id = "444c14b123bd021dcdf0400fbd847d63"
+  name          = "cloud-cluster"
+  tunnel_secret = base64encode(random_password.tunnel_secret.result)
+  account_id    = "444c14b123bd021dcdf0400fbd847d63"
 }
 
 output "tunnel_token" {
