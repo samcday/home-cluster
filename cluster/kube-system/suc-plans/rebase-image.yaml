@@ -22,28 +22,3 @@ spec:
       - |
         set -uexo pipefail
         rpm-ostree rebase ostree-unverified-registry:harbor.samcday.com/ghcr.io/samcday/home-cluster-node:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
----
-apiVersion: upgrade.cattle.io/v1
-kind: Plan
-metadata:
-  name: rebase-image-librem
-  namespace: kube-system
-spec:
-  concurrency: 1
-  version: "2024072503" # {"$imagepolicy": "flux-system:home-cluster-librem:tag"}
-  serviceAccountName: system-upgrade
-  nodeSelector:
-    matchExpressions:
-      - {key: kubernetes.io/hostname, operator: In, values: [sam-librem]}
-  tolerations:
-    - operator: Exists
-  upgrade:
-    image: busybox:stable
-    command:
-      - chroot
-      - /host
-      - /bin/bash
-      - -c
-      - |
-        set -uexo pipefail
-        rpm-ostree rebase ostree-unverified-registry:harbor.samcday.com/ghcr.io/samcday/home-cluster-librem:$SYSTEM_UPGRADE_PLAN_LATEST_VERSION
