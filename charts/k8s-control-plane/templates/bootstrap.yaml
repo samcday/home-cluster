@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: bootstrap
-          image: bitnami/kubectl:{{ $.Values.version }}
+          image: {{ include "k8s-control-plane.kubectl-image" $ }}
           command:
             - bash
             - -uexo

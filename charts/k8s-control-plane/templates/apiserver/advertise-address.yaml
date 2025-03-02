@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: advertise-address
-          image: bitnami/kubectl:{{ $.Values.version }}
+          image: {{ include "k8s-control-plane.kubectl-image" $ }}
           command:
             - bash
             - -uexo

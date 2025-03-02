@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: ca-hash
-          image: bitnami/kubectl:{{ $.Values.version }}
+          image: {{ include "k8s-control-plane.kubectl-image" $ }}
           command:
             - bash
             - -uexo
