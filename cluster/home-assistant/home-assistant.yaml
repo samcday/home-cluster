@@ -27,7 +27,7 @@ spec:
     hostNetwork: true
     image:
       repository: homeassistant/home-assistant
-      tag: 2025.1
+      tag: 2025.2
     ingress:
       enabled: true
       annotations:
