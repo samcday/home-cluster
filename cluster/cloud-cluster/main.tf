@@ -58,14 +58,14 @@ resource "random_password" "tunnel_secret" {
   length           = 32
 }
 
-resource "cloudflare_zero_trust_tunnel_cloudflared" "tunnel" {
+resource "cloudflare_tunnel" "tunnel" {
   name       = "cloud-cluster"
   secret     = base64encode(random_password.tunnel_secret.result)
   account_id = "444c14b123bd021dcdf0400fbd847d63"
 }
 
 output "tunnel_token" {
-  value     = cloudflare_zero_trust_tunnel_cloudflared.tunnel.tunnel_token
+  value     = cloudflare_tunnel.tunnel.tunnel_token
   sensitive = true
 }
 
@@ -75,5 +75,5 @@ output "tunnel_secret" {
 }
 
 output "tunnel_cname" {
-  value = cloudflare_zero_trust_tunnel_cloudflared.tunnel.cname
+  value = cloudflare_tunnel.tunnel.cname
 }
