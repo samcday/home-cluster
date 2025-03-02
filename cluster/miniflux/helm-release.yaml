@@ -57,7 +57,7 @@ spec:
           key: password
     image:
       repository: miniflux/miniflux
-      tag: 2.2.4
+      tag: 2.2.6
     ingress:
       enabled: true
       annotations:
