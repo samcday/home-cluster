@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: hcloud
         namespace: flux-system
-      version: 1.22.0
+      version: 1.23.0
   interval: 1h
   postRenderers:
     - kustomize:
