@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: cowboysysop
         namespace: flux-system
-      version: 9.9.0
+      version: 10.0.0
   driftDetection:
     mode: enabled
   interval: 1h
