@@ -95,4 +95,4 @@ scheduler:
 # Can be either an IPv4 subnet, an IPv6 subnet, or exactly one of each.
 serviceCIDRs: []
 
-version: 1.31.6
+version: 1.32.2
