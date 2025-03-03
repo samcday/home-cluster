@@ -7,8 +7,8 @@ RUN rpm-ostree install \
         dmidecode \
         etcd \
         iperf3 \
-        kubeadm-1.31.* \
-        kubectl-1.31.* \
+        kubeadm-1.32.* \
+        kubectl-1.32.* \
         kubelet-1.31.* \
         man-db \
         man-pages \
