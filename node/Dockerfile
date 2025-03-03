@@ -9,7 +9,7 @@ RUN rpm-ostree install \
         iperf3 \
         kubeadm-1.32.* \
         kubectl-1.32.* \
-        kubelet-1.31.* \
+        kubelet-1.32.* \
         man-db \
         man-pages \
         mtr \
