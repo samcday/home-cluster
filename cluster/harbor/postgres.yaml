@@ -25,6 +25,7 @@ spec:
   bootstrap:
     initdb:
       database: harbor
+  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog

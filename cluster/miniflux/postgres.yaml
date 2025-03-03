@@ -27,6 +27,7 @@ spec:
       database: miniflux
       postInitSQL:
         - create extension hstore;
+  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog

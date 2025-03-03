@@ -25,6 +25,7 @@ spec:
   bootstrap:
     initdb:
       database: vaultwarden
+  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog

@@ -29,6 +29,7 @@ spec:
       source: db-20230921
       database: forgejo
       owner: forgejo
+  enablePDB: false
   externalClusters:
     - name: db-20230921
       barmanObjectStore: *objstore

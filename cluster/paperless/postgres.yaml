@@ -29,6 +29,7 @@ spec:
     #   source: db-20231012
     #   database: paperless
     #   owner: paperless
+  enablePDB: false
   # externalClusters:
   #   - name: db-20231012
   #     barmanObjectStore: *objstore

@@ -38,6 +38,7 @@ spec:
         - create database mautrix_telegram owner mautrix_telegram;
         - create user signald;
         - create database signald owner signald;
+  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog

@@ -29,6 +29,7 @@ spec:
       source: grafana-db-20230921
       database: grafana
       owner: grafana
+  enablePDB: false
   externalClusters:
     - name: grafana-db-20230921
       barmanObjectStore: *objstore
