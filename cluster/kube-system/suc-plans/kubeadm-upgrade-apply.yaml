@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   concurrency: 1
-  version: v1.31.6
+  version: v1.32.2
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
