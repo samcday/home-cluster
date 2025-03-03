@@ -7,6 +7,9 @@ RUN rpm-ostree install \
         dmidecode \
         etcd \
         iperf3 \
+        kubeadm-1.31.* \
+        kubectl-1.31.* \
+        kubelet-1.30.* \
         man-db \
         man-pages \
         mtr \
@@ -18,13 +21,6 @@ RUN rpm-ostree install \
         vim \
     && \
     ostree container commit
-
-RUN rpm-ostree install --disablerepo=* --enablerepo=kubernetes-1.31 \
-        kubeadm \
-        kubectl
-
-RUN rpm-ostree install --disablerepo=* --enablerepo=kubernetes-1.30 \
-        kubelet
 
 COPY etc/ /etc
 COPY usr/ /usr
