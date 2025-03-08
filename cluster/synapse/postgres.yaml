@@ -19,8 +19,6 @@ spec:
         secretAccessKey:
           name: postgres-backups-bucket
           key: SECRET_ACCESS_KEY
-      wal:
-        compression: bzip2
     retentionPolicy: 90d
   bootstrap:
     initdb:
@@ -38,7 +36,6 @@ spec:
         - create database mautrix_telegram owner mautrix_telegram;
         - create user signald;
         - create database signald owner signald;
-  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
@@ -47,7 +44,7 @@ spec:
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'
-  instances: 1
+  instances: 2
   managed:
     roles:
       - name: mautrix_signal
