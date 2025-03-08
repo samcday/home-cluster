@@ -8,6 +8,8 @@ spec:
     podAntiAffinityType: required
   backup:
     barmanObjectStore: &objstore
+      data:
+        compression: bzip2
       destinationPath: s3://samcday-home-cluster-backups/postgres/forgejo
       endpointURL: https://s3.eu-central-003.backblazeb2.com
       s3Credentials:
