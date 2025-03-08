@@ -19,8 +19,6 @@ spec:
         secretAccessKey:
           name: postgres-backups-bucket
           key: SECRET_ACCESS_KEY
-      wal:
-        compression: bzip2
     retentionPolicy: 90d
   bootstrap:
     # initdb:
@@ -29,7 +27,6 @@ spec:
       source: grafana-db-20230921
       database: grafana
       owner: grafana
-  enablePDB: false
   externalClusters:
     - name: grafana-db-20230921
       barmanObjectStore: *objstore
@@ -41,7 +38,7 @@ spec:
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'
-  instances: 1
+  instances: 2
   storage:
     size: 10Gi
     storageClass: ceph-block
