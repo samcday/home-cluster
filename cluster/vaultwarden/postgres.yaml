@@ -19,13 +19,10 @@ spec:
         secretAccessKey:
           name: postgres-backups-bucket
           key: SECRET_ACCESS_KEY
-      wal:
-        compression: bzip2
     retentionPolicy: 90d
   bootstrap:
     initdb:
       database: vaultwarden
-  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
@@ -34,7 +31,7 @@ spec:
   inheritedMetadata:
     labels:
       goharbor.io/harbor-container-webhook-disable: 'true'
-  instances: 1
+  instances: 2
   storage:
     size: 5Gi
     storageClass: ceph-block
