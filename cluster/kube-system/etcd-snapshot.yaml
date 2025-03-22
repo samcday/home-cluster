@@ -11,7 +11,7 @@ spec:
         spec:
           initContainers:
             - name: make-snapshot
-              image: bitnami/etcd:3.5.19
+              image: bitnami/etcd:3.5.20
               args:
                 - bash
                 - -c
