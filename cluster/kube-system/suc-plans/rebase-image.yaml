@@ -10,7 +10,7 @@ spec:
       - key: kubernetes.io/os
         operator: In
         values: [linux]
-  version: "2025031600" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
+  version: "2025032300" # {"$imagepolicy": "flux-system:home-cluster-node:tag"}
   serviceAccountName: system-upgrade
   tolerations:
     - operator: Exists
