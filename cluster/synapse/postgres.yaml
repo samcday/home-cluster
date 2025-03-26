@@ -64,7 +64,7 @@ spec:
         passwordSecret:
           name: syncv3-dbuser
   storage:
-    size: 20Gi
+    size: 30Gi
     storageClass: ceph-block
 ---
 apiVersion: postgresql.cnpg.io/v1
