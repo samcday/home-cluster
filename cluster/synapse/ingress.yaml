@@ -15,26 +15,6 @@ spec:
         paths:
         - backend:
             service:
-              name: syncv3
-              port:
-                number: 8008
-          path: /_matrix/client/unstable/org.matrix.msc3575/sync
-          pathType: ImplementationSpecific
-    - host: homeserver.samcday.com
-      http:
-        paths:
-        - backend:
-            service:
-              name: syncv3
-              port:
-                number: 8008
-          path: /client/
-          pathType: Prefix
-    - host: homeserver.samcday.com
-      http:
-        paths:
-        - backend:
-            service:
               name: synapse
               port:
                 number: 8008
