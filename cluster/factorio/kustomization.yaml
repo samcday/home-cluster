@@ -10,4 +10,3 @@ resources:
   # - vanilla-megabase/helm-release.yaml
   # - last-1-1-megabase/helm-release.yaml
   # - podmonitor.yaml
-  - namespace.yaml
