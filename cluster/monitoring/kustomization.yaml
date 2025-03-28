@@ -16,6 +16,6 @@ resources:
   - namespace.yaml
   - pagerduty.yaml
   - prom-operator-crds.yaml
-  - promtail.yaml
+  # - promtail.yaml
   - rsyslog.yaml
   # - targetdown-fixed.yaml
