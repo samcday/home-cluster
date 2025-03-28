@@ -32,6 +32,7 @@ spec:
     jellyfin:
       spec:
         path: cluster/jellyfin
+        suspend: true
     media:
       spec:
         path: cluster/media
