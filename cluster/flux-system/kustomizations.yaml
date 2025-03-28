@@ -38,6 +38,7 @@ spec:
     mimir:
       spec:
         path: cluster/mimir
+        suspend: true
     vaultwarden:
       spec:
         path: cluster/vaultwarden
