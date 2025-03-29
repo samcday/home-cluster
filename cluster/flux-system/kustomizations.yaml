@@ -37,6 +37,7 @@ spec:
     media:
       spec:
         path: cluster/media
+      suspend: true
     mimir:
       spec:
         path: cluster/mimir
