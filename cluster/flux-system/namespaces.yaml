@@ -17,8 +17,8 @@ spec:
   values:
     _:
       kind: Namespace
-    etcd:
-    jellyfin:
+    # etcd:
+    # jellyfin:
     media:
-    mimir:
-    vaultwarden:
+    # mimir:
+    # vaultwarden:
