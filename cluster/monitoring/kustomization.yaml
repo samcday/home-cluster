@@ -7,8 +7,8 @@ resources:
   - dashboards
   - dms.yaml
   - flux.yaml
-  - grafana.yaml
-  - grafana-postgres.yaml
+  #- grafana.yaml
+  #- grafana-postgres.yaml
   - ingress-nginx-pod-monitor.yaml
   # - loki/
   - kube-prometheus-stack.yaml
