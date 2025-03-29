@@ -29,6 +29,7 @@ spec:
     etcd:
       spec:
         path: cluster/etcd
+        suspend: true
     jellyfin:
       spec:
         path: cluster/jellyfin
