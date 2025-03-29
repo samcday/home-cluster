@@ -43,3 +43,4 @@ spec:
     vaultwarden:
       spec:
         path: cluster/vaultwarden
+        suspend: true
