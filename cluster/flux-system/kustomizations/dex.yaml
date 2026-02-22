@@ -12,5 +12,4 @@ spec:
     kind: GitRepository
     name: home-cluster
     namespace: flux-system
-  suspend: true
   timeout: 5m
